@@ -1024,6 +1024,83 @@ class BackendController extends Controller
         //
     }
 
+    // Kategori Berita
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kaber()
+    {
+        return view('admin.kategori-berita-admin');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kabercreate()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function kaberstore(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kabershow($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kaberedit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kaberupdate(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kaberdestroy($id)
+    {
+        //
+    }
+
     // Berita
     /**
      * Display a listing of the resource.
@@ -1649,6 +1726,11 @@ class BackendController extends Controller
     public function mitra()
     {
         return view('admin.mitra-admin');
+    }
+
+    public function mitraprint()
+    {
+        return view('admin.mitra-print-admin');
     }
 
     /**
