@@ -50,20 +50,8 @@
                     <!-- form start -->
                     <form action="" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
-                        <label>Gambar</label>
-                        <input type="file" class="form-control" id="inputGroupFile02" name="poto">
-                      </div>
-                      <div class="form-group">
-                        <label>Judul</label>
-                        <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="">
-                      </div>
-                      <div class="form-group">
-                        <label>Deskripsi</label>
-                        <textarea class="form-control" name="deskripsi" placeholder="Enter..." value=""></textarea>
-                      </div>
-                      <div class="form-group">
-                        <label>Kategori</label>
-                        <input class="form-control" name="kategori" autocomplete="off" placeholder="Enter..." value="">
+                        <label>Nama Kategori</label>
+                        <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
                       </div>
                     </form>
                     <!-- form end -->
@@ -85,28 +73,10 @@
                     ID
                   </th>
                   <th>
-                    Gambar
-                  </th>
-                  <th>
-                    Judul
+                    Nama Kategori
                   </th>
                   <th>
                     Slug
-                  </th>
-                  <th>
-                    Deskripsi
-                  </th>
-                  <th>
-                    Kategori
-                  </th>
-                  <th>
-                    Penulis
-                  </th>
-                  <th>
-                    Views
-                  </th>
-                  <th>
-                    Waktu Upload
                   </th>
                   <th style="width: 20%">
                     Aksi
@@ -115,24 +85,6 @@
               </thead>
               <tbody>
                 <tr style="text-align: center;">
-                  <td>
-
-                  </td>
-                  <td>
-
-                  </td>
-                  <td>
-                    
-                  </td>
-                  <td>
-
-                  </td>
-                  <td>
-
-                  </td>
-                  <td>
-                    
-                  </td>
                   <td>
 
                   </td>
@@ -162,24 +114,12 @@
                             <!-- form start -->
                             <form action="" method="POST" enctype="multipart/form-data">
                               <div class="form-group">
-                                <label>Gambar</label>
-                                <input type="file" class="form-control" id="inputGroupFile02" name="poto">
-                              </div>
-                              <div class="form-group">
-                                <label>Judul</label>
-                                <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="">
+                                <label>Nama Kategori</label>
+                                <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
                               </div>
                               <div class="form-group">
                                 <label>Slug</label>
                                 <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="">
-                              </div>
-                              <div class="form-group">
-                                <label>Deskripsi</label>
-                                <textarea class="form-control" name="deskripsi" placeholder="Enter..." value=""></textarea>
-                              </div>
-                              <div class="form-group">
-                                <label>Kategori</label>
-                                <input class="form-control" name="kategori" autocomplete="off" placeholder="Enter..." value="">
                               </div>
                             </form>
                             <!-- form end -->
