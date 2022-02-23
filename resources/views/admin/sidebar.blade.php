@@ -98,11 +98,34 @@
                   <p>FAQ</p>
                 </a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="/berita-admin" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Berita</p>
                 </a>
+              </li> -->
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-newspaper"></i>
+                  <p>
+                    Berita
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview pl-2 ml-2">
+                  <li class="nav-item">
+                    <a href="/kategori-berita-admin" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Kategori Berita</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/berita-admin" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Portal Berita</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="nav-item">
                 <a href="/pengumuman-admin" class="nav-link">
@@ -150,16 +173,39 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Layanan Kami</p>
                 </a>
-              </li>              
+              </li>
             </ul>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a href="/mitra-admin" class="nav-link">
               <i class="nav-icon far fa-handshake"></i>
               <p>
                 Mitra
               </p>
             </a>
+          </li> -->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-handshake"></i>
+              <p>
+                Mitra
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/kategori-mitra-admin" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kategori Mitra</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/mitra-admin" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Portal Mitra</p>
+                </a>
+              </li>
+            </ul>
           </li>
         </ul>
       </nav>

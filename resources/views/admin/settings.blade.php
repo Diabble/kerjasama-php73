@@ -98,21 +98,22 @@
                 </tr>
               </thead>
               <tbody>
+                @forelse ($beranda as $row)
                 <tr style="text-align: center;">
                   <td>
-
-                  </td>
-                  <td>
-
+                    {{ $row->id }}
                   </td>
                   <td>
                     
                   </td>
                   <td>
-
+                    {{ $row->judulcarousel }}
                   </td>
                   <td>
-
+                    {{ $row->deskripsicarousel }}
+                  </td>
+                  <td>
+                    {{ $row->tombolcarousel }}
                   </td>
                   <td class="project-actions">
                     <!-- Button trigger modal -->
@@ -166,6 +167,11 @@
                     </a>
                   </td>
                 </tr>
+                @empty
+                <tr>
+                  <td>Data Masih Kosong</td>
+                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>
