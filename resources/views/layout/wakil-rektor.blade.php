@@ -22,16 +22,15 @@
             <!-- About Start -->
             <div class="about">
                 <div class="container">
-                    <div class="row align-items-center">
+                    <div class="row">
                         <div class="col-lg-5 col-md-6">
-                            <div class="about-img">
+                            <div class="about-img img-fluid">
                                 <img src="{{ asset('storage/' . $tangkap1->poto) }}" alt="Image" style="display:block; margin:auto;">
                             </div>
-                            <div class="col-lg-12 col-md-6">
-                                <br>
-                                <p style="text-align:center"><strong>{{ $tangkap1->nama }}</strong></p>
-                                <p style="text-align:center">{{ $tangkap1->jabatan }}</p>
-                                <p style="text-align:center">NIP. {{ $tangkap1->nip }}</p>
+                            <div class="col-lg-12 col-md-6 mt-3 pt-3 text-center">
+                                <p><strong>{{ $tangkap1->nama }}</strong></p>
+                                <p>{{ $tangkap1->jabatan }}</p>
+                                <p>NIP. {{ $tangkap1->nip }}</p>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-6">

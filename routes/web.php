@@ -102,7 +102,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/wakil-rektor-admin', [BackendController::class, 'wakilrektor']);
     Route::get('/wakil-rektor-admin/edit/{id}', [BackendController::class, 'wakilrektoredit']);
     Route::post('/wakil-rektor-admin/update/{id}', [BackendController::class, 'wakilrektorupdate']);
-    Route::get('/wakil-rektor-admin/hapus/{id}', [BackendController::class, 'wakilrektordestroy']);
 
     // Visi-Misi
     Route::get('/visi-misi-admin', [BackendController::class, 'visimisi']);

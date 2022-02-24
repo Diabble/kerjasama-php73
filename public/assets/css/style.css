@@ -597,14 +597,14 @@ img {
 
 .about .about-img {
     position: relative;
-    height: 100%;
+    /* height: 100%; */
 }
 
 .about .about-img img {
-    width: 250px;
-    height: 250px;
+    width: 50%;
+    /* height: 250px; */
     object-fit: cover;
-    border-radius: 50%;
+    /* border-radius: 50%; */
 }
 
 .about .about-text p {
@@ -613,15 +613,15 @@ img {
 
 .about .about-text a.btn {
     position: relative;
-    margin-top: 15px;
-    padding: 15px 35px;
+    /* margin-top: 15px; */
+    /* padding: 15px 35px; */
     font-size: 16px;
     font-weight: 500;
     letter-spacing: 1px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     color: #1670b9;
     border: 2px solid #1670b9;
-    border-radius: 0;
+    /* border-radius: 0; */
     background: #ffffff;
     transition: .3s;
 }

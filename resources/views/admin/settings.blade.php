@@ -305,21 +305,22 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ( $user as $row )
                 <tr style="text-align: center;">
                   <td>
-
+                    {{ $row->id }}
                   </td>
                   <td>
-
+                    {{ $row->name }}
                   </td>
                   <td>
-                    
+                    {{ $row->level }}
                   </td>
                   <td>
-
+                    {{ $row->email }}
                   </td>
                   <td>
-
+                    {{ $row->password }}
                   </td>
                   <td class="project-actions">
                     <!-- Button trigger modal -->
@@ -373,6 +374,7 @@
                     </a>
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

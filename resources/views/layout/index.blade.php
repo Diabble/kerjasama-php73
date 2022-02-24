@@ -39,15 +39,16 @@
             <!-- About Start -->
             <div class="about">
                 <div class="container">
-                    <div class="row align-items-center">
+                    <div class="row">
                         <div class="col-lg-5 col-md-6">
-                            <div class="about-img">
+                            <div class="about-img img-fluid">
                                 <img src="{{ asset('storage/' . $tangkap2->poto) }}" alt="Image" style="display:block; margin:auto;">
                             </div>
-                            <br>
-                            <p style="text-align:center"><strong>{{ $tangkap2->nama }}</strong></p>
-                            <p style="text-align:center">{{ $tangkap2->jabatan }}</p>
-                            <p style="text-align:center">NIP. {{ $tangkap2->nip }}</p>
+                            <!-- <div class="col-lg-12 col-md-6 mt-3 pt-3 text-center">
+                                <p><strong>{{ $tangkap2->nama }}</strong></p>
+                                <p>{{ $tangkap2->jabatan }}</p>
+                                <p>NIP. {{ $tangkap2->nip }}</p>
+                            </div> -->
                         </div>
                                 
                         <div class="col-lg-7 col-md-6">
@@ -55,8 +56,17 @@
                                 <h2>Sambutan Wakil Rektor</h2>
                             </div>
                             <div class="about-text">
-                                <p>{{ $tangkap2->deskripsi }}</p>
-                                <a class="btn" href="/wakil-rektor">Selanjutnya</a>
+                                <p class="text-justify">{{ $tangkap2->deskripsi }}</p>
+                                <div class="row">
+                                <div class="col-lg-6">
+                                    <p><strong>{{ $tangkap2->nama }}</strong></p>
+                                    <p>{{ $tangkap2->jabatan }}</p>
+                                    <p>NIP. {{ $tangkap2->nip }}</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <a class="btn btn-sm float-right" href="/wakil-rektor">Selanjutnya</a>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>

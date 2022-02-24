@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\User;
+
 use App\Models\ModelBeranda;
 
 use App\Models\ModelWakilRektor;
@@ -138,7 +140,8 @@ class BackendController extends Controller
     public function settings()
     {
         $beranda = ModelBeranda::get();
-        return view('admin.settings', compact('beranda'));
+        $user = User::all();
+        return view('admin.settings', compact('beranda', 'user'));
     }
 
     // Beranda/Slide Carousel
@@ -182,7 +185,7 @@ class BackendController extends Controller
             'tombolcarousel' => $request->tombolcarousel,
         ]);
         
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Update !!!');
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -253,7 +256,9 @@ class BackendController extends Controller
      */
     public function berandadestroy($id)
     {
-        //
+        ModelBeranda::find($id)->delete($request->all());
+
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // User

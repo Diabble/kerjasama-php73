@@ -59,7 +59,7 @@ class FrontendController extends Controller
         $beranda = ModelBeranda::all();
         $tangkap1 = \DB::table('wakil_rektor')->first();
         $tangkap2 = \DB::table('beranda')->first();
-        return view('layout.wakil-rektor', compact('wakilrektor', 'tangkap1', 'tangkap2'));
+        return view('layout.wakil-rektor', compact('wakilrektor', 'beranda', 'tangkap1', 'tangkap2'));
     }
 
     public function visimisi()

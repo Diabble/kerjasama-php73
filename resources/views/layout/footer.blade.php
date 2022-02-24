@@ -4,60 +4,43 @@
                         <div class="col-md-6 col-lg-4">
                             <div class="footer-about">
                                 <h2><a href="/">Bagian Kerjasama dan Kelembagaan</a></h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu lectus a leo tristique dictum nec non quam. Suspendisse convallis, tortor eu placerat rhoncus, lorem quam iaculis felis, sed eleifend lacus neque id eros. Integer convallis volutpat neque
+                                <p class="text-justify">
+                                    Universitas Islam Negeri Sunan Gunung Djati Bandung merupakan sebuah Universitas yang banyak menjalin kerjasama dengan berbagai Lembaga, dengan di hadirkannya web ini di harapkan bisa mempermudah akses kerjasama yang akan di jalin antara Universitas Islam Negeri Sunan Gunung Djati Bandung dengan lembaga lainnya.
                                 </p>
                             </div>
                         </div>
-                        <!--div class="col-md-6 col-lg-6">
+                        <div class="col-md-6 col-lg-8">
                             <div class="row">
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-6 col-lg-6">
                                     <div class="footer-link">
-                                        <h2>Services Areas</h2>
-                                        <a href="">Civil Law</a>
-                                        <a href="">Family Law</a>
-                                        <a href="">Business Law</a>
-                                        <a href="">Education Law</a>
-                                        <a href="">Immigration Law</a>
+                                        <h2>Link Terkait</h2>
+                                        <a href="/about">Tentang Kami</a>
+                                        <a href="/mitra">Mitra Kerjasama</a>
+                                        <a href="https://s.id/BJiUS">Ajukan Kerjasama</a>
                                     </div>
                                 </div>
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="footer-link">
-                                        <h2>Useful Pages</h2>
-                                        <a href="">About Us</a>
-                                        <a href="">Practices</a>
-                                        <a href="">Attorneys</a>
-                                        <a href="">Case Studies</a>
-                                        <a href="">FAQs</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div-->
-                                <div class="col-md-6 col-lg-4">
+                                <div class="col-md-6 col-lg-6">
                                     <div class="footer-contact">
-                                        <h2>Get In Touch</h2>
-                                        <p><i class="fa fa-map-marker-alt"></i>123 Street, New York, USA</p>
-                                        <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
-                                        <p><i class="fa fa-envelope"></i>info@example.com</p>
+                                        <h2>Kontak Kami</h2>
+                                        <p class="text-justify"><i class="fa fa-map-marker-alt"></i>Gedung Aljamiah Lt. 4 Jl. A.H. Nasution No. 105A, Cibiru,, Kabupaten Bandung, Jawa Barat, Indonesia</p>
+                                        <p><i class="fa fa-phone-alt"></i>088809592681</p>
+                                        <p><i class="fa fa-envelope"></i>Kerjasama@uinsgd.ac.id</p>
                                     </div>
-                                </div>
-                                <div class="col-md-6 col-lg-4">
-                                    <div class="footer-maps">
-                                        <h2></h2>
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1764.2708318228406!2d107.71567580568745!3d-6.931894505904203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68c2d7d12fd137%3A0x653e9a16a52ac141!2sKampus%20UIN%20Bandung!5e0!3m2!1sen!2sid!4v1637945195768!5m2!1sen!2sid" width="300" height="225" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                                    </div>
-                                </div>
-                                <div class="col-ms-6 col-lg-4">
                                     <div class="footer-social">
                                         <!--h2>Social Media</h2-->
                                         <a href="" target="blank"><i class="fab fa-twitter"></i></a>
                                         <a href="" target="blank"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="" target="blank"><i class="fab fa-youtube"></i></a>
-                                        <a href="https://www.instagram.com/as.doni_" target="blank"><i class="fab fa-instagram"></i></a>
-                                        <a href="" target="blank"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="https://www.youtube.com/channel/UCxWQZHDch3JcQ3SW9gsk3Eg" target="blank"><i class="fab fa-youtube"></i></a>
+                                        <a href="" target="blank"><i class="fab fa-instagram"></i></a>
                                     </div>
                                 </div>
-                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-12 mt-3 pt-3">
+                    <div class="footer-maps">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7921.286967605856!2d107.711966!3d-6.933145!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68c3282e9f98d3%3A0xc2abe0b869d33a02!2sAl-Jami&#39;ah!5e0!3m2!1sen!2sus!4v1645739402001!5m2!1sen!2sus" width="100%" height="500px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
                 <!--div class="container footer-menu">
