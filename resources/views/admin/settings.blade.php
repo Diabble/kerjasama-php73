@@ -55,7 +55,7 @@
                         <input type="file" class="form-control @error('poto') is-invalid @enderror" name="poto" id="inputGroupFile02">
                         @error('poto')
                           <div class="invalid-feedback">
-                            {{ message }}
+                            {{ $message }}
                           </div>
                         @enderror
                       </div>
@@ -63,14 +63,14 @@
                         <label>Judul Slide</label>
                         <input class="form-control" name="judulcarousel" autocomplete="off" placeholder="Enter..." value="">
                         @error('judulcarousel')
-                          <div class="alert alert-danger">{{ $message }}</div>
+                          <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
                       <div class="form-group">
                         <label>Deskripsi Slide</label>
                         <textarea class="form-control" name="deskripsicarousel" placeholder="Enter..."></textarea>
                         @error('tombolcarousel')
-                          <div class="alert alert-danger">{{ $message }}</div>
+                          <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
                       <div class="form-group">
@@ -80,12 +80,12 @@
                           <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                       </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                      </div>
                     </form>
                     <!-- form end -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                   </div>
                 </div>
               </div>
@@ -182,7 +182,7 @@
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm d-inline" href="#" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
@@ -190,7 +190,7 @@
                 </tr>
                 @empty
                 <tr>
-                  <td>Data Masih Kosong</td>
+                  <td colspan="6" style="text-align: center;">Data Masih Kosong</td>
                 </tr>
                 @endforelse
               </tbody>

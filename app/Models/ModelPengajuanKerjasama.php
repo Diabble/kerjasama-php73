@@ -9,7 +9,7 @@ class ModelPengajuanKerjasama extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id';
-    protected $table = 'pengajuankerjasama';
+    protected $table = 'pengajuan_kerjasama';
     protected $fillable = ['instansi', 'progres'];
 
     public function mitra() {

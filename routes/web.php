@@ -50,7 +50,7 @@ Route::get('/about', function () {
 //Halman Utama
 Route::get('/', [FrontendController::class, 'beranda']);
 
-Route::get('/sambutan-wakil-rektor', [FrontendController::class, 'sambutan']);
+Route::get('/wakil-rektor', [FrontendController::class, 'sambutan']);
 Route::get('/visi-misi', [FrontendController::class, 'visimisi']);
 Route::get('/tugas-pokok-fungsi', [FrontendController::class, 'tupoksi']);
 Route::get('/kebijakan-program', [FrontendController::class, 'kepro']);

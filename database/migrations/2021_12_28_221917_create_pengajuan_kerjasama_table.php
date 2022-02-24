@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSlugToPengumuman extends Migration
+class CreatePengajuanKerjasamaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddSlugToPengumuman extends Migration
      */
     public function up()
     {
-        Schema::table('pengumuman', function (Blueprint $table) {
-            $table->string('slug')->after('judul');
+        Schema::create('pengajuan_kerjasama', function (Blueprint $table) {
+            $table->id();
+            $table->integer('instansi');
+            $table->text('progres');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddSlugToPengumuman extends Migration
      */
     public function down()
     {
-        Schema::table('pengumuman', function (Blueprint $table) {
-            $table->dropColoumn('slug');
-        });
+        Schema::dropIfExists('pengajuan_kerjasama');
     }
 }

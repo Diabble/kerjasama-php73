@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBeritaTable extends Migration
+class CreateWakilRektorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateBeritaTable extends Migration
      */
     public function up()
     {
-        Schema::create('berita', function (Blueprint $table) {
+        Schema::create('wakil_rektor', function (Blueprint $table) {
             $table->id();
             $table->string('poto');
-            $table->string('judul');
-            $table->text('slug');
+            $table->string('nama');
+            $table->string('jabatan');
+            $table->string('nip')->unique();
             $table->text('deskripsi');
-            $table->string('penulis');
-            $table->integer('kategori_id');
-            $table->integer('user_id');
-            $table->integer('views');	 	 	
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ class CreateBeritaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('berita');
+        Schema::dropIfExists('wakil_rektor');
     }
 }

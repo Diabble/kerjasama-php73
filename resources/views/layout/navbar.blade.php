@@ -1,9 +1,11 @@
     <div class="nav-bar">
         <div class="container-fluid">
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-                <a href="/">
-                    <img src="{{asset('assets')}}/img/logo-kerjasama.png" alt="Logo" title="Kerjasama dan Kelembagaan">
-                </a>
+                <div class="logo">
+                    <a href="/">
+                        <img src="{{asset('assets')}}/img/logo-kerjasama.png" alt="Logo" title="Kerjasama dan Kelembagaan">
+                    </a>
+                </div>
                 <a href="#" class="navbar-brand">MENU</a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
@@ -15,7 +17,7 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users" aria-hidden="true"></i> Profil</a>
                             <div class="dropdown-menu">
-                                <a href="/sambutan-wakil-rektor" class="nav-link dropdown-item">Sambutan Wakil Rektor</a>
+                                <a href="/wakil-rektor" class="nav-link dropdown-item">Sambutan Wakil Rektor</a>
                                 <a href="/visi-misi" class="nav-link dropdown-item">Visi dan Misi</a>
                                 <a href="/tugas-pokok-fungsi" class="nav-link dropdown-item">Tugas Pokok dan Fungsi</a>
                                 <a href="/kebijakan-program" class="nav-link dropdown-item">Kebijakan dan Program</a>
@@ -24,13 +26,13 @@
                         </div>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info" aria-hidden="true"></i> Informasi</a>
-                            <div class="dropdown-menu" >
-                                <a href="/alur" class="nav-link dropdown-item">Alur</a>
-                                <a href="/progres-pengurusan-kerjasama" class="nav-link dropdown-item">Progres Pengurusan<br>Kerjasama</a>
+                            <div class="dropdown-menu">
+                                <a href="/alur-kerjasama" class="nav-link dropdown-item">Alur Kerjasama</a>
+                                <a href="/progres-pengajuan-kerjasama" class="nav-link dropdown-item">Progres Pengajuan<br>Kerjasama</a>
                                 <a href="/faq" class="nav-link dropdown-item">FAQ</a>
                                 <a href="/berita" class="nav-link dropdown-item">Berita</a>
                                 <a href="/pengumuman" class="nav-link dropdown-item">Pengumuman</a>
-                                <a href="/galery" class="nav-link dropdown-item">Galery</a>
+                                <a href="/galeri" class="nav-link dropdown-item">Galeri</a>
                             </div>
                         </div>
                         <div class="nav-item dropdown">
@@ -38,7 +40,7 @@
                             <div class="dropdown-menu">
                                 <a href="/berkas-kerjasama" class="nav-link dropdown-item">Berkas Kerjasama</a>
                                 <a href="/layanan-online" class="nav-link dropdown-item">Layanan Online</a>
-                                <a href="/angket-layanan-kepuasan" class="nav-link dropdown-item">Angket Layanan Kepuasan</a>
+                                <a href="/layanan-kepuasan" class="nav-link dropdown-item">Angket Layanan Kepuasan</a>
                                 <a href="/layanan-kami" class="nav-link dropdown-item">Layanan Kami</a>
                             </div>
                         </div>

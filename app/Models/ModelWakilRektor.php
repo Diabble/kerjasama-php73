@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ModelSambutan extends Model
+class ModelWakilRektor extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id';
-    protected $table = 'sambutan';
+    protected $table = 'wakil_rektor';
     protected $fillable = ['poto', 'nama', 'jabatan', 'nip', 'deskripsi'];
 }

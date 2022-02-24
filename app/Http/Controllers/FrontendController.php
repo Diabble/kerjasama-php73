@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\ModelBeranda;
 
-use App\Models\ModelSambutan;
+use App\Models\ModelWakilRektor;
 
 use App\Models\ModelVisi;
 
@@ -18,9 +18,9 @@ use App\Models\ModelKebijakanProgram;
 
 use App\Models\ModelStruktur;
 
-use App\Models\ModelAlur;
+use App\Models\ModelAlurKerjasama;
 
-use App\Models\ModelProgresPengajuanKerjasama;
+use App\Models\ModelPengajuanKerjasama;
 
 use App\Models\ModelFAQ;
 
@@ -47,19 +47,19 @@ class FrontendController extends Controller
     public function beranda()
     {
         $beranda = ModelBeranda::all();
-        $sambutan = ModelSambutan::all();
+        $wakilrektor = ModelWakilRektor::all();
         $tangkap1 = \DB::table('beranda')->first();
-        $tangkap2 = \DB::table('sambutan')->first();
-        return view('layout.index', compact('beranda', 'sambutan', 'tangkap1', 'tangkap2'));
+        $tangkap2 = \DB::table('wakilrektor')->first();
+        return view('layout.index', compact('beranda', 'wakilrektor', 'tangkap1', 'tangkap2'));
     }
 
-    public function sambutan()
+    public function wakilrektor()
     {
-        $sambutan = ModelSambutan::all();
+        $wakilrektor = ModelWakilRektor::all();
         $beranda = ModelBeranda::all();
-        $tangkap1 = \DB::table('sambutan')->first();
+        $tangkap1 = \DB::table('wakilrektor')->first();
         $tangkap2 = \DB::table('beranda')->first();
-        return view('layout.sambutan-wakil-rektor', compact('sambutan', 'tangkap1', 'tangkap2'));
+        return view('layout.wakil-rektor', compact('wakilrektor', 'tangkap1', 'tangkap2'));
     }
 
     public function visimisi()
@@ -102,7 +102,7 @@ class FrontendController extends Controller
 
     public function alur()
     {
-        $alur = ModelAlur::all();
+        $alur = ModelAlurKerjasama::all();
         $beranda = ModelBeranda::all();
         $tangkap1 = \DB::table('alur')->first();
         $tangkap2 = \DB::table('beranda')->first();
@@ -111,7 +111,7 @@ class FrontendController extends Controller
 
     public function propeker()
     {
-        $progrespengajuankerjasama = ModelProgresPengajuanKerjasama::all();
+        $progrespengajuankerjasama = ModelPengajuanKerjasama::all();
         $beranda = ModelBeranda::all();
         $tangkap1 = \DB::table('progrespengajuankerjasama')->first();
         $tangkap2 = \DB::table('beranda')->first();

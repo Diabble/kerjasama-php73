@@ -67,7 +67,7 @@
                                 <p>
                                     deskripsi
                                 </p>
-                                <a class="btn" href="/sambutan-wakil-rektor">Learn More</a>
+                                <a class="btn" href="/wakil-rektor">Learn More</a>
                             </div>
                         </div>
                     </div>

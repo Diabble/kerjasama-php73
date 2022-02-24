@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePengumumanTable extends Migration
+class CreateBeritaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreatePengumumanTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengumuman', function (Blueprint $table) {
+        Schema::create('berita', function (Blueprint $table) {
             $table->id();
+            $table->string('poto');
             $table->string('judul');
+            $table->text('slug')->unique();
             $table->text('deskripsi');
-            $table->string('user_id');
+            $table->integer('kategori_id');
+            $table->integer('user_id');
+            $table->integer('views');	 	 	
             $table->timestamps();
         });
     }
@@ -29,6 +33,6 @@ class CreatePengumumanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengumuman');
+        Schema::dropIfExists('berita');
     }
 }

@@ -15,6 +15,7 @@ class CreateBerandaTable extends Migration
     {
         Schema::create('beranda', function (Blueprint $table) {
             $table->id();
+            $table->string('poto');
             $table->string('judulcarousel');
             $table->string('deskripsicarousel');
             $table->string('tombolcarousel');

@@ -15,7 +15,8 @@ class CreateKategoriKodeinstansiTable extends Migration
     {
         Schema::create('kategori_kodeinstansi', function (Blueprint $table) {
             $table->id();
-            $table->text('kategori_kodeinstansi');
+            $table->text('nama_kategori')->unique();
+            $table->text('slug')->unique();
             $table->timestamps();
         });
     }
