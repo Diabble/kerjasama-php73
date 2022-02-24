@@ -48,14 +48,19 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/settings/berandastore')}}" method="POST" enctype="multipart/form-data">
+                      @csrf  
+                      <div class="form-group">
+                        <label>Gambar Slide</label>
+                        <input type="file" class="form-control" id="inputGroupFile02" name="poto">
+                      </div>
                       <div class="form-group">
                         <label>Judul Slide</label>
                         <input class="form-control" name="judulcarousel" autocomplete="off" placeholder="Enter..." value="">
                       </div>
                       <div class="form-group">
                         <label>Deskripsi Slide</label>
-                        <textarea class="form-control" name="deskripsicarousel" placeholder="Enter..." value=""></textarea>
+                        <textarea class="form-control" name="deskripsicarousel" placeholder="Enter..."></textarea>
                       </div>
                       <div class="form-group">
                         <label>Tombol Slide</label>
@@ -104,7 +109,7 @@
                     {{ $row->id }}
                   </td>
                   <td>
-                    
+                    <img src="{{ asset('storage/app/public/' . $row->poto) }}" alt="Image" style="display:block; margin:auto;">
                   </td>
                   <td>
                     {{ $row->judulcarousel }}
@@ -117,12 +122,12 @@
                   </td>
                   <td class="project-actions">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahslide">
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahslide{{$row->id}}">
                       <i class="fas fa-edit"></i>
                       Ubah
                     </button>
                     <!-- Modal Ubah Start -->
-                    <div class="modal fade text-left" id="ubahslide" tabindex="-1" aria-labelledby="ubahslideLabel" aria-hidden="true">
+                    <div class="modal fade text-left" id="ubahslide{{$row->id}}" tabindex="-1" aria-labelledby="ubahslideLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -133,29 +138,30 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/settings/berandaupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf  
                               <div class="form-group">
                                 <label>Gambar Slide</label>
                                 <input type="file" class="form-control" id="inputGroupFile02" name="poto">
                               </div>
                               <div class="form-group">
                                 <label>Judul Slide</label>
-                                <input class="form-control" name="judulcarousel" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" name="judulcarousel" autocomplete="off" placeholder="Enter..." value="{{$row->judulcarousel}}">
                               </div>
                               <div class="form-group">
                                 <label>Deskripsi Slide</label>
-                                <textarea class="form-control" name="deskripsicarousel" autocomplete="off" placeholder="Enter..." value=""></textarea>
+                                <textarea class="form-control" name="deskripsicarousel" placeholder="Enter...">{{$row->deskripsicarousel}}</textarea>
                               </div>
                               <div class="form-group">
                                 <label>Tombol Slide</label>
-                                <input class="form-control" name="tombolcarousel" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" name="tombolcarousel" autocomplete="off" placeholder="Enter..." value="{{$row->tombolcarousel}}">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm swalDefaultSuccess">Simpan</button>
                               </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>
@@ -165,6 +171,9 @@
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
+                    <button type="button" class="btn btn-success swalDefaultSuccess">
+                  Launch Success Toast
+                </button>
                   </td>
                 </tr>
                 @empty

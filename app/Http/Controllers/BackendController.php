@@ -129,35 +129,17 @@ class BackendController extends Controller
      */
     public function settings()
     {
-        return view('admin.settings');
+        $beranda = ModelBeranda::get();
+        return view('admin.settings', compact('beranda'));
     }
 
+    // Beranda/Slide Carousel
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function berandacreate()
-    {
-        //
-    }
-
-    public function usercreate()
-    {
-        //
-    }
-
-    public function kategori_kodeinstansicreate()
-    {
-        //
-    }
-
-    public function kategori_ketinstansicreate()
-    {
-        //
-    }
-
-    public function kategori_jenisnaskahcreate()
     {
         //
     }
@@ -170,27 +152,28 @@ class BackendController extends Controller
      */
     public function berandastore(Request $request)
     {
-        //
-    }
+        Request()->validate([
+            'poto' => 'mimes:png,jpg,jpeg',
+            'judulcarousel' => 'required',
+            'deskripsicarousel' => 'required',
+            'tombolcarousel' => 'required',
+        ], [
+            'poto.required' => 'Wajib diisi!!!',
+            'judulcarousel.required' => 'Wajib diisi!!!',
+            'deskripsicarousel.required' => 'Wajib diisi!!!',
+            'tombolcarousel.required' => 'Wajib diisi!!!',
+        ]);
 
-    public function userstore(Request $request)
-    {
-        //
-    }
-
-    public function kategori_kodeinstansistore(Request $request)
-    {
-        //
-    }
-
-    public function kategori_ketinstansistore(Request $request)
-    {
-        //
-    }
-
-    public function kategori_jenisnaskahstore(Request $request)
-    {
-        //
+        $file_name = $request->poto->getClientOriginalName();
+            $image = $request->poto->storeAs('thumbnail', $file_name);
+        ModelBeranda::create([
+            'poto' => $image,
+            'judulcarousel' => $request->judulcarousel,
+            'deskripsicarousel' => $request->deskripsicarousel,
+            'tombolcarousel' => $request->tombolcarousel,
+        ]);
+        
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Update !!!');
     }
 
     /**
@@ -200,26 +183,6 @@ class BackendController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function berandashow($id)
-    {
-        //
-    }
-
-    public function usershow($id)
-    {
-        //
-    }
-
-    public function kategori_kodeinstansishow($id)
-    {
-        //
-    }
-
-    public function kategori_ketinstansishow($id)
-    {
-        //
-    }
-
-    public function kategori_jenisnaskahshow($id)
     {
         //
     }
@@ -234,26 +197,6 @@ class BackendController extends Controller
     {
         $beranda = ModelBeranda::findorfail($id);
         return view('admin.settings', compact('beranda'));
-    }
-
-    public function useredit($id)
-    {
-        //
-    }
-
-    public function kategori_kodeinstansiedit($id)
-    {
-        //
-    }
-
-    public function kategori_ketinstansiedit($id)
-    {
-        //
-    }
-
-    public function kategori_jenisnaskahedit($id)
-    {
-        //
     }
 
     /**
@@ -297,26 +240,6 @@ class BackendController extends Controller
         return redirect('/settings')->with('pesan', 'Data Berhasil Di Update !!!');
     }
 
-    public function userupdate(Request $request, $id)
-    {
-        //
-    }
-
-    public function kategori_kodeinstansiupdate(Request $request, $id)
-    {
-        //
-    }
-
-    public function kategori_ketinstansiupdate(Request $request, $id)
-    {
-        //
-    }
-
-    public function kategori_jenisnaskahupdate(Request $request, $id)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -328,25 +251,281 @@ class BackendController extends Controller
         //
     }
 
+    // User
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function usercreate()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function userstore(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function usershow($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function useredit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function userupdate(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function userdestroy($id)
     {
         //
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_kodeinstansicreate()
+    {
+        //
+    }
+
+    // Kategori Kode Instansi
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_kodeinstansistore(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_kodeinstansishow($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_kodeinstansiedit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_kodeinstansiupdate(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function kategori_kodeinstansidestroy($id)
     {
         //
     }
 
+    // Keterangan Instansi
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_ketinstansicreate()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_ketinstansistore(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_ketinstansishow($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_ketinstansiedit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_ketinstansiupdate(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function kategori_ketinstansidestroy($id)
     {
         //
     }
 
+    // Kategori Jenis Naskah
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_jenisnaskahcreate()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_jenisnaskahstore(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_jenisnaskahshow($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_jenisnaskahedit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kategori_jenisnaskahupdate(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function kategori_jenisnaskahdestroy($id)
     {
         //
     }
+
+    
+
+    
+
+    
+
+    
 
     // Wakil Rektor
     /**

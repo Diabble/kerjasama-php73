@@ -1,5 +1,5 @@
 @extends('layout.master2')
-@section('title','beranda')
+@section('title','Sambutan Wakil Rektor')
 @section('content')
 
             <!-- Page Header Start -->
@@ -25,13 +25,13 @@
                     <div class="row align-items-center">
                         <div class="col-lg-5 col-md-6">
                             <div class="about-img">
-                                <img src="{{ asset('storage/' . $tangkap->poto) }}" alt="Image" style="display:block; margin:auto;">
+                                <img src="{{ asset('storage/' . $tangkap1->poto) }}" alt="Image" style="display:block; margin:auto;">
                             </div>
                             <div class="col-lg-12 col-md-6">
                                 <br>
-                                <p style="text-align:center"><strong>{{$tangkap->nama}}</strong></p>
-                                <p style="text-align:center">{{$tangkap->jabatan}}</p>
-                                <p style="text-align:center">NIP. {{$tangkap->nip}}</p>
+                                <p style="text-align:center"><strong>{{$tangkap1->nama}}</strong></p>
+                                <p style="text-align:center">{{$tangkap1->jabatan}}</p>
+                                <p style="text-align:center">NIP. {{$tangkap1->nip}}</p>
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-6">

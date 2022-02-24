@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('assets/admin')}}/plugins/fontawesome-free/css/all.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="{{asset('assets/admin')}}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('assets/admin')}}/dist/css/adminlte.min.css">
 
@@ -54,6 +56,8 @@
 <script src="{{asset('assets/admin')}}/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('assets/admin')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="{{asset('assets/admin')}}/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('assets/admin')}}/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -72,6 +76,24 @@ $(document).ready(function () {
         placeholder: "Please Select"
     });
 });
+</script>
+
+<script>
+  $(function() {
+    var Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000
+    });
+
+    $('.swalDefaultSuccess').click(function() {
+      Toast.fire({
+        icon: 'success',
+        title: 'Data Berhasil Di Update.'
+      })
+    });
+  });
 </script>
 
 </body>
