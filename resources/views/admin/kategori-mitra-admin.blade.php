@@ -72,8 +72,11 @@
                   <th style="width: 1%">
                     ID
                   </th>
-                  <th>
-                    Kategori Kode Instansi
+                  <th style="width: 30%">
+                    Nama Kategori
+                  </th>
+                  <th style="width: 30%">
+                    Slug
                   </th>
                   <th style="width: 20%">
                     Aksi
@@ -81,14 +84,18 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ( $kakoin as $row )
                 <tr style="text-align: center;">
                   <td>
-
+                    {{ $row->id }}
                   </td>
                   <td>
-
+                    {{ $row->nama_kategori }}
                   </td>
-                  <td class="project-actions">
+                  <td>
+                    {{ $row->slug }}
+                  </td>
+                  <td class="project-actions text-center">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
                       <i class="fas fa-edit"></i>
@@ -128,6 +135,7 @@
                     </a>
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
@@ -195,8 +203,11 @@
                   <th style="width: 1%">
                     ID
                   </th>
-                  <th>
-                    Kategori Keterangan Instansi
+                  <th style="width: 30%">
+                    Nama Kategori
+                  </th>
+                  <th style="width: 30%">
+                    Slug
                   </th>
                   <th style="width: 20%">
                     Aksi
@@ -204,14 +215,18 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ( $kakein as $row )
                 <tr style="text-align: center;">
                   <td>
-
+                    {{ $row->id }}
                   </td>
                   <td>
-
+                    {{ $row->nama_kategori }}
                   </td>
-                  <td class="project-actions">
+                  <td>
+                    {{ $row->slug }}
+                  </td>
+                  <td class="project-actions text-center">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
                       <i class="fas fa-edit"></i>
@@ -251,6 +266,7 @@
                     </a>
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
@@ -318,8 +334,11 @@
                   <th style="width: 1%">
                     ID
                   </th>
-                  <th>
-                    Kategori Jenis Naskah
+                  <th style="width: 30%">
+                    Nama Kategori
+                  </th>
+                  <th style="width: 30%">
+                    Slug
                   </th>
                   <th style="width: 20%">
                     Aksi
@@ -327,14 +346,18 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ( $kajenas as $row )
                 <tr style="text-align: center;">
                   <td>
-
+                    {{ $row->id }}
                   </td>
                   <td>
-
+                    {{ $row->nama_kategori }}
                   </td>
-                  <td class="project-actions">
+                  <td>
+                    {{ $row->slug }}
+                  </td>
+                  <td class="project-actions text-center">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
                       <i class="fas fa-edit"></i>
@@ -374,6 +397,7 @@
                     </a>
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

@@ -89,17 +89,18 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="text-align: center;">
+                @foreach ( $faq as $row )
+                <tr style="text-align: justify;">
                   <td>
-
+                    {{ $row->id }}
                   </td>
                   <td>
-
+                    {{ $row->pertanyaan }}
                   </td>
                   <td>
-                    
+                    {{ $row->jawaban }}
                   </td>
-                  <td class="project-actions">
+                  <td class="project-actions text-center">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
                       <i class="fas fa-edit"></i>
@@ -143,6 +144,7 @@
                     </a>
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

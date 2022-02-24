@@ -46,11 +46,11 @@ use App\Models\ModelIO;
 
 use App\Models\ModelMitra;
 
-use App\Models\ModelKodeInstansi;
+use App\Models\ModelKategoriKodeInstansi;
 
-use App\Models\ModelKetInstansi;
+use App\Models\ModelKategoriKetInstansi;
 
-use App\Models\ModelJenisNaskah;
+use App\Models\ModelKategoriJenisNaskah;
 
 class BackendController extends Controller
 {
@@ -443,7 +443,9 @@ class BackendController extends Controller
      */
     public function visimisi()
     {
-        return view('admin.visi-misi-admin');
+        $visi = ModelVisi::get();
+        $misi = ModelMisi::get();
+        return view('admin.visi-misi-admin', compact('visi', 'misi'));
     }
 
     // Visi
@@ -588,7 +590,8 @@ class BackendController extends Controller
      */
     public function tupoksi()
     {
-        return view('admin.tugas-pokok-fungsi-admin');
+        $tupoksi = ModelTugasPokokFungsi::get();
+        return view('admin.tugas-pokok-fungsi-admin', compact('tupoksi'));
     }
 
     /**
@@ -665,7 +668,8 @@ class BackendController extends Controller
      */
     public function kepro()
     {
-        return view('admin.kebijakan-program-admin');
+        $kepro = ModelKebijakanProgram::get();
+        return view('admin.kebijakan-program-admin', compact('kepro'));
     }
 
     /**
@@ -742,7 +746,8 @@ class BackendController extends Controller
      */
     public function struktur()
     {
-        return view('admin.struktur-admin');
+        $struktur = ModelStruktur::get();
+        return view('admin.struktur-admin', compact('struktur'));
     }
 
     /**
@@ -819,7 +824,8 @@ class BackendController extends Controller
      */
     public function alurkerjasama()
     {
-        return view('admin.alur-kerjasama-admin');
+        $alur = ModelAlurKerjasama::get();
+        return view('admin.alur-kerjasama-admin', compact('alur'));
     }
 
     /**
@@ -896,7 +902,8 @@ class BackendController extends Controller
      */
     public function propeker()
     {
-        return view('admin.progres-pengajuan-kerjasama-admin');
+        $propeker = ModelPengajuanKerjasama::all();
+        return view('admin.progres-pengajuan-kerjasama-admin', compact('propeker'));
     }
 
     /**
@@ -973,7 +980,8 @@ class BackendController extends Controller
      */
     public function faq()
     {
-        return view('admin.faq-admin');
+        $faq = ModelFAQ::all();
+        return view('admin.faq-admin', compact('faq'));
     }
 
     /**
@@ -1050,7 +1058,8 @@ class BackendController extends Controller
      */
     public function kaber()
     {
-        return view('admin.kategori-berita-admin');
+        $kaber = ModelKategoriBerita::all();
+        return view('admin.kategori-berita-admin', compact('kaber'));
     }
 
     /**
@@ -1127,10 +1136,11 @@ class BackendController extends Controller
      */
     public function berita()
     {
-        return view('admin.berita-admin');
+        $berita = ModelBerita::all();
+        return view('admin.berita-admin', compact('berita'));
     }
 
-    /**
+   /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -1204,7 +1214,8 @@ class BackendController extends Controller
      */
     public function pengumuman()
     {
-        return view('admin.pengumuman-admin');
+        $pengumuman = ModelPengumuman::all();
+        return view('admin.pengumuman-admin', compact('pengumuman'));
     }
 
     /**
@@ -1281,7 +1292,8 @@ class BackendController extends Controller
      */
     public function galeri()
     {
-        return view('admin.galeri-admin');
+        $galeri = ModelGaleri::all();
+        return view('admin.galeri-admin', compact('galeri'));
     }
 
     /**
@@ -1666,7 +1678,8 @@ class BackendController extends Controller
      */
     public function io()
     {
-        return view('admin.io-admin');
+        $io = ModelIO::get();
+        return view('admin.io-admin', compact('io'));
     }
 
     /**
@@ -1743,7 +1756,10 @@ class BackendController extends Controller
      */
     public function kamit()
     {
-        return view('admin.kategori-mitra-admin');
+        $kakoin = ModelKategoriKodeInstansi::all();
+        $kakein = ModelKategoriKetInstansi::all();
+        $kajenas = ModelKategoriJenisNaskah::all();
+        return view('admin.kategori-mitra-admin', compact('kakoin', 'kakein', 'kajenas'));
     }
 
     // Kategori Kode Instansi
@@ -1955,7 +1971,8 @@ class BackendController extends Controller
      */
     public function mitra()
     {
-        return view('admin.mitra-admin');
+        $mitra = ModelMitra::all();
+        return view('admin.mitra-admin', compact('mitra'));
     }
 
     public function mitraprint()

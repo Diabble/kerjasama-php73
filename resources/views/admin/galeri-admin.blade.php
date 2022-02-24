@@ -88,17 +88,18 @@
                 </tr>
               </thead>
               <tbody>
-                <tr style="text-align: center;">
+               @foreach ( $galeri as $row )
+                <tr style="text-align: justify;">
                   <td>
-
+                    {{ $row->id }}
                   </td>
                   <td>
-
+                    <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 100%">
                   </td>
                   <td>
-                    
+                    {{ $row->caption }}
                   </td>
-                  <td class="project-actions">
+                  <td class="project-actions text-center">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
                       <i class="fas fa-edit"></i>
@@ -142,6 +143,7 @@
                     </a>
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

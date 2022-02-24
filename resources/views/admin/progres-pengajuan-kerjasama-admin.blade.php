@@ -49,17 +49,18 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ( $propeker as $row )
                 <tr style="text-align: center;">
                   <td>
-
+                    {{ $row->id }}
                   </td>
                   <td>
-
+                    {{ $row->instansi }}
                   </td>
                   <td>
-                    
+                    {{ $row->progres }}
                   </td>
-                  <td class="project-actions">
+                  <td class="project-actions text-center">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
                       <i class="fas fa-edit"></i>
@@ -99,6 +100,7 @@
                     <!-- Modal Ubah End -->
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

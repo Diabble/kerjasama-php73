@@ -119,7 +119,7 @@
               </thead>
               <tbody>
                 @forelse ($beranda as $row)
-                <tr style="text-align: center;">
+                <tr style="text-align: justify;">
                   <td>
                     {{ $row->id }}
                   </td>
@@ -135,7 +135,7 @@
                   <td>
                     {{ $row->tombolcarousel }}
                   </td>
-                  <td class="project-actions">
+                  <td class="project-actions text-center">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahslide{{$row->id}}">
                       <i class="fas fa-edit"></i>
@@ -306,7 +306,7 @@
               </thead>
               <tbody>
                 @foreach ( $user as $row )
-                <tr style="text-align: center;">
+                <tr style="text-align: justify;">
                   <td>
                     {{ $row->id }}
                   </td>
@@ -322,7 +322,7 @@
                   <td>
                     {{ $row->password }}
                   </td>
-                  <td class="project-actions">
+                  <td class="project-actions text-center">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahuser">
                       <i class="fas fa-edit"></i>

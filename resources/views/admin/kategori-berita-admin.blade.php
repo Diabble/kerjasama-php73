@@ -84,17 +84,18 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ( $kaber as $row )
                 <tr style="text-align: center;">
                   <td>
-
+                    {{ $row->id }}
                   </td>
                   <td>
-
+                    {{ $row->nama_kategori }}
                   </td>
                   <td>
-                    
+                    {{ $row->slug }}
                   </td>
-                  <td class="project-actions">
+                  <td class="project-actions text-center">
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
                       <i class="fas fa-edit"></i>
@@ -138,6 +139,7 @@
                     </a>
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

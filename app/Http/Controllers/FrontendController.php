@@ -176,14 +176,18 @@ class FrontendController extends Controller
 
     public function io()
     {
-        
+        $io = ModelIO::all();
+        $beranda = ModelBeranda::all();
+        $tangkap1 = \DB::table('io')->first();
+        $tangkap2 = \DB::table('beranda')->first();
+        return view('layout.io', compact('io', 'beranda', 'tangkap1', 'tangkap2'));
     }
 
     public function mitra()
     {
         $mitra = ModelMitra::all();
         $beranda = ModelBeranda::all();
-        $tangkap1 = \DB::table('mitra')->first();
+        $tangkap1 = \DB::table('mitra')->get();
         $tangkap2 = \DB::table('beranda')->first();
         return view('layout.mitra', compact('mitra', 'beranda', 'tangkap1', 'tangkap2'));
     }
