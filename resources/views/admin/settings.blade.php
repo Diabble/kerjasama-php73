@@ -52,19 +52,33 @@
                       @csrf  
                       <div class="form-group">
                         <label>Gambar Slide</label>
-                        <input type="file" class="form-control" id="inputGroupFile02" name="poto">
+                        <input type="file" class="form-control @error('poto') is-invalid @enderror" name="poto" id="inputGroupFile02">
+                        @error('poto')
+                          <div class="invalid-feedback">
+                            {{ message }}
+                          </div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Judul Slide</label>
                         <input class="form-control" name="judulcarousel" autocomplete="off" placeholder="Enter..." value="">
+                        @error('judulcarousel')
+                          <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Deskripsi Slide</label>
                         <textarea class="form-control" name="deskripsicarousel" placeholder="Enter..."></textarea>
+                        @error('tombolcarousel')
+                          <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Tombol Slide</label>
                         <input class="form-control" name="tombolcarousel" autocomplete="off" placeholder="Enter..." value="">
+                        @error('tombolcarousel')
+                          <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                       </div>
                     </form>
                     <!-- form end -->
@@ -109,7 +123,7 @@
                     {{ $row->id }}
                   </td>
                   <td>
-                    <img src="{{ asset('storage/app/public/' . $row->poto) }}" alt="Image" style="display:block; margin:auto;">
+                    <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" style="display:block; margin:auto; max-width: 100%">
                   </td>
                   <td>
                     {{ $row->judulcarousel }}
@@ -142,7 +156,8 @@
                               @csrf  
                               <div class="form-group">
                                 <label>Gambar Slide</label>
-                                <input type="file" class="form-control" id="inputGroupFile02" name="poto">
+                                <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" style="display:block; margin:auto; max-width: 100%">
+                                <input type="file" class="form-control" name="poto" id="inputGroupFile02">
                               </div>
                               <div class="form-group">
                                 <label>Judul Slide</label>
@@ -171,9 +186,6 @@
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
-                    <button type="button" class="btn btn-success swalDefaultSuccess">
-                  Launch Success Toast
-                </button>
                   </td>
                 </tr>
                 @empty

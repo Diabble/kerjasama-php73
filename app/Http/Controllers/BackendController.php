@@ -153,7 +153,7 @@ class BackendController extends Controller
     public function berandastore(Request $request)
     {
         Request()->validate([
-            'poto' => 'mimes:png,jpg,jpeg',
+            'poto' => 'mimes:png,jpg,jpeg|file|max:1024',
             'judulcarousel' => 'required',
             'deskripsicarousel' => 'required',
             'tombolcarousel' => 'required',

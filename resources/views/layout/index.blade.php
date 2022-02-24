@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title','beranda')
+@section('title','Beranda')
 @section('content')
 
             <!-- Carousel Start -->
@@ -16,7 +16,7 @@
                         <div class="carousel-caption">
                             <h1 class="animated fadeInLeft">{{ $tangkap1->judulcarousel }}</h1>
                             <p class="animated fadeInRight">{{ $tangkap1->deskripsicarousel }}</p>
-                            <a class="btn animated fadeInUp" href="/mitra">{{ $tangkap1->tombolcarousel }}</a>
+                            <a class="btn animated fadeInUp" href="https://s.id/BJiUS">{{ $tangkap1->tombolcarousel }}</a>
                         </div>
                     </div>
 
@@ -61,11 +61,11 @@
                         </div>
                         <div class="col-lg-7 col-md-6">
                             <div class="section-header">
-                                <h2>{{$tangkap2->judul}}</h2>
+                                <h2>judul</h2>
                             </div>
                             <div class="about-text">
                                 <p>
-                                    {{$tangkap2->deskripsi}}
+                                    deskripsi
                                 </p>
                                 <a class="btn" href="/sambutan-wakil-rektor">Learn More</a>
                             </div>

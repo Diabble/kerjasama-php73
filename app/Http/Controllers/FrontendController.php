@@ -48,7 +48,7 @@ class FrontendController extends Controller
     {
         $beranda = ModelBeranda::all();
         $sambutan = ModelSambutan::all();
-        $tangkap1 = \DB::table('beranda')->get();
+        $tangkap1 = \DB::table('beranda')->first();
         $tangkap2 = \DB::table('sambutan')->first();
         return view('layout.index', compact('beranda', 'sambutan', 'tangkap1', 'tangkap2'));
     }
