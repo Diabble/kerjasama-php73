@@ -49,10 +49,11 @@
                   <div class="modal-body">
                     <!-- form start -->
                     <form action="{{url('/settings/berandastore')}}" method="POST" enctype="multipart/form-data">
-                      @csrf  
+                      @csrf
                       <div class="form-group">
                         <label>Gambar Slide</label>
-                        <input type="file" class="form-control @error('poto') is-invalid @enderror" name="poto" id="inputGroupFile02">
+                        <img class="img-preview img-fluid mb-3 col-sm-5">
+                        <input type="file" class="form-control @error('poto') is-invalid @enderror" name="poto" id="image" onchange="previewImage()">
                         @error('poto')
                           <div class="invalid-feedback">
                             {{ $message }}
@@ -77,7 +78,7 @@
                         <label>Tombol Slide</label>
                         <input class="form-control" name="tombolcarousel" autocomplete="off" placeholder="Enter..." value="">
                         @error('tombolcarousel')
-                          <div class="alert alert-danger">{{ $message }}</div>
+                          <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
                       <div class="modal-footer">
@@ -123,7 +124,7 @@
                     {{ $row->id }}
                   </td>
                   <td>
-                    <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" style="display:block; margin:auto; max-width: 100%">
+                    <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 100%">
                   </td>
                   <td>
                     {{ $row->judulcarousel }}
@@ -152,12 +153,13 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
+                            <!-- {{ $errors }} -->
                             <form action="{{url('/settings/berandaupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
-                              @csrf  
+                              @csrf
                               <div class="form-group">
                                 <label>Gambar Slide</label>
-                                <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" style="display:block; margin:auto; max-width: 100%">
-                                <input type="file" class="form-control" name="poto" id="inputGroupFile02">
+                                <!-- <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 100%"> -->
+                                <input type="file" class="form-control" name="poto" id="image">
                               </div>
                               <div class="form-group">
                                 <label>Judul Slide</label>
@@ -182,7 +184,7 @@
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm d-inline" href="#" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
@@ -237,28 +239,41 @@
                   <div class="modal-body">
                     <!-- form start -->
                     <form action="" method="POST" enctype="multipart/form-data">
+                      @csrf
                       <div class="form-group">
                         <label>Username</label>
                         <input class="form-control" name="name" autocomplete="off" placeholder="Enter..." value="">
+                        @error('name')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Level</label>
                         <input class="form-control" name="level" autocomplete="off" placeholder="Enter..." value="">
+                        @error('level')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Email</label>
                         <input class="form-control" name="email" autocomplete="off" placeholder="Enter..." value="">
+                        @error('email')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Password</label>
                         <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="">
+                        @error('password')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                       </div>
                     </form>
                     <!-- form end -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                   </div>
                 </div>
               </div>

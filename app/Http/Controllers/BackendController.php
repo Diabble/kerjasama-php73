@@ -174,6 +174,7 @@ class BackendController extends Controller
 
         $file_name = $request->poto->getClientOriginalName();
             $image = $request->poto->storeAs('thumbnail', $file_name);
+            // $image = $request->poto->store('thumbnail');
         ModelBeranda::create([
             'poto' => $image,
             'judulcarousel' => $request->judulcarousel,
@@ -217,21 +218,16 @@ class BackendController extends Controller
     public function berandaupdate(Request $request, $id)
     {
         Request()->validate([
-            'poto' => 'required|mimes:png,jpg,jpeg',
+            'poto' => 'mimes:png,jpg,jpeg',
             'judulcarousel' => 'required',
             'deskripsicarousel' => 'required',
             'tombolcarousel' => 'required',
-        ], [
-            'poto.required' => 'Wajib diisi!!!',
-            'judulcarousel.required' => 'Wajib diisi!!!',
-            'deskripsicarousel.required' => 'Wajib diisi!!!',
-            'tombolcarousel.required' => 'Wajib diisi!!!',
         ]);
 
         if (Request()->hasFile('poto')) {
-            // $file_name = $request->poto->getClientOriginalName();
-                // $image = $request->poto->storeAs('thumbnail', $file_name);
-                $image = $request->poto->store('thumbnail');
+            $file_name = $request->poto->getClientOriginalName();
+                $image = $request->poto->storeAs('thumbnail', $file_name);
+                // $image = $request->poto->store('thumbnail');
             ModelBeranda::where('id',$id)->update([
                 'poto' => $image,
                 'judulcarousel' => $request->judulcarousel,
@@ -403,9 +399,9 @@ class BackendController extends Controller
             'jabatan.required' => 'Wajib diisi!!!',
             'nip.required' => 'Wajib diisi!!!',
         ]);
-        if (Request()->poto <> "") {
+        if (Request()->hasFile('poto')) {
             $file_name = $request->poto->getClientOriginalName();
-            $image = $request->poto->storeAs('thumbnail', $file_name);
+                $image = $request->poto->storeAs('thumbnail', $file_name);
             ModelWakilRektor::where('id',$id)->update([
                 'poto' => $image,
                 'nama' => $request->nama,

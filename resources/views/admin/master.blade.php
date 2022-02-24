@@ -28,7 +28,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-    @include('admin.navbar')
+  @include('admin.navbar')
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
@@ -94,6 +94,23 @@ $(document).ready(function () {
       })
     });
   });
+</script>
+
+<script>
+  // Ubah Modal Gambar
+  function previewImage() {
+    const image = document.querySelector('#image');
+    const imgPreview = document.querySelector('.img-preview');
+
+    imgPreview.style.display = 'block';
+
+    const oFReader = new FileReader();
+    oFReader.readAsDataURL(image.files[0]);
+
+    oFReader.onload = function(oFREvent) {
+      imgPreview.src = oFREvent.target.result;
+    }
+  }
 </script>
 
 </body>

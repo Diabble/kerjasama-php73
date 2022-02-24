@@ -1,5 +1,5 @@
-@extends('layout.master2')
-@section('title','beranda')
+@extends('layout.master')
+@section('title','Galeri')
 @section('content')
 
             <!-- Page Header Start -->
@@ -7,10 +7,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <h2>Galery</h2>
+                            <h2>Galeri</h2>
                         <div class="col-12">
                             <a href="/">Home</a>
-                            <a href="/galery">Galery</a>
+                            <a href="/galeri">Galeri</a>
                         </div>
                         </div>
                     </div>

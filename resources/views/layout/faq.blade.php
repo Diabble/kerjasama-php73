@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title','FAQ')
+@section('title','Frequently Answer and Questions')
 @section('content')
 
 <!-- Page Header Start -->

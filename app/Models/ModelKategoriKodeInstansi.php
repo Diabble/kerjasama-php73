@@ -10,7 +10,7 @@ class ModelKategoriKodeInstansi extends Model
     use HasFactory;
     protected $primaryKey = 'id';
     protected $table = 'kategori_kodeinstansi';
-    protected $fillable = ['kodeinstansi'];
+    protected $fillable = ['nama_kategori', 'slug'];
 
     public function kategori_kodeinstansi() {
         return $this->hasMany(ModelMitra::class);

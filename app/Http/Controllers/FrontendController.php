@@ -48,8 +48,8 @@ class FrontendController extends Controller
     {
         $beranda = ModelBeranda::all();
         $wakilrektor = ModelWakilRektor::all();
-        $tangkap1 = \DB::table('beranda')->first();
-        $tangkap2 = \DB::table('wakilrektor')->first();
+        $tangkap1 = \DB::table('beranda')->get();
+        $tangkap2 = \DB::table('wakil_rektor')->first();
         return view('layout.index', compact('beranda', 'wakilrektor', 'tangkap1', 'tangkap2'));
     }
 
@@ -57,7 +57,7 @@ class FrontendController extends Controller
     {
         $wakilrektor = ModelWakilRektor::all();
         $beranda = ModelBeranda::all();
-        $tangkap1 = \DB::table('wakilrektor')->first();
+        $tangkap1 = \DB::table('wakil_rektor')->first();
         $tangkap2 = \DB::table('beranda')->first();
         return view('layout.wakil-rektor', compact('wakilrektor', 'tangkap1', 'tangkap2'));
     }

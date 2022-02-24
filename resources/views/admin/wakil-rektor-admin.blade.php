@@ -52,30 +52,31 @@
                   <th>
                     Deskripsi
                   </th>
-                  <th>
+                  <th style="width: 10%">
                     Aksi
                   </th>
                 </tr>
               </thead>
               <tbody>
+                @foreach ( $wakilrektor as $row )
                 <tr style="text-align: center;">
                   <td>
-
+                    {{ $row->id }}
                   </td>
                   <td>
-
+                    <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 50%">
                   </td>
                   <td>
-                    
+                    {{ $row->nama }}
                   </td>
                   <td>
-
+                    {{ $row->jabatan }}
                   </td>
                   <td>
-
+                    {{ $row->nip }}
                   </td>
                   <td>
-
+                    {{ $row->deskripsi }}
                   </td>
                   <td class="project-actions">
                     <!-- Button trigger modal -->
@@ -95,33 +96,35 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            {{ $errors }}
+                            <form action="{{url('/wakil-rektor-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
                               <div class="form-group">
                                 <label>Foto Profil</label>
                                 <input type="file" class="form-control" id="inputGroupFile02" name="poto">
                               </div>
                               <div class="form-group">
                                 <label>Nama</label>
-                                <input class="form-control" name="nama" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" name="nama" autocomplete="off" placeholder="Enter..." value="{{ $row->nama }}">
                               </div>
                               <div class="form-group">
                                 <label>Jabatan</label>
-                                <input class="form-control" name="jabatan" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" name="jabatan" autocomplete="off" placeholder="Enter..." value="{{ $row->jabatan }}">
                               </div>
                               <div class="form-group">
                                 <label>NIP</label>
-                                <input class="form-control" name="nip" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" name="nip" autocomplete="off" placeholder="Enter..." value="{{ $row->nip }}">
                               </div>
                               <div class="form-group">
                                 <label>Deskripsi</label>
-                                <textarea class="form-control" name="deskripsi" placeholder="Enter..." value=""></textarea>
+                                <textarea class="form-control" name="deskripsi" placeholder="Enter..." value="">{{ $row->deskripsi }}</textarea>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                               </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>
@@ -129,6 +132,7 @@
                     <!-- Modal Ubah End -->
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

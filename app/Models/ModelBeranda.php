@@ -9,5 +9,5 @@ class ModelBeranda extends Model
 {
     use HasFactory;
     protected $table = 'beranda';
-    protected $fillable = ['judulcarousel', 'deskripsicarousel', 'tombolcarousel'];
+    protected $fillable = ['poto', 'judulcarousel', 'deskripsicarousel', 'tombolcarousel'];
 }

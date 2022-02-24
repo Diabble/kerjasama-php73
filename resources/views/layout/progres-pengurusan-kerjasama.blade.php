@@ -1,5 +1,5 @@
-@extends('layout.master2')
-@section('title','beranda')
+@extends('layout.master')
+@section('title','Progres Pengajuan Kerjasama')
 @section('content')
 
             <!-- Page Header Start -->
@@ -7,14 +7,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <h2>
-                                Progres Pengajuan/
-                                <br>
-                                Pengurusan Kerjasama
-                            </h2>
+                            <h2>Progres Pengajuan Kerjasama</h2>
                         <div class="col-12">
                             <a href="/">Home</a>
-                            <a href="/progres-pengurusan-kerjasama">Progres Pengajuan/Pengurusan Kerjasama</a>
+                            <a href="/progres-pengajuan-kerjasama">Progres Pengajuan Kerjasama</a>
                         </div>
                         </div>
                     </div>

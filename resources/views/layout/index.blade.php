@@ -10,35 +10,21 @@
                     <li data-target="#carousel" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
+                    <?php $count = 1;?>
+                    @foreach ( $tangkap1 as $row )
+                    <div class="carousel-item @if($count == 1) active @endif">
                         <!-- <img src="{{asset('assets')}}/img/uin-slide-1.jpg" alt="Carousel Image" style="heigh:1000px"> -->
-                        <img src="{{ asset('storage/' . $tangkap1->poto) }}" alt="Image" style="display:block; margin:auto;">
+                        <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" style="display:block; margin:auto;">
                         <div class="carousel-caption">
-                            <h1 class="animated fadeInLeft">{{ $tangkap1->judulcarousel }}</h1>
-                            <p class="animated fadeInRight">{{ $tangkap1->deskripsicarousel }}</p>
-                            <a class="btn animated fadeInUp" href="https://s.id/BJiUS">{{ $tangkap1->tombolcarousel }}</a>
+                            <h1 class="animated fadeInLeft">{{ $row->judulcarousel }}</h1>
+                            <p class="animated fadeInRight">{{ $row->deskripsicarousel }}</p>
+                            <a class="btn animated fadeInUp" href="https://s.id/BJiUS">{{ $row->tombolcarousel }}</a>
                         </div>
                     </div>
-
-                    <div class="carousel-item">
-                        <img src="{{asset('assets')}}/img/uin-slide-2.jpg" alt="Carousel Image">
-                        <div class="carousel-caption">
-                            <h1 class="animated fadeInLeft">{{ $tangkap1->judulcarousel }}</h1>
-                            <p class="animated fadeInRight">{{ $tangkap1->deskripsicarousel }}</p>
-                            <a class="btn animated fadeInUp" href="/mitra">{{ $tangkap1->tombolcarousel }}</a>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <img src="{{asset('assets')}}/img/uin-slide-3.jpg" alt="Carousel Image">
-                        <div class="carousel-caption">
-                            <h1 class="animated fadeInLeft">{{ $tangkap1->judulcarousel }}</h1>
-                            <p class="animated fadeInRight">{{ $tangkap1->deskripsicarousel }}</p>
-                            <a class="btn animated fadeInUp" href="/mitra">{{ $tangkap1->tombolcarousel }}</a>
-                        </div>
-                    </div>
+                    <?php $count++;?>
+                    @endforeach
                 </div>
-
+                
                 <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -56,18 +42,21 @@
                     <div class="row align-items-center">
                         <div class="col-lg-5 col-md-6">
                             <div class="about-img">
-                                
+                                <img src="{{ asset('storage/' . $tangkap2->poto) }}" alt="Image" style="display:block; margin:auto;">
                             </div>
+                            <br>
+                            <p style="text-align:center"><strong>{{ $tangkap2->nama }}</strong></p>
+                            <p style="text-align:center">{{ $tangkap2->jabatan }}</p>
+                            <p style="text-align:center">NIP. {{ $tangkap2->nip }}</p>
                         </div>
+                                
                         <div class="col-lg-7 col-md-6">
                             <div class="section-header">
-                                <h2>judul</h2>
+                                <h2>Sambutan Wakil Rektor</h2>
                             </div>
                             <div class="about-text">
-                                <p>
-                                    deskripsi
-                                </p>
-                                <a class="btn" href="/wakil-rektor">Learn More</a>
+                                <p>{{ $tangkap2->deskripsi }}</p>
+                                <a class="btn" href="/wakil-rektor">Selanjutnya</a>
                             </div>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
-@extends('layout.master2')
-@section('title','beranda')
+@extends('layout.master')
+@section('title','Visi & Misi')
 @section('content')
 
             <!-- Page Header Start -->
