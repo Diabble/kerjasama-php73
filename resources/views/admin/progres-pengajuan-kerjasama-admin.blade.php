@@ -78,21 +78,22 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/progres-pengajuan-kerjasama-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
                               <div class="form-group">
                                 <label>Instansi</label>
-                                <input class="form-control" disabled="" name="instansi" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" disabled="" name="instansi" autocomplete="off" placeholder="Enter..." value="{{ $row->instansi }}">
                               </div>
                               <div class="form-group">
                                 <label>Progres</label>
-                                <input class="form-control" name="progres" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" name="progres" autocomplete="off" placeholder="Enter..." value="{{ $row->progres }}">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                               </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>

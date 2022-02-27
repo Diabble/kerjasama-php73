@@ -41,28 +41,38 @@
               <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="tambahLabel">Tambah Pengumuman Admin</h5>
+                    <h5 class="modal-title" id="tambahLabel">Tambah Galeri Admin</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/galeri-admin/store')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Gambar</label>
-                        <input type="file" class="form-control" id="inputGroupFile02" name="poto">
+                        <input type="file" class="form-control @error('poto') is-invalid @enderror" name="poto" id="image" onchange="previewImage()">
+                        @error('poto')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Caption</label>
                         <textarea class="form-control" name="caption" placeholder="Enter..." value=""></textarea>
+                        @error('caption')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                       </div>
                     </form>
                     <!-- form end -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                   </div>
                 </div>
               </div>
@@ -97,7 +107,7 @@
                     <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 100%">
                   </td>
                   <td>
-                    {{ $row->caption }}
+                    {!! $row->caption !!}
                   </td>
                   <td class="project-actions text-center">
                     <!-- Button trigger modal -->
@@ -117,21 +127,21 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/pengumuman-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               <div class="form-group">
                                 <label>Gambar</label>
                                 <input type="file" class="form-control" id="inputGroupFile02" name="poto">
                               </div>
                               <div class="form-group">
                                 <label>Caption</label>
-                                <textarea class="form-control" name="caption" placeholder="Enter..." value=""></textarea>
+                                <textarea class="form-control" name="caption" id="editor" placeholder="Enter..." value="">{!! $row->caption !!}</textarea>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                               </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>

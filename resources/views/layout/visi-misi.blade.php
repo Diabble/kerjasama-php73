@@ -7,7 +7,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <h2>Visi dan Misi</h2>
+                            <h3>{!! $tangkap3->deskripsicarousel !!}</h3>
                         </div>
                         <div class="col-12">
                             <a href="/">Home</a>
@@ -23,7 +23,7 @@
             <div class="single">
                 <div class="container">
                     <div class="section-header">
-                        <h2>Visi</h2>
+                        <h3>Visi</h3>
                     </div>
                     <div class="row">
                         <div class="col-12">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="section-header">
-                        <h2>Misi</h2>
+                        <h3>Misi</h3>
                     </div>
                     <div class="row">
                         <div class="col-12">

@@ -37,7 +37,7 @@
                   <th style="width: 1%">
                     ID
                   </th>
-                  <th>
+                  <th style="width: 25%">
                     Gambar
                   </th>
                   <th>
@@ -58,7 +58,7 @@
                     <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 100%">
                   </td>
                   <td>
-                    {{ $row->deskripsi }}
+                    {!! $row->deskripsi !!}
                   </td>
                   <td class="project-actions text-center">
                     <!-- Button trigger modal -->
@@ -78,21 +78,22 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/alur-kerjasama-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
                               <div class="form-group">
                                 <label>Gambar</label>
                                 <input type="file" class="form-control" id="inputGroupFile02" name="poto">
                               </div>
                               <div class="form-group">
                                 <label>Deskripsi</label>
-                                <textarea class="form-control" name="deskripsi" placeholder="Enter..." value=""></textarea>
+                                <textarea class="form-control" name="deskripsi" id="editor" placeholder="Enter..." value="">{!! $row->deskripsi !!}</textarea>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                               </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>

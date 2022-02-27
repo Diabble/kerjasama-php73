@@ -49,21 +49,21 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/faq-admin/store')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Pertanyaan</label>
-                        <textarea class="form-control" name="pertanyaan" placeholder="Enter..." value=""></textarea>
+                        <textarea class="form-control" name="pertanyaan" id="editor" placeholder="Enter..." value=""></textarea>
                       </div>
                       <div class="form-group">
                         <label>Jawaban</label>
-                        <textarea class="form-control" name="jawaban" placeholder="Enter..." value=""></textarea>
+                        <textarea class="form-control" name="jawaban" id="editor" placeholder="Enter..." value=""></textarea>
                       </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                          <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                        </div>
                     </form>
                     <!-- form end -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                   </div>
                 </div>
               </div>
@@ -95,10 +95,10 @@
                     {{ $row->id }}
                   </td>
                   <td>
-                    {{ $row->pertanyaan }}
+                    {!! $row->pertanyaan !!}
                   </td>
                   <td>
-                    {{ $row->jawaban }}
+                    {!! $row->jawaban !!}
                   </td>
                   <td class="project-actions text-center">
                     <!-- Button trigger modal -->
@@ -118,21 +118,22 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/faq-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
                               <div class="form-group">
                                 <label>Pertanyaan</label>
-                                <textarea class="form-control" name="pertanyaan" placeholder="Enter..." value=""></textarea>
+                                <textarea class="form-control" name="pertanyaan" id="editor" placeholder="Enter..." value="">{!! $row->pertanyaan !!}</textarea>
                               </div>
                               <div class="form-group">
                                 <label>Jawaban</label>
-                                <textarea class="form-control" name="jawaban" placeholder="Enter..." value=""></textarea>
+                                <textarea class="form-control" name="jawaban" id="editor" placeholder="Enter..." value="">{!! $row->jawaban !!}</textarea>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                               </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>

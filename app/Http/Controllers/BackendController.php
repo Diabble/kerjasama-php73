@@ -141,7 +141,11 @@ class BackendController extends Controller
     {
         $beranda = ModelBeranda::get();
         $user = User::all();
-        return view('admin.settings', compact('beranda', 'user'));
+        $kaber = ModelKategoriBerita::all();
+        $kakoin = ModelKategoriKodeInstansi::all();
+        $kakein = ModelKategoriKetInstansi::all();
+        $kajenas = ModelKategoriJenisNaskah::all();
+        return view('admin.settings', compact('beranda', 'user', 'kaber', 'kakoin', 'kakein', 'kajenas'));
     }
 
     // Beranda/Slide Carousel
@@ -245,7 +249,7 @@ class BackendController extends Controller
             ]);
         }
         
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Update !!!');
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -256,7 +260,7 @@ class BackendController extends Controller
      */
     public function berandadestroy($id)
     {
-        ModelBeranda::find($id)->delete($request->all());
+        ModelBeranda::find($id)->delete();
 
         return redirect('/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
@@ -326,6 +330,400 @@ class BackendController extends Controller
     public function userdestroy($id)
     {
         //
+    }
+
+    // Kategori Berita
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kabercreate()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function kaberstore(Request $request)
+    {
+        Request()->validate([
+            'nama_kategori' => 'required',
+            'slug' => 'required',
+        ], [
+            'nama_kategori.required' => 'Wajib diisi!!!',
+            'slug.required' => 'Wajib diisi!!!',
+        ]);
+
+        ModelKategoriBerita::create([
+            'nama_kategori' => $request->nama_kategori,
+            'slug' => $request->slug,
+        ]);
+
+        // $data = [
+        //     'nama_kategori' => Request()->nama_kategori,
+        //     'slug' => Request()->slug,
+        // ];
+
+        // ModelKategoriBerita::create($data);        
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kabershow($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kaberedit($id)
+    {
+        $kaber = ModelKategoriBerita::findorfail($id);
+        return view('admin.settings', compact('kaber'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kaberupdate(Request $request, $id)
+    {
+        Request()->validate([
+            'nama_kategori' => 'required',
+            'slug' => 'required',
+        ], [
+            'nama_kategori.required' => 'Wajib diisi!!!',
+            'slug.required' => 'Wajib diisi!!!',
+        ]);
+
+        $data = [
+            'nama_kategori' => $request->nama_kategori,
+            'slug' => $request->slug,
+        ];
+
+        ModelKategoriBerita::find($id)->update($data);    
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kaberdestroy($id)
+    {
+        ModelKategoriBerita::find($id)->delete();
+
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+    }
+
+    // Kategori Kode Instansi
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kakoincreate()
+    {
+        //
+    }
+    
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function kakoinstore(Request $request)
+    {
+        Request()->validate([
+            'nama_kategori' => 'required',
+            'slug' => 'required',
+        ], [
+            'nama_kategori.required' => 'Wajib diisi!!!',
+            'slug.required' => 'Wajib diisi!!!',
+        ]);
+
+        ModelKategoriKodeInstansi::create([
+            'nama_kategori' => $request->nama_kategori,
+            'slug' => $request->slug,
+        ]);
+        
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+    }
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kakoinshow($id)
+    {
+        //
+    }
+    
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kakoinedit($id)
+    {
+        $kakoin = ModelKategoriKodeInstansi::findorfail($id);
+        return view('admin.settings', compact('kakoin'));
+    }
+    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kakoinupdate(Request $request, $id)
+    {
+        Request()->validate([
+            'nama_kategori' => 'required',
+            'slug' => 'required',
+        ], [
+            'nama_kategori.required' => 'Wajib diisi!!!',
+            'slug.required' => 'Wajib diisi!!!',
+        ]);
+
+        $data = [
+            'nama_kategori' => $request->nama_kategori,
+            'slug' => $request->slug,
+        ];
+
+        ModelKategoriKodeInstansi::find($id)->update($data);    
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+    }
+  
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kakoindestroy($id)
+    {
+        ModelKategoriKodeInstansi::find($id)->delete();
+
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+    }
+
+    // Kategori Keterangan Instansi
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kakeincreate()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function kakeinstore(Request $request)
+    {
+        Request()->validate([
+            'nama_kategori' => 'required',
+            'slug' => 'required',
+        ], [
+            'nama_kategori.required' => 'Wajib diisi!!!',
+            'slug.required' => 'Wajib diisi!!!',
+        ]);
+
+        ModelKategoriKetInstansi::create([
+            'nama_kategori' => $request->nama_kategori,
+            'slug' => $request->slug,
+        ]);
+        
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kakeinshow($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kakeinedit($id)
+    {
+        $kakein = ModelKategoriKetInstansi::findorfail($id);
+        return view('admin.settings', compact('kakein'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kakeinupdate(Request $request, $id)
+    {
+        Request()->validate([
+            'nama_kategori' => 'required',
+            'slug' => 'required',
+        ], [
+            'nama_kategori.required' => 'Wajib diisi!!!',
+            'slug.required' => 'Wajib diisi!!!',
+        ]);
+
+        $data = [
+            'nama_kategori' => $request->nama_kategori,
+            'slug' => $request->slug,
+        ];
+
+        ModelKategoriKetInstansi::find($id)->update($data);    
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kakeindestroy($id)
+    {
+        ModelKategoriKetInstansi::find($id)->delete();
+
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+    }
+
+    // Kategori Jenis Naskah
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kajenacreate()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function kajenastore(Request $request)
+    {
+        Request()->validate([
+            'nama_kategori' => 'required',
+            'slug' => 'required',
+        ], [
+            'nama_kategori.required' => 'Wajib diisi!!!',
+            'slug.required' => 'Wajib diisi!!!',
+        ]);
+
+        ModelKategoriJenisNaskah::create([
+            'nama_kategori' => $request->nama_kategori,
+            'slug' => $request->slug,
+        ]);
+        
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kajenashow($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kajenaedit($id)
+    {
+        $kajenas = ModelKategoriJenisNaskah::findorfail($id);
+        return view('admin.settings', compact('kajenas'));
+    }
+    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kajenaupdate(Request $request, $id)
+    {
+        Request()->validate([
+            'nama_kategori' => 'required',
+            'slug' => 'required',
+        ], [
+            'nama_kategori.required' => 'Wajib diisi!!!',
+            'slug.required' => 'Wajib diisi!!!',
+        ]);
+
+        $data = [
+            'nama_kategori' => $request->nama_kategori,
+            'slug' => $request->slug,
+        ];
+
+        ModelKategoriJenisNaskah::find($id)->update($data);    
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kajenadestroy($id)
+    {
+        ModelKategoriJenisNaskah::find($id)->delete();
+
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Wakil Rektor
@@ -398,11 +796,12 @@ class BackendController extends Controller
             'nama' => 'required',
             'jabatan' => 'required',
             'nip' => 'required',
+            'deskripsi' => 'required',
         ], [
-            'poto.required' => 'Wajib diisi!!!',
             'nama.required' => 'Wajib diisi!!!',
             'jabatan.required' => 'Wajib diisi!!!',
             'nip.required' => 'Wajib diisi!!!',
+            'deskripsi.required' => 'Wajib diisi!!!',
         ]);
         if (Request()->hasFile('poto')) {
             $file_name = $request->poto->getClientOriginalName();
@@ -412,16 +811,18 @@ class BackendController extends Controller
                 'nama' => $request->nama,
                 'jabatan' => $request->jabatan,
                 'nip' => $request->nip,
+                'deskripsi' => $request->deskripsi,
         ]);
         } else {
             ModelWakilRektor::where('id',$id)->update([
                 'nama' => $request->nama,
                 'jabatan' => $request->jabatan,
                 'nip' => $request->nip,
+                'deskripsi' => $request->deskripsi,
         ]);
         }
 
-        return redirect('/wakil-rektor-admin')->with('pesan', 'Data Berhasil Di Update !!!');
+        return redirect('/wakil-rektor-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -489,6 +890,41 @@ class BackendController extends Controller
      */
     public function visiedit($id)
     {
+        $visi = ModelVisi::findorfail($id);
+        return view('admin.visi-misi-admin', compact('visi'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function visiupdate(Request $request, $id)
+    {
+        Request()->validate([
+            'deskripsi' => 'required',
+        ], [
+            'deskripsi.required' => 'Wajib diisi!!!',
+        ]);
+
+        $data = [
+            'deskripsi' => Request()->deskripsi,
+        ];
+
+        ModelVisi::find($id)->update($data);
+        return redirect('/visi-misi-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function visidestroy($id)
+    {
         //
     }
 
@@ -515,29 +951,6 @@ class BackendController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function visiupdate(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function visidestroy($id)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -556,7 +969,8 @@ class BackendController extends Controller
      */
     public function misiedit($id)
     {
-        //
+        $misi = ModelMisi::findorfail($id);
+        return view('admin.visi-misi-admin', compact('misi'));
     }
 
     /**
@@ -568,7 +982,18 @@ class BackendController extends Controller
      */
     public function misiupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'deskripsi' => 'required',
+        ], [
+            'deskripsi.required' => 'Wajib diisi!!!',
+        ]);
+
+        $data = [
+            'deskripsi' => Request()->deskripsi,
+        ];
+
+        ModelMisi::find($id)->update($data);
+        return redirect('/visi-misi-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -634,7 +1059,8 @@ class BackendController extends Controller
      */
     public function tupoksiedit($id)
     {
-        //
+        $tupoksi = ModelTugasPokokFungsi::findorfail($id);
+        return view('admin.tugas-pokok-fungsi-admin', compact('tupoksi'));
     }
 
     /**
@@ -646,7 +1072,18 @@ class BackendController extends Controller
      */
     public function tupoksiupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'deskripsi' => 'required',
+        ], [
+            'deskripsi.required' => 'Wajib diisi!!!',
+        ]);
+
+        $data = [
+            'deskripsi' => Request()->deskripsi,
+        ];
+
+        ModelTugasPokokFungsi::find($id)->update($data);
+        return redirect('/tugas-pokok-fungsi-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -712,7 +1149,8 @@ class BackendController extends Controller
      */
     public function keproedit($id)
     {
-        //
+        $kepro = ModelKebijakanProgram::findorfail($id);
+        return view('admin.kebijakan-program-admin', compact('kepro'));
     }
 
     /**
@@ -724,7 +1162,18 @@ class BackendController extends Controller
      */
     public function keproupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'deskripsi' => 'required',
+        ], [
+            'deskripsi.required' => 'Wajib diisi!!!',
+        ]);
+
+        $data = [
+            'deskripsi' => Request()->deskripsi,
+        ];
+
+        ModelKebijakanProgram::find($id)->update($data);
+        return redirect('/kebijakan-program-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -790,7 +1239,8 @@ class BackendController extends Controller
      */
     public function strukturedit($id)
     {
-        //
+        $struktur = ModelStruktur::findorfail($id);
+        return view('admin.struktur-admin', compact('struktur'));
     }
 
     /**
@@ -802,7 +1252,26 @@ class BackendController extends Controller
      */
     public function strukturupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'poto' => 'mimes:png,jpg,jpeg',
+            'deskripsi' => 'required',
+        ], [
+            'deskripsi.required' => 'Wajib diisi!!!',
+        ]);
+        if (Request()->hasFile('poto')) {
+            $file_name = $request->poto->getClientOriginalName();
+                $image = $request->poto->storeAs('thumbnail', $file_name);
+            ModelStruktur::where('id',$id)->update([
+                'poto' => $image,
+                'deskripsi' => $request->deskripsi,
+        ]);
+        } else {
+            ModelStruktur::where('id',$id)->update([
+                'deskripsi' => $request->deskripsi,
+        ]);
+        }
+
+        return redirect('/struktur-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -868,7 +1337,8 @@ class BackendController extends Controller
      */
     public function alurkerjasamaedit($id)
     {
-        //
+        $alur = ModelAlurKerjasama::findorfail($id);
+        return view('admin.alur-kerjasama-admin', compact('alur'));
     }
 
     /**
@@ -880,7 +1350,26 @@ class BackendController extends Controller
      */
     public function alurkerjasamaupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'poto' => 'mimes:png,jpg,jpeg',
+            'deskripsi' => 'required',
+        ], [
+            'deskripsi.required' => 'Wajib diisi!!!',
+        ]);
+        if (Request()->hasFile('poto')) {
+            $file_name = $request->poto->getClientOriginalName();
+                $image = $request->poto->storeAs('thumbnail', $file_name);
+            ModelAlurKerjasama::where('id',$id)->update([
+                'poto' => $image,
+                'deskripsi' => $request->deskripsi,
+        ]);
+        } else {
+            ModelAlurKerjasama::where('id',$id)->update([
+                'deskripsi' => $request->deskripsi,
+        ]);
+        }
+
+        return redirect('/alur-kerjasama-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1060,72 +1549,6 @@ class BackendController extends Controller
     {
         $kaber = ModelKategoriBerita::all();
         return view('admin.kategori-berita-admin', compact('kaber'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function kabercreate()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function kaberstore(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kabershow($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kaberedit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kaberupdate(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kaberdestroy($id)
-    {
-        //
     }
 
     // Berita
@@ -1670,7 +2093,7 @@ class BackendController extends Controller
         //
     }
 
-    // IO
+    // International Office
     /**
      * Display a listing of the resource.
      *
@@ -1679,7 +2102,7 @@ class BackendController extends Controller
     public function io()
     {
         $io = ModelIO::get();
-        return view('admin.io-admin', compact('io'));
+        return view('admin.international-office-admin', compact('io'));
     }
 
     /**
@@ -1722,7 +2145,8 @@ class BackendController extends Controller
      */
     public function ioedit($id)
     {
-        //
+        $io = ModelIO::findorfail($id);
+        return view('admin.international-office-admin', compact('io'));
     }
 
     /**
@@ -1734,7 +2158,18 @@ class BackendController extends Controller
      */
     public function ioupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'deskripsi' => 'required',
+        ], [
+            'deskripsi.required' => 'Wajib diisi!!!',
+        ]);
+
+        $data = [
+            'deskripsi' => Request()->deskripsi,
+        ];
+
+        ModelIO::find($id)->update($data);
+        return redirect('/international-office-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1761,207 +2196,6 @@ class BackendController extends Controller
         $kajenas = ModelKategoriJenisNaskah::all();
         return view('admin.kategori-mitra-admin', compact('kakoin', 'kakein', 'kajenas'));
     }
-
-    // Kategori Kode Instansi
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function kakoincreate()
-    {
-        //
-    }
-    
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function kakoinstore(Request $request)
-    {
-        //
-    }
-    
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kakoinshow($id)
-    {
-        //
-    }
-    
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kakoinedit($id)
-    {
-        //
-    }
-    
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kakoinupdate(Request $request, $id)
-    {
-        //
-    }
-  
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kakoindestroy($id)
-    {
-        //
-    }
-
-    // Kategori Keterangan Instansi
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function kakeincreate()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function kakeinstore(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kakeinshow($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kakeinedit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kakeinupdate(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kakeindestroy($id)
-    {
-        //
-    }
-
-    // Kategori Jenis Naskah
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function kajenacreate()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function kajenastore(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kajenashow($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kajenaedit($id)
-    {
-        //
-    }
-    
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kajenaupdate(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function kajenadestroy($id)
-    {
-        //
-    }
     
     // Mitra
     /**
@@ -1971,8 +2205,11 @@ class BackendController extends Controller
      */
     public function mitra()
     {
+        $kakoin = ModelKategoriKodeInstansi::all();
+        $kakein = ModelKategoriKetInstansi::all();
+        $kajenas = ModelKategoriJenisNaskah::all();
         $mitra = ModelMitra::all();
-        return view('admin.mitra-admin', compact('mitra'));
+        return view('admin.mitra-admin', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
     public function mitraprint()

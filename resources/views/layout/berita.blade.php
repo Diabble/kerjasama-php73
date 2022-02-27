@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2>{!! $tangkap2->deskripsicarousel !!}</h2>
+                <h3>{!! $tangkap2->deskripsicarousel !!}</h3>
             </div>
             <div class="col-12">
                 <a href="/">Home</a>
@@ -23,7 +23,7 @@
 <div class="blog">
     <div class="container">
         <div class="section-header">
-            <h2>Latest From Blog</h2>
+            <h3>Latest From Blog</h3>
         </div>
         <div class="row blog-page">
             <div class="col-lg-4 col-md-6 blog-item">

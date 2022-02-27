@@ -48,7 +48,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/pengumuman-admin/store')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Judul</label>
                         <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="">
@@ -57,12 +57,12 @@
                         <label>Deskripsi</label>
                         <textarea class="form-control" name="deskripsi" placeholder="Enter..." value=""></textarea>
                       </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                      </div>
                     </form>
                     <!-- form end -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                   </div>
                 </div>
               </div>
@@ -135,25 +135,25 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/pengumuman-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               <div class="form-group">
                                 <label>Judul</label>
-                                <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="{{ $row->judul }}">
                               </div>
                               <div class="form-group">
                                 <label>Slug</label>
-                                <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="{{ $row->slug }}">
                               </div>
                               <div class="form-group">
                                 <label>Deskripsi</label>
-                                <textarea class="form-control" name="deskripsi" placeholder="Enter..." value=""></textarea>
+                                <textarea class="form-control" name="deskripsi" id="editor" placeholder="Enter..." value="">{{ $row->deskripsi }}</textarea>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                               </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>

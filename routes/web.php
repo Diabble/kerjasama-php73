@@ -56,7 +56,7 @@ Route::get('/tugas-pokok-fungsi', [FrontendController::class, 'tupoksi']);
 Route::get('/kebijakan-program', [FrontendController::class, 'kepro']);
 Route::get('/struktur', [FrontendController::class, 'struktur']);
 
-Route::get('/alur', [FrontendController::class, 'alur']);
+Route::get('/alur-kerjasama', [FrontendController::class, 'alur']);
 Route::get('/progres-pengajuan-kerjasama', [FrontendController::class, 'propeker']);
 Route::get('/faq', [FrontendController::class, 'faq']);
 Route::get('/berita', [FrontendController::class, 'berita']);
@@ -68,7 +68,7 @@ Route::get('/layanan-online', [FrontendController::class, 'layananonline']);
 Route::get('/layanan-kepuasan', [FrontendController::class, 'layanankepuasan']);
 Route::get('/layanan-kami', [FrontendController::class, 'layanankami']);
 
-Route::get('/io', [FrontendController::class, 'io']);
+Route::get('/international-office', [FrontendController::class, 'io']);
 
 Route::get('/mitra', [FrontendController::class, 'mitra']);
 //End Halaman Utama
@@ -89,14 +89,30 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Settings
     Route::get('/settings', [BackendController::class, 'settings']);
-    Route::get('/settings/berandaedit/{id}', [BackendController::class, 'berandaedit']);
     Route::post('/settings/berandastore', [BackendController::class, 'berandastore']);
+    Route::get('/settings/berandaedit/{id}', [BackendController::class, 'berandaedit']);
     Route::post('/settings/berandaupdate/{id}', [BackendController::class, 'berandaupdate']);
-    Route::get('/settings/berandahapus/{id}', [BackendController::class, 'berandadestroy']);
-    Route::get('/settings/useredit/{id}', [BackendController::class, 'useredit']);
+    Route::get('/settings/berandadelete/{id}', [BackendController::class, 'berandadestroy']);
     Route::post('/settings/userstore', [BackendController::class, 'userstore']);
+    Route::get('/settings/useredit/{id}', [BackendController::class, 'useredit']);
     Route::post('/settings/userupdate/{id}', [BackendController::class, 'userupdate']);
-    Route::get('/settings/userhapus/{id}', [BackendController::class, 'userdestroy']);
+    Route::get('/settings/userdelete/{id}', [BackendController::class, 'userdestroy']);
+    Route::post('/settings/kaberstore', [BackendController::class, 'kaberstore']);
+    Route::get('/settings/kaberedit/{id}', [BackendController::class, 'kaberedit']);
+    Route::post('/settings/kaberupdate/{id}', [BackendController::class, 'kaberupdate']);
+    Route::get('/settings/kaberdelete/{id}', [BackendController::class, 'kaberdestroy']);
+    Route::post('/settings/kakoinstore', [BackendController::class, 'kakoinstore']);
+    Route::post('/settings/kakeinstore', [BackendController::class, 'kakeinstore']);
+    Route::post('/settings/kajenastore', [BackendController::class, 'kajenastore']);
+    Route::get('/settings/kakoinedit/{id}', [BackendController::class, 'kakoinedit']);
+    Route::get('/settings/kakeinedit/{id}', [BackendController::class, 'kakeinedit']);
+    Route::get('/settings/kajenaedit/{id}', [BackendController::class, 'kajenaedit']);
+    Route::post('/settings/kakoinupdate/{id}', [BackendController::class, 'kakoinupdate']);
+    Route::post('/settings/kakeinupdate/{id}', [BackendController::class, 'kakeinupdate']);
+    Route::post('/settings/kajenaupdate/{id}', [BackendController::class, 'kajenaupdate']);
+    Route::get('/settings/kakoindelete/{id}', [BackendController::class, 'kakoindestroy']);
+    Route::get('/settings/kakeindelete/{id}', [BackendController::class, 'kakeindestroy']);
+    Route::get('/settings/kajenadelete/{id}', [BackendController::class, 'kajenadestroy']);
 
     // Wakil Rektor
     Route::get('/wakil-rektor-admin', [BackendController::class, 'wakilrektor']);
@@ -137,45 +153,45 @@ Route::group(['middleware' => 'auth'], function () {
 
     // FAQ
     Route::get('/faq-admin', [BackendController::class, 'faq']);
+    Route::get('/faq-admin/store', [BackendController::class, 'faqstore']);
     Route::get('/faq-admin/edit/{id}', [BackendController::class, 'faqedit']);
-    Route::get('/faq-admin/store/{id}', [BackendController::class, 'faqstore']);
     Route::post('/faq-admin/update/{id}', [BackendController::class, 'faqupdate']);
-    Route::get('/faq-admin/hapus/{id}', [BackendController::class, 'faqdestroy']);
+    Route::get('/faq-admin/delete/{id}', [BackendController::class, 'faqdestroy']);
 
     // Kategori Berita
-    Route::get('/kategori-berita-admin', [BackendController::class, 'kaber']);
-    Route::get('/kategori-berita-admin/edit/{id}', [BackendController::class, 'kaberedit']);
-    Route::get('/kategori-berita-admin/store/{id}', [BackendController::class, 'kaberstore']);
-    Route::post('/kategori-berita-admin/update/{id}', [BackendController::class, 'kaberupdate']);
-    Route::get('/kategori-berita-admin/hapus/{id}', [BackendController::class, 'kaberdestroy']);
+    // Route::get('/kategori-berita-admin', [BackendController::class, 'kaber']);
+    // Route::get('/kategori-berita-admin/store', [BackendController::class, 'kaberstore']);
+    // Route::get('/kategori-berita-admin/edit/{id}', [BackendController::class, 'kaberedit']);
+    // Route::post('/kategori-berita-admin/update/{id}', [BackendController::class, 'kaberupdate']);
+    // Route::get('/kategori-berita-admin/delete/{id}', [BackendController::class, 'kaberdestroy']);
 
     // Berita
     Route::get('/berita-admin', [BackendController::class, 'berita']);
+    Route::get('/berita-admin/store', [BackendController::class, 'beritastore']);
     Route::get('/berita-admin/edit/{id}', [BackendController::class, 'beritaedit']);
-    Route::get('/berita-admin/store/{id}', [BackendController::class, 'beritastore']);
     Route::post('/berita-admin/update/{id}', [BackendController::class, 'beritaupdate']);
-    Route::get('/berita-admin/hapus/{id}', [BackendController::class, 'beritadestroy']);
+    Route::get('/berita-admin/delete/{id}', [BackendController::class, 'beritadestroy']);
 
     // Pengumuman
     Route::get('/pengumuman-admin', [BackendController::class, 'pengumuman']);
-    Route::get('/pengumuman-admin/edit/{id}', [BackendController::class, 'pengumumanedit']);
-    Route::get('/pengumuman-admin/store/{id}', [BackendController::class, 'pengumumanstore']);
+    Route::get('/pengumuman-admin/store', [BackendController::class, 'pengumumanstore']);
+    Route::get('/pengumuman-admin/edit/{id}', [BackendController::class, 'pengumumanedit']);    
     Route::post('/pengumuman-admin/update/{id}', [BackendController::class, 'pengumumanupdate']);
-    Route::get('/pengumuman-admin/hapus/{id}', [BackendController::class, 'pengumumandestroy']);
+    Route::get('/pengumuman-admin/delete/{id}', [BackendController::class, 'pengumumandestroy']);
 
     // Galeri
     Route::get('/galeri-admin', [BackendController::class, 'galeri']);
+    Route::get('/galeri-admin/store', [BackendController::class, 'galeristore']);
     Route::get('/galeri-admin/edit/{id}', [BackendController::class, 'galeriedit']);
-    Route::get('/galeri-admin/store/{id}', [BackendController::class, 'galeristore']);
     Route::post('/galeri-admin/update/{id}', [BackendController::class, 'galeriupdate']);
-    Route::get('/galeri-admin/hapus/{id}', [BackendController::class, 'galeridestroy']);
+    Route::get('/galeri-admin/delete/{id}', [BackendController::class, 'galeridestroy']);
 
     // Berkas Kerjasama
     Route::get('/berkas-kerjasama-admin', [BackendController::class, 'berkaskerjasama']);
+    Route::get('/berkas-kerjasama-admin/store', [BackendController::class, 'berkaskerjasamastore']);
     Route::get('/berkas-kerjasama-admin/edit/{id}', [BackendController::class, 'berkaskerjasamaedit']);
-    Route::get('/berkas-kerjasama-admin/store/{id}', [BackendController::class, 'berkaskerjasamastore']);
     Route::post('/berkas-kerjasama-admin/update/{id}', [BackendController::class, 'berkaskerjasamaupdate']);
-    Route::get('/berkas-kerjasama-admin/hapus/{id}', [BackendController::class, 'berkaskerjasamadestroy']);
+    Route::get('/berkas-kerjasama-admin/delete/{id}', [BackendController::class, 'berkaskerjasamadestroy']);
 
     // Layanan Online
     Route::get('/layanan-online-admin', [BackendController::class, 'layananonline']);
@@ -186,29 +202,31 @@ Route::group(['middleware' => 'auth'], function () {
     // Layanan Kami
     Route::get('/layanan-kami-admin', [BackendController::class, 'layanankami']);
 
-    // IO
-    Route::get('/io-admin', [BackendController::class, 'io']);
+    // International Office
+    Route::get('/international-office-admin', [BackendController::class, 'io']);
+    Route::get('/international-office-admin/edit/{id}', [BackendController::class, 'ioedit']);
+    Route::post('/international-office-admin/update/{id}', [BackendController::class, 'ioupdate']);
 
     // Kategori Mitra
-    Route::get('/kategori-mitra-admin', [BackendController::class, 'kamit']);
-    Route::get('/kategori-mitra-admin/kakoinedit/{id}', [BackendController::class, 'kakoinedit']);
-    Route::get('/kategori-mitra-admin/kakeinedit/{id}', [BackendController::class, 'kakeinedit']);
-    Route::get('/kategori-mitra-admin/kajenaedit/{id}', [BackendController::class, 'kajenaedit']);
-    Route::get('/kategori-mitra-admin/kakoinstore/{id}', [BackendController::class, 'kakoinstore']);
-    Route::get('/kategori-mitra-admin/kakeinstore/{id}', [BackendController::class, 'kakeinstore']);
-    Route::get('/kategori-mitra-admin/kajenastore/{id}', [BackendController::class, 'kajenastore']);
-    Route::post('/kategori-mitra-admin/kakoinupdate/{id}', [BackendController::class, 'kakoinupdate']);
-    Route::post('/kategori-mitra-admin/kakeinupdate/{id}', [BackendController::class, 'kakeinupdate']);
-    Route::post('/kategori-mitra-admin/kajenaupdate/{id}', [BackendController::class, 'kajenaupdate']);
-    Route::get('/kategori-mitra-admin/kakoinhapus/{id}', [BackendController::class, 'kakoindestroy']);
-    Route::get('/kategori-mitra-admin/kakeinhapus/{id}', [BackendController::class, 'kakeindestroy']);
-    Route::get('/kategori-mitra-admin/kajenahapus/{id}', [BackendController::class, 'kajenadestroy']);
+    // Route::get('/kategori-mitra-admin', [BackendController::class, 'kamit']);
+    // Route::get('/kategori-mitra-admin/kakoinstore', [BackendController::class, 'kakoinstore']);
+    // Route::get('/kategori-mitra-admin/kakeinstore', [BackendController::class, 'kakeinstore']);
+    // Route::get('/kategori-mitra-admin/kajenastore', [BackendController::class, 'kajenastore']);
+    // Route::get('/kategori-mitra-admin/kakoinedit/{id}', [BackendController::class, 'kakoinedit']);
+    // Route::get('/kategori-mitra-admin/kakeinedit/{id}', [BackendController::class, 'kakeinedit']);
+    // Route::get('/kategori-mitra-admin/kajenaedit/{id}', [BackendController::class, 'kajenaedit']);
+    // Route::post('/kategori-mitra-admin/kakoinupdate/{id}', [BackendController::class, 'kakoinupdate']);
+    // Route::post('/kategori-mitra-admin/kakeinupdate/{id}', [BackendController::class, 'kakeinupdate']);
+    // Route::post('/kategori-mitra-admin/kajenaupdate/{id}', [BackendController::class, 'kajenaupdate']);
+    // Route::get('/kategori-mitra-admin/kakoindelete/{id}', [BackendController::class, 'kakoindestroy']);
+    // Route::get('/kategori-mitra-admin/kakeindelete/{id}', [BackendController::class, 'kakeindestroy']);
+    // Route::get('/kategori-mitra-admin/kajenadelete/{id}', [BackendController::class, 'kajenadestroy']);
     
     // Mitra
     Route::get('/mitra-admin', [BackendController::class, 'mitra']);
-    Route::get('/mitra-admin/edit/{id}', [BackendController::class, 'mitraedit']);
-    Route::get('/mitra-admin/store/{id}', [BackendController::class, 'mitrastore']);
+    Route::get('/mitra-admin/store', [BackendController::class, 'mitrastore']);
+    Route::get('/mitra-admin/edit/{id}', [BackendController::class, 'mitraedit']);    
     Route::post('/mitra-admin/update/{id}', [BackendController::class, 'mitraupdate']);
-    Route::get('/mitra-admin/hapus/{id}', [BackendController::class, 'mitradestroy']);
+    Route::get('/mitra-admin/delete/{id}', [BackendController::class, 'mitradestroy']);
     Route::get('/mitra-print', [BackendController::class, 'mitraprint']);
 });

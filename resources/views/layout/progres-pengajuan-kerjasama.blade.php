@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title','Mitra')
+@section('title','Progres Pengajuan Kerjasama')
 @section('content')
 
             <!-- Page Header Start -->
@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-12">
                             <a href="/">Home</a>
-                            <a href="/mitra">Mitra</a>
+                            <a href="/progres-pengajuan-kerjasama">Progres Pengajuan Kerjasama</a>
                         </div>
                     </div>
                 </div>
@@ -25,44 +25,29 @@
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Kode Instansi</th>
-                                <th>Keterangan Instansi</th>
+                                <th style="width: 1%;">No</th>
                                 <th>Instansi</th>
-                                <th>Bidang Kerjasama</th>
-                                <th>Dimulai Kerjasama</th>
-                                <th>Selesai Kerjasama</th>
-                                <th>Jenis Naskah</th>
+                                <th>Progres</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ( $mitra as $row )
+                            @forelse ( $propeker as $row )
                             <tr style="text-align:justify;">
                                 <td>{{ $row->id }}</td>
-                                <td>{{ $row->kodeinstansi }}</td>
-                                <td>{{ $row->ketinstansi }}</td>
                                 <td>{{ $row->instansi }}</td>
-                                <td>{{ $row->bidkerjasama }}</td>
-                                <td>{{ $row->mulai }}</td>
-                                <td>{{ $row->selesai }}</td>
-                                <td>{{ $row->jenisnaskah }}</td>
+                                <td>{{ $row->progres }}</td>
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="8" style="text-align: center;">Data Masih Kosong</td>
+                                <td colspan="3" style="text-align: center;">Data Masih Kosong</td>
                             </tr>
                             @endforelse
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>No</th>
-                                <th>Kode Instansi</th>
-                                <th>Keterangan Instansi</th>
                                 <th>Instansi</th>
-                                <th>Bidang Kerjasama</th>
-                                <th>Dimulai Kerjasama</th>
-                                <th>Selesai Kerjasama</th>
-                                <th>Jenis Naskah</th>
+                                <th>Progres</th>
                             </tr>
                         </tfoot>
                     </table>

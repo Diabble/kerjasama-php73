@@ -48,29 +48,49 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/berita-admin/store')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Gambar</label>
-                        <input type="file" class="form-control" id="inputGroupFile02" name="poto">
+                        <input type="file" class="form-control @error('poto') is-invalid @enderror" name="poto" id="image" onchange="previewImage()">
+                        @error('poto')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Judul</label>
                         <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="">
+                        @error('judul')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Deskripsi</label>
-                        <textarea class="form-control" name="deskripsi" placeholder="Enter..." value=""></textarea>
+                        <textarea class="form-control" name="deskripsi" id="editor" placeholder="Enter..." value=""></textarea>
+                        @error('deskripsi')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Kategori</label>
                         <input class="form-control" name="kategori" autocomplete="off" placeholder="Enter..." value="">
+                        @error('kategori')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                       </div>
                     </form>
                     <!-- form end -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                   </div>
                 </div>
               </div>
@@ -114,6 +134,7 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ( $berita as $row )
                 <tr style="text-align: center;">
                   <td>
 
@@ -160,7 +181,7 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/berita-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               <div class="form-group">
                                 <label>Gambar</label>
                                 <input type="file" class="form-control" id="inputGroupFile02" name="poto">
@@ -175,18 +196,18 @@
                               </div>
                               <div class="form-group">
                                 <label>Deskripsi</label>
-                                <textarea class="form-control" name="deskripsi" placeholder="Enter..." value=""></textarea>
+                                <textarea class="form-control" name="deskripsi" id="editor" placeholder="Enter..." value=""></textarea>
                               </div>
                               <div class="form-group">
                                 <label>Kategori</label>
                                 <input class="form-control" name="kategori" autocomplete="off" placeholder="Enter..." value="">
                               </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                              </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>
@@ -198,6 +219,7 @@
                     </a>
                   </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

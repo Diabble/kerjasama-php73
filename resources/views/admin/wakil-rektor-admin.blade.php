@@ -31,6 +31,7 @@
             </div>
           </div>
           <div class="card-body p-0" style="display: block;">
+          {{ $errors }}
             <table class="table table-striped table-bordered projects">
               <thead>
                 <tr style="text-align: center;">
@@ -76,7 +77,7 @@
                     {{ $row->nip }}
                   </td>
                   <td>
-                    {{ $row->deskripsi }}
+                    {!! $row->deskripsi !!}
                   </td>
                   <td class="project-actions text-center">
                     <!-- Button trigger modal -->
@@ -96,7 +97,6 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            {{ $errors }}
                             <form action="{{url('/wakil-rektor-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               @csrf
                               <div class="form-group">
@@ -117,7 +117,7 @@
                               </div>
                               <div class="form-group">
                                 <label>Deskripsi</label>
-                                <textarea class="form-control" name="deskripsi" placeholder="Enter..." value="">{{ $row->deskripsi }}</textarea>
+                                <textarea class="form-control" name="deskripsi" id="editor" placeholder="Enter..." value="">{{ $row->deskripsi }}</textarea>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>

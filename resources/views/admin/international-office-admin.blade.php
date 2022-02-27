@@ -1,5 +1,5 @@
 @extends('admin.master')
-@section('title','Kebijakan dan Program Admin')
+@section('title','International Office')
 @section('content')
 
   <!-- Content Wrapper. Contains page content -->
@@ -11,19 +11,19 @@
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
               <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-              <li class="breadcrumb-item active">Kebijakan dan Program Admin</li>
+              <li class="breadcrumb-item active">International Office</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
 
-    <!-- Main content Kebijakan dan Program Admin -->
+    <!-- Main content International Office -->
     <section class="content">
       <div class="container-fluid">
         <div class="card card-primary">
           <div class="card-header" style="background-color: #343a40;">
-            <h3 class="card-title">Kebijakan dan Program Admin</h3>
+            <h3 class="card-title">International Office</h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                 <i class="fas fa-minus"></i>
@@ -46,7 +46,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ( $kepro as $row )
+                @foreach ( $io as $row )
                 <tr style="text-align: justify;">
                   <td>
                     {{ $row->id }}
@@ -65,14 +65,14 @@
                       <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="ubahLabel">Ubah Kebijakan dan Program Admin</h5>
+                            <h5 class="modal-title" id="ubahLabel">Ubah International Office</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="{{url('/kebijakan-program-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/international-office-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               @csrf
                               <div class="form-group">
                                 <label>Deskripsi</label>

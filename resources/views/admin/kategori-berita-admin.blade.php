@@ -48,17 +48,17 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/kategori-berita-admin/store')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Nama Kategori</label>
                         <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
                       </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                      </div>
                     </form>
                     <!-- form end -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                   </div>
                 </div>
               </div>
@@ -113,21 +113,22 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/kategori-berita-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
                               <div class="form-group">
                                 <label>Nama Kategori</label>
-                                <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="{{ $row->nama_kategori }}">
                               </div>
                               <div class="form-group">
                                 <label>Slug</label>
-                                <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="{{ $row->slug }}">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                               </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>

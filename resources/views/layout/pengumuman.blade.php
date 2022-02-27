@@ -7,7 +7,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <h2>Pengumuman</h2>
+                            <h3>{!! $tangkap2->deskripsicarousel !!}</h3>
                         <div class="col-12">
                             <a href="/">Home</a>
                             <a href="/pengumuman">Pengumuman</a>

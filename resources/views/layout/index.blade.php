@@ -17,7 +17,7 @@
                         <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" style="display:block; margin:auto;">
                         <div class="carousel-caption">
                             <h1 class="animated fadeInLeft">{{ $row->judulcarousel }}</h1>
-                            <p class="animated fadeInRight">{{ $row->deskripsicarousel }}</p>
+                            <p class="animated fadeInRight">{!! $row->deskripsicarousel !!}</p>
                             <a class="btn animated fadeInUp" href="https://s.id/BJiUS">{{ $row->tombolcarousel }}</a>
                         </div>
                     </div>

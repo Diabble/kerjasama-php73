@@ -86,7 +86,7 @@ class FrontendController extends Controller
     {
         $kebijakanprogram = ModelKebijakanProgram::all();
         $beranda = ModelBeranda::all();
-        $tangkap1 = \DB::table('kebijakanprogram')->first();
+        $tangkap1 = \DB::table('kebijakan_program')->first();
         $tangkap2 = \DB::table('beranda')->first();
         return view('layout.kebijakan-program', compact('kebijakanprogram', 'beranda', 'tangkap1', 'tangkap2'));
     }
@@ -104,18 +104,18 @@ class FrontendController extends Controller
     {
         $alur = ModelAlurKerjasama::all();
         $beranda = ModelBeranda::all();
-        $tangkap1 = \DB::table('alur')->first();
+        $tangkap1 = \DB::table('alur_kerjasama')->first();
         $tangkap2 = \DB::table('beranda')->first();
-        return view('layout.alur', compact('alur', 'beranda', 'tangkap1', 'tangkap2'));
+        return view('layout.alur-kerjasama', compact('alur', 'beranda', 'tangkap1', 'tangkap2'));
     }
 
     public function propeker()
     {
-        $progrespengajuankerjasama = ModelPengajuanKerjasama::all();
+        $propeker = ModelPengajuanKerjasama::all();
         $beranda = ModelBeranda::all();
-        $tangkap1 = \DB::table('progrespengajuankerjasama')->first();
+        $tangkap1 = \DB::table('pengajuan_kerjasama')->first();
         $tangkap2 = \DB::table('beranda')->first();
-        return view('layout.progres-pengajuan-kerjasama', compact('progrespengajuankerjasama', 'beranda', 'tangkap1', 'tangkap2'));
+        return view('layout.progres-pengajuan-kerjasama', compact('propeker', 'beranda', 'tangkap1', 'tangkap2'));
     }
 
     public function faq()
@@ -156,22 +156,38 @@ class FrontendController extends Controller
 
     public function berkaskerjasama()
     {
-        
+        // $bekar = ModelBerkasKerjasama::all();
+        $beranda = ModelBeranda::all();
+        // $tangkap1 = \DB::table('berkas_kerjasama')->first();
+        $tangkap2 = \DB::table('beranda')->first();
+        return view('layout.berkas-kerjasama', compact( 'beranda', 'tangkap2'));
     }
 
     public function layananonline()
     {
-        
+        // $layon = ModelLayananOnline::all();
+        $beranda = ModelBeranda::all();
+        // $tangkap1 = \DB::table('layanan_online')->first();
+        $tangkap2 = \DB::table('beranda')->first();
+        return view('layout.layanan-online', compact( 'beranda', 'tangkap2'));
     }
 
     public function layanankepuasan()
     {
-        
+        // $lakep = ModelLayananKepuasan::all();
+        $beranda = ModelBeranda::all();
+        // $tangkap1 = \DB::table('layanan_kepuasan')->first();
+        $tangkap2 = \DB::table('beranda')->first();
+        return view('layout.layanan-kepuasan', compact( 'beranda', 'tangkap2'));
     }
 
     public function layanankami()
     {
-        
+        // $laka = ModelBerkasKerjasama::all();
+        $beranda = ModelBeranda::all();
+        // $tangkap1 = \DB::table('layanan_kami')->first();
+        $tangkap2 = \DB::table('beranda')->first();
+        return view('layout.layanan-kami', compact( 'beranda', 'tangkap2'));
     }
 
     public function io()
@@ -180,7 +196,7 @@ class FrontendController extends Controller
         $beranda = ModelBeranda::all();
         $tangkap1 = \DB::table('io')->first();
         $tangkap2 = \DB::table('beranda')->first();
-        return view('layout.io', compact('io', 'beranda', 'tangkap1', 'tangkap2'));
+        return view('layout.international-office', compact('io', 'beranda', 'tangkap1', 'tangkap2'));
     }
 
     public function mitra()

@@ -32,12 +32,12 @@
           </div>
           <div class="card-body" style="background-color: #ffffff; padding: 10px 40px 10px 0px;">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#tambah">
+            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#tambahkakoin">
               <i class="fas fa-plus"></i> 
               Tambah
             </button>
             <!-- Modal Tambah Start -->
-            <div class="modal fade text-left" id="tambah" tabindex="-1" aria-labelledby="tambahLabel" aria-hidden="true">
+            <div class="modal fade text-left" id="tambahkakoin" tabindex="-1" aria-labelledby="tambahLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -48,17 +48,22 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/kategori-mitra-admin/kakoinstore')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Kategori Kode Instansi</label>
-                        <input class="form-control" name="kategori_kodeinstansi" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                        @error('nama_kategori')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                       </div>
                     </form>
                     <!-- form end -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                   </div>
                 </div>
               </div>
@@ -97,12 +102,12 @@
                   </td>
                   <td class="project-actions text-center">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahkakoin{{ $row->id }}">
                       <i class="fas fa-edit"></i>
                       Ubah
                     </button>
                     <!-- Modal Ubah Start -->
-                    <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                    <div class="modal fade text-left" id="ubahkakoin{{ $row->id }}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -113,23 +118,24 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/kategori-mitra-admin/kakoinupdate')}}/{{ $row->id }}" method="POST" enctype="multipart/form-data">
+                              @csrf
                               <div class="form-group">
                                 <label>Kategori Kode Instansi</label>
-                                <input class="form-control" name="kategori_kodeinstansi" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="{{ $row->nama_kategori }}">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                               </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="{{url('/kategori-mitra-admin/kakoindelete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
@@ -163,12 +169,12 @@
           </div>
           <div class="card-body" style="background-color: #ffffff; padding: 10px 40px 10px 0px;">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#tambah">
+            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#tambahkakein">
               <i class="fas fa-plus"></i> 
               Tambah
             </button>
             <!-- Modal Tambah Start -->
-            <div class="modal fade text-left" id="tambah" tabindex="-1" aria-labelledby="tambahLabel" aria-hidden="true">
+            <div class="modal fade text-left" id="tambahkakein" tabindex="-1" aria-labelledby="tambahLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -179,17 +185,22 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/kategori-mitra-admin/kakeinstore')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Kategori Keterangan Instansi</label>
-                        <input class="form-control" name="kategori_kodeinstansi" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                        @error('nama_kategori')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                       </div>
                     </form>
                     <!-- form end -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                   </div>
                 </div>
               </div>
@@ -228,12 +239,12 @@
                   </td>
                   <td class="project-actions text-center">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahkakein{{$row->id}}">
                       <i class="fas fa-edit"></i>
                       Ubah
                     </button>
                     <!-- Modal Ubah Start -->
-                    <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                    <div class="modal fade text-left" id="ubahkakein{{$row->id}}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -244,23 +255,24 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/kategori-mitra-admin/kakeinupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
                               <div class="form-group">
                                 <label>Kategori Keterangan Instansi</label>
-                                <input class="form-control" name="kategori_kodeinstansi" autocomplete="off" placeholder="Enter..." value="">
+                                <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="{{ $row->nama_kategori }}">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                               </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="{{url('/kategori-mitra-admin/kakeindelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
@@ -294,12 +306,12 @@
           </div>
           <div class="card-body" style="background-color: #ffffff; padding: 10px 40px 10px 0px;">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#tambah">
+            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#tambahkajena">
               <i class="fas fa-plus"></i> 
               Tambah
             </button>
             <!-- Modal Tambah Start -->
-            <div class="modal fade text-left" id="tambah" tabindex="-1" aria-labelledby="tambahLabel" aria-hidden="true">
+            <div class="modal fade text-left" id="tambahkajena" tabindex="-1" aria-labelledby="tambahLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -310,17 +322,22 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/kategori-mitra-admin/kajenastore')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Kategori Jenis Naskah</label>
-                        <input class="form-control" name="kategori_kodeinstansi" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                        @error('nama_kategori')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                       </div>
                     </form>
                     <!-- form end -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                   </div>
                 </div>
               </div>
@@ -359,12 +376,12 @@
                   </td>
                   <td class="project-actions text-center">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahkajena{{$row->id}}">
                       <i class="fas fa-edit"></i>
                       Ubah
                     </button>
                     <!-- Modal Ubah Start -->
-                    <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                    <div class="modal fade text-left" id="ubahkajena{{$row->id}}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -375,23 +392,24 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/kategori-mitra-admin/kajenaupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
                               <div class="form-group">
-                                <label>Kategori Keterangan Instansi</label>
-                                <input class="form-control" name="kategori_kodeinstansi" autocomplete="off" placeholder="Enter..." value="">
+                                <label>Kategori Jenis Naskah</label>
+                                <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="{{ $row->nama_kategori }}">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                               </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="{{url('/kategori-mitra-admin/kajenadelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>

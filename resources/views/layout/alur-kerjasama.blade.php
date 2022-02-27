@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2>{!! $tangkap2->deskripsicarousel !!}</h2>
+                <h3>{!! $tangkap2->deskripsicarousel !!}</h3>
             </div>
             <div class="col-12">
                 <a href="/">Home</a>
@@ -22,13 +22,11 @@
 <div class="single">
     <div class="container">
         <div class="row">
-            <div class="col-6">
-                <img src="{{ asset('storage/' . $tangkap1->poto) }}">
-            </div>
             <div class="col-12">
-                <p>
-                    {!! $tangkap1->deskripsi !!}
-                </p>
+                <div class="about-img img-fluid">
+                    <img src="{{ asset('storage/' . $tangkap1->poto) }}" alt="Image" style="display:block; margin:auto;">
+                </div>
+                <p>{!! $tangkap1->deskripsi !!}</p>
             </div>
         </div>
     </div>

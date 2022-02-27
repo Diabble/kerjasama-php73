@@ -98,13 +98,13 @@
                   <p>FAQ</p>
                 </a>
               </li>
-              <!-- <li class="nav-item">
+              <li class="nav-item">
                 <a href="/berita-admin" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Berita</p>
                 </a>
-              </li> -->
-              <li class="nav-item">
+              </li>
+              {{-- <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-newspaper"></i>
                   <p>
@@ -126,7 +126,7 @@
                     </a>
                   </li>
                 </ul>
-              </li>
+              </li> --}}
               <li class="nav-item">
                 <a href="/pengumuman-admin" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -176,15 +176,23 @@
               </li>
             </ul>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
+            <a href="/international-office-admin" class="nav-link">
+              <i class="nav-icon far fa-handshake"></i>
+              <p>
+                IO
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="/mitra-admin" class="nav-link">
               <i class="nav-icon far fa-handshake"></i>
               <p>
                 Mitra
               </p>
             </a>
-          </li> -->
-          <li class="nav-item">
+          </li>
+          {{-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-handshake"></i>
               <p>
@@ -206,7 +214,7 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li> --}}
         </ul>
       </nav>
     </div>

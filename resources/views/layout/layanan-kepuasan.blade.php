@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('title','Progres Pengajuan Kerjasama')
+@section('title','Angket Layanan Kepuasan')
 @section('content')
 
             <!-- Page Header Start -->
@@ -7,11 +7,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <h2>Progres Pengajuan Kerjasama</h2>
+                            <h3>{!! $tangkap2->deskripsicarousel !!}</h3>
+                        </div>
                         <div class="col-12">
                             <a href="/">Home</a>
-                            <a href="/progres-pengajuan-kerjasama">Progres Pengajuan Kerjasama</a>
-                        </div>
+                            <a href="/angket-layanan-kepuasan">Angket Layanan Kepuasan</a>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-12">
                             <p>
-                                PROGRES KERJASAMA TEMPLATE
+                                ANGKET LAYANAN KEPUASAN TEMPLATE
                             </p>
                         </div>
                     </div>

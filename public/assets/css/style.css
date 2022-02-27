@@ -14,9 +14,13 @@ h3,
 h4,
 h5, 
 h6 {
-    font-family: 'EB Garamond', serif;
+    /* font-family: 'EB Garamond', serif;
     font-weight: 600;
     font-style: italic;
+    color: #121518; */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-style: normal;
     color: #121518;
 }
 
@@ -208,13 +212,13 @@ a:focus {
 .navbar-dark .navbar-nav .nav-link:hover,
 .navbar-dark .navbar-nav .nav-link.active {
     padding: 10px 10px 8px 10px;
-    color: #1670b9;
+    color: #ffffff;
     width: 125px;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover,
 .navbar-dark .navbar-nav .nav-link.active {
-    color: #1da5ff;
+    color: #ffffff;
     transition: none;
 }
 
@@ -237,8 +241,8 @@ a:focus {
 
 .dropdown-menu {
     padding: 8px 100px 8px 8px;
-    color:#147ef7;
-    background-color:#1670b9 !important;
+    color:#ffffff;
+    background-color:#1670b98f !important;
     /* #FBAB45 */
     border-color:#1670b9 !important;
 }
@@ -252,7 +256,7 @@ a:focus {
 
 .dropdown-item:hover {
     color: #000000;
-    background-color: #1670b9 !important;
+    background-color: #1670b900 !important;
 }
 
 img {
@@ -298,7 +302,7 @@ img {
     
     .nav-bar,
     .nav-bar .navbar {
-        background: #f5f5f5 !important;
+        background: #1670b9 !important;
     }
     
     .nav-bar .navbar-brand {
@@ -472,16 +476,16 @@ img {
     background: #1670b9;
 }
 
-.page-header h2 {
+.page-header h3 {
     position: relative;
     color: #121518;
-    font-size: 60px;
+    font-size: 25px;
     font-weight: 700;
     margin-bottom: 20px;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
 }
 
-.page-header h2::after {
+.page-header h3::after {
     position: absolute;
     content: "";
     width: 100px;

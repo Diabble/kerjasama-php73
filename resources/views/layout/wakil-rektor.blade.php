@@ -7,7 +7,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <h2>Sambutan Wakil Rektor</h2>
+                            <h3>{!! $tangkap2->deskripsicarousel !!}</h3>
                         </div>
                         <div class="col-12">
                             <a href="/">Home</a>
@@ -35,10 +35,10 @@
                         </div>
                         <div class="col-lg-7 col-md-6">
                             <div class="section-header">
-                                <h2>Sambutan Wakil Rektor</h2>
+                                <h3>Sambutan Wakil Rektor</h3>
                             </div>
-                            <div class="about-text">
-                                <p>{{ $tangkap1->deskripsi }}</p>
+                            <div class="about-text text-justify">
+                                <p>{!! $tangkap1->deskripsi !!}</p>
                             </div>
                         </div>
                     </div>

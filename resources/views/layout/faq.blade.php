@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2>{!! $tangkap2->deskripsicarousel !!}</h2>
+                <h3>{!! $tangkap2->deskripsicarousel !!}</h3>
             </div>
             <div class="col-12">
                 <a href="/">Home</a>
@@ -24,23 +24,23 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="section-header">
-                    <h2>Have A Questions?</h2>
+                    <h3>Have A Questions?</h3>
                 </div>
                 <div id="accordion">
                     <?php $count = 0 ?>
-                    @foreach ($faq as $f)
+                    @foreach ( $faq as $row )
                     <div class="card">
                         <div class="card-header">
                             <a class="card-link collapsed" data-toggle="collapse" href="#collapse{{$count}}">
                                 <span>
-                                    {{$f->id}}
+                                {{ $row->id }}
                                 </span>
-                                {{$f->pertanyaan}}
+                                {{ $row->pertanyaan }}
                             </a>
                         </div>
                         <div id="collapse{{$count}}" class="collapse" data-parent="#accordion">
                             <div class="card-body">
-                                {{$f->jawaban}}
+                                {{ $row->jawaban }}
                             </div>
                         </div>
                     </div>

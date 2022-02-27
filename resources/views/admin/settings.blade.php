@@ -64,21 +64,27 @@
                         <label>Judul Slide</label>
                         <input class="form-control" name="judulcarousel" autocomplete="off" placeholder="Enter..." value="">
                         @error('judulcarousel')
-                          <div class="invalid-feedback">{{ $message }}</div>
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
                         @enderror
                       </div>
                       <div class="form-group">
                         <label>Deskripsi Slide</label>
-                        <textarea class="form-control" name="deskripsicarousel" placeholder="Enter..."></textarea>
+                        <textarea class="form-control" name="deskripsicarousel" id="editor" placeholder="Enter..."></textarea>
                         @error('tombolcarousel')
-                          <div class="invalid-feedback">{{ $message }}</div>
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
                         @enderror
                       </div>
                       <div class="form-group">
                         <label>Tombol Slide</label>
                         <input class="form-control" name="tombolcarousel" autocomplete="off" placeholder="Enter..." value="">
                         @error('tombolcarousel')
-                          <div class="invalid-feedback">{{ $message }}</div>
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
                         @enderror
                       </div>
                       <div class="modal-footer">
@@ -130,7 +136,7 @@
                     {{ $row->judulcarousel }}
                   </td>
                   <td>
-                    {{ $row->deskripsicarousel }}
+                    {!! $row->deskripsicarousel !!}
                   </td>
                   <td>
                     {{ $row->tombolcarousel }}
@@ -167,7 +173,7 @@
                               </div>
                               <div class="form-group">
                                 <label>Deskripsi Slide</label>
-                                <textarea class="form-control" name="deskripsicarousel" placeholder="Enter...">{{$row->deskripsicarousel}}</textarea>
+                                <textarea class="form-control" id="editor" name="deskripsicarousel" placeholder="Enter...">{{$row->deskripsicarousel}}</textarea>
                               </div>
                               <div class="form-group">
                                 <label>Tombol Slide</label>
@@ -184,7 +190,7 @@
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="{{url('/settings/berandadelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
@@ -238,7 +244,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/settings/..')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         <label>Username</label>
@@ -340,35 +346,36 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/settings/..')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
                             <div class="form-group">
                               <label>Username</label>
-                              <input class="form-control" name="name" autocomplete="off" placeholder="Enter..." value="">
+                              <input class="form-control" name="name" autocomplete="off" placeholder="Enter..." value="{{ $row->name }}">
                             </div>
                             <div class="form-group">
                               <label>Level</label>
-                              <input class="form-control" name="level" autocomplete="off" placeholder="Enter..." value="">
+                              <input class="form-control" name="level" autocomplete="off" placeholder="Enter..." value="{{ $row->level }}">
                             </div>
                             <div class="form-group">
                               <label>Email</label>
-                              <input class="form-control" name="email" autocomplete="off" placeholder="Enter..." value="">
+                              <input class="form-control" name="email" autocomplete="off" placeholder="Enter..." value="{{ $row->email }}">
                             </div>
                             <div class="form-group">
                               <label>Password</label>
-                              <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="">
+                              <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="{{ $row->password }}">
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                              <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                             </div>
                             </form>
                             <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                           </div>
                         </div>
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="{{url('/settings/..')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
@@ -387,6 +394,588 @@
       </div>
     </section>
     <!-- /.content -->
+
+    <!-- Main content Kategori Berita -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="card card-primary">
+          <div class="card-header" style="background-color: #343a40;">
+            <h3 class="card-title">Kategori Berita</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body" style="background-color: #ffffff; padding: 10px 40px 10px 0px;">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#tambahkaber">
+              <i class="fas fa-plus"></i> 
+              Tambah
+            </button>
+            <!-- Modal Tambah Start -->
+            <div class="modal fade text-left" id="tambahkaber" tabindex="-1" aria-labelledby="tambahLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="tambahLabel">Tambah Kategori Berita</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- form start -->
+                    <form action="{{url('/settings/kaberstore')}}" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      <div class="form-group">
+                        <label>Nama Kategori</label>
+                        <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                      </div>
+                      <div class="form-group">
+                        <label>Slug</label>
+                        <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                      </div>
+                    </form>
+                    <!-- form end -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Tambah End -->
+          </div>
+          <div class="card-body p-0" style="display: block;">
+            <table class="table table-striped table-bordered projects">
+              <thead>
+                <tr style="text-align: center;">
+                  <th style="width: 1%">
+                    ID
+                  </th>
+                  <th>
+                    Nama Kategori
+                  </th>
+                  <th>
+                    Slug
+                  </th>
+                  <th style="width: 20%">
+                    Aksi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ( $kaber as $row )
+                <tr style="text-align: center;">
+                  <td>
+                    {{ $row->id }}
+                  </td>
+                  <td>
+                    {{ $row->nama_kategori }}
+                  </td>
+                  <td>
+                    {{ $row->slug }}
+                  </td>
+                  <td class="project-actions text-center">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahkaber">
+                      <i class="fas fa-edit"></i>
+                      Ubah
+                    </button>
+                    <!-- Modal Ubah Start -->
+                    <div class="modal fade text-left" id="ubahkaber" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="ubahLabel">Ubah Kategori Berita</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <!-- form start -->
+                            <form action="{{url('/settings/kaberupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
+                              <div class="form-group">
+                                <label>Nama Kategori</label>
+                                <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="{{ $row->nama_kategori }}">
+                              </div>
+                              <div class="form-group">
+                                <label>Slug</label>
+                                <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="{{ $row->slug }}">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                              </div>
+                            </form>
+                            <!-- form end -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Modal Ubah End -->
+                    <a class="btn btn-danger btn-sm" href="{{url('/settings/kaberdelete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
+                      <i class="fas fa-trash"></i>
+                      Hapus
+                    </a>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+          <!-- <div class="card-footer" style="display: block;">
+            Footer
+          </div> -->
+          <!-- /.card-footer-->
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+
+    <!-- Main content Kategori Kode Instansi -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="card card-primary">
+          <div class="card-header" style="background-color: #343a40;">
+            <h3 class="card-title">Kategori Kode Instansi</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body" style="background-color: #ffffff; padding: 10px 40px 10px 0px;">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#tambahkakoin">
+              <i class="fas fa-plus"></i> 
+              Tambah
+            </button>
+            <!-- Modal Tambah Start -->
+            <div class="modal fade text-left" id="tambahkakoin" tabindex="-1" aria-labelledby="tambahLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="tambahLabel">Tambah Kategori Kode Instansi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- form start -->
+                    <form action="{{url('/settings/kakoinstore')}}" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      <div class="form-group">
+                        <label>Kategori Kode Instansi</label>
+                        <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                        @error('nama_kategori')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
+                      <div class="form-group">
+                        <label>Slug</label>
+                        <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="">
+                        @error('slug')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                      </div>
+                    </form>
+                    <!-- form end -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Tambah End -->
+          </div>
+          <div class="card-body p-0" style="display: block;">
+            <table class="table table-striped table-bordered projects">
+              <thead>
+                <tr style="text-align: center;">
+                  <th style="width: 1%">
+                    ID
+                  </th>
+                  <th style="width: 30%">
+                    Nama Kategori
+                  </th>
+                  <th style="width: 30%">
+                    Slug
+                  </th>
+                  <th style="width: 20%">
+                    Aksi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ( $kakoin as $row )
+                <tr style="text-align: center;">
+                  <td>
+                    {{ $row->id }}
+                  </td>
+                  <td>
+                    {{ $row->nama_kategori }}
+                  </td>
+                  <td>
+                    {{ $row->slug }}
+                  </td>
+                  <td class="project-actions text-center">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahkakoin{{ $row->id }}">
+                      <i class="fas fa-edit"></i>
+                      Ubah
+                    </button>
+                    <!-- Modal Ubah Start -->
+                    <div class="modal fade text-left" id="ubahkakoin{{ $row->id }}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="ubahLabel">Ubah Kategori Kode Instansi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <!-- form start -->
+                            <form action="{{url('/settings/kakoinupdate')}}/{{ $row->id }}" method="POST" enctype="multipart/form-data">
+                              @csrf
+                              <div class="form-group">
+                                <label>Kategori Kode Instansi</label>
+                                <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="{{ $row->nama_kategori }}">
+                              </div>
+                              <div class="form-group">
+                                <label>Slug</label>
+                                <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="{{ $row->slug }}">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                              </div>
+                            </form>
+                            <!-- form end -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Modal Ubah End -->
+                    <a class="btn btn-danger btn-sm" href="{{url('/settings/kakoindelete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
+                      <i class="fas fa-trash"></i>
+                      Hapus
+                    </a>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+          <!-- <div class="card-footer" style="display: block;">
+            Footer
+          </div> -->
+          <!-- /.card-footer-->
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+
+    <!-- Main content Kategori Keterangan Instansi -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="card card-primary">
+          <div class="card-header" style="background-color: #343a40;">
+            <h3 class="card-title">Kategori Keterangan Instansi</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body" style="background-color: #ffffff; padding: 10px 40px 10px 0px;">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#tambahkakein">
+              <i class="fas fa-plus"></i> 
+              Tambah
+            </button>
+            <!-- Modal Tambah Start -->
+            <div class="modal fade text-left" id="tambahkakein" tabindex="-1" aria-labelledby="tambahLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="tambahLabel">Tambah Kategori Keterangan Instansi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- form start -->
+                    <form action="{{url('/settings/kakeinstore')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      <div class="form-group">
+                        <label>Kategori Keterangan Instansi</label>
+                        <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                        @error('nama_kategori')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
+                      <div class="form-group">
+                        <label>Slug</label>
+                        <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="">
+                        @error('slug')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                      </div>
+                    </form>
+                    <!-- form end -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Tambah End -->
+          </div>
+          <div class="card-body p-0" style="display: block;">
+            <table class="table table-striped table-bordered projects">
+              <thead>
+                <tr style="text-align: center;">
+                  <th style="width: 1%">
+                    ID
+                  </th>
+                  <th style="width: 30%">
+                    Nama Kategori
+                  </th>
+                  <th style="width: 30%">
+                    Slug
+                  </th>
+                  <th style="width: 20%">
+                    Aksi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ( $kakein as $row )
+                <tr style="text-align: center;">
+                  <td>
+                    {{ $row->id }}
+                  </td>
+                  <td>
+                    {{ $row->nama_kategori }}
+                  </td>
+                  <td>
+                    {{ $row->slug }}
+                  </td>
+                  <td class="project-actions text-center">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahkakein{{$row->id}}">
+                      <i class="fas fa-edit"></i>
+                      Ubah
+                    </button>
+                    <!-- Modal Ubah Start -->
+                    <div class="modal fade text-left" id="ubahkakein{{$row->id}}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="ubahLabel">Ubah Kategori Keterangan Instansi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <!-- form start -->
+                            <form action="{{url('/settings/kakeinupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
+                              <div class="form-group">
+                                <label>Kategori Keterangan Instansi</label>
+                                <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="{{ $row->nama_kategori }}">
+                              </div>
+                              <div class="form-group">
+                                <label>Slug</label>
+                                <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="{{ $row->slug }}">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                              </div>
+                            </form>
+                            <!-- form end -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Modal Ubah End -->
+                    <a class="btn btn-danger btn-sm" href="{{url('/settings/kakeindelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                      <i class="fas fa-trash"></i>
+                      Hapus
+                    </a>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+          <!-- <div class="card-footer" style="display: block;">
+            Footer
+          </div> -->
+          <!-- /.card-footer-->
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+
+    <!-- Main content Kategori Jenis Naskah -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="card card-primary">
+          <div class="card-header" style="background-color: #343a40;">
+            <h3 class="card-title">Kategori Jenis Naskah</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body" style="background-color: #ffffff; padding: 10px 40px 10px 0px;">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#tambahkajena">
+              <i class="fas fa-plus"></i> 
+              Tambah
+            </button>
+            <!-- Modal Tambah Start -->
+            <div class="modal fade text-left" id="tambahkajena" tabindex="-1" aria-labelledby="tambahLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="tambahLabel">Tambah Kategori Jenis Naskah</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- form start -->
+                    <form action="{{url('/settings/kajenastore')}}" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      <div class="form-group">
+                        <label>Kategori Jenis Naskah</label>
+                        <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                        @error('nama_kategori')
+                          <div class="invalid-feedback">
+                            {{ $message }}
+                          </div>
+                        @enderror
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                      </div>
+                    </form>
+                    <!-- form end -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Tambah End -->
+          </div>
+          <div class="card-body p-0" style="display: block;">
+            <table class="table table-striped table-bordered projects">
+              <thead>
+                <tr style="text-align: center;">
+                  <th style="width: 1%">
+                    ID
+                  </th>
+                  <th style="width: 30%">
+                    Nama Kategori
+                  </th>
+                  <th style="width: 30%">
+                    Slug
+                  </th>
+                  <th style="width: 20%">
+                    Aksi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ( $kajenas as $row )
+                <tr style="text-align: center;">
+                  <td>
+                    {{ $row->id }}
+                  </td>
+                  <td>
+                    {{ $row->nama_kategori }}
+                  </td>
+                  <td>
+                    {{ $row->slug }}
+                  </td>
+                  <td class="project-actions text-center">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahkajena{{$row->id}}">
+                      <i class="fas fa-edit"></i>
+                      Ubah
+                    </button>
+                    <!-- Modal Ubah Start -->
+                    <div class="modal fade text-left" id="ubahkajena{{$row->id}}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="ubahLabel">Ubah Kategori Jenis Naskah</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <!-- form start -->
+                            <form action="{{url('/settings/kajenaupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
+                              <div class="form-group">
+                                <label>Kategori Jenis Naskah</label>
+                                <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="{{ $row->nama_kategori }}">
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                              </div>
+                            </form>
+                            <!-- form end -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Modal Ubah End -->
+                    <a class="btn btn-danger btn-sm" href="{{url('/settings/kajenadelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                      <i class="fas fa-trash"></i>
+                      Hapus
+                    </a>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+          <!-- <div class="card-footer" style="display: block;">
+            Footer
+          </div> -->
+          <!-- /.card-footer-->
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+
   </div>
   <!-- /.content-wrapper -->
 

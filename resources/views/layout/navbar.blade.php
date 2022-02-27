@@ -44,7 +44,8 @@
                                 <a href="/layanan-kami" class="nav-link dropdown-item">Layanan Kami</a>
                             </div>
                         </div>
-                        <a href="/mitra" class="nav-item nav-link"><i class="fa fa-handshake" aria-hidden="true"></i> Mitra</a>
+                        <a href="/international-office" class="nav-item nav-link" style="width: 60px"><i class="fa fa-handshake" aria-hidden="true"></i> IO</a>
+                        <a href="/mitra" class="nav-item nav-link" style="width: 95px"><i class="fa fa-handshake" aria-hidden="true"></i> Mitra</a>
                     </div>
                     <!--div class="social">
                         <a href=""><i class="fab fa-twitter"></i></a>
