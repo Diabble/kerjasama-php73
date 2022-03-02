@@ -229,6 +229,10 @@ class BackendController extends Controller
             'judulcarousel' => 'required',
             'deskripsicarousel' => 'required',
             'tombolcarousel' => 'required',
+        ], [
+            'judulcarousel.required' => 'Wajib diisi!!!',
+            'deskripsicarousel.required' => 'Wajib diisi!!!',
+            'tombolcarousel.required' => 'Wajib diisi!!!',
         ]);
 
         if (Request()->hasFile('poto')) {
@@ -1435,7 +1439,8 @@ class BackendController extends Controller
      */
     public function propekeredit($id)
     {
-        //
+        $propeker = ModelPengajuanKerjasama::findorfail($id);
+        return view('admin.progres-pengajuan-kerjasama-admin', compact('propeker'));
     }
 
     /**
@@ -1447,7 +1452,21 @@ class BackendController extends Controller
      */
     public function propekerupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'instansi' => 'required',
+            'progres' => 'required',
+        ], [
+            'instansi.required' => 'Wajib diisi!!!',
+            'progres.required' => 'Wajib diisi!!!',
+        ]);
+
+        $data = [
+            'instansi' => Request()->instansi,
+            'progres' => Request()->progres,
+        ];
+
+        ModelPengajuanKerjasama::find($id)->update($data);
+        return redirect('/progres-pengajuan-kerjasama-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1491,7 +1510,20 @@ class BackendController extends Controller
      */
     public function faqstore(Request $request)
     {
-        //
+        Request()->validate([
+            'pertanyaan' => 'required',
+            'jawaban' => 'required',
+        ], [
+            'pertanyaan.required' => 'Wajib diisi!!!',
+            'jawaban.required' => 'Wajib diisi!!!',
+        ]);
+
+        ModelFAQ::create([
+            'pertanyaan' => $request->pertanyaan,
+            'jawaban' => $request->jawaban,
+        ]);
+        
+        return redirect('/faq-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -1513,7 +1545,8 @@ class BackendController extends Controller
      */
     public function faqedit($id)
     {
-        //
+        $faq = ModelFAQ::findorfail($id);
+        return view('admin.faq-admin', compact('faq'));
     }
 
     /**
@@ -1525,7 +1558,21 @@ class BackendController extends Controller
      */
     public function faqupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'pertanyaan' => 'required',
+            'jawaban' => 'required',
+        ], [
+            'pertanyaan.required' => 'Wajib diisi!!!',
+            'jawaban.required' => 'Wajib diisi!!!',
+        ]);
+
+        $data = [
+            'pertanyaan' => $request->pertanyaan,
+            'jawaban' => $request->jawaban,
+        ];
+
+        ModelFAQ::find($id)->update($data);    
+        return redirect('/faq-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1536,7 +1583,9 @@ class BackendController extends Controller
      */
     public function faqdestroy($id)
     {
-        //
+        ModelFAQ::find($id)->delete();
+
+        return redirect('/faq-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Kategori Berita
@@ -1737,7 +1786,22 @@ class BackendController extends Controller
      */
     public function galeristore(Request $request)
     {
-        //
+        Request()->validate([
+            'poto' => 'required|mimes:png,jpg,jpeg',
+            'caption' => 'required',
+        ], [
+            'poto' => 'Wajib diisi!!!',
+            'caption.required' => 'Wajib diisi!!!',
+        ]);
+
+        $file_name = $request->poto->getClientOriginalName();
+            $image = $request->poto->storeAs('thumbnail', $file_name);
+        ModelGaleri::create([
+            'poto' => $image,
+            'caption' => $request->caption,
+        ]);
+        
+        return redirect('/galeri-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -1759,7 +1823,8 @@ class BackendController extends Controller
      */
     public function galeriedit($id)
     {
-        //
+        $galeri = ModelGaleri::findorfail($id);
+        return view('admin.galeri-admin', compact('galeri'));
     }
 
     /**
@@ -1771,7 +1836,28 @@ class BackendController extends Controller
      */
     public function galeriupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'poto' => 'mimes:png,jpg,jpeg',
+            'caption' => 'required',
+        ], [
+            'caption.required' => 'Wajib diisi!!!',
+        ]);
+
+        if (Request()->hasFile('poto')) {
+            $file_name = $request->poto->getClientOriginalName();
+                $image = $request->poto->storeAs('thumbnail', $file_name);
+                // $image = $request->poto->store('thumbnail');
+            ModelGaleri::where('id',$id)->update([
+                'poto' => $image,
+                'caption' => $request->caption,
+            ]);
+        } else {
+            ModelGaleri::where('id',$id)->update([
+                'caption' => $request->caption,
+            ]);
+        }
+        
+        return redirect('/galeri-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1782,7 +1868,9 @@ class BackendController extends Controller
      */
     public function galeridestroy($id)
     {
-        //
+        ModelGaleri::find($id)->delete();
+
+        return redirect('/galeri-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Berkas Kerjasama

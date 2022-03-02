@@ -97,7 +97,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ( $pengumuman as $row )
+                @forelse ( $pengumuman as $row )
                 <tr style="text-align: justify;">
                   <td>
                     {{ $row->id }}
@@ -165,7 +165,11 @@
                     </a>
                   </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                  <td colspan="7" style="text-align: center;">Data Masih Kosong</td>
+                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>

@@ -134,7 +134,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ( $berita as $row )
+                @forelse ( $berita as $row )
                 <tr style="text-align: center;">
                   <td>
 
@@ -219,7 +219,11 @@
                     </a>
                   </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                  <td colspan="10" style="text-align: center;">Data Masih Kosong</td>
+                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>

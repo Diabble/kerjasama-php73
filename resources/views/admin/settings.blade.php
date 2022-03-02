@@ -311,7 +311,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ( $user as $row )
+                @forelse ( $user as $row )
                 <tr style="text-align: justify;">
                   <td>
                     {{ $row->id }}
@@ -381,7 +381,11 @@
                     </a>
                   </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                  <td colspan="5" style="text-align: center;">Data Masih Kosong</td>
+                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>
@@ -466,7 +470,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ( $kaber as $row )
+                @forelse ( $kaber as $row )
                 <tr style="text-align: center;">
                   <td>
                     {{ $row->id }}
@@ -522,7 +526,11 @@
                     </a>
                   </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                  <td colspan="4" style="text-align: center;">Data Masih Kosong</td>
+                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>
@@ -617,7 +625,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ( $kakoin as $row )
+                @forelse ( $kakoin as $row )
                 <tr style="text-align: center;">
                   <td>
                     {{ $row->id }}
@@ -673,7 +681,11 @@
                     </a>
                   </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                  <td colspan="4" style="text-align: center;">Data Masih Kosong</td>
+                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>
@@ -768,7 +780,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ( $kakein as $row )
+                @forelse ( $kakein as $row )
                 <tr style="text-align: center;">
                   <td>
                     {{ $row->id }}
@@ -824,7 +836,11 @@
                     </a>
                   </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                  <td colspan="4" style="text-align: center;">Data Masih Kosong</td>
+                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>
@@ -910,7 +926,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ( $kajenas as $row )
+                @forelse ( $kajenas as $row )
                 <tr style="text-align: center;">
                   <td>
                     {{ $row->id }}
@@ -962,7 +978,11 @@
                     </a>
                   </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                  <td colspan="4" style="text-align: center;">Data Masih Kosong</td>
+                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>

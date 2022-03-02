@@ -50,6 +50,7 @@
                   <div class="modal-body">
                     <!-- form start -->
                     <form action="{{url('/faq-admin/store')}}" method="POST" enctype="multipart/form-data">
+                      @csrf
                       <div class="form-group">
                         <label>Pertanyaan</label>
                         <textarea class="form-control" name="pertanyaan" id="editor" placeholder="Enter..." value=""></textarea>
@@ -89,7 +90,7 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ( $faq as $row )
+                @forelse ( $faq as $row )
                 <tr style="text-align: justify;">
                   <td>
                     {{ $row->id }}
@@ -102,12 +103,12 @@
                   </td>
                   <td class="project-actions text-center">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah{{$row->id}}">
                       <i class="fas fa-edit"></i>
                       Ubah
                     </button>
                     <!-- Modal Ubah Start -->
-                    <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                    <div class="modal fade text-left" id="ubah{{$row->id}}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -139,13 +140,17 @@
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="{{url('/faq-admin/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
                   </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                  <td colspan="4" style="text-align: center;">Data Masih Kosong</td>
+                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>

@@ -49,6 +49,7 @@
                   <div class="modal-body">
                     <!-- form start -->
                     <form action="{{url('/galeri-admin/store')}}" method="POST" enctype="multipart/form-data">
+                      @csrf
                       <div class="form-group">
                         <label>Gambar</label>
                         <input type="file" class="form-control @error('poto') is-invalid @enderror" name="poto" id="image" onchange="previewImage()">
@@ -60,7 +61,7 @@
                       </div>
                       <div class="form-group">
                         <label>Caption</label>
-                        <textarea class="form-control" name="caption" placeholder="Enter..." value=""></textarea>
+                        <textarea class="form-control" name="caption" id="editor" placeholder="Enter..." value=""></textarea>
                         @error('caption')
                           <div class="invalid-feedback">
                             {{ $message }}
@@ -86,7 +87,7 @@
                   <th style="width: 1%">
                     ID
                   </th>
-                  <th>
+                  <th style="width: 25%">
                     Gambar
                   </th>
                   <th>
@@ -98,7 +99,7 @@
                 </tr>
               </thead>
               <tbody>
-               @foreach ( $galeri as $row )
+               @forelse ( $galeri as $row )
                 <tr style="text-align: justify;">
                   <td>
                     {{ $row->id }}
@@ -127,7 +128,8 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="{{url('/pengumuman-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/galeri-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
                               <div class="form-group">
                                 <label>Gambar</label>
                                 <input type="file" class="form-control" id="inputGroupFile02" name="poto">
@@ -147,13 +149,17 @@
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="{{url('/galeri-admin/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
                   </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                  <td colspan="4" style="text-align: center;">Data Masih Kosong</td>
+                </tr>
+                @endforelse
               </tbody>
             </table>
           </div>

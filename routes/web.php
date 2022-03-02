@@ -153,7 +153,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // FAQ
     Route::get('/faq-admin', [BackendController::class, 'faq']);
-    Route::get('/faq-admin/store', [BackendController::class, 'faqstore']);
+    Route::post('/faq-admin/store', [BackendController::class, 'faqstore']);
     Route::get('/faq-admin/edit/{id}', [BackendController::class, 'faqedit']);
     Route::post('/faq-admin/update/{id}', [BackendController::class, 'faqupdate']);
     Route::get('/faq-admin/delete/{id}', [BackendController::class, 'faqdestroy']);
@@ -167,28 +167,28 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Berita
     Route::get('/berita-admin', [BackendController::class, 'berita']);
-    Route::get('/berita-admin/store', [BackendController::class, 'beritastore']);
+    Route::post('/berita-admin/store', [BackendController::class, 'beritastore']);
     Route::get('/berita-admin/edit/{id}', [BackendController::class, 'beritaedit']);
     Route::post('/berita-admin/update/{id}', [BackendController::class, 'beritaupdate']);
     Route::get('/berita-admin/delete/{id}', [BackendController::class, 'beritadestroy']);
 
     // Pengumuman
     Route::get('/pengumuman-admin', [BackendController::class, 'pengumuman']);
-    Route::get('/pengumuman-admin/store', [BackendController::class, 'pengumumanstore']);
+    Route::post('/pengumuman-admin/store', [BackendController::class, 'pengumumanstore']);
     Route::get('/pengumuman-admin/edit/{id}', [BackendController::class, 'pengumumanedit']);    
     Route::post('/pengumuman-admin/update/{id}', [BackendController::class, 'pengumumanupdate']);
     Route::get('/pengumuman-admin/delete/{id}', [BackendController::class, 'pengumumandestroy']);
 
     // Galeri
     Route::get('/galeri-admin', [BackendController::class, 'galeri']);
-    Route::get('/galeri-admin/store', [BackendController::class, 'galeristore']);
+    Route::post('/galeri-admin/store', [BackendController::class, 'galeristore']);
     Route::get('/galeri-admin/edit/{id}', [BackendController::class, 'galeriedit']);
     Route::post('/galeri-admin/update/{id}', [BackendController::class, 'galeriupdate']);
     Route::get('/galeri-admin/delete/{id}', [BackendController::class, 'galeridestroy']);
 
     // Berkas Kerjasama
     Route::get('/berkas-kerjasama-admin', [BackendController::class, 'berkaskerjasama']);
-    Route::get('/berkas-kerjasama-admin/store', [BackendController::class, 'berkaskerjasamastore']);
+    Route::post('/berkas-kerjasama-admin/store', [BackendController::class, 'berkaskerjasamastore']);
     Route::get('/berkas-kerjasama-admin/edit/{id}', [BackendController::class, 'berkaskerjasamaedit']);
     Route::post('/berkas-kerjasama-admin/update/{id}', [BackendController::class, 'berkaskerjasamaupdate']);
     Route::get('/berkas-kerjasama-admin/delete/{id}', [BackendController::class, 'berkaskerjasamadestroy']);
@@ -206,25 +206,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/international-office-admin', [BackendController::class, 'io']);
     Route::get('/international-office-admin/edit/{id}', [BackendController::class, 'ioedit']);
     Route::post('/international-office-admin/update/{id}', [BackendController::class, 'ioupdate']);
-
-    // Kategori Mitra
-    // Route::get('/kategori-mitra-admin', [BackendController::class, 'kamit']);
-    // Route::get('/kategori-mitra-admin/kakoinstore', [BackendController::class, 'kakoinstore']);
-    // Route::get('/kategori-mitra-admin/kakeinstore', [BackendController::class, 'kakeinstore']);
-    // Route::get('/kategori-mitra-admin/kajenastore', [BackendController::class, 'kajenastore']);
-    // Route::get('/kategori-mitra-admin/kakoinedit/{id}', [BackendController::class, 'kakoinedit']);
-    // Route::get('/kategori-mitra-admin/kakeinedit/{id}', [BackendController::class, 'kakeinedit']);
-    // Route::get('/kategori-mitra-admin/kajenaedit/{id}', [BackendController::class, 'kajenaedit']);
-    // Route::post('/kategori-mitra-admin/kakoinupdate/{id}', [BackendController::class, 'kakoinupdate']);
-    // Route::post('/kategori-mitra-admin/kakeinupdate/{id}', [BackendController::class, 'kakeinupdate']);
-    // Route::post('/kategori-mitra-admin/kajenaupdate/{id}', [BackendController::class, 'kajenaupdate']);
-    // Route::get('/kategori-mitra-admin/kakoindelete/{id}', [BackendController::class, 'kakoindestroy']);
-    // Route::get('/kategori-mitra-admin/kakeindelete/{id}', [BackendController::class, 'kakeindestroy']);
-    // Route::get('/kategori-mitra-admin/kajenadelete/{id}', [BackendController::class, 'kajenadestroy']);
     
     // Mitra
     Route::get('/mitra-admin', [BackendController::class, 'mitra']);
-    Route::get('/mitra-admin/store', [BackendController::class, 'mitrastore']);
+    Route::post('/mitra-admin/store', [BackendController::class, 'mitrastore']);
     Route::get('/mitra-admin/edit/{id}', [BackendController::class, 'mitraedit']);    
     Route::post('/mitra-admin/update/{id}', [BackendController::class, 'mitraupdate']);
     Route::get('/mitra-admin/delete/{id}', [BackendController::class, 'mitradestroy']);

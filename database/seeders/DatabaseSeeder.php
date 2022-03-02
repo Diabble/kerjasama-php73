@@ -61,12 +61,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name' => "DevAdmin",
-            'level' => "Admin",
-            'email' => "devadmin@gmail.com",
-            'password' => bcrypt('devadminsih'),
-        ]);
+        // User::create([
+        //     'name' => "DevAdmin",
+        //     'level' => "Admin",
+        //     'email' => "devadmin@gmail.com",
+        //     'password' => bcrypt('devadminsih'),
+        // ]);
 
         // ModelBeranda::create([
         //     'poto' => "",
@@ -110,7 +110,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         ModelPengajuanKerjasama::create([
-            'instansi' => 1,
+            'instansi' => "Institut Agama Islam Muhammadiyah Sinjay",
             'progres' => "Selesai",
         ]);
 
@@ -175,8 +175,19 @@ class DatabaseSeeder extends Seeder
         //     'kodeinstansi' => 1,
         //     'ketinstansi' => 1,
         //     'instansi' => "Institut Agama Islam Muhammadiyah Sinjay",
-        //     'bidkerjasama' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
+        //     'bidkerjasama' => "Kerjasama dalam Bidang Pendidikan, Penelitian dan Pengabdian kepada Masyarakat",
         //     'jenisnaskah' => 1,
+        //     'mulai' => 1,
+        //     'selesai' => 1,
+        // ]);
+        // ModelMitra::create([
+        //     'kodeinstansi' => 2,
+        //     'ketinstansi' => 2,
+        //     'instansi' => "Fakultas Keguruan dan Ilmu Pendidikan Universitas Tadulako Palu",
+        //     'bidkerjasama' => "Implementasi Kerjasama Program Pertukaran Pelajar Merdeka Belajar-Kampus Merdeka",
+        //     'jenisnaskah' => 2,
+        //     'mulai' => 2,
+        //     'selesai' => 2,
         // ]);
 
         ModelKategoriKodeInstansi::create([
