@@ -1106,8 +1106,13 @@ img {
 }
 
 .blog .blog-item img {
-    width: 100%;
-    margin-bottom: 25px;
+    display:block;
+    margin:auto;
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    /* width: 100%;
+    margin-bottom: 25px; */
 }
 
 .blog .blog-item h3 {

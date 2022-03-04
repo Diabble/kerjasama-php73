@@ -26,7 +26,23 @@
             <h3>Latest From Blog</h3>
         </div>
         <div class="row blog-page">
-            <div class="col-lg-4 col-md-6 blog-item">
+            @forelse ($berita as $item)
+                <div class="col-lg-4 col-md-6 blog-item">
+                    <img src="{{ asset('storage/' . $item->poto) }}" alt="Image">
+                    <h3>{{ $item->judul }}</h3>
+                    <div class="meta">
+                        <i class="fa fa-list-alt"></i>
+                        <a href="">{{ $item->kategori->nama_kategori }}</a>
+                        <i class="fa fa-calendar-alt"></i>
+                        <p>{{ $item->created_at->translatedFormat('l, d F Y') }}</p>
+                    </div>
+                    <p>{!! $item->deskripsi !!}</p>
+                    <a class="btn" href="{{ route('berita-detail', $item->slug) }}">Read More <i class="fa fa-angle-right"></i></a>
+                </div>
+            @empty
+                <p>Data Masih Kosong</p>
+            @endforelse
+            {{-- <div class="col-lg-4 col-md-6 blog-item">
                 <img src="{{asset('assets')}}/img/blog-1.jpg" alt="Blog">
                 <h3>Lorem ipsum dolor</h3>
                 <div class="meta">
@@ -151,7 +167,7 @@
                     Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non vulputate. Aliquam metus tortor
                 </p>
                 <a class="btn" href="">Read More <i class="fa fa-angle-right"></i></a>
-            </div>
+            </div> --}}
         </div>
         <div class="row">
             <div class="col-12">

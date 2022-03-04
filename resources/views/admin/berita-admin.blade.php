@@ -38,7 +38,7 @@
             </button>
             <!-- Modal Tambah Start -->
             <div class="modal fade text-left" id="tambah" tabindex="-1" aria-labelledby="tambahLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="tambahLabel">Tambah Berita Admin</h5>
@@ -49,41 +49,39 @@
                   <div class="modal-body">
                     <!-- form start -->
                     <form action="{{url('/berita-admin/store')}}" method="POST" enctype="multipart/form-data">
+                      @csrf
                       <div class="form-group">
                         <label>Gambar</label>
                         <input type="file" class="form-control @error('poto') is-invalid @enderror" name="poto" id="image" onchange="previewImage()">
-                        @error('poto')
-                          <div class="invalid-feedback">
-                            {{ $message }}
-                          </div>
-                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Judul</label>
                         <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="">
-                        @error('judul')
-                          <div class="invalid-feedback">
-                            {{ $message }}
-                          </div>
-                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Deskripsi</label>
                         <textarea class="form-control" name="deskripsi" id="editor" placeholder="Enter..." value=""></textarea>
-                        @error('deskripsi')
-                          <div class="invalid-feedback">
-                            {{ $message }}
-                          </div>
-                        @enderror
                       </div>
                       <div class="form-group">
-                        <label>Kategori</label>
-                        <input class="form-control" name="kategori" autocomplete="off" placeholder="Enter..." value="">
-                        @error('kategori')
-                          <div class="invalid-feedback">
-                            {{ $message }}
-                          </div>
-                        @enderror
+                        <label>Kategori Berita</label>
+                        <select id="inputStatus" name="kategori_id" class="form-control custom-select">
+                          <option disabled selected>Enter...</option>
+                          @foreach ($kaber as $row)
+                            <option value="{{ $row->id }}">{{ $row->nama_kategori }}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Views</label>
+                        <input class="form-control" name="views" autocomplete="off" placeholder="Enter..." value="">
+                      </div>
+                      <div class="form-group">
+                        <label>Status</label>
+                        <select id="inputStatus" name="aktif" class="form-control custom-select">
+                          <option disabled selected>Enter...</option>
+                          <option value="1">Publish</option>
+                          <option value="0">Draft</option>
+                        </select>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
@@ -97,135 +95,160 @@
             </div>
             <!-- Modal Tambah End -->
           </div>
-          <div class="card-body p-0" style="display: block;">
-            <table class="table table-striped table-bordered projects">
-              <thead>
-                <tr style="text-align: center;">
-                  <th style="width: 1%">
-                    ID
-                  </th>
-                  <th>
-                    Gambar
-                  </th>
-                  <th>
-                    Judul
-                  </th>
-                  <th>
-                    Slug
-                  </th>
-                  <th>
-                    Deskripsi
-                  </th>
-                  <th>
-                    Kategori
-                  </th>
-                  <th>
-                    Penulis
-                  </th>
-                  <th>
-                    Views
-                  </th>
-                  <th>
-                    Waktu Upload
-                  </th>
-                  <th style="width: 20%">
-                    Aksi
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                @forelse ( $berita as $row )
-                <tr style="text-align: center;">
-                  <td>
-
-                  </td>
-                  <td>
-
-                  </td>
-                  <td>
-                    
-                  </td>
-                  <td>
-
-                  </td>
-                  <td>
-
-                  </td>
-                  <td>
-                    
-                  </td>
-                  <td>
-
-                  </td>
-                  <td>
-
-                  </td>
-                  <td>
-                    
-                  </td>
-                  <td class="project-actions">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
-                      <i class="fas fa-edit"></i>
-                      Ubah
-                    </button>
-                    <!-- Modal Ubah Start -->
-                    <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-scrollable">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="ubahLabel">Ubah Berita Admin</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <!-- form start -->
-                            <form action="{{url('/berita-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
-                              <div class="form-group">
-                                <label>Gambar</label>
-                                <input type="file" class="form-control" id="inputGroupFile02" name="poto">
-                              </div>
-                              <div class="form-group">
-                                <label>Judul</label>
-                                <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="">
-                              </div>
-                              <div class="form-group">
-                                <label>Slug</label>
-                                <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="">
-                              </div>
-                              <div class="form-group">
-                                <label>Deskripsi</label>
-                                <textarea class="form-control" name="deskripsi" id="editor" placeholder="Enter..." value=""></textarea>
-                              </div>
-                              <div class="form-group">
-                                <label>Kategori</label>
-                                <input class="form-control" name="kategori" autocomplete="off" placeholder="Enter..." value="">
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                              </div>
-                            </form>
-                            <!-- form end -->
+          <div class="card-body" style="display: block;">
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered projects">
+                <thead>
+                  <tr style="text-align: center;">
+                    <th style="width: 1%">
+                      ID
+                    </th>
+                    <th style="width: 25%">
+                      Gambar
+                    </th>
+                    <th>
+                      Judul
+                    </th>
+                    <th>
+                      Slug
+                    </th>
+                    <th>
+                      Deskripsi
+                    </th>
+                    <th>
+                      Kategori
+                    </th>
+                    <th>
+                      Penulis
+                    </th>
+                    <th>
+                      Views
+                    </th>
+                    <th>
+                      Status
+                    </th>
+                    <th>
+                      Waktu Upload
+                    </th>
+                    <th style="width: 20%">
+                      Aksi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{ $errors }}
+                  @forelse ( $berita as $row )
+                  <tr style="text-align: center;">
+                    <td>
+                      {{ $row->id }}
+                    </td>
+                    <td>
+                      <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 100%">
+                    </td>
+                    <td>
+                      {{ $row->judul }}
+                    </td>
+                    <td>
+                      {{ $row->slug }}
+                    </td>
+                    <td>
+                      {!! $row->deskripsi !!}
+                    </td>
+                    <td>
+                      {{ $row->kategori->nama_kategori }}
+                    </td>
+                    <td>
+                      {{ $row->users->name }}
+                    </td>
+                    <td>
+                      {{ $row->views }}
+                    </td>
+                    <td>
+                      <span class="badge badge-success">{{ ($row->aktif == 1) ? 'Publish' : 'Draft' }}</span>
+                    </td>
+                    <td>
+                      {{ $row->created_at }}
+                    </td>
+                    <td class="project-actions">
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah{{ $row->id }}">
+                        <i class="fas fa-edit"></i>
+                        Ubah
+                      </button>
+                      <!-- Modal Ubah Start -->
+                      <div class="modal fade text-left" id="ubah{{ $row->id }}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="ubahLabel">Ubah Berita Admin</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <!-- form start -->
+                              <form action="{{url('/berita-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                  <label>Gambar</label>
+                                  <input type="file" class="form-control" id="inputGroupFile02" name="poto">
+                                </div>
+                                <div class="form-group">
+                                  <label>Judul</label>
+                                  <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="{{ $row->judul }}">
+                                </div>
+                                <div class="form-group">
+                                  <label>Deskripsi</label>
+                                  <textarea class="form-control" name="deskripsi" id="editor" placeholder="Enter..." value="">{{ $row->deskripsi }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                  <label>Kategori</label>
+                                  <select name="kategori_id" id="inputStatus" class="form-control custom-select">
+                                    <option disabled selected>Enter...</option>
+                                    <option value="{{ $row->kategori_id }}">{{ $row->kategori->nama_kategori }}</option>
+                                    @foreach ($kaber as $row)
+                                        <option value="{{ $row->id }}">{{ $row->nama_kategori }}</option>
+                                    @endforeach
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label>Views</label>
+                                  <input class="form-control" name="views" autocomplete="off" placeholder="Enter..." value="{{ $row->views }}">
+                                </div>
+                                <div class="form-group">
+                                  <label>Status</label>
+                                  <select name="aktif" id="inputStatus" class="form-control custom-select">
+                                    <option disabled selected>Enter...</option>
+                                    <option value="{{ $row->aktif }}">{{ $row->aktif }}</option>
+                                    <option value="1">Publish</option>
+                                    <option value="0">Draft</option>
+                                  </select>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                  <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                                </div>
+                              </form>
+                              <!-- form end -->
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
-                      <i class="fas fa-trash"></i>
-                      Hapus
-                    </a>
-                  </td>
-                </tr>
-                @empty
-                <tr>
-                  <td colspan="10" style="text-align: center;">Data Masih Kosong</td>
-                </tr>
-                @endforelse
-              </tbody>
-            </table>
+                      <!-- Modal Ubah End -->
+                      <a class="btn btn-danger btn-sm" href="{{url('/berita-admin/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                        <i class="fas fa-trash"></i>
+                        Hapus
+                      </a>
+                    </td>
+                  </tr>
+                  @empty
+                  <tr>
+                    <td colspan="10" style="text-align: center;">Data Masih Kosong</td>
+                  </tr>
+                  @endforelse
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
           <!-- <div class="card-footer" style="display: block;">

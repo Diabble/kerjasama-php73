@@ -84,7 +84,7 @@
                       </div>
                       <div class="form-group">
                         <label>Instansi</label>
-                        <input class="form-control" name="instansi" placeholder="Enter..." value="">
+                        <input class="form-control" name="instansi" autocomplete="off" placeholder="Enter..." value="">
                         @error('instansi')
                           <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
@@ -107,7 +107,12 @@
                       </div>
                       <div class="form-group">
                         <label>Berakhir</label>
-                        <input class="form-control" name="selesai" placeholder="Enter..." value="">
+                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="selesai" placeholder="Enter..." value="">
+                          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          </div>
+                        </div>
                       </div>
                       <div class="form-group">
                         <label>Jenis Naskah</label>
@@ -125,12 +130,12 @@
                         <label>File</label>
                         <input type="file" class="form-control" id="inputGroupFile02" name="file">
                       </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                      </div>
                     </form>
                     <!-- form end -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary btn-sm">Simpan</button>
                   </div>
                 </div>
               </div>
@@ -171,6 +176,7 @@
                 </tr>
               </thead>
               <tbody>
+                {{ $errors }}
                 @forelse ( $mitra as $row )
                 <tr style="text-align: justify;">
                   <td>
@@ -216,6 +222,7 @@
                           <div class="modal-body">
                             <!-- form start -->
                             <form action="{{url('/mitra-admin/update')}}/{{ $row->id }}" method="POST" enctype="multipart/form-data">
+                              @csrf
                               <div class="form-group">
                                 <label>Kode Instansi</label>
                                   <select id="inputStatus" class="form-control custom-select">
@@ -236,7 +243,7 @@
                               </div>
                               <div class="form-group">
                                 <label>Instansi</label>
-                                <input class="form-control" name="instansi" placeholder="Enter..." value="{{ $row->instansi }}">
+                                <input class="form-control" name="instansi" autocomplete="off" placeholder="Enter..." value="{{ $row->instansi }}">
                               </div>
                               <div class="form-group">
                                 <label>Bidang Kerjasama</label>

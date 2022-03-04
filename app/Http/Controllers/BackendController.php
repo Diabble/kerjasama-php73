@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Str;
+
+use Auth;
+
 use App\Models\User;
 
 use App\Models\ModelBeranda;
@@ -357,23 +361,15 @@ class BackendController extends Controller
     {
         Request()->validate([
             'nama_kategori' => 'required',
-            'slug' => 'required',
         ], [
             'nama_kategori.required' => 'Wajib diisi!!!',
-            'slug.required' => 'Wajib diisi!!!',
         ]);
 
         ModelKategoriBerita::create([
             'nama_kategori' => $request->nama_kategori,
-            'slug' => $request->slug,
+            'slug' => Str::slug($request->nama_kategori),
         ]);
 
-        // $data = [
-        //     'nama_kategori' => Request()->nama_kategori,
-        //     'slug' => Request()->slug,
-        // ];
-
-        // ModelKategoriBerita::create($data);        
         return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
@@ -411,15 +407,13 @@ class BackendController extends Controller
     {
         Request()->validate([
             'nama_kategori' => 'required',
-            'slug' => 'required',
         ], [
             'nama_kategori.required' => 'Wajib diisi!!!',
-            'slug.required' => 'Wajib diisi!!!',
         ]);
 
         $data = [
             'nama_kategori' => $request->nama_kategori,
-            'slug' => $request->slug,
+            'slug' => Str::slug($request->nama_kategori),
         ];
 
         ModelKategoriBerita::find($id)->update($data);    
@@ -460,15 +454,13 @@ class BackendController extends Controller
     {
         Request()->validate([
             'nama_kategori' => 'required',
-            'slug' => 'required',
         ], [
             'nama_kategori.required' => 'Wajib diisi!!!',
-            'slug.required' => 'Wajib diisi!!!',
         ]);
 
         ModelKategoriKodeInstansi::create([
             'nama_kategori' => $request->nama_kategori,
-            'slug' => $request->slug,
+            'slug' => Str::slug($request->nama_kategori),
         ]);
         
         return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
@@ -557,15 +549,13 @@ class BackendController extends Controller
     {
         Request()->validate([
             'nama_kategori' => 'required',
-            'slug' => 'required',
         ], [
             'nama_kategori.required' => 'Wajib diisi!!!',
-            'slug.required' => 'Wajib diisi!!!',
         ]);
 
         ModelKategoriKetInstansi::create([
             'nama_kategori' => $request->nama_kategori,
-            'slug' => $request->slug,
+            'slug' => Str::slug($request->nama_kategori),
         ]);
         
         return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
@@ -654,15 +644,13 @@ class BackendController extends Controller
     {
         Request()->validate([
             'nama_kategori' => 'required',
-            'slug' => 'required',
         ], [
             'nama_kategori.required' => 'Wajib diisi!!!',
-            'slug.required' => 'Wajib diisi!!!',
         ]);
 
         ModelKategoriJenisNaskah::create([
             'nama_kategori' => $request->nama_kategori,
-            'slug' => $request->slug,
+            'slug' => Str::slug($request->nama_kategori),
         ]);
         
         return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
@@ -1608,8 +1596,10 @@ class BackendController extends Controller
      */
     public function berita()
     {
+        $kaber = ModelKategoriBerita::all();
         $berita = ModelBerita::all();
-        return view('admin.berita-admin', compact('berita'));
+        // dd($berita);
+        return view('admin.berita-admin', compact('berita', 'kaber'));
     }
 
    /**
@@ -1630,7 +1620,36 @@ class BackendController extends Controller
      */
     public function beritastore(Request $request)
     {
-        //
+        Request()->validate([
+            'poto' => 'required|mimes:png,jpg,jpeg',
+            'judul' => 'required',
+            'deskripsi' => 'required',
+            'kategori_id' => 'required',
+            'views' => 'required',
+            'aktif' => 'required',
+        ], [
+            'poto.required' => 'Wajib diisi!!!',
+            'judul.required' => 'Wajib diisi!!!',
+            'deskripsi.required' => 'Wajib diisi!!!',
+            'kategori_id.required' => 'Wajib diisi!!!',
+            'views.required' => 'Wajib diisi!!!',
+            'aktif.required' => 'Wajib diisi!!!',
+        ]);
+
+        $file_name = $request->poto->getClientOriginalName();
+            $image = $request->poto->storeAs('thumbnail', $file_name);
+        ModelBerita::create([
+            'poto' => $image,
+            'judul' => $request->judul,
+            'slug' => Str::slug($request->judul),
+            'deskripsi' => $request->deskripsi,
+            'kategori_id' => $request->kategori_id,
+            'user_id' => Auth::user()->id,
+            'views' => $request->views,
+            'aktif' => $request->aktif,
+        ]);
+        
+        return redirect('/berita-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -1652,7 +1671,9 @@ class BackendController extends Controller
      */
     public function beritaedit($id)
     {
-        //
+        $kaber = ModelKategoriBerita::all();
+        $berita = ModelBerita::findorfail($id);
+        return view('admin.berita-admin', compact('berita', 'kaber'));
     }
 
     /**
@@ -1664,7 +1685,45 @@ class BackendController extends Controller
      */
     public function beritaupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'poto' => 'mimes:png,jpg,jpeg',
+            'judul' => 'required',
+            'deskripsi' => 'required',
+            'kategori_id' => 'required',
+            'views' => 'required',
+            'aktif' => 'required',
+        ], [
+            'judul.required' => 'Wajib diisi!!!',
+            'deskripsi.required' => 'Wajib diisi!!!',
+            'kategori_id.required' => 'Wajib diisi!!!',
+            'views.required' => 'Wajib diisi!!!',
+            'aktif.required' => 'Wajib diisi!!!',
+        ]);
+
+        if (Request()->hasFile('poto')) {
+            $file_name = $request->poto->getClientOriginalName();
+                $image = $request->poto->storeAs('thumbnail', $file_name);
+            ModelBerita::where('id',$id)->update([
+                'poto' => $image,
+                'judul' => $request->judul,
+                'slug' => Str::slug($request->judul),
+                'deskripsi' => $request->deskripsi,
+                'kategori_id' => $request->kategori_id,
+                'views' => $request->views,
+                'aktif' => $request->aktif,
+            ]);
+        } else {
+            ModelBerita::where('id',$id)->update([
+                'judul' => $request->judul,
+                'slug' => Str::slug($request->judul),
+                'deskripsi' => $request->deskripsi,
+                'kategori_id' => $request->kategori_id,
+                'views' => $request->views,
+                'aktif' => $request->aktif,
+            ]);
+        }
+        
+        return redirect('/berita-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1675,7 +1734,9 @@ class BackendController extends Controller
      */
     public function beritadestroy($id)
     {
-        //
+        ModelBerita::find($id)->delete();
+
+        return redirect('/berita-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Pengumuman
@@ -2323,7 +2384,52 @@ class BackendController extends Controller
      */
     public function mitrastore(Request $request)
     {
-        //
+        Request()->validate([
+            'kodeinstansi' => 'required',
+            'ketinstansi' => 'required',
+            'instansi' => 'required',
+            'bidkerjasama' => 'required',
+            'mulai' => 'required',
+            'selesai' => 'required',
+            'jenisnaskah' => 'required',
+            'file' => 'required',
+        ], [
+            'kodeinstansi.required' => 'Wajib diisi!!!',
+            'ketinstansi.required' => 'Wajib diisi!!!',
+            'instansi.required' => 'Wajib diisi!!!',
+            'bidkerjasama.required' => 'Wajib diisi!!!',
+            'mulai.required' => 'Wajib diisi!!!',
+            'selesai.required' => 'Wajib diisi!!!',
+            'jenisnaskah.required' => 'Wajib diisi!!!',
+            'file.required' => 'Wajib diisi!!!',
+        ]);
+
+        if (Request()->hasFile('file')) {
+            $file_name = $request->file->getClientOriginalName();
+                $file = $request->file->storeAs('doc', $file_name);
+            ModelBeranda::where('id',$id)->update([
+                'kodeinstansi' => $request->kodeinstansi,
+                'ketinstnasi' => $request->ketinstnasi,
+                'instansi' => $request->instansi,
+                'bidkerjasama' => $request->bidkerjasama,
+                'mulai' => $request->mulai,
+                'selesai' => $request->selesai,
+                'jenisnaskah' => $request->jenisnaskah,
+                'file' => $file,
+            ]);
+        } else {
+            ModelBeranda::where('id',$id)->update([
+                'kodeinstansi' => $request->kodeinstansi,
+                'ketinstnasi' => $request->ketinstnasi,
+                'instansi' => $request->instansi,
+                'bidkerjasama' => $request->bidkerjasama,
+                'mulai' => $request->mulai,
+                'selesai' => $request->selesai,
+                'jenisnaskah' => $request->jenisnaskah,
+            ]);
+        }
+        
+        return redirect('/mitra-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -2345,7 +2451,11 @@ class BackendController extends Controller
      */
     public function mitraedit($id)
     {
-        //
+        $kakoin = ModelKategoriKodeInstansi::findorfail($id);
+        $kakein = ModelKategoriKetInstansi::findorfail($id);
+        $kajenas = ModelKategoriJenisNaskah::findorfail($id);
+        $mitra = ModelMitra::findorfail($id);
+        return view('admin.mitra-admin', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
     /**
@@ -2357,7 +2467,51 @@ class BackendController extends Controller
      */
     public function mitraupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'kodeinstansi' => 'required',
+            'ketinstansi' => 'required',
+            'instansi' => 'required',
+            'bidkerjasama' => 'required',
+            'mulai' => 'required',
+            'selesai' => 'required',
+            'jenisnaskah' => 'required',
+        ], [
+            'kodeinstansi.required' => 'Wajib diisi!!!',
+            'ketinstansi.required' => 'Wajib diisi!!!',
+            'instansi.required' => 'Wajib diisi!!!',
+            'bidkerjasama.required' => 'Wajib diisi!!!',
+            'mulai.required' => 'Wajib diisi!!!',
+            'selesai.required' => 'Wajib diisi!!!',
+            'jenisnaskah.required' => 'Wajib diisi!!!',
+        ]);
+
+        if (Request()->hasFile('file')) {
+            $file_name = $request->file->getClientOriginalName();
+                $file = $request->file->storeAs('doc', $file_name);
+            ModelBeranda::where('id',$id)->update([
+                'kodeinstansi' => $request->kodeinstansi,
+                'ketinstnasi' => $request->ketinstnasi,
+                'instansi' => $request->instansi,
+                'bidkerjasama' => $request->bidkerjasama,
+                'mulai' => $request->mulai,
+                'selesai' => $request->selesai,
+                'jenisnaskah' => $request->jenisnaskah,
+                'file' => $file,
+            ]);
+        } else {
+            ModelBeranda::where('id',$id)->update([
+                'kodeinstansi' => $request->kodeinstansi,
+                'ketinstnasi' => $request->ketinstnasi,
+                'instansi' => $request->instansi,
+                'bidkerjasama' => $request->bidkerjasama,
+                'mulai' => $request->mulai,
+                'selesai' => $request->selesai,
+                'jenisnaskah' => $request->jenisnaskah,
+            ]);
+        }
+
+        ModelMitra::find($id)->update($data);    
+        return redirect('/mitra-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -2368,6 +2522,8 @@ class BackendController extends Controller
      */
     public function mitradestroy($id)
     {
-        //
+        ModelMitra::find($id)->delete();
+
+        return redirect('/mitra-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 }

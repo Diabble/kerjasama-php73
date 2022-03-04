@@ -60,6 +60,7 @@ Route::get('/alur-kerjasama', [FrontendController::class, 'alur']);
 Route::get('/progres-pengajuan-kerjasama', [FrontendController::class, 'propeker']);
 Route::get('/faq', [FrontendController::class, 'faq']);
 Route::get('/berita', [FrontendController::class, 'berita']);
+Route::get('/berita-detail/{slug}', [FrontendController::class, 'bedet'])->name('berita-detail');
 Route::get('/pengumuman', [FrontendController::class, 'pengumuman']);
 Route::get('/galeri', [FrontendController::class, 'galeri']);
 
@@ -157,13 +158,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/faq-admin/edit/{id}', [BackendController::class, 'faqedit']);
     Route::post('/faq-admin/update/{id}', [BackendController::class, 'faqupdate']);
     Route::get('/faq-admin/delete/{id}', [BackendController::class, 'faqdestroy']);
-
-    // Kategori Berita
-    // Route::get('/kategori-berita-admin', [BackendController::class, 'kaber']);
-    // Route::get('/kategori-berita-admin/store', [BackendController::class, 'kaberstore']);
-    // Route::get('/kategori-berita-admin/edit/{id}', [BackendController::class, 'kaberedit']);
-    // Route::post('/kategori-berita-admin/update/{id}', [BackendController::class, 'kaberupdate']);
-    // Route::get('/kategori-berita-admin/delete/{id}', [BackendController::class, 'kaberdestroy']);
 
     // Berita
     Route::get('/berita-admin', [BackendController::class, 'berita']);

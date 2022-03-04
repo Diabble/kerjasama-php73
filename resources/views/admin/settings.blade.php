@@ -435,10 +435,6 @@
                         <label>Nama Kategori</label>
                         <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
                       </div>
-                      <div class="form-group">
-                        <label>Slug</label>
-                        <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="">
-                      </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
@@ -452,6 +448,11 @@
             <!-- Modal Tambah End -->
           </div>
           <div class="card-body p-0" style="display: block;">
+            @if (Session::has('pesan'))
+                <div class="alert alert-primary">
+                  {{ Session('pesan') }}
+                </div>
+            @endif
             <table class="table table-striped table-bordered projects">
               <thead>
                 <tr style="text-align: center;">
@@ -483,12 +484,12 @@
                   </td>
                   <td class="project-actions text-center">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahkaber">
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahkaber{{ $row->id }}">
                       <i class="fas fa-edit"></i>
                       Ubah
                     </button>
                     <!-- Modal Ubah Start -->
-                    <div class="modal fade text-left" id="ubahkaber" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                    <div class="modal fade text-left" id="ubahkaber{{ $row->id }}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -505,10 +506,10 @@
                                 <label>Nama Kategori</label>
                                 <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="{{ $row->nama_kategori }}">
                               </div>
-                              <div class="form-group">
+                              {{-- <div class="form-group">
                                 <label>Slug</label>
                                 <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="{{ $row->slug }}">
-                              </div>
+                              </div> --}}
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                                 <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
@@ -580,15 +581,6 @@
                         <label>Kategori Kode Instansi</label>
                         <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
                         @error('nama_kategori')
-                          <div class="invalid-feedback">
-                            {{ $message }}
-                          </div>
-                        @enderror
-                      </div>
-                      <div class="form-group">
-                        <label>Slug</label>
-                        <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="">
-                        @error('slug')
                           <div class="invalid-feedback">
                             {{ $message }}
                           </div>
@@ -735,15 +727,6 @@
                         <label>Kategori Keterangan Instansi</label>
                         <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
                         @error('nama_kategori')
-                          <div class="invalid-feedback">
-                            {{ $message }}
-                          </div>
-                        @enderror
-                      </div>
-                      <div class="form-group">
-                        <label>Slug</label>
-                        <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="">
-                        @error('slug')
                           <div class="invalid-feedback">
                             {{ $message }}
                           </div>

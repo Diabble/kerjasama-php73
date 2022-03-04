@@ -12,7 +12,7 @@ class ModelKategoriJenisNaskah extends Model
     protected $table = 'kategori_jenisnaskah';
     protected $fillable = ['nama_kategori', 'slug'];
 
-    public function kategori_jenisnaskah() {
+    public function mitra() {
         return $this->hasMany(ModelMitra::class);
     }
 }

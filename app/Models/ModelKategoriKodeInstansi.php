@@ -12,7 +12,7 @@ class ModelKategoriKodeInstansi extends Model
     protected $table = 'kategori_kodeinstansi';
     protected $fillable = ['nama_kategori', 'slug'];
 
-    public function kategori_kodeinstansi() {
+    public function mitra() {
         return $this->hasMany(ModelMitra::class);
     }
 }

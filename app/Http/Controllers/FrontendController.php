@@ -136,6 +136,15 @@ class FrontendController extends Controller
         return view('layout.berita', compact('berita', 'tangkap1', 'tangkap2'));
     }
 
+    public function bedet($slug)
+    {
+        $berita = ModelBerita::where('slug', $slug)->first();
+        $beranda = ModelBeranda::all();
+        $tangkap1 = \DB::table('beranda')->first();
+        $postbaru = ModelBerita::orderBy('created_at', 'DESC')->limit('5')->get();
+        return view('layout.berita-detail', compact('berita', 'tangkap1', 'postbaru'));
+    }
+
     public function pengumuman()
     {
         $pengumuman = ModelPengumuman::all();
