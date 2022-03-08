@@ -23,23 +23,75 @@ use App\Http\Controllers\BackendController;
 */
 
 Route::get('/contact', function () {
-    return view('layout.contact');
+    return view('layouts.contact');
 });
 
-Route::get('/portfolio', function () {
-    return view('layout.portfolio');
+Route::get('/project', function () {
+    return view('layouts.project');
+});
+
+Route::get('/project-details', function () {
+    return view('layouts.project-details');
 });
 
 Route::get('/service', function () {
-    return view('layout.service');
+    return view('layouts.service');
+});
+
+Route::get('/service-v2', function () {
+    return view('layouts.service-v2');
+});
+
+Route::get('/service-details', function () {
+    return view('layouts.service-details');
 });
 
 Route::get('/single', function () {
-    return view('layout.single');
+    return view('layouts.single');
 });
 
 Route::get('/about', function () {
-    return view('layout.about');
+    return view('layouts.about');
+});
+
+Route::get('/index', function () {
+    return view('layouts.index');
+});
+
+Route::get('/index-2', function () {
+    return view('layouts.index-2');
+});
+
+Route::get('/blog', function () {
+    return view('layouts.blog');
+});
+
+Route::get('/blog-grid', function () {
+    return view('layouts.blog-grid');
+});
+
+Route::get('/blog-details', function () {
+    return view('layouts.blog-details');
+});
+
+Route::get('/faq', function () {
+    return view('layouts.faq');
+});
+
+Route::get('/shop', function () {
+    return view('layouts.shop');
+});
+
+Route::get('/shop-details', function () {
+    return view('layouts.shop-details');
+});
+
+Route::get('/team', function () {
+    return view('layouts.team');
+});
+
+Route::get('/404', function () {
+    return view('layouts.404');
 });
 
 
