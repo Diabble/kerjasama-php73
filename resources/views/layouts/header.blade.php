@@ -12,7 +12,7 @@
                 <div class="menu-wrapper float-right">
                     <nav id="mega-menu-holder" class="clearfix">
                         <ul class="clearfix">
-                            <li class="active"><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                            <li class="active"><a href="/">Home</a></li>
                             <li><a href="#">Profil</a>
                                 <ul class="dropdown">
                                     <li><a href="/wakil-rektor">Sambutan Wakil Rektor</a></li>
@@ -35,9 +35,8 @@
                             <li><a href="#">Layanan</a>
                                 <ul class="dropdown">
                                     <li><a href="/berkas-kerjasama">Berkas Kerjasama</a></li>
-                                    <li><a href="/layanan-online">Layanan Online</a></li>
-                                    <li><a href="/layanan-kepuasan">Layanan Kepuasan</a></li>
-                                    <li><a href="/layanan-kami">Layanan Kami</a></li>
+                                    <li><a href="/layanan-online">Ajukan Kerjasama</a></li>
+                                    <li><a href="/layanan-kepuasan">Angket Kepuasan Layanan</a></li>
                                 </ul>
                             </li>
                             <li><a href="/international-office">IO</a></li>
@@ -49,4 +48,3 @@
         </div> <!-- /.container -->
     </div> <!-- /.theme-menu-wrapper -->
 </header> <!-- /.header-two -->
-

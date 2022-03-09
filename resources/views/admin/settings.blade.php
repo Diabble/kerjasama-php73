@@ -38,7 +38,7 @@
             </button>
             <!-- Modal Tambah Start -->
             <div class="modal fade text-left" id="tambahslide" tabindex="-1" aria-labelledby="tambahslideLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-scrollable">
+              <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="tambahslideLabel">Tambah Slide Carousel</h5>
@@ -62,7 +62,7 @@
                       </div>
                       <div class="form-group">
                         <label>Judul Slide</label>
-                        <input class="form-control" name="judulcarousel" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('judulcarousel') is-invalid @enderror" name="judulcarousel" autocomplete="off" placeholder="Enter..." value="">
                         @error('judulcarousel')
                           <div class="invalid-feedback">
                             {{ $message }}
@@ -71,8 +71,8 @@
                       </div>
                       <div class="form-group">
                         <label>Deskripsi Slide</label>
-                        <textarea class="form-control" name="deskripsicarousel" id="editor" placeholder="Enter..."></textarea>
-                        @error('tombolcarousel')
+                        <textarea class="form-control @error('deskripsicarousel') is-invalid @enderror" name="deskripsicarousel" id="editor" placeholder="Enter..."></textarea>
+                        @error('deskripsicarousel')
                           <div class="invalid-feedback">
                             {{ $message }}
                           </div>
@@ -80,7 +80,7 @@
                       </div>
                       <div class="form-group">
                         <label>Tombol Slide</label>
-                        <input class="form-control" name="tombolcarousel" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('tombolcarousel') is-invalid @enderror" name="tombolcarousel" autocomplete="off" placeholder="Enter..." value="">
                         @error('tombolcarousel')
                           <div class="invalid-feedback">
                             {{ $message }}
@@ -98,6 +98,51 @@
               </div>
             </div>
             <!-- Modal Tambah End -->
+
+            <!-- Modal Ubah Start -->
+            <div class="modal fade text-left" id="ubahslide" tabindex="-1" aria-labelledby="ubahslideLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="ubahslideLabel">Ubah Slide Carousel</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- form start -->
+                    <!-- {{ $errors }} -->
+                    <form action="" method="POST" enctype="multipart/form-data" id="formubah">
+                      @csrf
+                      <div class="form-group">
+                        <label>Gambar Slide</label>
+                        <!-- <img src="" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 100%"> -->
+                        <input type="file" class="form-control" name="poto" id="image">
+                      </div>
+                      <div class="form-group">
+                        <label>Judul Slide</label>
+                        <input class="form-control" name="judulcarousel" id="judulcarousel" autocomplete="off" placeholder="Enter..." value="">
+                      </div>
+                      <div class="form-group">
+                        <label>Deskripsi Slide</label>
+                        <textarea class="form-control" name="deskripsicarousel" id="deskripsicarousel" placeholder="Enter..."></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label>Tombol Slide</label>
+                        <input class="form-control" name="tombolcarousel" id="tombolcarousel" autocomplete="off" placeholder="Enter..." value="">
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm swalDefaultSuccess">Simpan</button>
+                      </div>
+                    </form>
+                    <!-- form end -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Ubah End -->
+
           </div>
           <div class="card-body p-0" style="display: block;">
             <table class="table table-striped table-bordered projects">
@@ -143,53 +188,15 @@
                   </td>
                   <td class="project-actions text-center">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahslide{{$row->id}}">
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahslide" onclick="update({
+                      id: {{ $row->id }},
+                      judulcarousel: '{{ $row->judulcarousel }}',
+                      deskripsicarousel: '{{ $row->deskripsicarousel }}',
+                      tombolcarousel: '{{ $row->tombolcarousel }}',
+                      })">
                       <i class="fas fa-edit"></i>
                       Ubah
                     </button>
-                    <!-- Modal Ubah Start -->
-                    <div class="modal fade text-left" id="ubahslide{{$row->id}}" tabindex="-1" aria-labelledby="ubahslideLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-scrollable">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="ubahslideLabel">Ubah Slide Carousel</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <!-- form start -->
-                            <!-- {{ $errors }} -->
-                            <form action="{{url('/settings/berandaupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
-                              @csrf
-                              <div class="form-group">
-                                <label>Gambar Slide</label>
-                                <!-- <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 100%"> -->
-                                <input type="file" class="form-control" name="poto" id="image">
-                              </div>
-                              <div class="form-group">
-                                <label>Judul Slide</label>
-                                <input class="form-control" name="judulcarousel" autocomplete="off" placeholder="Enter..." value="{{$row->judulcarousel}}">
-                              </div>
-                              <div class="form-group">
-                                <label>Deskripsi Slide</label>
-                                <textarea class="form-control" id="editor" name="deskripsicarousel" placeholder="Enter...">{{$row->deskripsicarousel}}</textarea>
-                              </div>
-                              <div class="form-group">
-                                <label>Tombol Slide</label>
-                                <input class="form-control" name="tombolcarousel" autocomplete="off" placeholder="Enter..." value="{{$row->tombolcarousel}}">
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary btn-sm swalDefaultSuccess">Simpan</button>
-                              </div>
-                            </form>
-                            <!-- form end -->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Modal Ubah End -->
                     <a class="btn btn-danger btn-sm" href="{{url('/settings/berandadelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
@@ -248,28 +255,28 @@
                       @csrf
                       <div class="form-group">
                         <label>Username</label>
-                        <input class="form-control" name="name" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('name') is-invalid @enderror" name="name" autocomplete="off" placeholder="Enter..." value="">
                         @error('name')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
                       <div class="form-group">
                         <label>Level</label>
-                        <input class="form-control" name="level" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('level') is-invalid @enderror" name="level" autocomplete="off" placeholder="Enter..." value="">
                         @error('level')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
                       <div class="form-group">
                         <label>Email</label>
-                        <input class="form-control" name="email" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('email') is-invalid @enderror" name="email" autocomplete="off" placeholder="Enter..." value="">
                         @error('email')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
                       <div class="form-group">
                         <label>Password</label>
-                        <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="off" placeholder="Enter..." value="">
                         @error('password')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -360,10 +367,10 @@
                               <label>Email</label>
                               <input class="form-control" name="email" autocomplete="off" placeholder="Enter..." value="{{ $row->email }}">
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                               <label>Password</label>
                               <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="{{ $row->password }}">
-                            </div>
+                            </div> --}}
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                               <button type="button" class="btn btn-primary btn-sm">Simpan</button>
@@ -433,7 +440,10 @@
                       @csrf
                       <div class="form-group">
                         <label>Nama Kategori</label>
-                        <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('nama_kategori') is-invalid @enderror" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                        @error('nama_kategori')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
@@ -579,7 +589,7 @@
                       @csrf
                       <div class="form-group">
                         <label>Kategori Kode Instansi</label>
-                        <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('nama_kategori') is-invalid @enderror" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
                         @error('nama_kategori')
                           <div class="invalid-feedback">
                             {{ $message }}
@@ -725,7 +735,7 @@
                       @csrf
                       <div class="form-group">
                         <label>Kategori Keterangan Instansi</label>
-                        <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('nama_kategori') is-invalid @enderror" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
                         @error('nama_kategori')
                           <div class="invalid-feedback">
                             {{ $message }}
@@ -871,7 +881,7 @@
                       @csrf
                       <div class="form-group">
                         <label>Kategori Jenis Naskah</label>
-                        <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('nama_kategori') is-invalid @enderror" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
                         @error('nama_kategori')
                           <div class="invalid-feedback">
                             {{ $message }}
@@ -982,4 +992,30 @@
   </div>
   <!-- /.content-wrapper -->
 
+@endsection
+
+@section('script')
+<script>
+  // $(document).ready(function(){
+  //   $('#kodeinstansi').val(1)
+  // });
+  let editor;
+  ClassicEditor
+      .create( document.querySelector( '#deskripsicarousel' ) )
+      .then(edit=> {
+        editor = edit;
+      })
+      .catch( error => {
+          console.error( error );
+      } );
+
+  function update(data){
+    var url='{{ url("/settings/berandaupdate") }}' + '/' + data.id;
+    $('#formubah').attr('action', url);
+    $('#poto').val(data.poto);
+    $('#judulcarousel').attr('value', data.judulcarousel);
+    editor.setData(data.deskripsicarousel);
+    $('#tombolcarousel').attr('value', data.tombolcarousel);
+  }
+</script>
 @endsection

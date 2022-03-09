@@ -13,9 +13,9 @@
 	<div data-src="{{ asset('storage/' . $row->poto) }}" class="@if($count == 1) active @endif">
 		<div class="camera_caption">
 			<div class="container">
-				<p class="wow fadeInUp animated">The government they survive artical of fortune</p>
-				<h1 class="wow fadeInUp animated" data-wow-delay="0.2s">We IMPROVE YOUR <br>SALES EFFICIENCY</h1>
-				<a href="contact.html" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">CONTACT US</a>
+				<p class="wow fadeInUp animated">{{ $row->judulcarousel }}</p>
+				<h1 class="wow fadeInUp animated" data-wow-delay="0.2s">{!! $row->deskripsicarousel !!}</h1>
+				<a href="/mitra" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">MITRA</a>
 			</div> <!-- /.container -->
 		</div> <!-- /.camera_caption -->
 	</div>

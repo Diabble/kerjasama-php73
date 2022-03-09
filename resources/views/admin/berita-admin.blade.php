@@ -53,35 +53,53 @@
                       <div class="form-group">
                         <label>Gambar</label>
                         <input type="file" class="form-control @error('poto') is-invalid @enderror" name="poto" id="image" onchange="previewImage()">
+                        @error('poto')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Judul</label>
-                        <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('judul') is-invalid @enderror" name="judul" autocomplete="off" placeholder="Enter..." value="">
+                        @error('judul')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Deskripsi</label>
-                        <textarea class="form-control" name="deskripsi" id="editor" placeholder="Enter..." value=""></textarea>
+                        <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" id="editor" placeholder="Enter..." value=""></textarea>
+                        @error('deskripsi')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Kategori Berita</label>
-                        <select id="inputStatus" name="kategori_id" class="form-control custom-select">
+                        <select id="inputStatus" name="kategori_id" class="form-control custom-select @error('kategori_id') is-invalid @enderror">
                           <option disabled selected>Enter...</option>
                           @foreach ($kaber as $row)
                             <option value="{{ $row->id }}">{{ $row->nama_kategori }}</option>
                           @endforeach
                         </select>
+                        @error('kategori_id')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Views</label>
-                        <input class="form-control" name="views" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('views') is-invalid @enderror" name="views" autocomplete="off" placeholder="Enter..." value="">
+                        @error('views')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Status</label>
-                        <select id="inputStatus" name="aktif" class="form-control custom-select">
+                        <select id="inputStatus" name="aktif" class="form-control custom-select @error('aktif') is-invalid @enderror">
                           <option disabled selected>Enter...</option>
                           <option value="1">Publish</option>
                           <option value="0">Draft</option>
                         </select>
+                        @error('aktif')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>

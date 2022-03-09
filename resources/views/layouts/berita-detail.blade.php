@@ -57,7 +57,7 @@
 									<div class="share-option clearfix">
 										<ul class="tag-meta float-left">
 											<li><i class="fa fa-tags" aria-hidden="true"></i> Kategori :</li>
-											<li><a href="#">{{ $tangkap2->nama_kategori }}</a></li>
+											{{-- <li><a href="#">{{ $tangkap2->nama_kategori }}</a></li> --}}
 										</ul>
 										<ul class="social-icon float-right">
 											<li><i class="fa fa-share-alt" aria-hidden="true"></i> Share :</li>

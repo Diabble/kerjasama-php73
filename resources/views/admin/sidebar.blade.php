@@ -218,6 +218,12 @@
               </li>
             </ul>
           </li> --}}
+          <li>
+            <form action="/logout" method="post">
+              @csrf
+              <button type="submit" class="nav-link"><i class="fas fa-sign-out-alt"> Sign Out</i></button>
+            </form>
+          </li>
         </ul>
       </nav>
     </div>

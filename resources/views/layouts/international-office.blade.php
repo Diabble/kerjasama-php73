@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Layanan Kepuasan')
+@section('title','International Office')
 @section('content')
 
 			
@@ -11,7 +11,7 @@
 			<div class="theme-inner-banner section-spacing">
 				<div class="overlay">
 					<div class="container">
-						<h2>Layanan Kepuasan</h2>
+						<h2>International Office</h2>
 						<p>{!! $tangkap2->deskripsicarousel !!}</p>
 					</div> <!-- /.container -->
 				</div> <!-- /.overlay -->
@@ -20,7 +20,7 @@
 			
 			<!-- 
 			=============================================
-				Layanan Kepuasan
+				International Office
 			============================================== 
 			-->
 			<div class="tupoksi no-bg section-spacing">
@@ -28,8 +28,8 @@
 					<div class="row">
 						<div class="col-lg-12 col-12 text order-lg-last">
 							<div class="theme-title-one">
-								{{-- <h2 class="text-center">Layanan Kepuasan</h2> --}}
-								{{-- <p>{!! $tangkap1->deskripsi !!}</p> --}}
+								{{-- <h2 class="text-center">International Office</h2> --}}
+								<p>{!! $tangkap1->deskripsi !!}</p>
 							</div> <!-- /.theme-title-one -->
 						</div> <!-- /.col- -->
 					</div> <!-- /.row -->

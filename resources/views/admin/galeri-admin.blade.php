@@ -54,18 +54,14 @@
                         <label>Gambar</label>
                         <input type="file" class="form-control @error('poto') is-invalid @enderror" name="poto" id="image" onchange="previewImage()">
                         @error('poto')
-                          <div class="invalid-feedback">
-                            {{ $message }}
-                          </div>
+                          <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
                       <div class="form-group">
                         <label>Caption</label>
-                        <textarea class="form-control" name="caption" id="editor" placeholder="Enter..." value=""></textarea>
+                        <textarea class="form-control @error('caption') is-invalid @enderror" name="caption" id="editor" placeholder="Enter..." value=""></textarea>
                         @error('caption')
-                          <div class="invalid-feedback">
-                            {{ $message }}
-                          </div>
+                          <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
                       <div class="modal-footer">

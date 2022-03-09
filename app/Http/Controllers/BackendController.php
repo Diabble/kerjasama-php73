@@ -176,11 +176,6 @@ class BackendController extends Controller
             'judulcarousel' => 'required',
             'deskripsicarousel' => 'required',
             'tombolcarousel' => 'required',
-        ], [
-            'poto.required' => 'Wajib diisi!!!',
-            'judulcarousel.required' => 'Wajib diisi!!!',
-            'deskripsicarousel.required' => 'Wajib diisi!!!',
-            'tombolcarousel.required' => 'Wajib diisi!!!',
         ]);
 
         $file_name = $request->poto->getClientOriginalName();
@@ -2357,7 +2352,7 @@ class BackendController extends Controller
         $kakoin = ModelKategoriKodeInstansi::all();
         $kakein = ModelKategoriKetInstansi::all();
         $kajenas = ModelKategoriJenisNaskah::all();
-        $mitra = ModelMitra::all();
+        $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->get();
         return view('admin.mitra-admin', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
@@ -2488,9 +2483,9 @@ class BackendController extends Controller
         if (Request()->hasFile('file')) {
             $file_name = $request->file->getClientOriginalName();
                 $file = $request->file->storeAs('doc', $file_name);
-            ModelBeranda::where('id',$id)->update([
+            ModelMitra::where('id',$id)->update([
                 'kodeinstansi' => $request->kodeinstansi,
-                'ketinstnasi' => $request->ketinstnasi,
+                'ketinstansi' => $request->ketinstansi,
                 'instansi' => $request->instansi,
                 'bidkerjasama' => $request->bidkerjasama,
                 'mulai' => $request->mulai,
@@ -2499,9 +2494,9 @@ class BackendController extends Controller
                 'file' => $file,
             ]);
         } else {
-            ModelBeranda::where('id',$id)->update([
+            ModelMitra::where('id',$id)->update([
                 'kodeinstansi' => $request->kodeinstansi,
-                'ketinstnasi' => $request->ketinstnasi,
+                'ketinstansi' => $request->ketinstansi,
                 'instansi' => $request->instansi,
                 'bidkerjasama' => $request->bidkerjasama,
                 'mulai' => $request->mulai,
@@ -2509,8 +2504,7 @@ class BackendController extends Controller
                 'jenisnaskah' => $request->jenisnaskah,
             ]);
         }
-
-        ModelMitra::find($id)->update($data);    
+        
         return redirect('/mitra-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 

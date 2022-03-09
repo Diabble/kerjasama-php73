@@ -29,8 +29,8 @@
 						<div class="col-lg-12 col-12 text order-lg-last">
 							<div class="theme-title-one">
 								{{-- <h2 class="text-center">Alur Kerjasama</h2> --}}
-								<p>{!! $tangkap1->deskripsi !!}</p>
-								<img src="{{ asset('storage/' . $tangkap1->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; width: 50%;">
+								{{-- <p>{!! $tangkap1->deskripsi !!}</p> --}}
+								<img src="{{ asset('storage/' . $tangkap1->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; width: 100%;">
 							</div> <!-- /.theme-title-one -->
 						</div> <!-- /.col- -->
 					</div> <!-- /.row -->

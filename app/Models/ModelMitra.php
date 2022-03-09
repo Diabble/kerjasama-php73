@@ -12,15 +12,15 @@ class ModelMitra extends Model
     protected $table = 'mitra';
     protected $fillable = ['kodeinstansi', 'ketinstansi', 'instansi', 'bidkerjasama', 'mulai', 'selesai', 'jenisnaskah', 'file'];
 
-    public function kategori_kodeinstansi() {
-        return $this->belongsTo(ModelKategoriKodeInstansi::class, 'kategori_kodeinstansi', 'id');
+    public function kakoin() {
+        return $this->belongsTo(ModelKategoriKodeInstansi::class, 'kodeinstansi', 'id');
     }
 
-    public function kategori_ketinstansi() {
-        return $this->belongsTo(ModelKategoriKetInstansi::class, 'kategori_ketinstansi', 'id');
+    public function kakein() {
+        return $this->belongsTo(ModelKategoriKetInstansi::class, 'ketinstansi', 'id');
     }
 
-    public function kategori_jenisnaskah() {
-        return $this->belongsTo(ModelKategoriJenisNaskah::class, 'kategori_jenisnaskah', 'id');
+    public function kajenas() {
+        return $this->belongsTo(ModelKategoriJenisNaskah::class, 'jenisnaskah', 'id');
     }
 }

@@ -14,7 +14,7 @@
         <form action="" method="post">
           @csrf
           <div class="input-group mb-3">
-            <input type="text" class="form-control" name="name" autocomplete="off" placeholder="Nama Lengkap">
+            <input type="text" class="form-control" name="name" autocomplete="off" placeholder="Nama Lengkap" autofocus>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>

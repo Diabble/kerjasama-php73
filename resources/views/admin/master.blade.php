@@ -80,12 +80,13 @@ crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 {{-- <script>
 $(document).ready(function () {
-    $("#jsboxes").select2({
+    $(".jsboxes").select2({
         theme: 'bootstrap4',
-        placeholder: "Please Select"
     });
 });
 </script> --}}
+
+@yield('script')
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">

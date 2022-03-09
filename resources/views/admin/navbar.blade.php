@@ -37,9 +37,12 @@
       </li>
       <!-- Sign Out -->
       <li class="nav-item">
-          <a class="nav-link" data-widget="" href="{{route('logout')}}" role="button">
+        <form action="">
+          <button type="submit" class="nav-link"><i class="fas fa-sign-out-alt"> Sign Out</i></button>
+        </form>
+          {{-- <a class="nav-link" data-widget="" href="{{route('logout')}}" role="button">
               <i class="fas fa-sign-out-alt"> Sign Out</i>
-          </a>
+          </a> --}}
       </li>
     </ul>
   </nav>

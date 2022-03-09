@@ -127,12 +127,15 @@ Route::get('/mitra', [FrontendController::class, 'mitra']);
 //End Halaman Utama
 
 //Login
-Route::get('/login', [AuthsController::class, 'loginindex'])->name('login');
-Route::get('/register', [AuthsController::class, 'registerindex'])->name('register');
+Route::get('/login', [AuthsController::class, 'loginindex'])->name('login')->middleware('guest');
+Route::post('/postlogin', [AuthsController::class, 'authenticate']);
+//Logout
+Route::post('/logout', [AuthsController::class, 'logout']);
+//Register
+Route::get('/register', [AuthsController::class, 'registerindex'])->middleware('guest');
 
-Route::post('/postlogin', [AuthsController::class, 'login']);
+// Route::get('/logout', [AuthsController::class, 'logout'])->name('logout');
 
-Route::get('/logout', [AuthsController::class, 'logout'])->name('logout');
 //End Login
 
 //Admin

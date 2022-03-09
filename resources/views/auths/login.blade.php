@@ -2,6 +2,13 @@
 @section('title','Login Kerjasama')
 @section('content')
 
+  @if (session()->has('loginError'))
+      <div class="alert alert-danger alert-dismissible fade-show" role="alert">
+        {{ session('loginError') }}
+        <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  @endif
+
   <div class="login-box">
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
@@ -14,12 +21,17 @@
         <form action="/postlogin" method="post">
           @csrf
           <div class="input-group mb-3">
-            <input type="email" class="form-control" name="email" autocomplete="off" placeholder="Email">
+            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" autocomplete="off" placeholder="Email" autofocus required value="{{ old('email') }}">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
               </div>
             </div>
+            @error('email')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
           </div>
           <div class="input-group mb-3">
             <input type="password" class="form-control" name="password" placeholder="Password">

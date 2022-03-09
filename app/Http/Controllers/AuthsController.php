@@ -22,19 +22,40 @@ class AuthsController extends Controller
         return view('auths.register');
     }
 
-    public function login(Request $request)
+    public function authenticate(Request $request)
     {
         // dd($request->all());
-        if(Auth::attempt($request->only('email','password')))
-        {
-            return redirect('/dashboard');
+        // if(Auth::attempt($request->only('email','password')))
+        // {
+        //     return redirect('/dashboard');
+        // }
+        // return redirect('/login');
+
+        $credentials = $request->validate([
+            'email' => 'required|email:dns',
+            'password' => 'required',
+        ]);
+
+        if(Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            return redirect()->intended('/dashboard');
         }
-        return redirect('/login');
+
+        return back()->with('loginError', 'Login Gagal!');
     }
     public function logout()
     {
+        // Auth::logout();
+        // return redirect('/login');
+
         Auth::logout();
-        return redirect('/');
+
+        request()->session()->invalidate();
+
+        request()->session()->regenerateToken();
+
+        return redirect('/login');
     }
 
     /**

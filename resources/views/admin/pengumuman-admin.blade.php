@@ -51,11 +51,17 @@
                     <form action="{{url('/pengumuman-admin/store')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Judul</label>
-                        <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('judul') is-invalid @enderror" name="judul" autocomplete="off" placeholder="Enter..." value="">
+                        @error('judul')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Deskripsi</label>
-                        <textarea class="form-control" name="deskripsi" placeholder="Enter..." value=""></textarea>
+                        <textarea class="form-control @error('deskripsi') is-invalid @enderror" name="deskripsi" id="editor" placeholder="Enter..." value=""></textarea>
+                        @error('deskripsi')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
