@@ -1,5 +1,5 @@
 @extends('admin.master')
-@section('title','Layanan Kepuasan Admin')
+@section('title','Ajukan Kerjasama Admin')
 @section('content')
 
   <!-- Content Wrapper. Contains page content -->
@@ -11,19 +11,19 @@
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
               <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-              <li class="breadcrumb-item active">Layanan Kepuasan Admin</li>
+              <li class="breadcrumb-item active">Ajukan Kerjasama Admin</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
 
-    <!-- Main content Layanan Kepuasan Admin -->
+    <!-- Main content Ajukan Kerjasama Admin -->
     <section class="content">
       <div class="container-fluid">
         <div class="card card-primary">
           <div class="card-header" style="background-color: #343a40;">
-            <h3 class="card-title">Layanan Kepuasan Admin</h3>
+            <h3 class="card-title">Ajukan Kerjasama Admin</h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                 <i class="fas fa-minus"></i>
@@ -41,7 +41,7 @@
               <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="tambahLabel">Tambah Layanan Kepuasan Admin</h5>
+                    <h5 class="modal-title" id="tambahLabel">Tambah Ajukan Kerjasama Admin</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -119,7 +119,7 @@
                       <div class="modal-dialog modal-dialog-scrollable">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="ubahLabel">Ubah Layanan Kepuasan Admin</h5>
+                            <h5 class="modal-title" id="ubahLabel">Ubah Ajukan Kerjasama Admin</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                               <span aria-hidden="true">&times;</span>
                             </button>

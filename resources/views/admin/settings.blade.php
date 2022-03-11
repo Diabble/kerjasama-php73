@@ -149,7 +149,7 @@
               <thead>
                 <tr style="text-align: center;">
                   <th style="width: 1%">
-                    ID
+                    No
                   </th>
                   <th>
                     Gambar Carousel
@@ -169,10 +169,11 @@
                 </tr>
               </thead>
               <tbody>
+                <?php $no=1; ?>
                 @forelse ($beranda as $row)
                 <tr style="text-align: justify;">
                   <td>
-                    {{ $row->id }}
+                    {{ $no++ }}
                   </td>
                   <td>
                     <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 100%">
@@ -298,7 +299,7 @@
               <thead>
                 <tr style="text-align: center;">
                   <th style="width: 1%">
-                    ID
+                    No
                   </th>
                   <th>
                     Username
@@ -318,10 +319,11 @@
                 </tr>
               </thead>
               <tbody>
+                <?php $no=1; ?>
                 @forelse ( $user as $row )
                 <tr style="text-align: justify;">
                   <td>
-                    {{ $row->id }}
+                    {{ $no++ }}
                   </td>
                   <td>
                     {{ $row->name }}
@@ -467,7 +469,7 @@
               <thead>
                 <tr style="text-align: center;">
                   <th style="width: 1%">
-                    ID
+                    No
                   </th>
                   <th>
                     Nama Kategori
@@ -481,10 +483,11 @@
                 </tr>
               </thead>
               <tbody>
+                <?php $no=1; ?>
                 @forelse ( $kaber as $row )
                 <tr style="text-align: center;">
                   <td>
-                    {{ $row->id }}
+                    {{ $no++ }}
                   </td>
                   <td>
                     {{ $row->nama_kategori }}
@@ -613,7 +616,7 @@
               <thead>
                 <tr style="text-align: center;">
                   <th style="width: 1%">
-                    ID
+                    No
                   </th>
                   <th style="width: 30%">
                     Nama Kategori
@@ -627,10 +630,11 @@
                 </tr>
               </thead>
               <tbody>
+                <?php $no=1; ?>
                 @forelse ( $kakoin as $row )
                 <tr style="text-align: center;">
                   <td>
-                    {{ $row->id }}
+                    {{ $no++ }}
                   </td>
                   <td>
                     {{ $row->nama_kategori }}
@@ -759,7 +763,7 @@
               <thead>
                 <tr style="text-align: center;">
                   <th style="width: 1%">
-                    ID
+                    No
                   </th>
                   <th style="width: 30%">
                     Nama Kategori
@@ -773,10 +777,11 @@
                 </tr>
               </thead>
               <tbody>
+                <?php $no=1; ?>
                 @forelse ( $kakein as $row )
                 <tr style="text-align: center;">
                   <td>
-                    {{ $row->id }}
+                    {{ $no++ }}
                   </td>
                   <td>
                     {{ $row->nama_kategori }}
@@ -905,7 +910,7 @@
               <thead>
                 <tr style="text-align: center;">
                   <th style="width: 1%">
-                    ID
+                    No
                   </th>
                   <th style="width: 30%">
                     Nama Kategori
@@ -919,10 +924,11 @@
                 </tr>
               </thead>
               <tbody>
+                <?php $no=1; ?>
                 @forelse ( $kajenas as $row )
                 <tr style="text-align: center;">
                   <td>
-                    {{ $row->id }}
+                    {{ $no++ }}
                   </td>
                   <td>
                     {{ $row->nama_kategori }}

@@ -224,7 +224,7 @@
               <thead>
                 <tr style="text-align: center;">
                   <th style="width: 1%">
-                    ID
+                    No
                   </th>
                   <th>
                     Kode Instansi
@@ -254,10 +254,11 @@
               </thead>
               <tbody>
                 {{ $errors }}
+                <?php $no=1; ?>
                 @forelse ( $mitra as $row )
                 <tr style="text-align: justify;">
                   <td>
-                    {{ $row->id }}
+                    {{ $no++ }}
                   </td>
                   <td>
                     {{ $row->kakoin->nama_kategori }}

@@ -80,7 +80,7 @@
               <thead>
                 <tr style="text-align: center;">
                   <th style="width: 1%">
-                    ID
+                    No
                   </th>
                   <th>
                     Judul
@@ -103,10 +103,11 @@
                 </tr>
               </thead>
               <tbody>
+                <?php $no=1; ?>
                 @forelse ( $pengumuman as $row )
                 <tr style="text-align: justify;">
                   <td>
-                    {{ $row->id }}
+                    {{ $no++ }}
                   </td>
                   <td>
                     {{ $row->judul }}

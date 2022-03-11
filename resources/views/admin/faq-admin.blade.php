@@ -76,7 +76,7 @@
               <thead>
                 <tr style="text-align: center;">
                   <th style="width: 1%">
-                    ID
+                    No
                   </th>
                   <th>
                     Pertanyaan
@@ -90,10 +90,11 @@
                 </tr>
               </thead>
               <tbody>
+                <?php $no=1; ?>
                 @forelse ( $faq as $row )
                 <tr style="text-align: justify;">
                   <td>
-                    {{ $row->id }}
+                    {{ $no++ }}
                   </td>
                   <td>
                     {!! $row->pertanyaan !!}

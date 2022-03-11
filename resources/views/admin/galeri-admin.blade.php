@@ -81,7 +81,7 @@
               <thead>
                 <tr style="text-align: center;">
                   <th style="width: 1%">
-                    ID
+                    No
                   </th>
                   <th style="width: 25%">
                     Gambar
@@ -95,10 +95,11 @@
                 </tr>
               </thead>
               <tbody>
-               @forelse ( $galeri as $row )
+                <?php $no=1; ?>
+                @forelse ( $galeri as $row )
                 <tr style="text-align: justify;">
                   <td>
-                    {{ $row->id }}
+                    {{ $no++ }}
                   </td>
                   <td>
                     <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 100%">

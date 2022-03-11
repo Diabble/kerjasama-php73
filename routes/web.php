@@ -114,12 +114,12 @@ Route::get('/faq', [FrontendController::class, 'faq']);
 Route::get('/berita', [FrontendController::class, 'berita']);
 Route::get('/berita-detail/{slug}', [FrontendController::class, 'bedet'])->name('berita-detail');
 Route::get('/pengumuman', [FrontendController::class, 'pengumuman']);
+Route::get('/pengumuman-detail/{slug}', [FrontendController::class, 'bedet'])->name('pengumuman-detail');
 Route::get('/galeri', [FrontendController::class, 'galeri']);
 
 Route::get('/berkas-kerjasama', [FrontendController::class, 'berkaskerjasama']);
-Route::get('/layanan-online', [FrontendController::class, 'layananonline']);
-Route::get('/layanan-kepuasan', [FrontendController::class, 'layanankepuasan']);
-Route::get('/layanan-kami', [FrontendController::class, 'layanankami']);
+Route::get('/ajukan-kerjasama', [FrontendController::class, 'ajukankerjasama']);
+Route::get('/angket-kepuasan-layanan', [FrontendController::class, 'angketkepuasanlayanan']);
 
 Route::get('/international-office', [FrontendController::class, 'io']);
 
@@ -242,14 +242,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/berkas-kerjasama-admin/update/{id}', [BackendController::class, 'berkaskerjasamaupdate']);
     Route::get('/berkas-kerjasama-admin/delete/{id}', [BackendController::class, 'berkaskerjasamadestroy']);
 
-    // Layanan Online
-    Route::get('/layanan-online-admin', [BackendController::class, 'layananonline']);
+    // Ajukan Kerjasama
+    Route::get('/ajukan-kerjasama-admin', [BackendController::class, 'ajukankerjasama']);
 
-    // Layanan Kepuasan
-    Route::get('/layanan-kepuasan-admin', [BackendController::class, 'layanankepuasan']);
-
-    // Layanan Kami
-    Route::get('/layanan-kami-admin', [BackendController::class, 'layanankami']);
+    // Angket Kepuasan Layanan
+    Route::get('/angket-kepuasan-layanan-admin', [BackendController::class, 'angketkepuasanlayanan']);
 
     // International Office
     Route::get('/international-office-admin', [BackendController::class, 'io']);

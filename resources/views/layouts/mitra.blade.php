@@ -82,7 +82,7 @@
 						</div> <!-- /.col- -->
 					</div> <!-- /.row -->
 				</div> <!-- /.container -->
-			</div> <!-- /.tupoksi -->
+			</div> <!-- /.mitra -->
 			
 
 @endsection

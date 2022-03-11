@@ -23,7 +23,7 @@
 				Alur Kerjasama
 			============================================== 
 			-->
-			<div class="tupoksi no-bg section-spacing">
+			<div class="alur no-bg section-spacing">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12 col-12 text order-lg-last">
@@ -35,7 +35,7 @@
 						</div> <!-- /.col- -->
 					</div> <!-- /.row -->
 				</div> <!-- /.container -->
-			</div> <!-- /.tupoksi -->
+			</div> <!-- /.alur-kerjasama -->
 			
 
 @endsection

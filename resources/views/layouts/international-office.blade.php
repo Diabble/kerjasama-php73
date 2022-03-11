@@ -23,7 +23,7 @@
 				International Office
 			============================================== 
 			-->
-			<div class="tupoksi no-bg section-spacing">
+			<div class="io no-bg section-spacing">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12 col-12 text order-lg-last">
@@ -34,7 +34,7 @@
 						</div> <!-- /.col- -->
 					</div> <!-- /.row -->
 				</div> <!-- /.container -->
-			</div> <!-- /.tupoksi -->
+			</div> <!-- /.international-office -->
 			
 
 @endsection

@@ -35,8 +35,8 @@
                             <li><a href="#">Layanan</a>
                                 <ul class="dropdown">
                                     <li><a href="/berkas-kerjasama">Berkas Kerjasama</a></li>
-                                    <li><a href="/layanan-online">Ajukan Kerjasama</a></li>
-                                    <li><a href="/layanan-kepuasan">Angket Kepuasan Layanan</a></li>
+                                    <li><a href="/ajukan-kerjasama">Ajukan Kerjasama</a></li>
+                                    <li><a href="/angket-kepuasan-layanan">Angket Kepuasan Layanan</a></li>
                                 </ul>
                             </li>
                             <li><a href="/international-office">IO</a></li>

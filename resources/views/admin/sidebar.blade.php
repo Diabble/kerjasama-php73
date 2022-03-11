@@ -160,21 +160,15 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/layanan-online-admin" class="nav-link {{ request()->is('layanan-online-admin') ? 'active' : '' }}">
+                <a href="/ajukan-kerjasama-admin" class="nav-link {{ request()->is('ajukan-kerjasama-admin') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ajukan Layanan Online</p>
+                  <p>Ajukan Kerjasama</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/layanan-kepuasan-admin" class="nav-link {{ request()->is('layanan-kepuasan-admin') ? 'active' : '' }}">
+                <a href="/angket-kepuasan-layanan-admin" class="nav-link {{ request()->is('angket-kepuasan-layanan-admin') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Angket Layanan Kepuasan</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/layanan-kami-admin" class="nav-link {{ request()->is('layanan-kami-admin') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Layanan Kami</p>
+                  <p>Angket Kepuasan Layanan</p>
                 </a>
               </li>
             </ul>

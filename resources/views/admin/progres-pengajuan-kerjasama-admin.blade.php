@@ -35,7 +35,7 @@
               <thead>
                 <tr style="text-align: center;">
                   <th style="width: 1%">
-                    ID
+                    No
                   </th>
                   <th>
                     Instansi
@@ -49,10 +49,11 @@
                 </tr>
               </thead>
               <tbody>
+                <?php $no=1; ?>
                 @foreach ( $propeker as $row )
                 <tr style="text-align: center;">
                   <td>
-                    {{ $row->id }}
+                    {{ $no++ }}
                   </td>
                   <td>
                     {{ $row->instansi }}

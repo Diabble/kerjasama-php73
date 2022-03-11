@@ -34,11 +34,9 @@ use App\Models\ModelGaleri;
 
 use App\Models\ModelBerkasKerjasama;
 
-use App\Models\ModelLayananOnline;
+use App\Models\ModelAjukanKerjasama;
 
-use App\Models\ModelLayananKepuasan;
-
-use App\Models\ModelLayananKami;
+use App\Models\ModelKepuasanLayanan;
 
 use App\Models\ModelIO;
 
@@ -185,31 +183,22 @@ class FrontendController extends Controller
         return view('layouts.berkas-kerjasama', compact( 'beranda', 'tangkap2'));
     }
 
-    public function layananonline()
+    public function AjukanKerjasama()
     {
-        // $layon = ModelLayananOnline::all();
+        // $layon = ModelAjukanKerjasama::all();
         $beranda = ModelBeranda::all();
         // $tangkap1 = \DB::table('layanan_online')->first();
         $tangkap2 = \DB::table('beranda')->first();
-        return view('layouts.layanan-online', compact( 'beranda', 'tangkap2'));
+        return view('layouts.ajukan-kerjasama', compact( 'beranda', 'tangkap2'));
     }
 
-    public function layanankepuasan()
+    public function AngketKepuasanLayanan()
     {
-        // $lakep = ModelLayananKepuasan::all();
+        // $lakep = ModelAngketKepuasanLayanan::all();
         $beranda = ModelBeranda::all();
         // $tangkap1 = \DB::table('layanan_kepuasan')->first();
         $tangkap2 = \DB::table('beranda')->first();
-        return view('layouts.layanan-kepuasan', compact( 'beranda', 'tangkap2'));
-    }
-
-    public function layanankami()
-    {
-        // $laka = ModelBerkasKerjasama::all();
-        $beranda = ModelBeranda::all();
-        // $tangkap1 = \DB::table('layanan_kami')->first();
-        $tangkap2 = \DB::table('beranda')->first();
-        return view('layouts.layanan-kami', compact( 'beranda', 'tangkap2'));
+        return view('layouts.angket-kepuasan-layanan', compact( 'beranda', 'tangkap2'));
     }
 
     public function io()

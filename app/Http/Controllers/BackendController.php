@@ -40,9 +40,9 @@ use App\Models\ModelGaleri;
 
 use App\Models\ModelBerkasKerjasama;
 
-use App\Models\ModelLayananOnline;
+use App\Models\ModelAjukanKerjasama;
 
-use App\Models\ModelLayananKepuasan;
+use App\Models\ModelAngketKepuasanLayanan;
 
 use App\Models\ModelLayananKami;
 
@@ -66,7 +66,8 @@ class BackendController extends Controller
      */
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $mitrachart = \DB::table('mitra')->first();
+        return view('admin.dashboard', compact('mitrachart'));
     }
 
     /**
@@ -1378,8 +1379,9 @@ class BackendController extends Controller
      */
     public function propeker()
     {
+        $mitra = ModelMitra::all();
         $propeker = ModelPengajuanKerjasama::all();
-        return view('admin.progres-pengajuan-kerjasama-admin', compact('propeker'));
+        return view('admin.progres-pengajuan-kerjasama-admin', compact('propeker', 'mitra'));
     }
 
     /**
@@ -1422,8 +1424,9 @@ class BackendController extends Controller
      */
     public function propekeredit($id)
     {
+        $mitra = ModelMitra::findorfail($id);
         $propeker = ModelPengajuanKerjasama::findorfail($id);
-        return view('admin.progres-pengajuan-kerjasama-admin', compact('propeker'));
+        return view('admin.progres-pengajuan-kerjasama-admin', compact('propeker', 'mitra'));
     }
 
     /**
@@ -2006,15 +2009,15 @@ class BackendController extends Controller
         //
     }
 
-    // Layanan Online
+    // Ajukan Kerjasama
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function layananonline()
+    public function ajukankerjasama()
     {
-        return view('admin.layanan-online-admin');
+        return view('admin.ajukan-kerjasama-admin');
     }
 
     /**
@@ -2022,7 +2025,7 @@ class BackendController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function layananonlinecreate()
+    public function ajukankerjasamacreate()
     {
         //
     }
@@ -2033,7 +2036,7 @@ class BackendController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function layananonlinestore(Request $request)
+    public function ajukankerjasamastore(Request $request)
     {
         //
     }
@@ -2044,7 +2047,7 @@ class BackendController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function layananonlineshow($id)
+    public function ajukankerjasamashow($id)
     {
         //
     }
@@ -2055,7 +2058,7 @@ class BackendController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function layananonlineedit($id)
+    public function ajukankerjasamaedit($id)
     {
         //
     }
@@ -2067,7 +2070,7 @@ class BackendController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function layananonlineupdate(Request $request, $id)
+    public function ajukankerjasamaupdate(Request $request, $id)
     {
         //
     }
@@ -2078,20 +2081,20 @@ class BackendController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function layananonlinedestroy($id)
+    public function ajukankerjasamadestroy($id)
     {
         //
     }
 
-    // Layanan Kepuasan
+    // Angket Kepuasan Layanan
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function layanankepuasan()
+    public function angketkepuasanlayanan()
     {
-        return view('admin.layanan-kepuasan-admin');
+        return view('admin.angket-kepuasan-layanan-admin');
     }
 
     /**
@@ -2099,7 +2102,7 @@ class BackendController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function layanankepuasancreate()
+    public function angketkepuasanlayanancreate()
     {
         //
     }
@@ -2110,7 +2113,7 @@ class BackendController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function layanankepuasanstore(Request $request)
+    public function angketkepuasanlayananstore(Request $request)
     {
         //
     }
@@ -2121,7 +2124,7 @@ class BackendController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function layanankepuasanshow($id)
+    public function angketkepuasanlayananshow($id)
     {
         //
     }
@@ -2132,7 +2135,7 @@ class BackendController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function layanankepuasanedit($id)
+    public function angketkepuasanlayananedit($id)
     {
         //
     }
@@ -2144,7 +2147,7 @@ class BackendController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function layanankepuasanupdate(Request $request, $id)
+    public function angketkepuasanlayananupdate(Request $request, $id)
     {
         //
     }
@@ -2155,84 +2158,7 @@ class BackendController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function layanankepuasandestroy($id)
-    {
-        //
-    }
-
-    // Layanan Kami
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function layanankami()
-    {
-        return view('admin.layanan-kami-admin');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function layanankamicreate()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function layanankamistore(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function layanankamishow($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function layanankamiedit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function layanankamiupdate(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function layanankamidestroy($id)
+    public function angketkepuasanlayanandestroy($id)
     {
         //
     }
