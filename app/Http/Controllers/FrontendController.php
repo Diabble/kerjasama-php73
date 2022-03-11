@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 
 use App\Models\ModelBeranda;
@@ -36,9 +38,15 @@ use App\Models\ModelBerkasKerjasama;
 
 use App\Models\ModelAjukanKerjasama;
 
-use App\Models\ModelKepuasanLayanan;
+use App\Models\ModelAngketKepuasanLayanan;
 
 use App\Models\ModelIO;
+
+use App\Models\ModelKategoriKodeInstansi;
+
+use App\Models\ModelKategoriKetInstansi;
+
+use App\Models\ModelKategoriJenisNaskah;
 
 use App\Models\ModelMitra;
 
@@ -50,9 +58,12 @@ class FrontendController extends Controller
     {
         $beranda = ModelBeranda::all();
         $wakilrektor = ModelWakilRektor::all();
+        $berita = ModelBerita::get();
         $tangkap1 = \DB::table('beranda')->get();
         $tangkap2 = \DB::table('wakil_rektor')->first();
-        return view('layouts.index', compact('beranda', 'wakilrektor', 'tangkap1', 'tangkap2'));
+        $mou = DB::table('mitra')->where('jenisnaskah', 1)->count();
+        $moa = DB::table('mitra')->where('jenisnaskah', 2)->count();
+        return view('layouts.index', compact('beranda', 'wakilrektor', 'berita', 'tangkap1', 'tangkap2', 'mou', 'moa'));
     }
 
     public function wakilrektor()
@@ -183,7 +194,7 @@ class FrontendController extends Controller
         return view('layouts.berkas-kerjasama', compact( 'beranda', 'tangkap2'));
     }
 
-    public function AjukanKerjasama()
+    public function ajukanKerjasama()
     {
         // $layon = ModelAjukanKerjasama::all();
         $beranda = ModelBeranda::all();
@@ -192,13 +203,57 @@ class FrontendController extends Controller
         return view('layouts.ajukan-kerjasama', compact( 'beranda', 'tangkap2'));
     }
 
-    public function AngketKepuasanLayanan()
+    public function ajukerstore(Request $request)
     {
-        // $lakep = ModelAngketKepuasanLayanan::all();
+        Request()->validate([
+            'nama' => 'required',
+            'nohp' => 'required',
+            'instansi' => 'required',
+            'jabatan' => 'required',
+            'berkaspengaju' => 'required|file',
+        ]);
+
+        $file_name = $request->berkaspengaju->getClientOriginalName();
+            $file = $request->berkaspengaju->storeAs('berkaspengaju', $file_name);
+            ModelAjukanKerjasama::create([
+            'nama' => $request->nama,
+            'nohp' => $request->nohp,
+            'instansi' => $request->instansi,
+            'jabatan' => $request->jabatan,
+            'berkaspengaju' => $file,
+        ]);
+        
+        return redirect('/ajukan-kerjasama')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+    }
+
+    public function angketkepuasanlayanan()
+    {
+        // $akela = ModelAngketKepuasanLayanan::all();
         $beranda = ModelBeranda::all();
-        // $tangkap1 = \DB::table('layanan_kepuasan')->first();
+        // $tangkap1 = \DB::table('angket_kepuasan_layanan')->first();
         $tangkap2 = \DB::table('beranda')->first();
         return view('layouts.angket-kepuasan-layanan', compact( 'beranda', 'tangkap2'));
+    }
+
+    public function akelastore(Request $request)
+    {
+        Request()->validate([
+            'nama' => 'required',
+            'nohp' => 'required',
+            'email' => 'required|email:dns',
+            'subject' => 'required',
+            'pesan' => 'required',
+        ]);
+
+        ModelAngketKepuasanLayanan::create([
+            'nama' => $request->nama,
+            'nohp' => $request->nohp,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'pesan' => $request->pesan,
+        ]);
+        
+        return redirect('/angket-kepuasan-layanan')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     public function io()
@@ -212,10 +267,13 @@ class FrontendController extends Controller
 
     public function mitra()
     {
+        $kakoin = ModelKategoriKodeInstansi::all();
+        $kakein = ModelKategoriKetInstansi::all();
+        $kajenas = ModelKategoriJenisNaskah::all();
         $mitra = ModelMitra::all();
         $beranda = ModelBeranda::all();
         $tangkap1 = \DB::table('mitra')->get();
         $tangkap2 = \DB::table('beranda')->first();
-        return view('layouts.mitra', compact('mitra', 'beranda', 'tangkap1', 'tangkap2'));
+        return view('layouts.mitra', compact('kakoin', 'kakein', 'kajenas', 'mitra', 'beranda', 'tangkap1', 'tangkap2'));
     }
 }

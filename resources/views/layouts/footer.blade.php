@@ -13,7 +13,8 @@
                 <br>
                 UIN Sunan Gunung Djati Bandung
             </h2>
-            <a href="https://s.id/BJiUS" class="theme-button-one">Ajukan Kerjasama</a>
+            {{-- <a href="https://s.id/BJiUS" class="theme-button-one">Ajukan Kerjasama</a> --}}
+            <a href="/ajukan-kerjasama" class="theme-button-one">Ajukan Kerjasama</a>
         </div> <!-- /.container -->
     </div> <!-- /.opacity -->
 </div> <!-- /.feature-banner -->

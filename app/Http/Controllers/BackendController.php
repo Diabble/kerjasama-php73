@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
@@ -66,8 +68,10 @@ class BackendController extends Controller
      */
     public function dashboard()
     {
-        $mitrachart = \DB::table('mitra')->first();
-        return view('admin.dashboard', compact('mitrachart'));
+        $mou = DB::table('mitra')->where('jenisnaskah', 1)->count();
+        $moa = DB::table('mitra')->where('jenisnaskah', 2)->count();
+        // dd($mitrachart);
+        return view('admin.dashboard', compact('mou', 'moa'));
     }
 
     /**
@@ -2017,7 +2021,8 @@ class BackendController extends Controller
      */
     public function ajukankerjasama()
     {
-        return view('admin.ajukan-kerjasama-admin');
+        $ajuker = ModelAjukanKerjasama::get();
+        return view('admin.ajukan-kerjasama-admin', compact('ajuker'));
     }
 
     /**
@@ -2038,7 +2043,25 @@ class BackendController extends Controller
      */
     public function ajukankerjasamastore(Request $request)
     {
-        //
+        Request()->validate([
+            'nama' => 'required',
+            'nohp' => 'required',
+            'instansi' => 'required',
+            'jabatan' => 'required',
+            'berkaspengaju' => 'required|file',
+        ]);
+
+        $file_name = $request->berkaspengaju->getClientOriginalName();
+            $file = $request->berkaspengaju->storeAs('berkaspengaju', $file_name);
+            ModelAjukanKerjasama::create([
+            'nama' => $request->nama,
+            'nohp' => $request->nohp,
+            'instansi' => $request->instansi,
+            'jabatan' => $request->jabatan,
+            'berkaspengaju' => $file,
+        ]);
+        
+        return redirect('/ajukan-kerjasama-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -2060,7 +2083,8 @@ class BackendController extends Controller
      */
     public function ajukankerjasamaedit($id)
     {
-        //
+        $ajuker = ModelAjukanKerjasama::findorfail($id);
+        return view('admin.ajukan-kerjasama-admin', compact('ajuker'));
     }
 
     /**
@@ -2072,7 +2096,38 @@ class BackendController extends Controller
      */
     public function ajukankerjasamaupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'nama' => 'required',
+            'nohp' => 'required',
+            'instansi' => 'required',
+            'jabatan' => 'required',
+        ], [
+            'nama.required' => 'Wajib diisi!!!',
+            'nohp.required' => 'Wajib diisi!!!',
+            'instansi.required' => 'Wajib diisi!!!',
+            'jabatan.required' => 'Wajib diisi!!!',
+        ]);
+
+        if (Request()->hasFile('berkaspengaju')) {
+            $file_name = $request->berkaspengaju->getClientOriginalName();
+                $file = $request->berkaspengaju->storeAs('berkaspengaju', $file_name);
+            ModelAjukanKerjasama::where('id',$id)->update([
+                'nama' => $request->nama,
+                'nohp' => $request->nohp,
+                'instansi' => $request->instansi,
+                'jabatan' => $request->jabatan,
+                'berkaspengaju' => $file,
+            ]);
+        } else {
+            ModelAjukanKerjasama::where('id',$id)->update([
+                'nama' => $request->nama,
+                'nohp' => $request->nohp,
+                'instansi' => $request->instansi,
+                'jabatan' => $request->jabatan,
+            ]);
+        }
+        
+        return redirect('/ajukan-kerjasama-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -2083,7 +2138,9 @@ class BackendController extends Controller
      */
     public function ajukankerjasamadestroy($id)
     {
-        //
+        ModelAjukanKerjasama::find($id)->delete();
+
+        return redirect('/ajukan-kerjasama-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Angket Kepuasan Layanan
@@ -2094,7 +2151,8 @@ class BackendController extends Controller
      */
     public function angketkepuasanlayanan()
     {
-        return view('admin.angket-kepuasan-layanan-admin');
+        $akela = ModelAngketKepuasanLayanan::get();
+        return view('admin.angket-kepuasan-layanan-admin', compact('akela'));
     }
 
     /**
@@ -2115,7 +2173,29 @@ class BackendController extends Controller
      */
     public function angketkepuasanlayananstore(Request $request)
     {
-        //
+        Request()->validate([
+            'nama' => 'required',
+            'nohp' => 'required',
+            'email' => 'required|email:dns',
+            'subject' => 'required',
+            'pesan' => 'required',
+        ], [
+            'nama.required' => 'Wajib diisi!!!',
+            'nohp.required' => 'Wajib diisi!!!',
+            'email.required' => 'Wajib diisi!!!',
+            'subject.required' => 'Wajib diisi!!!',
+            'pesan.required' => 'Wajib diisi!!!',
+        ]);
+
+        ModelAngketKepuasanLayanan::create([
+            'nama' => $request->nama,
+            'nohp' => $request->nohp,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'pesan' => $request->pesan,
+        ]);
+        
+        return redirect('/angket-kepuasan-layanan-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -2137,7 +2217,8 @@ class BackendController extends Controller
      */
     public function angketkepuasanlayananedit($id)
     {
-        //
+        $akela = ModelAngketKepuasanLayanan::findorfail($id);
+        return view('admin.angket-kepuasan-layanan-admin', compact('akela'));
     }
 
     /**
@@ -2149,7 +2230,30 @@ class BackendController extends Controller
      */
     public function angketkepuasanlayananupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'nama' => 'required',
+            'nohp' => 'required',
+            'email' => 'required|email:dns',
+            'subject' => 'required',
+            'pesan' => 'required',
+        ], [
+            'nama.required' => 'Wajib diisi!!!',
+            'nohp.required' => 'Wajib diisi!!!',
+            'email.required' => 'Wajib diisi!!!',
+            'subject.required' => 'Wajib diisi!!!',
+            'pesan.required' => 'Wajib diisi!!!',
+        ]);
+
+        $data = [
+            'nama' => $request->nama,
+            'nohp' => $request->nohp,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'pesan' => $request->pesan,
+        ];
+
+        ModelIO::find($id)->update($data);
+        return redirect('/angket-kepuasan-layanan-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -2160,7 +2264,9 @@ class BackendController extends Controller
      */
     public function angketkepuasanlayanandestroy($id)
     {
-        //
+        ModelAngketKepuasanLayanan::find($id)->delete();
+
+        return redirect('/angket-kepuasan-layanan-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // International Office
@@ -2284,7 +2390,11 @@ class BackendController extends Controller
 
     public function mitraprint()
     {
-        return view('admin.mitra-print-admin');
+        $kakoin = ModelKategoriKodeInstansi::get();
+        $kakein = ModelKategoriKetInstansi::get();
+        $kajenas = ModelKategoriJenisNaskah::get();
+        $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->get();
+        return view('admin.mitra-print-admin', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
     /**
@@ -2313,7 +2423,8 @@ class BackendController extends Controller
             'mulai' => 'required',
             'selesai' => 'required',
             'jenisnaskah' => 'required',
-            'file' => 'required',
+            'ketunit' => 'required',
+            'berkasmitra' => 'required|file',
         ], [
             'kodeinstansi.required' => 'Wajib diisi!!!',
             'ketinstansi.required' => 'Wajib diisi!!!',
@@ -2322,33 +2433,23 @@ class BackendController extends Controller
             'mulai.required' => 'Wajib diisi!!!',
             'selesai.required' => 'Wajib diisi!!!',
             'jenisnaskah.required' => 'Wajib diisi!!!',
-            'file.required' => 'Wajib diisi!!!',
+            'ketunit.required' => 'Wajib diisi!!!',
+            'berkasmitra.required' => 'Wajib diisi!!!',
         ]);
 
-        if (Request()->hasFile('file')) {
-            $file_name = $request->file->getClientOriginalName();
-                $file = $request->file->storeAs('doc', $file_name);
-            ModelBeranda::where('id',$id)->update([
-                'kodeinstansi' => $request->kodeinstansi,
-                'ketinstnasi' => $request->ketinstnasi,
-                'instansi' => $request->instansi,
-                'bidkerjasama' => $request->bidkerjasama,
-                'mulai' => $request->mulai,
-                'selesai' => $request->selesai,
-                'jenisnaskah' => $request->jenisnaskah,
-                'file' => $file,
-            ]);
-        } else {
-            ModelBeranda::where('id',$id)->update([
-                'kodeinstansi' => $request->kodeinstansi,
-                'ketinstnasi' => $request->ketinstnasi,
-                'instansi' => $request->instansi,
-                'bidkerjasama' => $request->bidkerjasama,
-                'mulai' => $request->mulai,
-                'selesai' => $request->selesai,
-                'jenisnaskah' => $request->jenisnaskah,
-            ]);
-        }
+        $file_name = $request->berkasmitra->getClientOriginalName();
+            $file = $request->berkasmitra->storeAs('berkasmitra', $file_name);
+        ModelMitra::create([
+            'kodeinstansi' => $request->kodeinstansi,
+            'ketinstnasi' => $request->ketinstnasi,
+            'instansi' => $request->instansi,
+            'bidkerjasama' => $request->bidkerjasama,
+            'mulai' => $request->mulai,
+            'selesai' => $request->selesai,
+            'jenisnaskah' => $request->jenisnaskah,
+            'ketunit' => $request->ketunit,
+            'berkasmitra' => $file,
+        ]);
         
         return redirect('/mitra-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
@@ -2396,6 +2497,7 @@ class BackendController extends Controller
             'mulai' => 'required',
             'selesai' => 'required',
             'jenisnaskah' => 'required',
+            'ketunit' => 'required',
         ], [
             'kodeinstansi.required' => 'Wajib diisi!!!',
             'ketinstansi.required' => 'Wajib diisi!!!',
@@ -2404,11 +2506,12 @@ class BackendController extends Controller
             'mulai.required' => 'Wajib diisi!!!',
             'selesai.required' => 'Wajib diisi!!!',
             'jenisnaskah.required' => 'Wajib diisi!!!',
+            'ketunit.required' => 'Wajib diisi!!!',
         ]);
 
-        if (Request()->hasFile('file')) {
-            $file_name = $request->file->getClientOriginalName();
-                $file = $request->file->storeAs('doc', $file_name);
+        if (Request()->hasFile('berkasmitra')) {
+            $file_name = $request->berkasmitra->getClientOriginalName();
+                $file = $request->berkasmitra->storeAs('berkasmitra', $file_name);
             ModelMitra::where('id',$id)->update([
                 'kodeinstansi' => $request->kodeinstansi,
                 'ketinstansi' => $request->ketinstansi,
@@ -2417,7 +2520,8 @@ class BackendController extends Controller
                 'mulai' => $request->mulai,
                 'selesai' => $request->selesai,
                 'jenisnaskah' => $request->jenisnaskah,
-                'file' => $file,
+                'ketunit' => $request->ketunit,
+                'berkasmitra' => $file,
             ]);
         } else {
             ModelMitra::where('id',$id)->update([
@@ -2428,6 +2532,7 @@ class BackendController extends Controller
                 'mulai' => $request->mulai,
                 'selesai' => $request->selesai,
                 'jenisnaskah' => $request->jenisnaskah,
+                'ketunit' => $request->ketunit,
             ]);
         }
         

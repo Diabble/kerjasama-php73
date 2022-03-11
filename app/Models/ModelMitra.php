@@ -10,7 +10,7 @@ class ModelMitra extends Model
     use HasFactory;
     protected $primaryKey = 'id';
     protected $table = 'mitra';
-    protected $fillable = ['kodeinstansi', 'ketinstansi', 'instansi', 'bidkerjasama', 'mulai', 'selesai', 'jenisnaskah', 'file'];
+    protected $fillable = ['kodeinstansi', 'ketinstansi', 'instansi', 'bidkerjasama', 'mulai', 'selesai', 'jenisnaskah', 'ketunit', 'berkasmitra'];
 
     public function kakoin() {
         return $this->belongsTo(ModelKategoriKodeInstansi::class, 'kodeinstansi', 'id');

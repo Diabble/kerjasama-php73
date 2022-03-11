@@ -1,6 +1,30 @@
 @extends('layouts.master')
 @section('title','Beranda')
 @section('content')
+
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+
+		function drawChart() {
+
+		var data = google.visualization.arrayToDataTable([
+			['Element', 'Jumlah'],
+			['MoU',     {{ $mou }}],
+			['MoA',     {{ $moa }}]
+		]);
+
+		var options = {
+			// title: 'Statistik Kerjasama',
+			is3D: true,
+		};
+
+		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+		chart.draw(data, options);
+		}
+	</script>
 			
 <!-- 
 =============================================
@@ -13,7 +37,7 @@
 	<div data-src="{{ asset('storage/' . $row->poto) }}" class="@if($count == 1) active @endif">
 		<div class="camera_caption">
 			<div class="container">
-				<p class="wow fadeInUp animated">{{ $row->judulcarousel }}</p>
+				<p class="wow fadeInUp animated"><strong>{{ $row->judulcarousel }}</strong></p>
 				<h1 class="wow fadeInUp animated" data-wow-delay="0.2s">{!! $row->deskripsicarousel !!}</h1>
 				<a href="/mitra" class="theme-button-one wow fadeInUp animated" data-wow-delay="0.39s">MITRA</a>
 			</div> <!-- /.container -->
@@ -35,11 +59,10 @@
 			<div class="row no-gutters">
 				<div class="col-lg-6 col-12 text">
 					<div class="theme-title-one">
-						<h2>ABOUT US</h2>
+						<h2>Profil UIN Sunan Gunung Djati Bandung</h2>
 					</div> <!-- /.theme-title-one -->
 					<p>A tale of a fateful trip that started from this tropic port aboard this tiny ship today still wanted by the government they survive as soldiers of fortune to a deluxe you apartment in the sky to explore strange new worlds to seek out new life and new civilizations to boldly go where no man has gone.</p>
 					<p>You would see the biggest gift would be from me and the card attached would so thank you for being a friend the biggest gift.</p>
-					<img src="images/home/sign.png" alt="" class="sign">
 				</div> <!-- /.col- -->
 				<div class="col-lg-6 col-12 wrap">
 					<iframe class="rounded" width="560" height="315" src="https://www.youtube.com/embed/yprwfSH4h9c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -60,7 +83,7 @@
 	About Wakil Rektor
 ============================================== 
 -->
-<div class="about-compnay section-spacing">
+<div class="about-compnay section-spacing" id="first">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 col-12 text-center">
@@ -111,7 +134,7 @@
 						<p style="text-align: justify;">Bagian Kerjasama dan Pengembangan Lembaga UIN Sunan Gunung Djati Bandung</p>
 						<div class="row">
 							<div class="col-lg-12 pt-4">
-								<a class="theme-button-one float-left" href="/wakil-rektor">Selanjutnya</a>
+								<a class="theme-button-one float-left" href="/mitra">Selanjutnya</a>
 							</div>
 						</div>
 					</div> <!-- /.theme-title-one -->
@@ -123,6 +146,36 @@
 		</div> <!-- /.main-content -->
 	</div> <!-- /.container -->
 </div> <!-- /.consultation-form -->
+
+
+<!-- 
+=============================================
+	About Company Style Two
+============================================== 
+-->
+<div class="about-compnay-two section-spacing">
+	<div class="overlay">
+		<div class="container">
+			<div class="row no-gutters">
+				<div class="col-lg-6 col-12 wrap">
+					<iframe class="rounded" width="560" height="315" src="https://www.youtube.com/embed/Y77zRWy4czY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					{{-- <div class="img-box">
+						<a data-fancybox href="https://www.youtube.com/watch?v=yprwfSH4h9c" class="play">
+							<i class="fa fa-play" aria-hidden="true"></i>
+						</a>
+					</div> --}}
+				</div>
+				<div class="col-lg-6 col-12 text">
+					<div class="theme-title-one">
+						<h2>Capaian Kinerja</h2>
+					</div> <!-- /.theme-title-one -->
+					<p>A tale of a fateful trip that started from this tropic port aboard this tiny ship today still wanted by the government they survive as soldiers of fortune to a deluxe you apartment in the sky to explore strange new worlds to seek out new life and new civilizations to boldly go where no man has gone.</p>
+					<p>You would see the biggest gift would be from me and the card attached would so thank you for being a friend the biggest gift.</p>
+				</div> <!-- /.col- -->
+			</div> <!-- /.row -->
+		</div> <!-- /.container -->
+	</div> <!-- /.overlay -->
+</div> <!-- /.about-compnay-two -->
 
 
 <!--
@@ -139,19 +192,26 @@
 		<div class="wrapper">
 			<div class="clearfix">
 				<div class="latest-news-slider">
+					@foreach ( $berita as $row )
 					<div class="item">
 						<div class="single-blog">
 							<div class="image-box">
-								<img src="{{ asset('assets') }}/front/images/blog/3.jpg" alt="">
-								<div class="overlay"><a href="#" class="date">Feb 06, 2018</a></div>
+								<img src="{{ asset('storage/' . $row->poto) }}" alt="Image">
+								<div class="overlay">
+									<a href="#" class="date">
+										{{ Carbon\Carbon::parse($row->created_at)->translatedFormat('l, d F Y') }}
+									</a>
+								</div>
 							</div> <!-- /.image-box -->
 							<div class="post-meta">
-								<h5 class="title"><a href="blog-details.html">Trouble with the law since to eastern side of yellow mint</a></h5>
-								<a href="blog-details.html" class="read-more">READ MORE</a>
+								<h5 class="title"><a href="{{ route('berita-detail', $row->slug) }}">{{ $row->judul }}</a></h5>
+								<a href="{{ route('berita-detail', $row->slug) }}" class="read-more" style="text-decoration: none;">READ MORE</a>
 							</div> <!-- /.post-meta -->
 						</div> <!-- /.single-blog -->
 					</div> <!-- /.col- -->
-					<div class="item">
+					@endforeach
+					
+					{{-- <div class="item">
 						<div class="single-blog">
 							<div class="image-box">
 								<img src="{{ asset('assets') }}/front/images/blog/4.jpg" alt="">
@@ -174,7 +234,7 @@
 								<a href="blog-details.html" class="read-more">READ MORE</a>
 							</div> <!-- /.post-meta -->
 						</div> <!-- /.single-blog -->
-					</div> <!-- /.col- -->
+					</div> <!-- /.col- --> --}}
 				</div> <!-- /.latest-news-slider -->
 			</div> <!-- /.row -->
 		</div> <!-- /.wrapper -->

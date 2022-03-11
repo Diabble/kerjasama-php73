@@ -119,7 +119,9 @@ Route::get('/galeri', [FrontendController::class, 'galeri']);
 
 Route::get('/berkas-kerjasama', [FrontendController::class, 'berkaskerjasama']);
 Route::get('/ajukan-kerjasama', [FrontendController::class, 'ajukankerjasama']);
+Route::post('/ajukan-kerjasama/store', [FrontendController::class, 'ajukerstore']);
 Route::get('/angket-kepuasan-layanan', [FrontendController::class, 'angketkepuasanlayanan']);
+Route::post('/angket-kepuasan-layanan/store', [FrontendController::class, 'akelastore']);
 
 Route::get('/international-office', [FrontendController::class, 'io']);
 
@@ -244,9 +246,17 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Ajukan Kerjasama
     Route::get('/ajukan-kerjasama-admin', [BackendController::class, 'ajukankerjasama']);
+    Route::post('/ajukan-kerjasama-admin/store', [BackendController::class, 'ajukankerjasamastore']);
+    Route::get('/ajukan-kerjasama-admin/edit/{id}', [BackendController::class, 'ajukankerjasamaedit']);    
+    Route::post('/ajukan-kerjasama-admin/update/{id}', [BackendController::class, 'ajukankerjasamaupdate']);
+    Route::get('/ajukan-kerjasama-admin/delete/{id}', [BackendController::class, 'ajukankerjasamadestroy']);
 
     // Angket Kepuasan Layanan
     Route::get('/angket-kepuasan-layanan-admin', [BackendController::class, 'angketkepuasanlayanan']);
+    Route::post('/angket-kepuasan-layanan-admin/store', [BackendController::class, 'angketkepuasanlayananstore']);
+    Route::get('/angket-kepuasan-layanan-admin/edit/{id}', [BackendController::class, 'angketkepuasanlayananedit']);    
+    Route::post('/angket-kepuasan-layanan-admin/update/{id}', [BackendController::class, 'angketkepuasanlayananupdate']);
+    Route::get('/angket-kepuasan-layanan-admin/delete/{id}', [BackendController::class, 'angketkepuasanlayanandestroy']);
 
     // International Office
     Route::get('/international-office-admin', [BackendController::class, 'io']);

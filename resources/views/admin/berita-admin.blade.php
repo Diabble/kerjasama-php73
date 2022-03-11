@@ -114,8 +114,8 @@
             <!-- Modal Tambah End -->
           </div>
           <div class="card-body" style="display: block;">
-            <div class="table-responsive">
-              <table class="table table-striped table-bordered projects">
+            <div class="container table-responsive">
+              <table class="table table-striped table-bordered projects example">
                 <thead>
                   <tr style="text-align: center;">
                     <th style="width: 1%">
@@ -189,6 +189,11 @@
                       {{ $row->created_at }}
                     </td>
                     <td class="project-actions">
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#lihat">
+                        <i class="fas fa-eye"></i>
+                        Lihat
+                      </button>
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah{{ $row->id }}">
                         <i class="fas fa-edit"></i>

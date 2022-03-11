@@ -50,16 +50,12 @@
                     <!-- form start -->
                     <form action="" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
-                        <label>Gambar</label>
-                        <input type="file" class="form-control" id="inputGroupFile02" name="poto">
+                        <label>Instansi</label>
+                        <input class="form-control" name="instansi" placeholder="Enter..." value="">
                       </div>
                       <div class="form-group">
-                        <label>Input</label>
-                        <input class="form-control" name="input" placeholder="Enter..." value="">
-                      </div>
-                      <div class="form-group">
-                        <label>TextArea</label>
-                        <textarea class="form-control" name="textarea" placeholder="Enter..." value=""></textarea>
+                        <label>Surat Permohonan</label>
+                        <input type="file" class="form-control" id="inputGroupFile02" name="suratpermohonan">
                       </div>
                     </form>
                     <!-- form end -->
@@ -74,90 +70,87 @@
             <!-- Modal Tambah End -->
           </div>
           <div class="card-body p-0" style="display: block;">
-            <table class="table table-striped table-bordered projects">
-              <thead>
-                <tr style="text-align: center;">
-                  <th style="width: 1%">
-                    ID
-                  </th>
-                  <th>
-                    Gambar
-                  </th>
-                  <th>
-                    Input
-                  </th>
-                  <th>
-                    TextArea
-                  </th>
-                  <th style="width: 20%">
-                    Aksi
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="text-align: center;">
-                  <td>
+            <div class="container table-responsive">
+              <table class="table table-striped table-bordered projects example">
+                <thead>
+                  <tr style="text-align: center;">
+                    <th style="width: 1%">
+                      No
+                    </th>
+                    <th>
+                      Instansi
+                    </th>
+                    <th>
+                      Surat Permohonan
+                    </th>
+                    <th style="width: 20%">
+                      Aksi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $no=1; ?>
+                  <tr style="text-align: center;">
+                    <td>
+                      {{ $no++ }}
+                    </td>
+                    <td>
 
-                  </td>
-                  <td>
+                    </td>
+                    <td>
 
-                  </td>
-                  <td>
-
-                  </td>
-                  <td>
-
-                  </td>
-                  <td class="project-actions">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
-                      <i class="fas fa-edit"></i>
-                      Ubah
-                    </button>
-                    <!-- Modal Ubah Start -->
-                    <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-scrollable">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="ubahLabel">Ubah Berkas Kerjasama Admin</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <!-- form start -->
-                            <form action="" method="POST" enctype="multipart/form-data">
-                              <div class="form-group">
-                                <label>Gambar</label>
-                                <input type="file" class="form-control" id="inputGroupFile02" name="poto">
-                              </div>
-                              <div class="form-group">
-                                <label>Input</label>
-                                <input class="form-control" name="input" placeholder="Enter..." value="">
-                              </div>
-                              <div class="form-group">
-                                <label>TextArea</label>
-                                <textarea class="form-control" name="textarea" placeholder="Enter..." value=""></textarea>
-                              </div>
-                            </form>
-                            <!-- form end -->
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                            <button type="button" class="btn btn-primary btn-sm">Simpan</button>
+                    </td>
+                    <td class="project-actions">
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
+                        <i class="fas fa-edit"></i>
+                        Ubah
+                      </button>
+                      <!-- Modal Ubah Start -->
+                      <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="ubahLabel">Ubah Berkas Kerjasama Admin</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <!-- form start -->
+                              <form action="" method="POST" enctype="multipart/form-data">
+                                <div class="form-group">
+                                  <label>Instansi</label>
+                                  <input class="form-control" name="instansi" placeholder="Enter..." value="">
+                                </div>
+                                <div class="form-group">
+                                  <label>Surat Permohonan</label>
+                                  <input type="file" class="form-control" id="inputGroupFile02" name="suratpermohonan">
+                                </div>
+                              </form>
+                              <!-- form end -->
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                              <button type="button" class="btn btn-primary btn-sm">Simpan</button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
-                      <i class="fas fa-trash"></i>
-                      Hapus
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                      <!-- Modal Ubah End -->
+                      <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
+                        <i class="fas fa-trash"></i>
+                        Hapus
+                      </a>
+                      <a class="btn btn-secondary btn-sm" href="#">
+                        <i class="fas fa-download"></i>
+                        Download
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
           <!-- <div class="card-footer" style="display: block;">

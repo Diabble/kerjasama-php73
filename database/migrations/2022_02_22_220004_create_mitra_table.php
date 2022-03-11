@@ -22,7 +22,7 @@ class CreateMitraTable extends Migration
             $table->date('mulai');
             $table->date('selesai');
             $table->integer('jenisnaskah');
-            $table->string('file');
+            $table->string('berkasmitra');
             $table->timestamps();
         });
     }

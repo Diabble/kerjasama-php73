@@ -62,7 +62,7 @@
                     </button>
                     <!-- Modal Ubah Start -->
                     <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-scrollable">
+                      <div class="modal-dialog modal-dialog-scrollable modal-lg">
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="ubahLabel">Ubah International Office</h5>

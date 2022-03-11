@@ -33,7 +33,8 @@
 								<div class="contact-us-section">
 									<div class="form-wrapper">
 										<!-- form start -->
-										<form action="/ajukan-kerjasama" class="theme-form-one form-validation" autocomplete="off" method="POST" enctype="multipart/form-data">
+										<form action="{{url('/ajukan-kerjasama/store')}}" method="POST" class="theme-form-one form-validation" autocomplete="off" method="POST" enctype="multipart/form-data">
+											@csrf
 											<div class="row">
 												<div class="col-12">
 													<input type="text" class="@error('nama') is-invalid @enderror" placeholder="Nama *" name="nama">
@@ -42,7 +43,7 @@
 													@enderror
 												</div>
 												<div class="col-12">
-													<input type="text" class="@error('nohp') is-invalid @enderror" placeholder="No Whatsapp *" name="nohp">
+													<input type="number" class="@error('nohp') is-invalid @enderror" placeholder="No Whatsapp *" name="nohp">
 													@error('nohp')
 														<div class="invalid-feedback">{{ $message }}</div>
 													@enderror
@@ -61,7 +62,7 @@
 												</div>
 												<div class="col-12">
 													<label>Surat Permohonan *</label>
-													<input type="file" class="@error('suratpermohonan') is-invalid @enderror" name="suratpermohonan">
+													<input type="file" class="@error('suratpermohonan') is-invalid @enderror" name="berkaspengaju">
 													@error('suratpermohonan')
 														<div class="invalid-feedback">{{ $message }}</div>
 													@enderror

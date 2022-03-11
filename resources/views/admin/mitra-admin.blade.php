@@ -31,11 +31,11 @@
             </div>
           </div>
           <div class="card-body" style="background-color: #ffffff; padding: 10px 40px 10px 40px;">
-            <span class="btn btn-success btn-sm fileinput-button dz-clickable">
+            <span type="file" class="btn btn-success btn-sm fileinput-button dz-clickable">
               <i class="fas fa-plus"></i>
               Tambah File
             </span>
-            <a class="btn btn-secondary btn-sm" href="/mitra-print">
+            <a class="btn btn-secondary btn-sm" href="/mitra-print" target="blank">
               <i class="fas fa-print"></i>
               Cetak Semua
             </a>
@@ -127,9 +127,16 @@
                           @enderror
                       </div>
                       <div class="form-group">
+                        <label>Keterangan/Unit</label>
+                        <input class="form-control @error('ketunit') is-invalid @enderror" name="ketunit" id="ketunit" autocomplete="off" placeholder="Enter..." value="">
+                        @error('ketunit')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
+                      <div class="form-group">
                         <label>File</label>
-                        <input type="file" class="form-control @error('file') is-invalid @enderror" id="inputGroupFile02" name="file">
-                        @error('file')
+                        <input type="file" class="form-control @error('berkasmitra') is-invalid @enderror" id="inputGroupFile02" name="berkasmitra">
+                        @error('berkasmitra')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
@@ -157,7 +164,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data" id="formubah">
+                    <form action="{{url('/mitra-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data" id="formubah">
                       @csrf
                       <div class="form-group">
                         <label>Kode Instansi</label>
@@ -203,8 +210,12 @@
                           </select>
                       </div>
                       <div class="form-group">
+                        <label>Keterangan/Unit</label>
+                        <input class="form-control ketunit" name="ketunit" id="ketunit" autocomplete="off" placeholder="Enter..." value="">
+                      </div>
+                      <div class="form-group">
                         <label>File</label>
-                        <input type="file" class="form-control file" id="inputGroupFile02" name="file">
+                        <input type="file" class="form-control" id="inputGroupFile02" name="berkasmitra">
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
@@ -220,99 +231,193 @@
             
           </div>
           <div class="card-body p-0" style="display: block;">
-            <table class="table table-striped table-bordered projects">
-              <thead>
-                <tr style="text-align: center;">
-                  <th style="width: 1%">
-                    No
-                  </th>
-                  <th>
-                    Kode Instansi
-                  </th>
-                  <th>
-                    Keterangan Instansi
-                  </th>
-                  <th>
-                    Instansi
-                  </th>
-                  <th>
-                    Bidang Kerjasama
-                  </th>
-                  <th>
-                    Dimulai
-                  </th>
-                  <th>
-                    Selesai
-                  </th>
-                  <th>
-                    Jenis Naskah
-                  </th>
-                  <th style="width: 11%">
-                    Aksi
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {{ $errors }}
-                <?php $no=1; ?>
-                @forelse ( $mitra as $row )
-                <tr style="text-align: justify;">
-                  <td>
-                    {{ $no++ }}
-                  </td>
-                  <td>
-                    {{ $row->kakoin->nama_kategori }}
-                  </td>
-                  <td>
-                    {{ $row->kakein->nama_kategori }}
-                  </td>
-                  <td>
-                    {{ $row->instansi }}
-                  </td>
-                  <td>
-                    {!! $row->bidkerjasama !!}
-                  </td>
-                  <td>
-                    {{ $row->mulai }}
-                  </td>
-                  <td>
-                    {{ $row->selesai }}
-                  </td>
-                  <td>
-                    {{ $row->kajenas->nama_kategori }}
-                  </td>
-                  <td class="project-actions text-center" style="padding: 10px 10px 10px 10px;">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah" onclick="update({
-                      id: {{ $row->id }},
-                      kodeinstansi: {{ $row->kodeinstansi }},
-                      ketinstansi: {{ $row->ketinstansi }},
-                      instansi: '{{ $row->instansi }}',
-                      bidkerjasama: '{{ $row->bidkerjasama }}',
-                      mulai: '{{ $row->mulai }}',
-                      selesai: '{{ $row->selesai }}',
-                      jenisnaskah: {{ $row->jenisnaskah }},
-                    });">
-                      <i class="fas fa-edit"></i>
-                      Ubah
-                    </button>
-                    <a class="btn btn-danger btn-sm" href="{{url('/mitra-admin/delete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
-                      <i class="fas fa-trash"></i>
-                      Hapus
-                    </a>
-                    <a class="btn btn-secondary btn-sm" href="#">
-                      <i class="fas fa-download"></i>
-                      Download
-                    </a>
-                  </td>
-                </tr>
-                @empty
-                <tr>
-                  <td colspan="9" style="text-align: center;">Data Masih Kosong</td>
-                </tr>
-                @endforelse
-              </tbody>
-            </table>
+            <div class="container table-responsive">
+              <table class="table table-striped table-bordered projects example">
+                <thead>
+                  <tr style="text-align: center;">
+                    <th style="width: 1%">
+                      No
+                    </th>
+                    <th>
+                      Kode Instansi
+                    </th>
+                    <th>
+                      Keterangan Instansi
+                    </th>
+                    <th>
+                      Instansi
+                    </th>
+                    <th>
+                      Bidang Kerjasama
+                    </th>
+                    <th>
+                      Dimulai
+                    </th>
+                    <th>
+                      Selesai
+                    </th>
+                    <th>
+                      Jenis Naskah
+                    </th>
+                    <th>
+                      Keterangan/Unit
+                    </th>
+                    <th>
+                      Berkas Mitra
+                    </th>
+                    <th style="width: 11%">
+                      Aksi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{ $errors }}
+                  <?php $no=1; ?>
+                  @forelse ( $mitra as $row )
+                  <tr style="text-align: justify;">
+                    <td>
+                      {{ $no++ }}
+                    </td>
+                    <td>
+                      {{ $row->kakoin->nama_kategori }}
+                    </td>
+                    <td>
+                      {{ $row->kakein->nama_kategori }}
+                    </td>
+                    <td>
+                      {{ $row->instansi }}
+                    </td>
+                    <td>
+                      {!! $row->bidkerjasama !!}
+                    </td>
+                    <td>
+                      {{ $row->mulai }}
+                    </td>
+                    <td>
+                      {{ $row->selesai }}
+                    </td>
+                    <td>
+                      {{ $row->kajenas->nama_kategori }}
+                    </td>
+                    <td>
+                      {{ $row->ketunit }}
+                    </td>
+                    <td>
+                      {{$row->berkasmitra}}
+                    </td>
+                    <td class="project-actions text-center" style="padding: 10px 10px 10px 10px;">
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#lihat{{ $row->id }}">
+                        <i class="fas fa-eye"></i>
+                        Lihat
+                      </button>
+                      <!-- Modal Lihat Start -->
+                      <div class="modal fade text-left" id="lihat{{ $row->id }}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="lihatLabel">Lihat Mitra Admin</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <!-- form start -->
+                              <form action="" method="POST" enctype="multipart/form-data">
+                                <div class="form-group">
+                                  <label>Kode Instansi</label>
+                                    <select id="kodeinstansi" class="form-control kodeinstansi" name="kodeinstansi">
+                                      <option>Enter...</option>
+                                      @foreach ($kakoin as $koin)
+                                          <option value="{{ $koin->id }}">{{ $koin->nama_kategori }}</option>
+                                      @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                  <label>Keterangan Instansi</label>
+                                    <select id="ketinstansi" class="form-control ketinstansi" name="ketinstansi">
+                                      <option>Enter...</option>
+                                      @foreach ($kakein as $kein)
+                                          <option value="{{ $kein->id }}">{{ $kein->nama_kategori }}</option>
+                                      @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                  <label>Instansi</label>
+                                  <input class="form-control instansi" name="instansi" id="instansi" autocomplete="off" placeholder="Enter..." value="">
+                                </div>
+                                <div class="form-group">
+                                  <label>Bidang Kerjasama</label>
+                                  <textarea class="form-control bidkerjasama" name="bidkerjasama" id="bidkerjasama" placeholder="Enter..." value=""></textarea>
+                                </div>
+                                <div class="form-group">
+                                  <label>Dimulai</label>
+                                  <input class="form-control mulai" name="mulai" id="mulai" placeholder="Enter..." value="">
+                                </div>
+                                <div class="form-group">
+                                  <label>Berakhir</label>
+                                  <input class="form-control selesai" name="selesai" id="selesai" placeholder="Enter..." value="">
+                                </div>
+                                <div class="form-group">
+                                  <label>Jenis Naskah</label>
+                                    <select id="jenisnaskah" class="form-control jenisnaskah" name="jenisnaskah">
+                                      <option>Enter...</option>
+                                      @foreach ($kajenas as $jenas)
+                                          <option value="{{ $jenas->id }}">{{ $jenas->nama_kategori }}</option>
+                                      @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                  <label>Keterangan/Unit</label>
+                                  <input class="form-control ketunit" name="ketunit" id="ketunit" placeholder="Enter..." value="">
+                                </div>
+                                <div class="form-group">
+                                  <label>File</label>
+                                  <input type="file" class="form-control" id="inputGroupFile02" name="berkasmitra">
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                </div>
+                              </form>
+                              <!-- form end -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Modal Lihat End -->
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah" onclick="update({
+                        id: {{ $row->id }},
+                        kodeinstansi: {{ $row->kodeinstansi }},
+                        ketinstansi: {{ $row->ketinstansi }},
+                        instansi: '{{ $row->instansi }}',
+                        bidkerjasama: '{{ $row->bidkerjasama }}',
+                        mulai: '{{ $row->mulai }}',
+                        selesai: '{{ $row->selesai }}',
+                        ketunit: '{{ $row->ketunit }}',
+                        jenisnaskah: {{ $row->jenisnaskah }},
+                      });">
+                        <i class="fas fa-edit"></i>
+                        Ubah
+                      </button>
+                      <a class="btn btn-danger btn-sm" href="{{url('/mitra-admin/delete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
+                        <i class="fas fa-trash"></i>
+                        Hapus
+                      </a>
+                      <a class="btn btn-secondary btn-sm" href="#">
+                        <i class="fas fa-download"></i>
+                        Download
+                      </a>
+                    </td>
+                  </tr>
+                  @empty
+                  <tr>
+                    <td colspan="9" style="text-align: center;">Data Masih Kosong</td>
+                  </tr>
+                  @endforelse
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
           <!-- <div class="card-footer" style="display: block;">
@@ -354,6 +459,7 @@
     $('#mulai').attr('value', data.mulai);
     $('#selesai').attr('value', data.selesai);
     $('#jenisnaskah').val(data.jenisnaskah);
+    $('#ketunit').attr('value', data.ketunit);
     $('#file').val(data.file);
   }
 </script>

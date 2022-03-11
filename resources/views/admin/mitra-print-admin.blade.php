@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Daftar Kerjasama UIN Sunan Gunung Djati Bandung</title>
+  <title>Daftar Mitra UIN Sunan Gunung Djati Bandung</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -57,6 +57,9 @@
             <th>
                 Jenis Naskah
             </th>
+            <th>
+                Keterangan/Unit
+            </th>
           </tr>
           </thead>
           <tbody>
@@ -67,25 +70,28 @@
                 {{$no++}}
             </td>
             <td>
-                {{$row->kodeinstansi}}
+                {{$row->kakoin->nama_kategori}}
             </td>
             <td>
-                {{$row->ketinstansi}}
+                {{$row->kakein->nama_kategori}}
             </td>
             <td>
                 {{$row->instansi}}
             </td>
             <td>
-
+                {!!$row->bidkerjasama!!}
             </td>
             <td>
-              {{$row->created_at}}
+                {{$row->mulai}}
             </td>
             <td>
-              {{$row->updated_at}}
+                {{$row->selesai}}
             </td>
             <td>
-                {{$row->jenisnaskah}}
+                {{$row->kajenas->nama_kategori}}
+            </td>
+            <td>
+                {{$row->ketunit}}
             </td>
           @empty
             <tr>

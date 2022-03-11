@@ -27,7 +27,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12 col-12 text order-lg-last">
-							<div class="theme-title-one">
+							<div class="theme-title-one-mitra">
 								{{-- <h2 class="text-center">Mitra</h2>
 								<p>{!! $tangkap1->deskripsi !!}</p> --}}
 								<!-- Table List Start -->
@@ -46,16 +46,18 @@
 										</tr>
 									</thead>
 									<tbody>
+										<?php $no=1; ?>
 										@forelse ( $mitra as $row )
 										<tr style="text-align:justify;">
-											<td>{{ $row->id }}</td>
-											<td>{{ $row->kodeinstansi }}</td>
-											<td>{{ $row->ketinstansi }}</td>
+											<td>{{ $no++ }}</td>
+											<td>{{ $row->kakoin->nama_kategori }}</td>
+											<td>{{ $row->kakein->nama_kategori }}</td>
 											<td>{{ $row->instansi }}</td>
-											<td>{{ $row->bidkerjasama }}</td>
+											<td>{!! $row->bidkerjasama !!}</td>
 											<td>{{ $row->mulai }}</td>
 											<td>{{ $row->selesai }}</td>
-											<td>{{ $row->jenisnaskah }}</td>
+											<td>{{ $row->kajenas->nama_kategori }}</td>
+											<td>{{ $row->ketunit }}</td>
 										</tr>
 										@empty
 										<tr>

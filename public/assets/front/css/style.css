@@ -246,6 +246,24 @@ body .theme-button-one:hover {background:#000f32; }
   margin-left: -20px;
 }
 .theme-title-one p {padding-top: 20px;}
+
+.theme-title-one-mitra {position: relative;text-align: justify;}
+.theme-title-one-mitra h2 {
+  position: relative;
+  text-transform: uppercase;
+  padding-bottom: 22px;
+}
+.theme-title-one-mitra h2:before {
+  content: '';
+  width: 40px;
+  height: 4px;
+  border-radius: 10px;
+  background: #c3c3c3;
+  position: absolute;
+  bottom: 0;
+  left:50%;
+  margin-left: -20px;
+}
 /*------------------- Theme Pagination ------------------*/
 .theme-pagination ul {padding-top: 40px;}
 .theme-pagination ul li {display: inline-block;}
@@ -492,8 +510,8 @@ body .theme-button-one:hover {background:#000f32; }
 #theme-main-banner .camera_caption p {
   font-size: 26px;
   line-height: 35px;
-  color: #556382;
-  font-weight: 300;
+  color: #ffffff;
+  font-weight: 1000;
 }
 #theme-main-banner .camera_caption .theme-button-one {background: #fff;}
 #theme-main-banner .camera_caption .theme-button-one:hover {color: #fff;}
@@ -573,7 +591,7 @@ body .theme-button-one:hover {background:#000f32; }
 }
 /*------------------ Feature Banner ---------------*/
 .feature-banner {
-  background: url(../images/home/2.jpg) no-repeat center center;
+  background: url(../images/home/online-programming-course-hero-section-bg.svg) no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
   background-color: #707d9e;
@@ -1054,7 +1072,7 @@ body .theme-button-one:hover {background:#000f32; }
 }
 /*------------------- About Company Stye Two -------------------*/
 .about-compnay-two {
-  background: url(../images/home/11.jpg) no-repeat center center;
+  background: url(../images/home/online-programming-course-hero-section-bg.svg) no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
   background-color: #707d9e;
@@ -1305,7 +1323,7 @@ body .theme-button-one:hover {background:#000f32; }
   line-height: 28px;
   margin: 20px 0 10px 0;
 }
-.our-blog .single-blog .post-meta .read-more {font-size: 14px;text-transform: uppercase;font-weight: 700;}
+.our-blog .single-blog .post-meta .read-more {font-size: 14px;text-transform: uppercase;font-weight: 700;text-decoration: none;}
 .our-blog .single-blog .post-meta .read-more:hover {text-decoration: underline;}
 .latest-news .single-blog {margin-top: 35px;}
 .latest-news .wrapper {margin-top: 20px;}
@@ -1322,7 +1340,7 @@ body .theme-button-one:hover {background:#000f32; }
 .google-map-one {height: 300px;}
 /*---------------------- Theme Inner Banner -----------------*/
 .theme-inner-banner {
-  background: url(../images/home/inner-banner.jpg) no-repeat center center;
+  background: url(../images/home/online-programming-course-hero-section-bg.svg) no-repeat center center;
   background-attachment: fixed;
   background-size: cover;
   background-color: #707d9e;

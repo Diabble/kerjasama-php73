@@ -30,81 +30,83 @@
               </button>
             </div>
           </div>
-          <div class="card-body p-0" style="display: block;">
-            <table class="table table-striped table-bordered projects">
-              <thead>
-                <tr style="text-align: center;">
-                  <th style="width: 1%">
-                    No
-                  </th>
-                  <th>
-                    Instansi
-                  </th>
-                  <th>
-                    Progres
-                  </th>
-                  <th style="width: 15%">
-                    Aksi
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $no=1; ?>
-                @foreach ( $propeker as $row )
-                <tr style="text-align: center;">
-                  <td>
-                    {{ $no++ }}
-                  </td>
-                  <td>
-                    {{ $row->instansi }}
-                  </td>
-                  <td>
-                    {{ $row->progres }}
-                  </td>
-                  <td class="project-actions text-center">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
-                      <i class="fas fa-edit"></i>
-                      Ubah
-                    </button>
-                    <!-- Modal Ubah Start -->
-                    <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-scrollable">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="ubahLabel">Ubah Progres Pengajuan Kerjasama Admin</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <!-- form start -->
-                            <form action="{{url('/progres-pengajuan-kerjasama-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
-                              @csrf
-                              <div class="form-group">
-                                <label>Instansi</label>
-                                <input class="form-control" disabled="" name="instansi" autocomplete="off" placeholder="Enter..." value="{{ $row->instansi }}">
-                              </div>
-                              <div class="form-group">
-                                <label>Progres</label>
-                                <input class="form-control" name="progres" autocomplete="off" placeholder="Enter..." value="{{ $row->progres }}">
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                              </div>
-                            </form>
-                            <!-- form end -->
+          <div class="card-body" style="display: block; padding: 10px 0 10px 0;">
+            <div class="container table-responsive">
+              <table class="table table-striped table-bordered projects example">
+                <thead>
+                  <tr style="text-align: center;">
+                    <th style="width: 1%">
+                      No
+                    </th>
+                    <th>
+                      Instansi
+                    </th>
+                    <th>
+                      Progres
+                    </th>
+                    <th style="width: 15%">
+                      Aksi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $no=1; ?>
+                  @foreach ( $propeker as $row )
+                  <tr style="text-align: center;">
+                    <td>
+                      {{ $no++ }}
+                    </td>
+                    <td>
+                      {{ $row->instansi }}
+                    </td>
+                    <td>
+                      {{ $row->progres }}
+                    </td>
+                    <td class="project-actions text-center">
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
+                        <i class="fas fa-edit"></i>
+                        Ubah
+                      </button>
+                      <!-- Modal Ubah Start -->
+                      <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="ubahLabel">Ubah Progres Pengajuan Kerjasama Admin</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <!-- form start -->
+                              <form action="{{url('/progres-pengajuan-kerjasama-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                  <label>Instansi</label>
+                                  <input class="form-control" disabled="" name="instansi" autocomplete="off" placeholder="Enter..." value="{{ $row->instansi }}">
+                                </div>
+                                <div class="form-group">
+                                  <label>Progres</label>
+                                  <input class="form-control" name="progres" autocomplete="off" placeholder="Enter..." value="{{ $row->progres }}">
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                  <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                                </div>
+                              </form>
+                              <!-- form end -->
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <!-- Modal Ubah End -->
-                  </td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
+                      <!-- Modal Ubah End -->
+                    </td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
           <!-- <div class="card-footer" style="display: block;">

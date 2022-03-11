@@ -72,88 +72,90 @@
             <!-- Modal Tambah End -->
           </div>
           <div class="card-body p-0" style="display: block;">
-            <table class="table table-striped table-bordered projects">
-              <thead>
-                <tr style="text-align: center;">
-                  <th style="width: 1%">
-                    No
-                  </th>
-                  <th>
-                    Pertanyaan
-                  </th>
-                  <th>
-                    Jawaban
-                  </th>
-                  <th style="width: 20%">
-                    Aksi
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php $no=1; ?>
-                @forelse ( $faq as $row )
-                <tr style="text-align: justify;">
-                  <td>
-                    {{ $no++ }}
-                  </td>
-                  <td>
-                    {!! $row->pertanyaan !!}
-                  </td>
-                  <td>
-                    {!! $row->jawaban !!}
-                  </td>
-                  <td class="project-actions text-center">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah{{$row->id}}">
-                      <i class="fas fa-edit"></i>
-                      Ubah
-                    </button>
-                    <!-- Modal Ubah Start -->
-                    <div class="modal fade text-left" id="ubah{{$row->id}}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-scrollable">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="ubahLabel">Ubah FAQ Admin</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <!-- form start -->
-                            <form action="{{url('/faq-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
-                              @csrf
-                              <div class="form-group">
-                                <label>Pertanyaan</label>
-                                <textarea class="form-control" name="pertanyaan" id="editor" placeholder="Enter..." value="">{!! $row->pertanyaan !!}</textarea>
-                              </div>
-                              <div class="form-group">
-                                <label>Jawaban</label>
-                                <textarea class="form-control" name="jawaban" id="editor" placeholder="Enter..." value="">{!! $row->jawaban !!}</textarea>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                              </div>
-                            </form>
-                            <!-- form end -->
+            <div class="container">
+              <table class="table table-striped table-bordered projects example">
+                <thead>
+                  <tr style="text-align: center;">
+                    <th style="width: 1%">
+                      No
+                    </th>
+                    <th>
+                      Pertanyaan
+                    </th>
+                    <th>
+                      Jawaban
+                    </th>
+                    <th style="width: 20%">
+                      Aksi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $no=1; ?>
+                  @forelse ( $faq as $row )
+                  <tr style="text-align: justify;">
+                    <td>
+                      {{ $no++ }}
+                    </td>
+                    <td>
+                      {!! $row->pertanyaan !!}
+                    </td>
+                    <td>
+                      {!! $row->jawaban !!}
+                    </td>
+                    <td class="project-actions text-center">
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah{{$row->id}}">
+                        <i class="fas fa-edit"></i>
+                        Ubah
+                      </button>
+                      <!-- Modal Ubah Start -->
+                      <div class="modal fade text-left" id="ubah{{$row->id}}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="ubahLabel">Ubah FAQ Admin</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <!-- form start -->
+                              <form action="{{url('/faq-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                  <label>Pertanyaan</label>
+                                  <textarea class="form-control" name="pertanyaan" id="editor" placeholder="Enter..." value="">{!! $row->pertanyaan !!}</textarea>
+                                </div>
+                                <div class="form-group">
+                                  <label>Jawaban</label>
+                                  <textarea class="form-control" name="jawaban" id="editor" placeholder="Enter..." value="">{!! $row->jawaban !!}</textarea>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                  <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                                </div>
+                              </form>
+                              <!-- form end -->
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="{{url('/faq-admin/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
-                      <i class="fas fa-trash"></i>
-                      Hapus
-                    </a>
-                  </td>
-                </tr>
-                @empty
-                <tr>
-                  <td colspan="4" style="text-align: center;">Data Masih Kosong</td>
-                </tr>
-                @endforelse
-              </tbody>
-            </table>
+                      <!-- Modal Ubah End -->
+                      <a class="btn btn-danger btn-sm" href="{{url('/faq-admin/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                        <i class="fas fa-trash"></i>
+                        Hapus
+                      </a>
+                    </td>
+                  </tr>
+                  @empty
+                  <tr>
+                    <td colspan="4" style="text-align: center;">Data Masih Kosong</td>
+                  </tr>
+                  @endforelse
+                </tbody>
+              </table>
+            </div>
           </div>
           <!-- /.card-body -->
           <!-- <div class="card-footer" style="display: block;">
