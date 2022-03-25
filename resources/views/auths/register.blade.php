@@ -22,18 +22,18 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="email" class="form-control" name="email" autocomplete="off" placeholder="Email">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
             <input type="level" class="form-control" name="level" autocomplete="off" placeholder="Level">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-arrow-up"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" name="email" autocomplete="off" placeholder="Email">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
               </div>
             </div>
           </div>

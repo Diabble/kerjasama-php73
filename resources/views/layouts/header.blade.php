@@ -27,16 +27,17 @@
                                     <li><a href="/alur-kerjasama">Alur Kerjasama</a></li>
                                     <li><a href="/progres-pengajuan-kerjasama">Progres Pengajuan<br> Kerjasama</a></li>
                                     <li><a href="/faq">FAQ</a></li>
-                                    <li><a href="/berita">Berita</a></li>
                                     <li><a href="/pengumuman">Pengumuman</a></li>
                                     <li><a href="/galeri">Galeri</a></li>
                                 </ul>
                             </li>
+                            <li><a href="/berita">Berita</a></li>
                             <li><a href="#">Layanan</a>
                                 <ul class="dropdown">
                                     <li><a href="/berkas-kerjasama">Berkas Kerjasama</a></li>
                                     <li><a href="/ajukan-kerjasama">Ajukan Kerjasama</a></li>
                                     <li><a href="/angket-kepuasan-layanan">Angket Kepuasan Layanan</a></li>
+                                    <li><a href="/kontak">Kontak</a></li>
                                 </ul>
                             </li>
                             <li><a href="/international-office">IO</a></li>

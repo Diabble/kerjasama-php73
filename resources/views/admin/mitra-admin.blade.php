@@ -31,10 +31,47 @@
             </div>
           </div>
           <div class="card-body" style="background-color: #ffffff; padding: 10px 40px 10px 40px;">
-            <span type="file" class="btn btn-success btn-sm fileinput-button dz-clickable">
-              <i class="fas fa-plus"></i>
-              Tambah File
-            </span>
+            {{-- <a class="btn btn-success btn-sm" href="/mitra-admin/export" target="blank">
+              <i class="fas fa-print"></i>
+              Export Data
+            </a> --}}
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#import">
+              <i class="fas fa-plus"></i> 
+              Import Data
+            </button>
+            <!-- Modal Import Data Start -->
+            <div class="modal fade text-left" id="import" tabindex="-1" aria-labelledby="importLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="importLabel">Import Data Mitra Admin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- form start -->
+                    <form action="{{url('/mitra-admin/import')}}" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      <div class="form-group">
+                        {{-- <label>Berkas Mitra</label> --}}
+                        <input type="file" class="form-control @error('import') is-invalid @enderror" id="inputGroupFile02" name="import">
+                        @error('import')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                      </div>
+                    </form>
+                    <!-- form end -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Import Data End -->
             <a class="btn btn-secondary btn-sm" href="/mitra-print" target="blank">
               <i class="fas fa-print"></i>
               Cetak Semua
@@ -61,9 +98,9 @@
                       <div class="form-group">
                         <label>Kode Instansi</label>
                           <select name="kodeinstansi" id="inputStatus" class="form-control custom-select @error('kodeinstansi') is-invalid @enderror">
-                            <option disabled selected>Enter...</option>
+                            <option disabled selected>- Pilih -</option>
                             @foreach ($kakoin as $row)
-                                <option value="{{ $row->id }}">{{ $row->nama_kategori }}</option>
+                                <option value="{{ $row->id }}" {{ old('kodeinstansi') == $row->id ? 'selected' : null }}>{{ $row->nama_kategori }}</option>
                             @endforeach
                           </select>
                           @error('kodeinstansi')
@@ -73,9 +110,9 @@
                       <div class="form-group">
                         <label>Keterangan Instansi</label>
                           <select name="ketinstansi" id="inputStatus" class="form-control custom-select @error('ketinstansi') is-invalid @enderror">
-                            <option disabled selected>Enter...</option>
+                            <option disabled selected>- Pilih -</option>
                             @foreach ($kakein as $row)
-                                <option value="{{ $row->id }}">{{ $row->nama_kategori }}</option>
+                                <option value="{{ $row->id }}" {{ old('ketinstansi') == $row->id ? 'selected' : null }}>{{ $row->nama_kategori }}</option>
                             @endforeach
                           </select>
                           @error('ketinstansi')
@@ -84,42 +121,48 @@
                       </div>
                       <div class="form-group">
                         <label>Instansi</label>
-                        <input class="form-control @error('instansi') is-invalid @enderror" name="instansi" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('instansi') is-invalid @enderror" name="instansi" autocomplete="off" placeholder="Enter..." value="{{ old('instansi') }}">
                         @error('instansi')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
                       <div class="form-group">
                         <label>Bidang Kerjasama</label>
-                        <textarea class="form-control @error('bidkerjasama') is-invalid @enderror" name="bidkerjasama" id="editor" placeholder="Enter..." value=""></textarea>
+                        <textarea class="form-control @error('bidkerjasama') is-invalid @enderror" name="bidkerjasama" id="editor" placeholder="Enter..." value="">{{ old('bidkerjasama') }}</textarea>
                         @error('bidkerjasama')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
                       <div class="form-group">
                         <label>Dimulai</label>
-                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="mulai" placeholder="Enter..." value="">
+                        <div class="input-group date @error('mulai') is-invalid @enderror" id="datetimepicker1" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="mulai" placeholder="Enter..." value="{{ old('mulai') }}">
                           <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                           </div>
                         </div>
+                        @error('mulai')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Berakhir</label>
-                        <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="selesai" placeholder="Enter..." value="">
+                        <div class="input-group date @error('selesai') is-invalid @enderror" id="datetimepicker1" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="selesai" placeholder="Enter..." value="{{ old('selesai') }}">
                           <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                           </div>
                         </div>
+                        @error('selesai')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                       </div>
                       <div class="form-group">
                         <label>Jenis Naskah</label>
                           <select name="jenisnaskah" id="inputStatus" class="form-control custom-select @error('jenisnaskah') is-invalid @enderror">
-                            <option disabled selected>Enter...</option>
+                            <option disabled selected>- Pilih -</option>
                             @foreach ($kajenas as $row)
-                                <option value="{{ $row->id }}">{{ $row->nama_kategori }}</option>
+                                <option value="{{ $row->id }}" {{ old('jenisnaskah') == $row->id ? 'selected' : null }}>{{ $row->nama_kategori }}</option>
                             @endforeach
                           </select>
                           @error('jenisnaskah')
@@ -128,13 +171,13 @@
                       </div>
                       <div class="form-group">
                         <label>Keterangan/Unit</label>
-                        <input class="form-control @error('ketunit') is-invalid @enderror" name="ketunit" id="ketunit" autocomplete="off" placeholder="Enter..." value="">
+                        <input class="form-control @error('ketunit') is-invalid @enderror" name="ketunit" id="ketunit" autocomplete="off" placeholder="Enter..." value="{{ old('ketunit') }}">
                         @error('ketunit')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
                       <div class="form-group">
-                        <label>File</label>
+                        <label>Berkas Mitra</label>
                         <input type="file" class="form-control @error('berkasmitra') is-invalid @enderror" id="inputGroupFile02" name="berkasmitra">
                         @error('berkasmitra')
                           <div class="invalid-feedback">{{ $message }}</div>
@@ -168,8 +211,8 @@
                       @csrf
                       <div class="form-group">
                         <label>Kode Instansi</label>
-                          <select id="kodeinstansi" class="form-control kodeinstansi" name="kodeinstansi">
-                            <option>Enter...</option>
+                          <select id="kodeinstansi" class="form-control custom-select kodeinstansi" name="kodeinstansi">
+                            <option disabled>- Pilih -</option>
                             @foreach ($kakoin as $koin)
                                 <option value="{{ $koin->id }}">{{ $koin->nama_kategori }}</option>
                             @endforeach
@@ -177,8 +220,8 @@
                       </div>
                       <div class="form-group">
                         <label>Keterangan Instansi</label>
-                          <select id="ketinstansi" class="form-control ketinstansi" name="ketinstansi">
-                            <option>Enter...</option>
+                          <select id="ketinstansi" class="form-control custom-select ketinstansi" name="ketinstansi">
+                            <option disabled>- Pilih -</option>
                             @foreach ($kakein as $kein)
                                 <option value="{{ $kein->id }}">{{ $kein->nama_kategori }}</option>
                             @endforeach
@@ -202,8 +245,8 @@
                       </div>
                       <div class="form-group">
                         <label>Jenis Naskah</label>
-                          <select id="jenisnaskah" class="form-control jenisnaskah" name="jenisnaskah">
-                            <option>Enter...</option>
+                          <select id="jenisnaskah" class="form-control custom-select jenisnaskah" name="jenisnaskah">
+                            <option disabled>- Pilih -</option>
                             @foreach ($kajenas as $jenas)
                                 <option value="{{ $jenas->id }}">{{ $jenas->nama_kategori }}</option>
                             @endforeach
@@ -247,7 +290,7 @@
                     <th>
                       Instansi
                     </th>
-                    <th>
+                    {{-- <th>
                       Bidang Kerjasama
                     </th>
                     <th>
@@ -255,7 +298,7 @@
                     </th>
                     <th>
                       Selesai
-                    </th>
+                    </th> --}}
                     <th>
                       Jenis Naskah
                     </th>
@@ -287,7 +330,7 @@
                     <td>
                       {{ $row->instansi }}
                     </td>
-                    <td>
+                    {{-- <td>
                       {!! $row->bidkerjasama !!}
                     </td>
                     <td>
@@ -295,7 +338,7 @@
                     </td>
                     <td>
                       {{ $row->selesai }}
-                    </td>
+                    </td> --}}
                     <td>
                       {{ $row->kajenas->nama_kategori }}
                     </td>
@@ -312,7 +355,7 @@
                         Lihat
                       </button>
                       <!-- Modal Lihat Start -->
-                      <div class="modal fade text-left" id="lihat{{ $row->id }}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                      <div class="modal fade text-left" id="lihat{{ $row->id }}" tabindex="-1" aria-labelledby="lihatLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable modal-lg">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -322,64 +365,41 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <!-- form start -->
-                              <form action="" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                   <label>Kode Instansi</label>
-                                    <select id="kodeinstansi" class="form-control kodeinstansi" name="kodeinstansi">
-                                      <option>Enter...</option>
-                                      @foreach ($kakoin as $koin)
-                                          <option value="{{ $koin->id }}">{{ $koin->nama_kategori }}</option>
-                                      @endforeach
-                                    </select>
+                                  <input class="form-control" disabled="" value="{{ $row->kakoin->nama_kategori }}">
                                 </div>
                                 <div class="form-group">
                                   <label>Keterangan Instansi</label>
-                                    <select id="ketinstansi" class="form-control ketinstansi" name="ketinstansi">
-                                      <option>Enter...</option>
-                                      @foreach ($kakein as $kein)
-                                          <option value="{{ $kein->id }}">{{ $kein->nama_kategori }}</option>
-                                      @endforeach
-                                    </select>
+                                  <input class="form-control" disabled="" value="{{ $row->kakein->nama_kategori }}">
                                 </div>
                                 <div class="form-group">
                                   <label>Instansi</label>
-                                  <input class="form-control instansi" name="instansi" id="instansi" autocomplete="off" placeholder="Enter..." value="">
+                                  <input class="form-control" disabled="" value="{{ $row->instansi }}">
                                 </div>
                                 <div class="form-group">
                                   <label>Bidang Kerjasama</label>
-                                  <textarea class="form-control bidkerjasama" name="bidkerjasama" id="bidkerjasama" placeholder="Enter..." value=""></textarea>
+                                  <textarea class="form-control" id="lihat" disabled="" value="">{!! $row->bidkerjasama !!}</textarea>
                                 </div>
                                 <div class="form-group">
                                   <label>Dimulai</label>
-                                  <input class="form-control mulai" name="mulai" id="mulai" placeholder="Enter..." value="">
+                                  <input class="form-control" disabled="" value="{{ $row->mulai }}">
                                 </div>
                                 <div class="form-group">
                                   <label>Berakhir</label>
-                                  <input class="form-control selesai" name="selesai" id="selesai" placeholder="Enter..." value="">
+                                  <input class="form-control" disabled="" value="{{ $row->selesai }}">
                                 </div>
                                 <div class="form-group">
                                   <label>Jenis Naskah</label>
-                                    <select id="jenisnaskah" class="form-control jenisnaskah" name="jenisnaskah">
-                                      <option>Enter...</option>
-                                      @foreach ($kajenas as $jenas)
-                                          <option value="{{ $jenas->id }}">{{ $jenas->nama_kategori }}</option>
-                                      @endforeach
-                                    </select>
+                                    <input class="form-control" disabled="" value="{{ $row->kajenas->nama_kategori }}">
                                 </div>
                                 <div class="form-group">
                                   <label>Keterangan/Unit</label>
-                                  <input class="form-control ketunit" name="ketunit" id="ketunit" placeholder="Enter..." value="">
-                                </div>
-                                <div class="form-group">
-                                  <label>File</label>
-                                  <input type="file" class="form-control" id="inputGroupFile02" name="berkasmitra">
+                                  <input class="form-control" disabled="" value="{{ $row->ketunit }}">
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                                 </div>
-                              </form>
-                              <!-- form end -->
                             </div>
                           </div>
                         </div>
@@ -394,8 +414,8 @@
                         bidkerjasama: '{{ $row->bidkerjasama }}',
                         mulai: '{{ $row->mulai }}',
                         selesai: '{{ $row->selesai }}',
-                        ketunit: '{{ $row->ketunit }}',
                         jenisnaskah: {{ $row->jenisnaskah }},
+                        ketunit: '{{ $row->ketunit }}',
                       });">
                         <i class="fas fa-edit"></i>
                         Ubah
@@ -404,7 +424,7 @@
                         <i class="fas fa-trash"></i>
                         Hapus
                       </a>
-                      <a class="btn btn-secondary btn-sm" href="#">
+                      <a class="btn btn-secondary btn-sm" href="{{asset('storage/' . $row->berkasmitra)}}">
                         <i class="fas fa-download"></i>
                         Download
                       </a>
@@ -438,6 +458,16 @@
   // $(document).ready(function(){
   //   $('#kodeinstansi').val(1)
   // });
+  let lihat;
+  ClassicEditor
+      .create( document.querySelector( '#lihat' ) )
+      .then(edit=> {
+        lihat = edit;
+      })
+      .catch( error => {
+          console.error( error );
+      } );
+
   let editor;
   ClassicEditor
       .create( document.querySelector( '#bidkerjasama' ) )
@@ -460,7 +490,7 @@
     $('#selesai').attr('value', data.selesai);
     $('#jenisnaskah').val(data.jenisnaskah);
     $('#ketunit').attr('value', data.ketunit);
-    $('#file').val(data.file);
+    $('#berkasmitra').val(data.berkasmitra);
   }
 </script>
 @endsection

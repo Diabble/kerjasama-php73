@@ -101,12 +101,6 @@
                   <p>FAQ</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="/berita-admin" class="nav-link {{ request()->is('berita-admin') ? 'active' : '' }}">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Berita</p>
-                </a>
-              </li>
               {{-- <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-newspaper"></i>
@@ -145,6 +139,12 @@
             </ul>
           </li>
           <li class="nav-item">
+            <a href="/berita-admin" class="nav-link {{ request()->is('berita-admin') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-newspaper"></i>
+              <p>Berita</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-phone"></i>
               <p>
@@ -169,6 +169,12 @@
                 <a href="/angket-kepuasan-layanan-admin" class="nav-link {{ request()->is('angket-kepuasan-layanan-admin') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Angket Kepuasan Layanan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/kontak-admin" class="nav-link {{ request()->is('kontak-admin') ? 'active' : '' }}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kontak</p>
                 </a>
               </li>
             </ul>

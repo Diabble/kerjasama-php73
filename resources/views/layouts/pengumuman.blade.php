@@ -67,7 +67,7 @@
 									<button><i class="fa fa-search" aria-hidden="true"></i></button>
 								</form>
 							</div> <!-- /.sidebar-search -->
-							<div class="sidebar-container sidebar-categories">
+							{{-- <div class="sidebar-container sidebar-categories">
 								<h5 class="title">Categories</h5>
 								<ul>
 									<li><a href="#">Travel and Aviation</a></li>
@@ -76,7 +76,7 @@
 									<li><a href="#">Financial Services</a></li>
 									<li><a href="#">Software Research</a></li>
 								</ul>
-							</div> <!-- /.sidebar-categories -->
+							</div> <!-- /.sidebar-categories --> --}}
 							<div class="sidebar-container sidebar-recent-post">
 								<h5 class="title">Recent Posts</h5>
 								<ul>
@@ -103,14 +103,14 @@
 									</li>
 								</ul>
 							</div> <!-- /.sidebar-recent-post -->
-							<div class="sidebar-container sidebar-archives">
+							{{-- <div class="sidebar-container sidebar-archives">
 								<h5 class="title">Archives</h5>
 								<ul>
 									<li><a href="#">January 2018</a></li>
 									<li><a href="#">February 2018</a></li>
 									<li><a href="#">March 2018</a></li>
 								</ul>
-							</div> <!-- /.sidebar-archives -->
+							</div> <!-- /.sidebar-archives --> --}}
 							{{-- <div class="sidebar-tags">
 								<h5 class="title">tags</h5>
 								<ul class="clearfix">

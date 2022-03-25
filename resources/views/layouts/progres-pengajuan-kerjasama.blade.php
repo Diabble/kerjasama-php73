@@ -35,15 +35,16 @@
 									<thead>
 										<tr>
 											<th style="width: 1%;">No</th>
-											<th>Instansi</th>
+											<th style="width: 70%;">Instansi</th>
 											<th>Progres</th>
 										</tr>
 									</thead>
 									<tbody>
+										<?php $no=1 ?>
 										@forelse ( $propeker as $row )
 										<tr style="text-align:justify;">
-											<td>{{ $row->id }}</td>
-											<td>{{ $row->instansi }}</td>
+											<td>{{ $no++ }}</td>
+											<td>{{ $row->mitra->instansi }}</td>
 											<td>{{ $row->progres }}</td>
 										</tr>
 										@empty

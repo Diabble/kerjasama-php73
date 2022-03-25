@@ -14,6 +14,10 @@ use App\Models\User;
 
 use App\Models\ModelBeranda;
 
+use App\Models\ModelProfilUINSGD;
+
+use App\Models\ModelCapaianKinerja;
+
 use App\Models\ModelWakilRektor;
 
 use App\Models\ModelVisi;
@@ -46,11 +50,21 @@ use App\Models\ModelAjukanKerjasama;
 
 use App\Models\ModelAngketKepuasanLayanan;
 
+use App\Models\ModelKontak;
+
 use App\Models\ModelLayananKami;
 
 use App\Models\ModelIO;
 
 use App\Models\ModelMitra;
+
+use Maatwebsite\Excel\Facades\Excel;
+
+// use App\Http\Controllers\Controller;
+
+use App\Exports\MitraExport;
+
+use App\Imports\MitraImport;
 
 use App\Models\ModelKategoriKodeInstansi;
 
@@ -149,12 +163,14 @@ class BackendController extends Controller
     public function settings()
     {
         $beranda = ModelBeranda::get();
+        $profil = ModelProfilUINSGD::get();
+        $caper = ModelCapaianKinerja::get();
         $user = User::all();
         $kaber = ModelKategoriBerita::all();
         $kakoin = ModelKategoriKodeInstansi::all();
         $kakein = ModelKategoriKetInstansi::all();
         $kajenas = ModelKategoriJenisNaskah::all();
-        return view('admin.settings', compact('beranda', 'user', 'kaber', 'kakoin', 'kakein', 'kajenas'));
+        return view('admin.settings', compact('beranda', 'profil', 'caper', 'user', 'kaber', 'kakoin', 'kakein', 'kajenas'));
     }
 
     // Beranda/Slide Carousel
@@ -181,6 +197,11 @@ class BackendController extends Controller
             'judulcarousel' => 'required',
             'deskripsicarousel' => 'required',
             'tombolcarousel' => 'required',
+        ], [
+            'poto.required' => 'Gambar tidak boleh kosong!',
+            'judulcarousel.required' => 'Judul tidak boleh kosong!',
+            'deskripsicarousel.required' => 'Deskripsi tidak boleh kosong!',
+            'tombolcarousel.required' => 'Nama Tombol tidak boleh kosong!',
         ]);
 
         $file_name = $request->poto->getClientOriginalName();
@@ -234,9 +255,9 @@ class BackendController extends Controller
             'deskripsicarousel' => 'required',
             'tombolcarousel' => 'required',
         ], [
-            'judulcarousel.required' => 'Wajib diisi!!!',
-            'deskripsicarousel.required' => 'Wajib diisi!!!',
-            'tombolcarousel.required' => 'Wajib diisi!!!',
+            'judulcarousel.required' => 'Judul tidak boleh kosong!',
+            'deskripsicarousel.required' => 'Deskripsi tidak boleh kosong!',
+            'tombolcarousel.required' => 'Nama Tombol tidak boleh kosong!',
         ]);
 
         if (Request()->hasFile('poto')) {
@@ -271,6 +292,176 @@ class BackendController extends Controller
         ModelBeranda::find($id)->delete();
 
         return redirect('/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+    }
+
+    // Profil UIN SGD
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function profiluinsgdcreate()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function profiluinsgdstore(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profiluinsgdshow($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profiluinsgdedit($id)
+    {
+        $profil = ModelProfilUINSGD::findorfail($id);
+        return view('admin.settings', compact('profil'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profiluinsgdupdate(Request $request, $id)
+    {
+        Request()->validate([
+            'judul' => 'required',
+            'link' => 'required',
+            'deskripsi' => 'required',
+        ], [
+            'judul.required' => 'Judul tidak boleh kosong!',
+            'link.required' => 'Link tidak boleh kosong!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
+        ]);
+
+        $data = [
+            'judul' => $request->judul,
+            'link' => $request->link,
+            'deskripsi' => $request->deskripsi,
+        ];
+
+        ModelProfilUINSGD::find($id)->update($data);        
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function profiluinsgddestroy($id)
+    {
+        //
+    }
+
+    // Capaian Kinerja
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function capercreate()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function caperstore(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function capershow($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function caperedit($id)
+    {
+        $caper = ModelCapaianKinerja::findorfail($id);
+        return view('admin.settings', compact('caper'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function caperupdate(Request $request, $id)
+    {
+        Request()->validate([
+            'judul' => 'required',
+            'link' => 'required',
+            'deskripsi' => 'required',
+        ], [
+            'judul.required' => 'Judul tidak boleh kosong!',
+            'link.required' => 'Link tidak boleh kosong!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
+        ]);
+
+        $data = [
+            'judul' => $request->judul,
+            'link' => $request->link,
+            'deskripsi' => $request->deskripsi,
+        ];
+
+        ModelCapaianKinerja::find($id)->update($data);        
+        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function caperdestroy($id)
+    {
+        //
     }
 
     // User
@@ -362,7 +553,7 @@ class BackendController extends Controller
         Request()->validate([
             'nama_kategori' => 'required',
         ], [
-            'nama_kategori.required' => 'Wajib diisi!!!',
+            'nama_kategori.required' => 'Nama Kategori Berita tidak boleh kosong!',
         ]);
 
         ModelKategoriBerita::create([
@@ -408,7 +599,7 @@ class BackendController extends Controller
         Request()->validate([
             'nama_kategori' => 'required',
         ], [
-            'nama_kategori.required' => 'Wajib diisi!!!',
+            'nama_kategori.required' => 'Nama Kategori Berita tidak boleh kosong!',
         ]);
 
         $data = [
@@ -416,7 +607,7 @@ class BackendController extends Controller
             'slug' => Str::slug($request->nama_kategori),
         ];
 
-        ModelKategoriBerita::find($id)->update($data);    
+        ModelKategoriBerita::find($id)->update($data);
         return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
@@ -455,7 +646,7 @@ class BackendController extends Controller
         Request()->validate([
             'nama_kategori' => 'required',
         ], [
-            'nama_kategori.required' => 'Wajib diisi!!!',
+            'nama_kategori.required' => 'Nama Kategori Kode Instansi tidak boleh kosong!',
         ]);
 
         ModelKategoriKodeInstansi::create([
@@ -500,10 +691,8 @@ class BackendController extends Controller
     {
         Request()->validate([
             'nama_kategori' => 'required',
-            'slug' => 'required',
         ], [
-            'nama_kategori.required' => 'Wajib diisi!!!',
-            'slug.required' => 'Wajib diisi!!!',
+            'nama_kategori.required' => 'Nama Kategori Kode Instansi tidak boleh kosong!',
         ]);
 
         $data = [
@@ -550,7 +739,7 @@ class BackendController extends Controller
         Request()->validate([
             'nama_kategori' => 'required',
         ], [
-            'nama_kategori.required' => 'Wajib diisi!!!',
+            'nama_kategori.required' => 'Nama Kategori Keterangan Instansi tidak boleh kosong!',
         ]);
 
         ModelKategoriKetInstansi::create([
@@ -595,10 +784,8 @@ class BackendController extends Controller
     {
         Request()->validate([
             'nama_kategori' => 'required',
-            'slug' => 'required',
         ], [
-            'nama_kategori.required' => 'Wajib diisi!!!',
-            'slug.required' => 'Wajib diisi!!!',
+            'nama_kategori.required' => 'Nama Kategori Keterangan Instansi tidak boleh kosong!',
         ]);
 
         $data = [
@@ -645,7 +832,7 @@ class BackendController extends Controller
         Request()->validate([
             'nama_kategori' => 'required',
         ], [
-            'nama_kategori.required' => 'Wajib diisi!!!',
+            'nama_kategori.required' => 'Nama Kategori Jenis Naskah tidak boleh kosong!',
         ]);
 
         ModelKategoriJenisNaskah::create([
@@ -690,10 +877,8 @@ class BackendController extends Controller
     {
         Request()->validate([
             'nama_kategori' => 'required',
-            'slug' => 'required',
         ], [
-            'nama_kategori.required' => 'Wajib diisi!!!',
-            'slug.required' => 'Wajib diisi!!!',
+            'nama_kategori.required' => 'Nama Kategori Jenis Naskah tidak boleh kosong!',
         ]);
 
         $data = [
@@ -790,10 +975,10 @@ class BackendController extends Controller
             'nip' => 'required',
             'deskripsi' => 'required',
         ], [
-            'nama.required' => 'Wajib diisi!!!',
-            'jabatan.required' => 'Wajib diisi!!!',
-            'nip.required' => 'Wajib diisi!!!',
-            'deskripsi.required' => 'Wajib diisi!!!',
+            'nama.required' => 'Nama tidak boleh kosong!',
+            'jabatan.required' => 'Jabatan tidak boleh kosong!',
+            'nip.required' => 'Nip tidak boleh kosong!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
         ]);
         if (Request()->hasFile('poto')) {
             $file_name = $request->poto->getClientOriginalName();
@@ -898,7 +1083,7 @@ class BackendController extends Controller
         Request()->validate([
             'deskripsi' => 'required',
         ], [
-            'deskripsi.required' => 'Wajib diisi!!!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
         ]);
 
         $data = [
@@ -977,7 +1162,7 @@ class BackendController extends Controller
         Request()->validate([
             'deskripsi' => 'required',
         ], [
-            'deskripsi.required' => 'Wajib diisi!!!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
         ]);
 
         $data = [
@@ -1067,7 +1252,7 @@ class BackendController extends Controller
         Request()->validate([
             'deskripsi' => 'required',
         ], [
-            'deskripsi.required' => 'Wajib diisi!!!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
         ]);
 
         $data = [
@@ -1157,7 +1342,7 @@ class BackendController extends Controller
         Request()->validate([
             'deskripsi' => 'required',
         ], [
-            'deskripsi.required' => 'Wajib diisi!!!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
         ]);
 
         $data = [
@@ -1248,7 +1433,7 @@ class BackendController extends Controller
             'poto' => 'mimes:png,jpg,jpeg',
             'deskripsi' => 'required',
         ], [
-            'deskripsi.required' => 'Wajib diisi!!!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
         ]);
         if (Request()->hasFile('poto')) {
             $file_name = $request->poto->getClientOriginalName();
@@ -1346,7 +1531,7 @@ class BackendController extends Controller
             'poto' => 'mimes:png,jpg,jpeg',
             'deskripsi' => 'required',
         ], [
-            'deskripsi.required' => 'Wajib diisi!!!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
         ]);
         if (Request()->hasFile('poto')) {
             $file_name = $request->poto->getClientOriginalName();
@@ -1383,8 +1568,8 @@ class BackendController extends Controller
      */
     public function propeker()
     {
-        $mitra = ModelMitra::all();
         $propeker = ModelPengajuanKerjasama::all();
+        $mitra = ModelMitra::all();
         return view('admin.progres-pengajuan-kerjasama-admin', compact('propeker', 'mitra'));
     }
 
@@ -1406,7 +1591,20 @@ class BackendController extends Controller
      */
     public function propekerstore(Request $request)
     {
-        //
+        Request()->validate([
+            'instansi' => 'required',
+            'progres' => 'required',
+        ], [
+            'instansi.required' => 'Nama Instansi tidak boleh kosong!',
+            'progres.required' => 'Progres Instansi tidak boleh kosong!',
+        ]);
+
+        ModelPengajuanKerjasama::create([
+            'instansi' => $request->instansi,
+            'progres' => $request->progres,
+        ]);
+        
+        return redirect('/progres-pengajuan-kerjasama-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -1428,8 +1626,8 @@ class BackendController extends Controller
      */
     public function propekeredit($id)
     {
-        $mitra = ModelMitra::findorfail($id);
         $propeker = ModelPengajuanKerjasama::findorfail($id);
+        $mitra = ModelMitra::findorfail($id);
         return view('admin.progres-pengajuan-kerjasama-admin', compact('propeker', 'mitra'));
     }
 
@@ -1446,8 +1644,8 @@ class BackendController extends Controller
             'instansi' => 'required',
             'progres' => 'required',
         ], [
-            'instansi.required' => 'Wajib diisi!!!',
-            'progres.required' => 'Wajib diisi!!!',
+            'instansi.required' => 'Instansi tidak boleh kosong!',
+            'progres.required' => 'Progres tidak boleh kosong!',
         ]);
 
         $data = [
@@ -1467,7 +1665,9 @@ class BackendController extends Controller
      */
     public function propekerdestroy($id)
     {
-        //
+        ModelPengajuanKerjasama::find($id)->delete();
+
+        return redirect('/progres-pengajuan-kerjasama-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // FAQ
@@ -1504,8 +1704,8 @@ class BackendController extends Controller
             'pertanyaan' => 'required',
             'jawaban' => 'required',
         ], [
-            'pertanyaan.required' => 'Wajib diisi!!!',
-            'jawaban.required' => 'Wajib diisi!!!',
+            'pertanyaan.required' => 'Pertanyaan tidak boleh kosong!',
+            'jawaban.required' => 'Jawaban tidak boleh kosong!',
         ]);
 
         ModelFAQ::create([
@@ -1552,8 +1752,8 @@ class BackendController extends Controller
             'pertanyaan' => 'required',
             'jawaban' => 'required',
         ], [
-            'pertanyaan.required' => 'Wajib diisi!!!',
-            'jawaban.required' => 'Wajib diisi!!!',
+            'pertanyaan.required' => 'Pertanyaan tidak boleh kosong!',
+            'jawaban.required' => 'Jawaban tidak boleh kosong!',
         ]);
 
         $data = [
@@ -1630,12 +1830,12 @@ class BackendController extends Controller
             'views' => 'required',
             'aktif' => 'required',
         ], [
-            'poto.required' => 'Wajib diisi!!!',
-            'judul.required' => 'Wajib diisi!!!',
-            'deskripsi.required' => 'Wajib diisi!!!',
-            'kategori_id.required' => 'Wajib diisi!!!',
-            'views.required' => 'Wajib diisi!!!',
-            'aktif.required' => 'Wajib diisi!!!',
+            'poto.required' => 'Gambar tidak boleh kosong!',
+            'judul.required' => 'Judul tidak boleh kosong!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
+            'kategori_id.required' => 'Kategori Berita tidak boleh kosong!',
+            'views.required' => 'Jumlah Views tidak boleh kosong!',
+            'aktif.required' => 'Status tidak boleh kosong!',
         ]);
 
         $file_name = $request->poto->getClientOriginalName();
@@ -1695,11 +1895,11 @@ class BackendController extends Controller
             'views' => 'required',
             'aktif' => 'required',
         ], [
-            'judul.required' => 'Wajib diisi!!!',
-            'deskripsi.required' => 'Wajib diisi!!!',
-            'kategori_id.required' => 'Wajib diisi!!!',
-            'views.required' => 'Wajib diisi!!!',
-            'aktif.required' => 'Wajib diisi!!!',
+            'judul.required' => 'Judul tidak boleh kosong!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
+            'kategori_id.required' => 'Kategori Berita tidak boleh kosong!',
+            'views.required' => 'Jumlah Views tidak boleh kosong!',
+            'aktif.required' => 'Status tidak boleh kosong!',
         ]);
 
         if (Request()->hasFile('poto')) {
@@ -1853,8 +2053,8 @@ class BackendController extends Controller
             'poto' => 'required|mimes:png,jpg,jpeg',
             'caption' => 'required',
         ], [
-            'poto' => 'Wajib diisi!!!',
-            'caption.required' => 'Wajib diisi!!!',
+            'poto.required' => 'Gambar tidak boleh kosong!',
+            'caption.required' => 'Caption tidak boleh kosong!',
         ]);
 
         $file_name = $request->poto->getClientOriginalName();
@@ -1903,7 +2103,7 @@ class BackendController extends Controller
             'poto' => 'mimes:png,jpg,jpeg',
             'caption' => 'required',
         ], [
-            'caption.required' => 'Wajib diisi!!!',
+            'caption.required' => 'Caption tidak boleh kosong!',
         ]);
 
         if (Request()->hasFile('poto')) {
@@ -2048,7 +2248,13 @@ class BackendController extends Controller
             'nohp' => 'required',
             'instansi' => 'required',
             'jabatan' => 'required',
-            'berkaspengaju' => 'required|file',
+            'berkaspengaju' => 'required',
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'nohp.required' => 'No Whatsapp tidak boleh kosong',
+            'instansi.required' => 'Instansi tidak boleh kosong',
+            'jabatan.required' => 'Jabatan tidak boleh kosong',
+            'berkaspengaju.required' => 'Berkas Pengajuan Kerjasama tidak boleh kosong',
         ]);
 
         $file_name = $request->berkaspengaju->getClientOriginalName();
@@ -2102,10 +2308,10 @@ class BackendController extends Controller
             'instansi' => 'required',
             'jabatan' => 'required',
         ], [
-            'nama.required' => 'Wajib diisi!!!',
-            'nohp.required' => 'Wajib diisi!!!',
-            'instansi.required' => 'Wajib diisi!!!',
-            'jabatan.required' => 'Wajib diisi!!!',
+            'nama.required' => 'Nama tidak boleh kosong',
+            'nohp.required' => 'No Whatsapp tidak boleh kosong',
+            'instansi.required' => 'Instansi tidak boleh kosong',
+            'jabatan.required' => 'Jabatan tidak boleh kosong',
         ]);
 
         if (Request()->hasFile('berkaspengaju')) {
@@ -2173,29 +2379,7 @@ class BackendController extends Controller
      */
     public function angketkepuasanlayananstore(Request $request)
     {
-        Request()->validate([
-            'nama' => 'required',
-            'nohp' => 'required',
-            'email' => 'required|email:dns',
-            'subject' => 'required',
-            'pesan' => 'required',
-        ], [
-            'nama.required' => 'Wajib diisi!!!',
-            'nohp.required' => 'Wajib diisi!!!',
-            'email.required' => 'Wajib diisi!!!',
-            'subject.required' => 'Wajib diisi!!!',
-            'pesan.required' => 'Wajib diisi!!!',
-        ]);
-
-        ModelAngketKepuasanLayanan::create([
-            'nama' => $request->nama,
-            'nohp' => $request->nohp,
-            'email' => $request->email,
-            'subject' => $request->subject,
-            'pesan' => $request->pesan,
-        ]);
-        
-        return redirect('/angket-kepuasan-layanan-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        //
     }
 
     /**
@@ -2231,28 +2415,16 @@ class BackendController extends Controller
     public function angketkepuasanlayananupdate(Request $request, $id)
     {
         Request()->validate([
-            'nama' => 'required',
-            'nohp' => 'required',
-            'email' => 'required|email:dns',
-            'subject' => 'required',
-            'pesan' => 'required',
+            'link' => 'required',
         ], [
-            'nama.required' => 'Wajib diisi!!!',
-            'nohp.required' => 'Wajib diisi!!!',
-            'email.required' => 'Wajib diisi!!!',
-            'subject.required' => 'Wajib diisi!!!',
-            'pesan.required' => 'Wajib diisi!!!',
+            'link.required' => 'Link tidak boleh kosong',
         ]);
 
         $data = [
-            'nama' => $request->nama,
-            'nohp' => $request->nohp,
-            'email' => $request->email,
-            'subject' => $request->subject,
-            'pesan' => $request->pesan,
+            'link' => $request->link,
         ];
 
-        ModelIO::find($id)->update($data);
+        ModelAngketKepuasanLayanan::find($id)->update($data);
         return redirect('/angket-kepuasan-layanan-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
@@ -2264,9 +2436,133 @@ class BackendController extends Controller
      */
     public function angketkepuasanlayanandestroy($id)
     {
-        ModelAngketKepuasanLayanan::find($id)->delete();
+        //
+    }
 
-        return redirect('/angket-kepuasan-layanan-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
+    // Kontak
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kontak()
+    {
+        $kontak = ModelKontak::get();
+        return view('admin.kontak-admin', compact('kontak'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function kontakcreate()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function kontakstore(Request $request)
+    {
+        Request()->validate([
+            'nama' => 'required',
+            'nohp' => 'required',
+            'email' => 'required|email:dns',
+            'subject' => 'required',
+            'pesan' => 'required',
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'nohp.required' => 'No Handphone tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'subject.required' => 'Subject tidak boleh kosong',
+            'pesan.required' => 'Pesan tidak boleh kosong',
+        ]);
+
+        ModelKontak::create([
+            'nama' => $request->nama,
+            'nohp' => $request->nohp,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'pesan' => $request->pesan,
+        ]);
+        
+        return redirect('/kontak-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kontakshow($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kontakedit($id)
+    {
+        $kontak = ModelKontak::findorfail($id);
+        return view('admin.kontak-admin', compact('kontak'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kontakupdate(Request $request, $id)
+    {
+        Request()->validate([
+            'nama' => 'required',
+            'nohp' => 'required',
+            'email' => 'required|email:dns',
+            'subject' => 'required',
+            'pesan' => 'required',
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'nohp.required' => 'No Handphone tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'subject.required' => 'Subject tidak boleh kosong',
+            'pesan.required' => 'Pesan tidak boleh kosong',
+        ]);
+
+        $data = [
+            'nama' => $request->nama,
+            'nohp' => $request->nohp,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'pesan' => $request->pesan,
+        ];
+
+        ModelKontak::find($id)->update($data);
+        return redirect('/kontak-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function kontakdestroy($id)
+    {
+        ModelKontak::find($id)->delete();
+
+        return redirect('/kontak-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // International Office
@@ -2337,7 +2633,7 @@ class BackendController extends Controller
         Request()->validate([
             'deskripsi' => 'required',
         ], [
-            'deskripsi.required' => 'Wajib diisi!!!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
         ]);
 
         $data = [
@@ -2388,6 +2684,21 @@ class BackendController extends Controller
         return view('admin.mitra-admin', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
+    public function mitraexport()
+    {
+        return Excel::download(new MitraExport, 'Mitra.xlsx');
+    }
+
+    public function mitraimport(Request $request)
+    {
+        $file = $request->file('import');
+        $namaFile = $file->getClientOriginalName();
+        $file->move('berkasmitra', $namaFile);
+
+        Excel::import(new MitraImport, public_path('/berkasmitra/' . $namaFile));
+        return redirect('/mitra-admin')->with('pesan', 'Data Berhasil Di Import !!!');
+    }
+
     public function mitraprint()
     {
         $kakoin = ModelKategoriKodeInstansi::get();
@@ -2426,15 +2737,15 @@ class BackendController extends Controller
             'ketunit' => 'required',
             'berkasmitra' => 'required|file',
         ], [
-            'kodeinstansi.required' => 'Wajib diisi!!!',
-            'ketinstansi.required' => 'Wajib diisi!!!',
-            'instansi.required' => 'Wajib diisi!!!',
-            'bidkerjasama.required' => 'Wajib diisi!!!',
-            'mulai.required' => 'Wajib diisi!!!',
-            'selesai.required' => 'Wajib diisi!!!',
-            'jenisnaskah.required' => 'Wajib diisi!!!',
-            'ketunit.required' => 'Wajib diisi!!!',
-            'berkasmitra.required' => 'Wajib diisi!!!',
+            'kodeinstansi.required' => 'Kode Instansi tidak boleh kosong!',
+            'ketinstansi.required' => 'Keterangan Instansi tidak boleh kosong!',
+            'instansi.required' => 'Instansi tidak boleh kosong!',
+            'bidkerjasama.required' => 'Bidang Kerjasama tidak boleh kosong!',
+            'mulai.required' => 'Tanggal Dimulai Kerjasama tidak boleh kosong!',
+            'selesai.required' => 'Tanggal Berakhir Kerjasama tidak boleh kosong!',
+            'jenisnaskah.required' => 'Jenis Naskah tidak boleh kosong!',
+            'ketunit.required' => 'Keterangan/Unit tidak boleh kosong!',
+            'berkasmitra.required' => 'Berkas Mitra tidak boleh kosong!',
         ]);
 
         $file_name = $request->berkasmitra->getClientOriginalName();
@@ -2499,14 +2810,14 @@ class BackendController extends Controller
             'jenisnaskah' => 'required',
             'ketunit' => 'required',
         ], [
-            'kodeinstansi.required' => 'Wajib diisi!!!',
-            'ketinstansi.required' => 'Wajib diisi!!!',
-            'instansi.required' => 'Wajib diisi!!!',
-            'bidkerjasama.required' => 'Wajib diisi!!!',
-            'mulai.required' => 'Wajib diisi!!!',
-            'selesai.required' => 'Wajib diisi!!!',
-            'jenisnaskah.required' => 'Wajib diisi!!!',
-            'ketunit.required' => 'Wajib diisi!!!',
+            'kodeinstansi.required' => 'Kode Instansi tidak boleh kosong!',
+            'ketinstansi.required' => 'Keterangan Instansi tidak boleh kosong!',
+            'instansi.required' => 'Instansi tidak boleh kosong!',
+            'bidkerjasama.required' => 'Bidang Kerjasama tidak boleh kosong!',
+            'mulai.required' => 'Tanggal Dimulai Kerjasama tidak boleh kosong!',
+            'selesai.required' => 'Tanggal Berakhir Kerjasama tidak boleh kosong!',
+            'jenisnaskah.required' => 'Jenis Naskah tidak boleh kosong!',
+            'ketunit.required' => 'Keterangan/Unit tidak boleh kosong!',
         ]);
 
         if (Request()->hasFile('berkasmitra')) {

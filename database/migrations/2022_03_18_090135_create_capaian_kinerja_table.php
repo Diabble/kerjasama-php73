@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAngketKepuasanLayananTable extends Migration
+class CreateCapaianKinerjaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateAngketKepuasanLayananTable extends Migration
      */
     public function up()
     {
-        Schema::create('angket_kepuasan_layanan', function (Blueprint $table) {
+        Schema::create('capaian_kinerja', function (Blueprint $table) {
             $table->id();
+            $table->string('judul');
             $table->string('link');
+            $table->text('deskripsi');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateAngketKepuasanLayananTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('angket_kepuasan_layanan');
+        Schema::dropIfExists('capaian_kinerja');
     }
 }

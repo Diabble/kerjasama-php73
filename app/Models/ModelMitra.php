@@ -23,4 +23,8 @@ class ModelMitra extends Model
     public function kajenas() {
         return $this->belongsTo(ModelKategoriJenisNaskah::class, 'jenisnaskah', 'id');
     }
+
+    public function berita() {
+        return $this->hasMany(ModelBerita::class);
+    }
 }

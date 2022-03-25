@@ -35,8 +35,7 @@
 									<thead>
 										<tr>
 											<th style="width: 1%;">No</th>
-											<th>Instansi</th>
-											<th>Surat Permohonan</th>
+											<th>Nama Surat</th>
 											<th>Download</th>
 										</tr>
 									</thead>
@@ -46,14 +45,12 @@
 											<td>{{ $no++ }}</td>
 											<td></td>
 											<td></td>
-											<td></td>
 										</tr>
 									</tbody>
 									<tfoot>
 										<tr>
 											<th>No</th>
-											<th>Instansi</th>
-											<th>Surat Permohonan</th>
+											<th>Nama Surat</th>
 											<th>Download</th>
 										</tr>
 									</tfoot>

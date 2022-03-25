@@ -50,8 +50,8 @@
                     <!-- form start -->
                     <form action="" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
-                        <label>Instansi</label>
-                        <input class="form-control" name="instansi" placeholder="Enter..." value="">
+                        <label>Nama Surat</label>
+                        <input class="form-control" name="nama" placeholder="Enter..." value="">
                       </div>
                       <div class="form-group">
                         <label>Surat Permohonan</label>
@@ -78,10 +78,7 @@
                       No
                     </th>
                     <th>
-                      Instansi
-                    </th>
-                    <th>
-                      Surat Permohonan
+                      Nama Surat
                     </th>
                     <th style="width: 20%">
                       Aksi
@@ -93,9 +90,6 @@
                   <tr style="text-align: center;">
                     <td>
                       {{ $no++ }}
-                    </td>
-                    <td>
-
                     </td>
                     <td>
 
@@ -120,8 +114,8 @@
                               <!-- form start -->
                               <form action="" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
-                                  <label>Instansi</label>
-                                  <input class="form-control" name="instansi" placeholder="Enter..." value="">
+                                  <label>Nama Surat</label>
+                                  <input class="form-control" name="nama" placeholder="Enter..." value="">
                                 </div>
                                 <div class="form-group">
                                   <label>Surat Permohonan</label>

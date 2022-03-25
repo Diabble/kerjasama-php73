@@ -165,7 +165,7 @@
                               @csrf
                               <div class="form-group">
                                 <label>Deskripsi</label>
-                                <textarea class="form-control" name="deskripsi" id="editor" placeholder="Enter..." value="">{!! $row->deskripsi !!}</textarea>
+                                <textarea class="form-control" name="deskripsi" id="editor2" placeholder="Enter..." value="">{!! $row->deskripsi !!}</textarea>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
@@ -196,4 +196,18 @@
   </div>
   <!-- /.content-wrapper -->
 
+@endsection
+
+@section('script')
+<script>
+  let editor;
+  ClassicEditor
+      .create( document.querySelector( '#editor2' ) )
+      .then(edit=> {
+        editor = edit;
+      })
+      .catch( error => {
+          console.error( error );
+      } );
+</script>
 @endsection

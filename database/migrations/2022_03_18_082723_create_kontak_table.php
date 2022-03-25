@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAngketKepuasanLayananTable extends Migration
+class CreateKontakTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreateAngketKepuasanLayananTable extends Migration
      */
     public function up()
     {
-        Schema::create('angket_kepuasan_layanan', function (Blueprint $table) {
+        Schema::create('kontak', function (Blueprint $table) {
             $table->id();
-            $table->string('link');
+            $table->string('nama');
+            $table->string('nohp');
+            $table->string('email');
+            $table->string('subject');
+            $table->text('pesan');
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class CreateAngketKepuasanLayananTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('angket_kepuasan_layanan');
+        Schema::dropIfExists('kontak');
     }
 }

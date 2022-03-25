@@ -59,13 +59,12 @@
 			<div class="row no-gutters">
 				<div class="col-lg-6 col-12 text">
 					<div class="theme-title-one">
-						<h2>Profil UIN Sunan Gunung Djati Bandung</h2>
+						<h2>{{ $tangkap3->judul }}</h2>
 					</div> <!-- /.theme-title-one -->
-					<p>A tale of a fateful trip that started from this tropic port aboard this tiny ship today still wanted by the government they survive as soldiers of fortune to a deluxe you apartment in the sky to explore strange new worlds to seek out new life and new civilizations to boldly go where no man has gone.</p>
-					<p>You would see the biggest gift would be from me and the card attached would so thank you for being a friend the biggest gift.</p>
+					<p>{!! $tangkap3->deskripsi !!}</p>
 				</div> <!-- /.col- -->
 				<div class="col-lg-6 col-12 wrap">
-					<iframe class="rounded" width="560" height="315" src="https://www.youtube.com/embed/yprwfSH4h9c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					<iframe class="rounded" width="560" height="315" src="{{ $tangkap3->link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 					{{-- <div class="img-box">
 						<a data-fancybox href="https://www.youtube.com/watch?v=yprwfSH4h9c" class="play">
 							<i class="fa fa-play" aria-hidden="true"></i>
@@ -158,7 +157,7 @@
 		<div class="container">
 			<div class="row no-gutters">
 				<div class="col-lg-6 col-12 wrap">
-					<iframe class="rounded" width="560" height="315" src="https://www.youtube.com/embed/Y77zRWy4czY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					<iframe class="rounded" width="560" height="315" src="{{ $tangkap4->link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 					{{-- <div class="img-box">
 						<a data-fancybox href="https://www.youtube.com/watch?v=yprwfSH4h9c" class="play">
 							<i class="fa fa-play" aria-hidden="true"></i>
@@ -167,10 +166,9 @@
 				</div>
 				<div class="col-lg-6 col-12 text">
 					<div class="theme-title-one">
-						<h2>Capaian Kinerja</h2>
+						<h2>{{ $tangkap4->judul }}</h2>
 					</div> <!-- /.theme-title-one -->
-					<p>A tale of a fateful trip that started from this tropic port aboard this tiny ship today still wanted by the government they survive as soldiers of fortune to a deluxe you apartment in the sky to explore strange new worlds to seek out new life and new civilizations to boldly go where no man has gone.</p>
-					<p>You would see the biggest gift would be from me and the card attached would so thank you for being a friend the biggest gift.</p>
+					<p>{!! $tangkap4->deskripsi !!}</p>
 				</div> <!-- /.col- -->
 			</div> <!-- /.row -->
 		</div> <!-- /.container -->

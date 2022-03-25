@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 use App\Models\ModelBeranda;
 
+use App\Models\ModelProfilUINSGD;
+
+use App\Models\ModelCapaianKinerja;
+
 use App\Models\ModelWakilRektor;
 
 use App\Models\ModelVisi;
@@ -40,6 +44,8 @@ use App\Models\ModelAjukanKerjasama;
 
 use App\Models\ModelAngketKepuasanLayanan;
 
+use App\Models\ModelKontak;
+
 use App\Models\ModelIO;
 
 use App\Models\ModelKategoriKodeInstansi;
@@ -61,9 +67,11 @@ class FrontendController extends Controller
         $berita = ModelBerita::get();
         $tangkap1 = \DB::table('beranda')->get();
         $tangkap2 = \DB::table('wakil_rektor')->first();
+        $tangkap3 = \DB::table('profil_uin_sgd')->first();
+        $tangkap4 = \DB::table('capaian_kinerja')->first();
         $mou = DB::table('mitra')->where('jenisnaskah', 1)->count();
         $moa = DB::table('mitra')->where('jenisnaskah', 2)->count();
-        return view('layouts.index', compact('beranda', 'wakilrektor', 'berita', 'tangkap1', 'tangkap2', 'mou', 'moa'));
+        return view('layouts.index', compact('beranda', 'wakilrektor', 'berita', 'tangkap1', 'tangkap2', 'tangkap3', 'tangkap4', 'mou', 'moa'));
     }
 
     public function wakilrektor()
@@ -211,6 +219,12 @@ class FrontendController extends Controller
             'instansi' => 'required',
             'jabatan' => 'required',
             'berkaspengaju' => 'required|file',
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'nohp.required' => 'No Whatsapp tidak boleh kosong',
+            'instansi.required' => 'Instansi tidak boleh kosong',
+            'jabatan.required' => 'Jabatan tidak boleh kosong',
+            'berkaspengaju.required' => 'Berkas Pengajuan Kerjasama tidak boleh kosong',
         ]);
 
         $file_name = $request->berkaspengaju->getClientOriginalName();
@@ -228,14 +242,23 @@ class FrontendController extends Controller
 
     public function angketkepuasanlayanan()
     {
-        // $akela = ModelAngketKepuasanLayanan::all();
+        $akela = ModelAngketKepuasanLayanan::first();
+        $beranda = ModelBeranda::all();
+        $tangkap1 = \DB::table('angket_kepuasan_layanan')->first();
+        $tangkap2 = \DB::table('beranda')->first();
+        return view('layouts.angket-kepuasan-layanan', compact( 'akela', 'beranda', 'tangkap1', 'tangkap2'));
+    }
+
+    public function kontak()
+    {
+        // $kontak = ModelKontak::first();
         $beranda = ModelBeranda::all();
         // $tangkap1 = \DB::table('angket_kepuasan_layanan')->first();
         $tangkap2 = \DB::table('beranda')->first();
-        return view('layouts.angket-kepuasan-layanan', compact( 'beranda', 'tangkap2'));
+        return view('layouts.kontak', compact( 'beranda', 'tangkap2'));
     }
 
-    public function akelastore(Request $request)
+    public function kontakstore(Request $request)
     {
         Request()->validate([
             'nama' => 'required',
@@ -243,9 +266,15 @@ class FrontendController extends Controller
             'email' => 'required|email:dns',
             'subject' => 'required',
             'pesan' => 'required',
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'nohp.required' => 'No Handphone tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'subject.required' => 'Subject tidak boleh kosong',
+            'pesan.required' => 'Pesan tidak boleh kosong',
         ]);
 
-        ModelAngketKepuasanLayanan::create([
+        ModelKontak::create([
             'nama' => $request->nama,
             'nohp' => $request->nohp,
             'email' => $request->email,
@@ -253,7 +282,7 @@ class FrontendController extends Controller
             'pesan' => $request->pesan,
         ]);
         
-        return redirect('/angket-kepuasan-layanan')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/kontak')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     public function io()

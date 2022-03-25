@@ -13,6 +13,6 @@ class ModelPengajuanKerjasama extends Model
     protected $fillable = ['instansi', 'progres'];
 
     public function mitra() {
-        return $this->belongsTo(ModelMitra::class, 'mitra');
+        return $this->belongsTo(ModelMitra::class, 'instansi', 'id');
     }
 }

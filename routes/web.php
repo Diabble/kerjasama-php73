@@ -111,17 +111,19 @@ Route::get('/struktur', [FrontendController::class, 'struktur']);
 Route::get('/alur-kerjasama', [FrontendController::class, 'alur']);
 Route::get('/progres-pengajuan-kerjasama', [FrontendController::class, 'propeker']);
 Route::get('/faq', [FrontendController::class, 'faq']);
-Route::get('/berita', [FrontendController::class, 'berita']);
 Route::get('/berita-detail/{slug}', [FrontendController::class, 'bedet'])->name('berita-detail');
 Route::get('/pengumuman', [FrontendController::class, 'pengumuman']);
 Route::get('/pengumuman-detail/{slug}', [FrontendController::class, 'bedet'])->name('pengumuman-detail');
 Route::get('/galeri', [FrontendController::class, 'galeri']);
 
+Route::get('/berita', [FrontendController::class, 'berita']);
+
 Route::get('/berkas-kerjasama', [FrontendController::class, 'berkaskerjasama']);
 Route::get('/ajukan-kerjasama', [FrontendController::class, 'ajukankerjasama']);
 Route::post('/ajukan-kerjasama/store', [FrontendController::class, 'ajukerstore']);
 Route::get('/angket-kepuasan-layanan', [FrontendController::class, 'angketkepuasanlayanan']);
-Route::post('/angket-kepuasan-layanan/store', [FrontendController::class, 'akelastore']);
+Route::get('/kontak', [FrontendController::class, 'kontak']);
+Route::post('/kontak/store', [FrontendController::class, 'kontakstore']);
 
 Route::get('/international-office', [FrontendController::class, 'io']);
 
@@ -151,6 +153,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/settings/berandaedit/{id}', [BackendController::class, 'berandaedit']);
     Route::post('/settings/berandaupdate/{id}', [BackendController::class, 'berandaupdate']);
     Route::get('/settings/berandadelete/{id}', [BackendController::class, 'berandadestroy']);
+    Route::get('/settings/profiluinsgdedit/{id}', [BackendController::class, 'profiluinsgdedit']);
+    Route::post('/settings/profiluinsgdupdate/{id}', [BackendController::class, 'profiluinsgdupdate']);
+    Route::get('/settings/capaiankinerjaedit/{id}', [BackendController::class, 'caperedit']);
+    Route::post('/settings/capaiankinerjaupdate/{id}', [BackendController::class, 'caperupdate']);
     Route::post('/settings/userstore', [BackendController::class, 'userstore']);
     Route::get('/settings/useredit/{id}', [BackendController::class, 'useredit']);
     Route::post('/settings/userupdate/{id}', [BackendController::class, 'userupdate']);
@@ -206,8 +212,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Progres Pengajuan Kerjasama
     Route::get('/progres-pengajuan-kerjasama-admin', [BackendController::class, 'propeker']);
+    Route::post('/progres-pengajuan-kerjasama-admin/store', [BackendController::class, 'propekerstore']);
     Route::get('/progres-pengajuan-kerjasama-admin/edit/{id}', [BackendController::class, 'propekeredit']);
     Route::post('/progres-pengajuan-kerjasama-admin/update/{id}', [BackendController::class, 'propekerupdate']);
+    Route::get('/progres-pengajuan-kerjasama-admin/delete/{id}', [BackendController::class, 'propekerdestroy']);
 
     // FAQ
     Route::get('/faq-admin', [BackendController::class, 'faq']);
@@ -253,10 +261,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Angket Kepuasan Layanan
     Route::get('/angket-kepuasan-layanan-admin', [BackendController::class, 'angketkepuasanlayanan']);
-    Route::post('/angket-kepuasan-layanan-admin/store', [BackendController::class, 'angketkepuasanlayananstore']);
     Route::get('/angket-kepuasan-layanan-admin/edit/{id}', [BackendController::class, 'angketkepuasanlayananedit']);    
     Route::post('/angket-kepuasan-layanan-admin/update/{id}', [BackendController::class, 'angketkepuasanlayananupdate']);
-    Route::get('/angket-kepuasan-layanan-admin/delete/{id}', [BackendController::class, 'angketkepuasanlayanandestroy']);
+
+    // Kontak
+    Route::get('/kontak-admin', [BackendController::class, 'kontak']);
+    Route::post('/kontak-admin/store', [BackendController::class, 'kontakstore']);
+    Route::get('/kontak-admin/edit/{id}', [BackendController::class, 'kontakedit']);    
+    Route::post('/kontak-admin/update/{id}', [BackendController::class, 'kontakupdate']);
+    Route::get('/kontak-admin/delete/{id}', [BackendController::class, 'kontakdestroy']);
 
     // International Office
     Route::get('/international-office-admin', [BackendController::class, 'io']);
@@ -269,5 +282,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/mitra-admin/edit/{id}', [BackendController::class, 'mitraedit']);    
     Route::post('/mitra-admin/update/{id}', [BackendController::class, 'mitraupdate']);
     Route::get('/mitra-admin/delete/{id}', [BackendController::class, 'mitradestroy']);
+    Route::get('/mitra-admin/export', [BackendController::class, 'mitraexport']);
+    Route::post('/mitra-admin/import', [BackendController::class, 'mitraimport']);
     Route::get('/mitra-print', [BackendController::class, 'mitraprint']);
 });

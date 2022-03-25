@@ -8,6 +8,10 @@ use App\Models\User;
 
 use App\Models\ModelBeranda;
 
+use App\Models\ModelProfilUINSGD;
+
+use App\Models\ModelCapaianKinerja;
+
 use App\Models\ModelWakilRektor;
 
 use App\Models\ModelVisi;
@@ -75,6 +79,18 @@ class DatabaseSeeder extends Seeder
         //     'tombolcarousel' => "Ajukan Kerjasama",
         // ]);
 
+        ModelProfilUINSGD::create([
+            'judul' => "Profil UIN Sunan Gunung Djati Bandung",
+            'link' => "https://www.youtube.com/embed/yprwfSH4h9c",
+            'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
+        ]);
+
+        ModelCapaianKinerja::create([
+            'judul' => "Capaian Kinerja",
+            'link' => "https://www.youtube.com/embed/Y77zRWy4czY",
+            'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
+        ]);
+
         // ModelWakilRektor::create([
         //     'poto' => "",
         //     'nama' => "Prof. Dr. Hj. Ulfiah, M.Si",
@@ -83,21 +99,21 @@ class DatabaseSeeder extends Seeder
         //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
         // ]);
 
-        ModelVisi::create([
-            'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
-        ]);
+        // ModelVisi::create([
+        //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
+        // ]);
 
-        ModelMisi::create([
-            'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
-        ]);
+        // ModelMisi::create([
+        //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
+        // ]);
 
-        ModelTugasPokokFungsi::create([
-            'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
-        ]);
+        // ModelTugasPokokFungsi::create([
+        //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
+        // ]);
 
-        ModelKebijakanProgram::create([
-            'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
-        ]);
+        // ModelKebijakanProgram::create([
+        //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
+        // ]);
 
         // ModelStruktur::create([
         //     'poto' => "",
@@ -109,23 +125,23 @@ class DatabaseSeeder extends Seeder
         //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
         // ]);
 
-        ModelPengajuanKerjasama::create([
-            'instansi' => "Institut Agama Islam Muhammadiyah Sinjay",
-            'progres' => "Selesai",
-        ]);
+        // ModelPengajuanKerjasama::create([
+        //     'instansi' => "Institut Agama Islam Muhammadiyah Sinjay",
+        //     'progres' => "Selesai",
+        // ]);
 
-        ModelFAQ::create([
-            'pertanyaan' => "Bagaimana menginisiasi kerjasama bagi instansi eksternal?",
-            'jawaban' => "Konten sedang disiapkan.",
-        ]);
-        ModelFAQ::create([
-            'pertanyaan' => "Bagaiamana menginisiasi kerjasama bagi unit kerja (internal)?",
-            'jawaban' => "Konten sedang disiapkan.",
-        ]);
-        ModelFAQ::create([
-            'pertanyaan' => "Apa saja tahapan dan dokumen yang diperlukan untuk kerjasama?",
-            'jawaban' => "Konten sedang disiapkan.",
-        ]);
+        // ModelFAQ::create([
+        //     'pertanyaan' => "Bagaimana menginisiasi kerjasama bagi instansi eksternal?",
+        //     'jawaban' => "Konten sedang disiapkan.",
+        // ]);
+        // ModelFAQ::create([
+        //     'pertanyaan' => "Bagaiamana menginisiasi kerjasama bagi unit kerja (internal)?",
+        //     'jawaban' => "Konten sedang disiapkan.",
+        // ]);
+        // ModelFAQ::create([
+        //     'pertanyaan' => "Apa saja tahapan dan dokumen yang diperlukan untuk kerjasama?",
+        //     'jawaban' => "Konten sedang disiapkan.",
+        // ]);
 
         // ModelBerita::create([
         //     'poto' => "",
@@ -146,30 +162,30 @@ class DatabaseSeeder extends Seeder
         //     'views' => 0
         // ]);
 
-        ModelKategoriBerita::create([
-            'nama_kategori' => "Kategori Berita 1",
-            'slug' => "kategori-berita-1",
-        ]);
-        ModelKategoriBerita::create([
-            'nama_kategori' => "Kategori Berita 2",
-            'slug' => "kategori-berita-2",
-        ]);
+        // ModelKategoriBerita::create([
+        //     'nama_kategori' => "Kategori Berita 1",
+        //     'slug' => "kategori-berita-1",
+        // ]);
+        // ModelKategoriBerita::create([
+        //     'nama_kategori' => "Kategori Berita 2",
+        //     'slug' => "kategori-berita-2",
+        // ]);
 
-        ModelPengumuman::create([
-            'judul' => "Pengumuman 1",
-            'slug' => "pengumuman-1",
-            'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
-            'user_id' => 1,
-        ]);
+        // ModelPengumuman::create([
+        //     'judul' => "Pengumuman 1",
+        //     'slug' => "pengumuman-1",
+        //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
+        //     'user_id' => 1,
+        // ]);
 
         // ModelGaleri::create([
         //     'poto' => "",
         //     'caption' => "Lorem ipsum dolor sit amet.",
         // ]);
 
-        ModelIO::create([
-            'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
-        ]);
+        // ModelIO::create([
+        //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
+        // ]);
 
         // ModelMitra::create([
         //     'kodeinstansi' => 1,
@@ -190,31 +206,31 @@ class DatabaseSeeder extends Seeder
         //     'selesai' => 2,
         // ]);
 
-        ModelKategoriKodeInstansi::create([
-            'nama_kategori' => "P1",
-            'slug' => "p1",
-        ]);
-        ModelKategoriKodeInstansi::create([
-            'nama_kategori' => "P2",
-            'slug' => "p2",
-        ]);
+        // ModelKategoriKodeInstansi::create([
+        //     'nama_kategori' => "P1",
+        //     'slug' => "p1",
+        // ]);
+        // ModelKategoriKodeInstansi::create([
+        //     'nama_kategori' => "P2",
+        //     'slug' => "p2",
+        // ]);
 
-        ModelKategoriKetInstansi::create([
-            'nama_kategori' => "Dalam Negeri",
-            'slug' => "dalam-negeri",
-        ]);
-        ModelKategoriKetInstansi::create([
-            'nama_kategori' => "Luar Negeri",
-            'slug' => "luar-negeri",
-        ]);
+        // ModelKategoriKetInstansi::create([
+        //     'nama_kategori' => "Dalam Negeri",
+        //     'slug' => "dalam-negeri",
+        // ]);
+        // ModelKategoriKetInstansi::create([
+        //     'nama_kategori' => "Luar Negeri",
+        //     'slug' => "luar-negeri",
+        // ]);
 
-        ModelKategoriJenisNaskah::create([
-            'nama_kategori' => "MoU",
-            'slug' => "mou",
-        ]);
-        ModelKategoriJenisNaskah::create([
-            'nama_kategori' => "MoA",
-            'slug' => "moa",
-        ]);
+        // ModelKategoriJenisNaskah::create([
+        //     'nama_kategori' => "MoU",
+        //     'slug' => "mou",
+        // ]);
+        // ModelKategoriJenisNaskah::create([
+        //     'nama_kategori' => "MoA",
+        //     'slug' => "moa",
+        // ]);
     }
 }

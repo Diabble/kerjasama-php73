@@ -83,21 +83,27 @@
                     <th style="width: 1%">
                       No
                     </th>
+                    <th style="width: 25%">
+                      Gambar
+                    </th>
                     <th>
                       Judul
                     </th>
-                    <th>
+                    {{-- <th>
                       Slug
-                    </th>
+                    </th> --}}
                     <th>
                       Deskripsi
                     </th>
-                    <th>
+                    {{-- <th>
                       Penulis
                     </th>
                     <th>
-                      Waktu Upload
+                      Status
                     </th>
+                    <th>
+                      Waktu Upload
+                    </th> --}}
                     <th style="width: 20%">
                       Aksi
                     </th>
@@ -111,26 +117,83 @@
                       {{ $no++ }}
                     </td>
                     <td>
-                      {{ $row->judul }}
+                      <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 100%">
                     </td>
                     <td>
+                      {{ Str::substr($row->judul, 0, 100) }}
+                    </td>
+                    {{-- <td>
                       {{ $row->slug }}
+                    </td> --}}
+                    <td>
+                      {!! Str::substr($row->deskripsi, 0, 100) !!}
+                    </td>
+                    {{-- <td>
+                      {{ $row->users->name }}
                     </td>
                     <td>
-                      {{ $row->deskripsi }}
-                    </td>
-                    <td>
-                      {{ $row->penulis }}
+                      <span class="badge badge-success">{{ ($row->status == 1) ? 'Publish' : 'Draft' }}</span>
                     </td>
                     <td>
                       {{ $row->created_at }}
-                    </td>
+                    </td> --}}
                     <td class="project-actions text-center">
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#lihat">
+                      <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#lihat{{ $row->id }}">
                         <i class="fas fa-eye"></i>
                         Lihat
                       </button>
+                      <!-- Modal Lihat Start -->
+                      <div class="modal fade text-left" id="lihat{{ $row->id }}" tabindex="-1" aria-labelledby="lihatLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="lihatLabel">Lihat Pengumuman Admin</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <!-- form start -->
+                              <form action="" method="POST" enctype="multipart/form-data">
+                                {{-- <div class="form-group">
+                                  <label>Gambar</label>
+                                  <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 50%">
+                                </div> --}}
+                                <div class="form-group">
+                                  <label>Judul</label>
+                                  <textarea class="form-control" disabled="" value="">{{ $row->judul }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                  <label>Slug</label>
+                                  <textarea class="form-control" disabled="" value="">{{ $row->slug }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                  <label>Deskripsi</label>
+                                  <textarea class="form-control" disabled="" value="">{!! $row->deskripsi !!}</textarea>
+                                </div>
+                                <div class="form-group">
+                                  <label>Penulis</label>
+                                  <input class="form-control" disabled="" value="{{ $row->users->name }}">
+                                </div>
+                                <div class="form-group">
+                                  <label>Status</label>
+                                  <input class="form-control" disabled="" value="">
+                                </div>
+                                <div class="form-group">
+                                  <label>Waktu Upload</label>
+                                  <input class="form-control" disabled="" value="{{ $row->created_at }}">
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                </div>
+                              </form>
+                              <!-- form end -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Modal Lihat End -->
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
                         <i class="fas fa-edit"></i>

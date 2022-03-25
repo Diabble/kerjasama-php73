@@ -37,35 +37,35 @@
 											@csrf
 											<div class="row">
 												<div class="col-12">
-													<input type="text" class="@error('nama') is-invalid @enderror" placeholder="Nama *" name="nama">
 													@error('nama')
-														<div class="invalid-feedback">{{ $message }}</div>
+														<div class="invalid-feedback" style="display: block;">{{ $message }}</div>
 													@enderror
+													<input type="text" class="@error('nama') is-invalid @enderror" placeholder="Nama *" name="nama">
 												</div>
 												<div class="col-12">
-													<input type="number" class="@error('nohp') is-invalid @enderror" placeholder="No Whatsapp *" name="nohp">
 													@error('nohp')
-														<div class="invalid-feedback">{{ $message }}</div>
+														<div class="invalid-feedback" style="display: block;">{{ $message }}</div>
 													@enderror
+													<input type="number" class="@error('nohp') is-invalid @enderror" placeholder="No Whatsapp *" name="nohp">
 												</div>
 												<div class="col-12">
-													<input type="text" class="@error('instansi') is-invalid @enderror" placeholder="Instansi *" name="instansi">
 													@error('instansi')
-														<div class="invalid-feedback">{{ $message }}</div>
+														<div class="invalid-feedback" style="display: block;">{{ $message }}</div>
 													@enderror
+													<input type="text" class="@error('instansi') is-invalid @enderror" placeholder="Instansi *" name="instansi">
 												</div>
 												<div class="col-12">
-													<input type="text" class="@error('jabatan') is-invalid @enderror" placeholder="Jabatan *" name="jabatan">
 													@error('jabatan')
-														<div class="invalid-feedback">{{ $message }}</div>
+														<div class="invalid-feedback" style="display: block;">{{ $message }}</div>
 													@enderror
+													<input type="text" class="@error('jabatan') is-invalid @enderror" placeholder="Jabatan *" name="jabatan">
 												</div>
 												<div class="col-12">
-													<label>Surat Permohonan *</label>
-													<input type="file" class="@error('suratpermohonan') is-invalid @enderror" name="berkaspengaju">
-													@error('suratpermohonan')
-														<div class="invalid-feedback">{{ $message }}</div>
+													@error('berkaspengaju')
+														<div class="invalid-feedback" style="display: block;">{{ $message }}</div>
 													@enderror
+													<label>Berkas Pengajuan Kerjasama *</label>
+													<input type="file" class="@error('berkaspengaju') is-invalid @enderror" name="berkaspengaju">
 												</div>
 											</div> <!-- /.row -->
 											<button type="submit" class="theme-button-one float-right">Kirim</button>
