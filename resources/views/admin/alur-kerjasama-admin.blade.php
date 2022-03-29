@@ -78,7 +78,7 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="{{url('/alur-kerjasama-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/admin/alur-kerjasama/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               @csrf
                               <div class="form-group">
                                 <label>Gambar</label>

@@ -18,7 +18,7 @@
             MAIN NAVIGATION
           </li> --}}
           <li class="nav-item">
-            <a href="/dashboard" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
+            <a href="{{ url('/admin/dashboard') }}" class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -26,7 +26,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/settings" class="nav-link {{ request()->is('settings') ? 'active' : '' }}">
+            <a href="{{ url('/admin/settings') }}" class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">
               <i class="nav-icon fas fa-cog"></i>
               <p>
                 Settings
@@ -43,31 +43,31 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/wakil-rektor-admin" class="nav-link {{ request()->is('wakil-rektor-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/wakil-rektor') }}" class="nav-link {{ request()->is('admin/wakil-rektor') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sambutan Wakil Rektor</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/visi-misi-admin" class="nav-link {{ request()->is('visi-misi-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/visi-misi') }}" class="nav-link {{ request()->is('admin/visi-misi') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Visi dan Misi</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/tugas-pokok-fungsi-admin" class="nav-link {{ request()->is('tugas-pokok-fungsi-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/tugas-pokok-fungsi') }}" class="nav-link {{ request()->is('admin/tugas-pokok-fungsi') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tugas Pokok dan Fungsi</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/kebijakan-program-admin" class="nav-link {{ request()->is('kebijakan-program-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/kebijakan-program') }}" class="nav-link {{ request()->is('admin/kebijakan-program') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kebijakan dan Program</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/struktur-admin" class="nav-link {{ request()->is('struktur-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/struktur') }}" class="nav-link {{ request()->is('admin/struktur') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Struktur</p>
                 </a>
@@ -84,19 +84,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/alur-kerjasama-admin" class="nav-link {{ request()->is('alur-kerjasama-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/alur-kerjasama') }}" class="nav-link {{ request()->is('admin/alur-kerjasama') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Alur Kerjasama</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/progres-pengajuan-kerjasama-admin" class="nav-link {{ request()->is('progres-pengajuan-kerjasama-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/progres-pengajuan-kerjasama') }}" class="nav-link {{ request()->is('admin/progres-pengajuan-kerjasama') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Progres Pengajuan Kerjasama</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/faq-admin" class="nav-link {{ request()->is('faq-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/faq') }}" class="nav-link {{ request()->is('admin/faq') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>FAQ</p>
                 </a>
@@ -111,13 +111,13 @@
                 </a>
                 <ul class="nav nav-treeview pl-2 ml-2">
                   <li class="nav-item">
-                    <a href="/kategori-berita-admin" class="nav-link {{ request()->is('kategori-berita-admin') ? 'active' : '' }}">
+                    <a href="{{ url('/admin/kategori-berita') }}" class="nav-link {{ request()->is('admin/kategori-berita') ? 'active' : '' }}">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Kategori Berita</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/berita-admin" class="nav-link {{ request()->is('berita-admin') ? 'active' : '' }}">
+                    <a href="{{ url('/admin/berita') }}" class="nav-link {{ request()->is('admin/berita') ? 'active' : '' }}">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Portal Berita</p>
                     </a>
@@ -125,13 +125,13 @@
                 </ul>
               </li> --}}
               <li class="nav-item">
-                <a href="/pengumuman-admin" class="nav-link {{ request()->is('pengumuman-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/pengumuman') }}" class="nav-link {{ request()->is('admin/pengumuman') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pengumuman</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/galeri-admin" class="nav-link {{ request()->is('galeri-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/galeri') }}" class="nav-link {{ request()->is('admin/galeri') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Galeri</p>
                 </a>
@@ -139,7 +139,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="/berita-admin" class="nav-link {{ request()->is('berita-admin') ? 'active' : '' }}">
+            <a href="{{ url('/admin/berita') }}" class="nav-link {{ request()->is('admin/berita') ? 'active' : '' }}">
               <i class="nav-icon fas fa-newspaper"></i>
               <p>Berita</p>
             </a>
@@ -154,25 +154,25 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/berkas-kerjasama-admin" class="nav-link {{ request()->is('berkas-kerjasama-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/berkas-kerjasama') }}" class="nav-link {{ request()->is('admin/berkas-kerjasama') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Berkas Kerjasama</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/ajukan-kerjasama-admin" class="nav-link {{ request()->is('ajukan-kerjasama-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/ajukan-kerjasama') }}" class="nav-link {{ request()->is('admin/ajukan-kerjasama') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ajukan Kerjasama</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/angket-kepuasan-layanan-admin" class="nav-link {{ request()->is('angket-kepuasan-layanan-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/angket-kepuasan-layanan') }}" class="nav-link {{ request()->is('admin/angket-kepuasan-layanan') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Angket Kepuasan Layanan</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/kontak-admin" class="nav-link {{ request()->is('kontak-admin') ? 'active' : '' }}">
+                <a href="{{ url('/admin/kontak') }}" class="nav-link {{ request()->is('admin/kontak') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kontak</p>
                 </a>
@@ -180,7 +180,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="/international-office-admin" class="nav-link {{ request()->is('international-office-admin') ? 'active' : '' }}">
+            <a href="{{ url('/admin/international-office') }}" class="nav-link {{ request()->is('admin/international-office') ? 'active' : '' }}">
               <i class="nav-icon far fa-handshake"></i>
               <p>
                 IO
@@ -188,7 +188,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/mitra-admin" class="nav-link {{ request()->is('mitra-admin') ? 'active' : '' }}">
+            <a href="{{ url('/admin/mitra') }}" class="nav-link {{ request()->is('admin/mitra') ? 'active' : '' }}">
               <i class="nav-icon far fa-handshake"></i>
               <p>
                 Mitra
@@ -205,13 +205,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/kategori-mitra-admin" class="nav-link">
+                <a href="{{ url('/admin/kategori-mitra') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kategori Mitra</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/mitra-admin" class="nav-link">
+                <a href="{{ url('/admin/mitra') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Portal Mitra</p>
                 </a>

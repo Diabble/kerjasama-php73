@@ -72,7 +72,7 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="{{url('/tugas-pokok-fungsi-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/admin/tugas-pokok-fungsi/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               @csrf
                               <div class="form-group">
                                 <label>Deskripsi</label>

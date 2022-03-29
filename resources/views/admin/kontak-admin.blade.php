@@ -48,7 +48,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/kontak-admin/store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/kontak/store')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         <label>Nama Lengkap</label>
@@ -150,7 +150,7 @@
                             </div>
                             <div class="modal-body">
                               <!-- form start -->
-                              <form action="{{url('/kontak-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              <form action="{{url('/admin/kontak/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                   <label>Nama Lengkap</label>
@@ -183,6 +183,10 @@
                         </div>
                       </div>
                       <!-- Modal Ubah End -->
+                      <a class="btn btn-danger btn-sm" href="{{url('/admin/kontak/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                        <i class="fas fa-trash"></i>
+                        Hapus
+                      </a>
                     </td> --}}
                   </tr>
                   @endforeach

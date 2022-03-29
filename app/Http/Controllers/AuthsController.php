@@ -25,9 +25,25 @@ class AuthsController extends Controller
     public function authenticate(Request $request)
     {
         // dd($request->all());
-        // if(Auth::attempt($request->only('email','password')))
+        // $credentials = $request->validate([
+        //     'email' => 'required|email:dns',
+        //     'password' => 'required',
+        // ]);
+        // if(Auth::attempt($credentials))
         // {
-        //     return redirect('/dashboard');
+        //     $auth = Auth::user();
+        //     if($auth->level == 'admin'){
+        //         return redirect('/admin/dashboard');
+        //     }
+        //     elseif($auth->level == 'pimpinan'){
+        //         return redirect('/dashboard');
+        //     }
+        //     elseif($auth->level == 'staff'){
+        //         return redirect('/admin/dashboard');
+        //     }
+        //     elseif($auth->level == 'user'){
+        //         return redirect('/dashboard');
+        //     }
         // }
         // return redirect('/login');
 
@@ -39,7 +55,7 @@ class AuthsController extends Controller
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/admin/dashboard');
         }
 
         return back()->with('loginError', 'Login Gagal!');

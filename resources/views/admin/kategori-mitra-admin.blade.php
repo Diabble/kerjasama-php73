@@ -48,7 +48,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/kategori-mitra-admin/kakoinstore')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/kategori-mitra/kakoinstore')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Kategori Kode Instansi</label>
                         <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
@@ -118,7 +118,7 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="{{url('/kategori-mitra-admin/kakoinupdate')}}/{{ $row->id }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/admin/kategori-mitra/kakoinupdate')}}/{{ $row->id }}" method="POST" enctype="multipart/form-data">
                               @csrf
                               <div class="form-group">
                                 <label>Kategori Kode Instansi</label>
@@ -135,7 +135,7 @@
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="{{url('/kategori-mitra-admin/kakoindelete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="{{url('/admin/kategori-mitra/kakoindelete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
@@ -185,7 +185,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/kategori-mitra-admin/kakeinstore')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/kategori-mitra/kakeinstore')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Kategori Keterangan Instansi</label>
                         <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
@@ -255,7 +255,7 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="{{url('/kategori-mitra-admin/kakeinupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/admin/kategori-mitra/kakeinupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               @csrf
                               <div class="form-group">
                                 <label>Kategori Keterangan Instansi</label>
@@ -272,7 +272,7 @@
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="{{url('/kategori-mitra-admin/kakeindelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="{{url('/admin/kategori-mitra/kakeindelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
@@ -322,7 +322,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/kategori-mitra-admin/kajenastore')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/kategori-mitra/kajenastore')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Kategori Jenis Naskah</label>
                         <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
@@ -392,7 +392,7 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="{{url('/kategori-mitra-admin/kajenaupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/admin/kategori-mitra/kajenaupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               @csrf
                               <div class="form-group">
                                 <label>Kategori Jenis Naskah</label>
@@ -409,7 +409,7 @@
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="{{url('/kategori-mitra-admin/kajenadelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="{{url('/admin/kategori-mitra/kajenadelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>

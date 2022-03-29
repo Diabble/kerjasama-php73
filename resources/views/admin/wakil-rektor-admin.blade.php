@@ -97,7 +97,7 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="{{url('/wakil-rektor-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/admin/wakil-rektor/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               @csrf
                               <div class="form-group">
                                 <label>Foto Profil</label>

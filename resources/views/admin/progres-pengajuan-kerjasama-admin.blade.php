@@ -48,7 +48,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/progres-pengajuan-kerjasama-admin/store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/progres-pengajuan-kerjasama/store')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         <label>Instansi</label>
@@ -139,7 +139,7 @@
                             </div>
                             <div class="modal-body">
                               <!-- form start -->
-                              <form action="{{url('/progres-pengajuan-kerjasama-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              <form action="{{url('/admin/progres-pengajuan-kerjasama/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                   <label>Instansi</label>
@@ -169,7 +169,7 @@
                         </div>
                       </div>
                       <!-- Modal Ubah End -->
-                      <a class="btn btn-danger btn-sm" href="{{url('/progres-pengajuan-kerjasama-admin/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                      <a class="btn btn-danger btn-sm" href="{{url('/admin/progres-pengajuan-kerjasama/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
                       </a>

@@ -48,7 +48,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/berkas-kerjasama/store')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Nama Surat</label>
                         <input class="form-control" name="nama" placeholder="Enter..." value="">
@@ -112,7 +112,7 @@
                             </div>
                             <div class="modal-body">
                               <!-- form start -->
-                              <form action="" method="POST" enctype="multipart/form-data">
+                              <form action="{{url('/admin/berkas-kerjasama/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                   <label>Nama Surat</label>
                                   <input class="form-control" name="nama" placeholder="Enter..." value="">
@@ -132,11 +132,11 @@
                         </div>
                       </div>
                       <!-- Modal Ubah End -->
-                      <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
+                      <a class="btn btn-danger btn-sm" href="{{url('/admin/berkas-kerjasama/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
                       </a>
-                      <a class="btn btn-secondary btn-sm" href="#">
+                      <a class="btn btn-secondary btn-sm" href="{{asset('storage/' . $row->berkaskerjasama)}}">
                         <i class="fas fa-download"></i>
                         Download
                       </a>

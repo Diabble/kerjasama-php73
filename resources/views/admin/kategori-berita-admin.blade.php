@@ -48,7 +48,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/kategori-berita-admin/store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/kategori-berita-admin/store')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Nama Kategori</label>
                         <input class="form-control" name="nama_kategori" autocomplete="off" placeholder="Enter..." value="">
@@ -113,7 +113,7 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="{{url('/kategori-berita-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/admin/kategori-berita-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               @csrf
                               <div class="form-group">
                                 <label>Nama Kategori</label>
@@ -134,7 +134,7 @@
                       </div>
                     </div>
                     <!-- Modal Ubah End -->
-                    <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="{{url('/admin/kategori-berita-admin/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>

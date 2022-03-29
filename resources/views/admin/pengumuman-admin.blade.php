@@ -48,7 +48,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/pengumuman-admin/store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/pengumuman/store')}}" method="POST" enctype="multipart/form-data">
                       <div class="form-group">
                         <label>Judul</label>
                         <input class="form-control @error('judul') is-invalid @enderror" name="judul" autocomplete="off" placeholder="Enter..." value="">
@@ -211,7 +211,7 @@
                             </div>
                             <div class="modal-body">
                               <!-- form start -->
-                              <form action="{{url('/pengumuman-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              <form action="{{url('/admin/pengumuman/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                   <label>Judul</label>
                                   <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="{{ $row->judul }}">
@@ -235,7 +235,7 @@
                         </div>
                       </div>
                       <!-- Modal Ubah End -->
-                      <a class="btn btn-danger btn-sm" href="#" onclick="return confirm('Yakin dihapus ?')">
+                      <a class="btn btn-danger btn-sm" href="{{url('/admin/pengumuman/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
                       </a>

@@ -48,7 +48,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/settings/berandastore')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/settings/berandastore')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         <label>Gambar</label>
@@ -198,7 +198,7 @@
                       <i class="fas fa-edit"></i>
                       Ubah
                     </button>
-                    <a class="btn btn-danger btn-sm" href="{{url('/settings/berandadelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                    <a class="btn btn-danger btn-sm" href="{{url('/admin/settings/berandadelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                       <i class="fas fa-trash"></i>
                       Hapus
                     </a>
@@ -290,7 +290,7 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="{{url('/settings/profiluinsgdupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/admin/settings/profiluinsgdupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               @csrf
                               <div class="form-group">
                                 <label>Judul</label>
@@ -398,7 +398,7 @@
                           </div>
                           <div class="modal-body">
                             <!-- form start -->
-                            <form action="{{url('/settings/capaiankinerjaupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                            <form action="{{url('/admin/settings/capaiankinerjaupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                               @csrf
                               <div class="form-group">
                                 <label>Judul</label>
@@ -469,7 +469,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/settings/..')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/settings/..')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         <label>Username</label>
@@ -573,7 +573,7 @@
                             </div>
                             <div class="modal-body">
                               <!-- form start -->
-                              <form action="{{url('/settings/..')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              <form action="{{url('/admin/settings/..')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                               <div class="form-group">
                                 <label>Username</label>
@@ -602,7 +602,7 @@
                         </div>
                       </div>
                       <!-- Modal Ubah End -->
-                      <a class="btn btn-danger btn-sm" href="{{url('/settings/..')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                      <a class="btn btn-danger btn-sm" href="{{url('/admin/settings/..')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
                       </a>
@@ -657,7 +657,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/settings/kaberstore')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/settings/kaberstore')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         <label>Nama Kategori</label>
@@ -733,7 +733,7 @@
                             </div>
                             <div class="modal-body">
                               <!-- form start -->
-                              <form action="{{url('/settings/kaberupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              <form action="{{url('/admin/settings/kaberupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                   <label>Nama Kategori</label>
@@ -754,7 +754,7 @@
                         </div>
                       </div>
                       <!-- Modal Ubah End -->
-                      <a class="btn btn-danger btn-sm" href="{{url('/settings/kaberdelete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
+                      <a class="btn btn-danger btn-sm" href="{{url('/admin/settings/kaberdelete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
                       </a>
@@ -809,7 +809,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/settings/kakoinstore')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/settings/kakoinstore')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         <label>Kategori Kode Instansi</label>
@@ -882,7 +882,7 @@
                             </div>
                             <div class="modal-body">
                               <!-- form start -->
-                              <form action="{{url('/settings/kakoinupdate')}}/{{ $row->id }}" method="POST" enctype="multipart/form-data">
+                              <form action="{{url('/admin/settings/kakoinupdate')}}/{{ $row->id }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                   <label>Kategori Kode Instansi</label>
@@ -903,7 +903,7 @@
                         </div>
                       </div>
                       <!-- Modal Ubah End -->
-                      <a class="btn btn-danger btn-sm" href="{{url('/settings/kakoindelete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
+                      <a class="btn btn-danger btn-sm" href="{{url('/admin/settings/kakoindelete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
                       </a>
@@ -958,7 +958,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/settings/kakeinstore')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/settings/kakeinstore')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         <label>Kategori Keterangan Instansi</label>
@@ -1031,7 +1031,7 @@
                             </div>
                             <div class="modal-body">
                               <!-- form start -->
-                              <form action="{{url('/settings/kakeinupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              <form action="{{url('/admin/settings/kakeinupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                   <label>Kategori Keterangan Instansi</label>
@@ -1052,7 +1052,7 @@
                         </div>
                       </div>
                       <!-- Modal Ubah End -->
-                      <a class="btn btn-danger btn-sm" href="{{url('/settings/kakeindelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                      <a class="btn btn-danger btn-sm" href="{{url('/admin/settings/kakeindelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
                       </a>
@@ -1107,7 +1107,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/settings/kajenastore')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/settings/kajenastore')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         <label>Kategori Jenis Naskah</label>
@@ -1180,7 +1180,7 @@
                             </div>
                             <div class="modal-body">
                               <!-- form start -->
-                              <form action="{{url('/settings/kajenaupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              <form action="{{url('/admin/settings/kajenaupdate')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                   <label>Kategori Jenis Naskah</label>
@@ -1197,7 +1197,7 @@
                         </div>
                       </div>
                       <!-- Modal Ubah End -->
-                      <a class="btn btn-danger btn-sm" href="{{url('/settings/kajenadelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                      <a class="btn btn-danger btn-sm" href="{{url('/admin/settings/kajenadelete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
                       </a>
@@ -1263,7 +1263,7 @@
       } );
 
   function update(data){
-    var url='{{ url("/settings/berandaupdate") }}' + '/' + data.id;
+    var url='{{ url("/admin/settings/berandaupdate") }}' + '/' + data.id;
     $('#formubah').attr('action', url);
     $('#poto').val(data.poto);
     $('#judulcarousel').attr('value', data.judulcarousel);

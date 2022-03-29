@@ -48,7 +48,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/berita-admin/store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/berita/store')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         <label>Gambar</label>
@@ -270,7 +270,7 @@
                             </div>
                             <div class="modal-body">
                               <!-- form start -->
-                              <form action="{{url('/berita-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              <form action="{{url('/admin/berita/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                   <label>Gambar</label>
@@ -318,7 +318,7 @@
                         </div>
                       </div>
                       <!-- Modal Ubah End -->
-                      <a class="btn btn-danger btn-sm" href="{{url('/berita-admin/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
+                      <a class="btn btn-danger btn-sm" href="{{url('/admin/berita/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
                       </a>

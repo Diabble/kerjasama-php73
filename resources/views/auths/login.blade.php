@@ -18,7 +18,7 @@
       <div class="card-body">
         <p class="login-box-msg"><b>Login Kerjasama</b><br>UIN Sunan Gunung Djati Bandung</p>
 
-        <form action="/postlogin" method="post">
+        <form action="{{ url('/postlogin') }}" method="post">
           @csrf
           <div class="input-group mb-3">
             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" autocomplete="off" placeholder="Email" autofocus required value="{{ old('email') }}">
@@ -62,7 +62,7 @@
           <a href="forgot-password.html">I forgot my password</a>
         </p> -->
         <p class="mb-0">
-          <a href="/register" class="text-center">Register member baru</a>
+          <a href="{{ url('/register') }}" class="text-center">Register member baru</a>
         </p>
       </div>
       <!-- /.card-body -->

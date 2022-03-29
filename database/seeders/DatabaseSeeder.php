@@ -4,8 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use App\Models\User;
-
 use App\Models\ModelBeranda;
 
 use App\Models\ModelProfilUINSGD;
@@ -65,13 +63,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // User::create([
-        //     'name' => "DevAdmin",
-        //     'level' => "Admin",
-        //     'email' => "devadmin@gmail.com",
-        //     'password' => bcrypt('devadminsih'),
-        // ]);
-
         // ModelBeranda::create([
         //     'poto' => "",
         //     'judulcarousel' => "Kerjasama dan Pengembangan Lembaga",

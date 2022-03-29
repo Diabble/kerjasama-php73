@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="card-body" style="background-color: #ffffff; padding: 10px 40px 10px 40px;">
-            {{-- <a class="btn btn-success btn-sm" href="/mitra-admin/export" target="blank">
+            {{-- <a class="btn btn-success btn-sm" href="/admin/mitra/export" target="blank">
               <i class="fas fa-print"></i>
               Export Data
             </a> --}}
@@ -52,7 +52,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/mitra-admin/import')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/mitra/import')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         {{-- <label>Berkas Mitra</label> --}}
@@ -93,7 +93,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/mitra-admin/store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/admin/mitra/store')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         <label>Kode Instansi</label>
@@ -207,7 +207,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/mitra-admin/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data" id="formubah">
+                    <form action="{{url('/admin/mitra/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data" id="formubah">
                       @csrf
                       <div class="form-group">
                         <label>Kode Instansi</label>
@@ -420,7 +420,7 @@
                         <i class="fas fa-edit"></i>
                         Ubah
                       </button>
-                      <a class="btn btn-danger btn-sm" href="{{url('/mitra-admin/delete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
+                      <a class="btn btn-danger btn-sm" href="{{url('/admin/mitra/delete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
                       </a>
@@ -479,7 +479,7 @@
       } );
 
   function update(data){
-    var url='{{ url("/mitra-admin/update") }}' + '/' + data.id;
+    var url='{{ url("/admin/mitra/update") }}' + '/' + data.id;
     $('#formubah').attr('action', url);
     $('#kodeinstansi').val(data.kodeinstansi);
     $('#ketinstansi').val(data.ketinstansi);
