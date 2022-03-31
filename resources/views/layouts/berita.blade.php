@@ -12,7 +12,7 @@
 				<div class="overlay">
 					<div class="container">
 						<h2>Berita</h2>
-						<p>{!! $tangkap3->deskripsicarousel !!}</p>
+						{{-- <p>{!! $tangkap3->deskripsicarousel !!}</p> --}}
 					</div> <!-- /.container -->
 				</div> <!-- /.overlay -->
 			</div> <!-- /.theme-inner-banner -->
@@ -69,6 +69,12 @@
 							</div> <!-- /.sidebar-search -->
 							<div class="sidebar-container sidebar-categories">
 								<h5 class="title">Categories</h5>
+								{{-- <select name="progres" class="form-control custom-select">
+									<option disabled selected>- Pilih -</option>
+									@foreach ( $tangkap2 as $row )
+										<option value="{{ $row->id }}">{{ $row->nama_kategori }}</option>								
+									@endforeach
+								</select> --}}
 								<ul>
 									@foreach ( $tangkap2 as $row )
 									<li><a href="#">{{ $row->nama_kategori }}</a></li>								
@@ -101,14 +107,14 @@
 									</li>
 								</ul>
 							</div> <!-- /.sidebar-recent-post -->
-							<div class="sidebar-container sidebar-archives">
+							{{-- <div class="sidebar-container sidebar-archives">
 								<h5 class="title">Archives</h5>
 								<ul>
 									<li><a href="#">January 2018</a></li>
 									<li><a href="#">February 2018</a></li>
 									<li><a href="#">March 2018</a></li>
 								</ul>
-							</div> <!-- /.sidebar-archives -->
+							</div> <!-- /.sidebar-archives --> --}}
 							{{-- <div class="sidebar-tags">
 								<h5 class="title">tags</h5>
 								<ul class="clearfix">

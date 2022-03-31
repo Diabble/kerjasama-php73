@@ -72,6 +72,8 @@ use App\Models\ModelKategoriKetInstansi;
 
 use App\Models\ModelKategoriJenisNaskah;
 
+use Carbon\Carbon;
+
 class BackendController extends Controller
 {
     // Dashboard
@@ -214,7 +216,7 @@ class BackendController extends Controller
             'tombolcarousel' => $request->tombolcarousel,
         ]);
         
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -278,7 +280,7 @@ class BackendController extends Controller
             ]);
         }
         
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -291,7 +293,7 @@ class BackendController extends Controller
     {
         ModelBeranda::find($id)->delete();
 
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Profil UIN SGD
@@ -365,7 +367,7 @@ class BackendController extends Controller
         ];
 
         ModelProfilUINSGD::find($id)->update($data);        
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -450,7 +452,7 @@ class BackendController extends Controller
         ];
 
         ModelCapaianKinerja::find($id)->update($data);        
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -561,7 +563,7 @@ class BackendController extends Controller
             'slug' => Str::slug($request->nama_kategori),
         ]);
 
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -608,7 +610,7 @@ class BackendController extends Controller
         ];
 
         ModelKategoriBerita::find($id)->update($data);
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -621,7 +623,7 @@ class BackendController extends Controller
     {
         ModelKategoriBerita::find($id)->delete();
 
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Kategori Kode Instansi
@@ -654,7 +656,7 @@ class BackendController extends Controller
             'slug' => Str::slug($request->nama_kategori),
         ]);
         
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
     
     /**
@@ -701,7 +703,7 @@ class BackendController extends Controller
         ];
 
         ModelKategoriKodeInstansi::find($id)->update($data);    
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
   
     /**
@@ -714,7 +716,7 @@ class BackendController extends Controller
     {
         ModelKategoriKodeInstansi::find($id)->delete();
 
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Kategori Keterangan Instansi
@@ -747,7 +749,7 @@ class BackendController extends Controller
             'slug' => Str::slug($request->nama_kategori),
         ]);
         
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -794,7 +796,7 @@ class BackendController extends Controller
         ];
 
         ModelKategoriKetInstansi::find($id)->update($data);    
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -807,7 +809,7 @@ class BackendController extends Controller
     {
         ModelKategoriKetInstansi::find($id)->delete();
 
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Kategori Jenis Naskah
@@ -840,7 +842,7 @@ class BackendController extends Controller
             'slug' => Str::slug($request->nama_kategori),
         ]);
         
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -887,7 +889,7 @@ class BackendController extends Controller
         ];
 
         ModelKategoriJenisNaskah::find($id)->update($data);    
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -900,7 +902,7 @@ class BackendController extends Controller
     {
         ModelKategoriJenisNaskah::find($id)->delete();
 
-        return redirect('/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Wakil Rektor
@@ -912,7 +914,7 @@ class BackendController extends Controller
     public function wakilrektor()
     {
         $wakilrektor = ModelWakilRektor::get();
-        return view('admin.wakil-rektor-admin', compact('wakilrektor'));
+        return view('admin.wakil-rektor', compact('wakilrektor'));
     }
 
     /**
@@ -956,7 +958,7 @@ class BackendController extends Controller
     public function wakilrektoredit($id)
     {
         $wakilrektor = ModelWakilRektor::findorfail($id);
-        return view('admin.wakil-rektor-admin', compact('wakilrektor'));
+        return view('admin.wakil-rektor', compact('wakilrektor'));
     }
 
     /**
@@ -999,7 +1001,7 @@ class BackendController extends Controller
         ]);
         }
 
-        return redirect('/wakil-rektor-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/wakil-rektor')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1023,7 +1025,7 @@ class BackendController extends Controller
     {
         $visi = ModelVisi::get();
         $misi = ModelMisi::get();
-        return view('admin.visi-misi-admin', compact('visi', 'misi'));
+        return view('admin.visi-misi', compact('visi', 'misi'));
     }
 
     // Visi
@@ -1068,7 +1070,7 @@ class BackendController extends Controller
     public function visiedit($id)
     {
         $visi = ModelVisi::findorfail($id);
-        return view('admin.visi-misi-admin', compact('visi'));
+        return view('admin.visi-misi', compact('visi'));
     }
 
     /**
@@ -1091,7 +1093,7 @@ class BackendController extends Controller
         ];
 
         ModelVisi::find($id)->update($data);
-        return redirect('/visi-misi-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/visi-misi')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1147,7 +1149,7 @@ class BackendController extends Controller
     public function misiedit($id)
     {
         $misi = ModelMisi::findorfail($id);
-        return view('admin.visi-misi-admin', compact('misi'));
+        return view('admin.visi-misi', compact('misi'));
     }
 
     /**
@@ -1170,7 +1172,7 @@ class BackendController extends Controller
         ];
 
         ModelMisi::find($id)->update($data);
-        return redirect('/visi-misi-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/visi-misi')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1193,7 +1195,7 @@ class BackendController extends Controller
     public function tupoksi()
     {
         $tupoksi = ModelTugasPokokFungsi::get();
-        return view('admin.tugas-pokok-fungsi-admin', compact('tupoksi'));
+        return view('admin.tugas-pokok-fungsi', compact('tupoksi'));
     }
 
     /**
@@ -1237,7 +1239,7 @@ class BackendController extends Controller
     public function tupoksiedit($id)
     {
         $tupoksi = ModelTugasPokokFungsi::findorfail($id);
-        return view('admin.tugas-pokok-fungsi-admin', compact('tupoksi'));
+        return view('admin.tugas-pokok-fungsi', compact('tupoksi'));
     }
 
     /**
@@ -1260,7 +1262,7 @@ class BackendController extends Controller
         ];
 
         ModelTugasPokokFungsi::find($id)->update($data);
-        return redirect('/tugas-pokok-fungsi-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/tugas-pokok-fungsi')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1283,7 +1285,7 @@ class BackendController extends Controller
     public function kepro()
     {
         $kepro = ModelKebijakanProgram::get();
-        return view('admin.kebijakan-program-admin', compact('kepro'));
+        return view('admin.kebijakan-program', compact('kepro'));
     }
 
     /**
@@ -1327,7 +1329,7 @@ class BackendController extends Controller
     public function keproedit($id)
     {
         $kepro = ModelKebijakanProgram::findorfail($id);
-        return view('admin.kebijakan-program-admin', compact('kepro'));
+        return view('admin.kebijakan-program', compact('kepro'));
     }
 
     /**
@@ -1350,7 +1352,7 @@ class BackendController extends Controller
         ];
 
         ModelKebijakanProgram::find($id)->update($data);
-        return redirect('/kebijakan-program-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/kebijakan-program')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1373,7 +1375,7 @@ class BackendController extends Controller
     public function struktur()
     {
         $struktur = ModelStruktur::get();
-        return view('admin.struktur-admin', compact('struktur'));
+        return view('admin.struktur', compact('struktur'));
     }
 
     /**
@@ -1417,7 +1419,7 @@ class BackendController extends Controller
     public function strukturedit($id)
     {
         $struktur = ModelStruktur::findorfail($id);
-        return view('admin.struktur-admin', compact('struktur'));
+        return view('admin.struktur', compact('struktur'));
     }
 
     /**
@@ -1448,7 +1450,7 @@ class BackendController extends Controller
         ]);
         }
 
-        return redirect('/struktur-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/struktur')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1471,7 +1473,7 @@ class BackendController extends Controller
     public function alurkerjasama()
     {
         $alur = ModelAlurKerjasama::get();
-        return view('admin.alur-kerjasama-admin', compact('alur'));
+        return view('admin.alur-kerjasama', compact('alur'));
     }
 
     /**
@@ -1515,7 +1517,7 @@ class BackendController extends Controller
     public function alurkerjasamaedit($id)
     {
         $alur = ModelAlurKerjasama::findorfail($id);
-        return view('admin.alur-kerjasama-admin', compact('alur'));
+        return view('admin.alur-kerjasama', compact('alur'));
     }
 
     /**
@@ -1546,7 +1548,7 @@ class BackendController extends Controller
         ]);
         }
 
-        return redirect('/alur-kerjasama-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/alur-kerjasama')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1570,7 +1572,7 @@ class BackendController extends Controller
     {
         $propeker = ModelPengajuanKerjasama::all();
         $mitra = ModelMitra::all();
-        return view('admin.progres-pengajuan-kerjasama-admin', compact('propeker', 'mitra'));
+        return view('admin.progres-pengajuan-kerjasama', compact('propeker', 'mitra'));
     }
 
     /**
@@ -1604,7 +1606,7 @@ class BackendController extends Controller
             'progres' => $request->progres,
         ]);
         
-        return redirect('/progres-pengajuan-kerjasama-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/admin/progres-pengajuan-kerjasama')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -1628,7 +1630,7 @@ class BackendController extends Controller
     {
         $propeker = ModelPengajuanKerjasama::findorfail($id);
         $mitra = ModelMitra::findorfail($id);
-        return view('admin.progres-pengajuan-kerjasama-admin', compact('propeker', 'mitra'));
+        return view('admin.progres-pengajuan-kerjasama', compact('propeker', 'mitra'));
     }
 
     /**
@@ -1654,7 +1656,7 @@ class BackendController extends Controller
         ];
 
         ModelPengajuanKerjasama::find($id)->update($data);
-        return redirect('/progres-pengajuan-kerjasama-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/progres-pengajuan-kerjasama')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1667,7 +1669,7 @@ class BackendController extends Controller
     {
         ModelPengajuanKerjasama::find($id)->delete();
 
-        return redirect('/progres-pengajuan-kerjasama-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        return redirect('/admin/progres-pengajuan-kerjasama')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // FAQ
@@ -1679,7 +1681,7 @@ class BackendController extends Controller
     public function faq()
     {
         $faq = ModelFAQ::all();
-        return view('admin.faq-admin', compact('faq'));
+        return view('admin.faq', compact('faq'));
     }
 
     /**
@@ -1713,7 +1715,7 @@ class BackendController extends Controller
             'jawaban' => $request->jawaban,
         ]);
         
-        return redirect('/faq-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/admin/faq')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -1736,7 +1738,7 @@ class BackendController extends Controller
     public function faqedit($id)
     {
         $faq = ModelFAQ::findorfail($id);
-        return view('admin.faq-admin', compact('faq'));
+        return view('admin.faq', compact('faq'));
     }
 
     /**
@@ -1762,7 +1764,7 @@ class BackendController extends Controller
         ];
 
         ModelFAQ::find($id)->update($data);    
-        return redirect('/faq-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/faq')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1775,7 +1777,7 @@ class BackendController extends Controller
     {
         ModelFAQ::find($id)->delete();
 
-        return redirect('/faq-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        return redirect('/admin/faq')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Kategori Berita
@@ -1787,7 +1789,7 @@ class BackendController extends Controller
     public function kaber()
     {
         $kaber = ModelKategoriBerita::all();
-        return view('admin.kategori-berita-admin', compact('kaber'));
+        return view('admin.kategori-berita', compact('kaber'));
     }
 
     // Berita
@@ -1801,7 +1803,7 @@ class BackendController extends Controller
         $kaber = ModelKategoriBerita::all();
         $berita = ModelBerita::all();
         // dd($berita);
-        return view('admin.berita-admin', compact('berita', 'kaber'));
+        return view('admin.berita', compact('berita', 'kaber'));
     }
 
    /**
@@ -1851,7 +1853,7 @@ class BackendController extends Controller
             'aktif' => $request->aktif,
         ]);
         
-        return redirect('/berita-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/admin/berita')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -1875,7 +1877,7 @@ class BackendController extends Controller
     {
         $kaber = ModelKategoriBerita::all();
         $berita = ModelBerita::findorfail($id);
-        return view('admin.berita-admin', compact('berita', 'kaber'));
+        return view('admin.berita', compact('berita', 'kaber'));
     }
 
     /**
@@ -1925,7 +1927,7 @@ class BackendController extends Controller
             ]);
         }
         
-        return redirect('/berita-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/berita')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -1938,7 +1940,7 @@ class BackendController extends Controller
     {
         ModelBerita::find($id)->delete();
 
-        return redirect('/berita-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        return redirect('/admin/berita')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Pengumuman
@@ -1950,7 +1952,7 @@ class BackendController extends Controller
     public function pengumuman()
     {
         $pengumuman = ModelPengumuman::all();
-        return view('admin.pengumuman-admin', compact('pengumuman'));
+        return view('admin.pengumuman', compact('pengumuman'));
     }
 
     /**
@@ -2028,7 +2030,7 @@ class BackendController extends Controller
     public function galeri()
     {
         $galeri = ModelGaleri::all();
-        return view('admin.galeri-admin', compact('galeri'));
+        return view('admin.galeri', compact('galeri'));
     }
 
     /**
@@ -2064,7 +2066,7 @@ class BackendController extends Controller
             'caption' => $request->caption,
         ]);
         
-        return redirect('/galeri-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/admin/galeri')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -2087,7 +2089,7 @@ class BackendController extends Controller
     public function galeriedit($id)
     {
         $galeri = ModelGaleri::findorfail($id);
-        return view('admin.galeri-admin', compact('galeri'));
+        return view('admin.galeri', compact('galeri'));
     }
 
     /**
@@ -2120,7 +2122,7 @@ class BackendController extends Controller
             ]);
         }
         
-        return redirect('/galeri-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/galeri')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -2133,7 +2135,7 @@ class BackendController extends Controller
     {
         ModelGaleri::find($id)->delete();
 
-        return redirect('/galeri-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        return redirect('/admin/galeri')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Berkas Kerjasama
@@ -2144,7 +2146,7 @@ class BackendController extends Controller
      */
     public function berkaskerjasama()
     {
-        return view('admin.berkas-kerjasama-admin');
+        return view('admin.berkas-kerjasama');
     }
 
     /**
@@ -2222,7 +2224,7 @@ class BackendController extends Controller
     public function ajukankerjasama()
     {
         $ajuker = ModelAjukanKerjasama::get();
-        return view('admin.ajukan-kerjasama-admin', compact('ajuker'));
+        return view('admin.ajukan-kerjasama', compact('ajuker'));
     }
 
     /**
@@ -2267,7 +2269,7 @@ class BackendController extends Controller
             'berkaspengaju' => $file,
         ]);
         
-        return redirect('/ajukan-kerjasama-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/admin/ajukan-kerjasama')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -2290,7 +2292,7 @@ class BackendController extends Controller
     public function ajukankerjasamaedit($id)
     {
         $ajuker = ModelAjukanKerjasama::findorfail($id);
-        return view('admin.ajukan-kerjasama-admin', compact('ajuker'));
+        return view('admin.ajukan-kerjasama', compact('ajuker'));
     }
 
     /**
@@ -2333,7 +2335,7 @@ class BackendController extends Controller
             ]);
         }
         
-        return redirect('/ajukan-kerjasama-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/ajukan-kerjasama')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -2346,7 +2348,7 @@ class BackendController extends Controller
     {
         ModelAjukanKerjasama::find($id)->delete();
 
-        return redirect('/ajukan-kerjasama-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        return redirect('/admin/ajukan-kerjasama')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // Angket Kepuasan Layanan
@@ -2358,7 +2360,7 @@ class BackendController extends Controller
     public function angketkepuasanlayanan()
     {
         $akela = ModelAngketKepuasanLayanan::get();
-        return view('admin.angket-kepuasan-layanan-admin', compact('akela'));
+        return view('admin.angket-kepuasan-layanan', compact('akela'));
     }
 
     /**
@@ -2402,7 +2404,7 @@ class BackendController extends Controller
     public function angketkepuasanlayananedit($id)
     {
         $akela = ModelAngketKepuasanLayanan::findorfail($id);
-        return view('admin.angket-kepuasan-layanan-admin', compact('akela'));
+        return view('admin.angket-kepuasan-layanan', compact('akela'));
     }
 
     /**
@@ -2425,7 +2427,7 @@ class BackendController extends Controller
         ];
 
         ModelAngketKepuasanLayanan::find($id)->update($data);
-        return redirect('/angket-kepuasan-layanan-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/angket-kepuasan-layanan')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -2448,7 +2450,7 @@ class BackendController extends Controller
     public function kontak()
     {
         $kontak = ModelKontak::get();
-        return view('admin.kontak-admin', compact('kontak'));
+        return view('admin.kontak', compact('kontak'));
     }
 
     /**
@@ -2491,7 +2493,7 @@ class BackendController extends Controller
             'pesan' => $request->pesan,
         ]);
         
-        return redirect('/kontak-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/admin/kontak')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -2514,7 +2516,7 @@ class BackendController extends Controller
     public function kontakedit($id)
     {
         $kontak = ModelKontak::findorfail($id);
-        return view('admin.kontak-admin', compact('kontak'));
+        return view('admin.kontak', compact('kontak'));
     }
 
     /**
@@ -2549,7 +2551,7 @@ class BackendController extends Controller
         ];
 
         ModelKontak::find($id)->update($data);
-        return redirect('/kontak-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/kontak')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -2562,7 +2564,7 @@ class BackendController extends Controller
     {
         ModelKontak::find($id)->delete();
 
-        return redirect('/kontak-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        return redirect('/admin/kontak')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 
     // International Office
@@ -2574,7 +2576,7 @@ class BackendController extends Controller
     public function io()
     {
         $io = ModelIO::get();
-        return view('admin.international-office-admin', compact('io'));
+        return view('admin.international-office', compact('io'));
     }
 
     /**
@@ -2618,7 +2620,7 @@ class BackendController extends Controller
     public function ioedit($id)
     {
         $io = ModelIO::findorfail($id);
-        return view('admin.international-office-admin', compact('io'));
+        return view('admin.international-office', compact('io'));
     }
 
     /**
@@ -2641,7 +2643,7 @@ class BackendController extends Controller
         ];
 
         ModelIO::find($id)->update($data);
-        return redirect('/international-office-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/international-office')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -2666,7 +2668,7 @@ class BackendController extends Controller
         $kakoin = ModelKategoriKodeInstansi::all();
         $kakein = ModelKategoriKetInstansi::all();
         $kajenas = ModelKategoriJenisNaskah::all();
-        return view('admin.kategori-mitra-admin', compact('kakoin', 'kakein', 'kajenas'));
+        return view('admin.kategori-mitra', compact('kakoin', 'kakein', 'kajenas'));
     }
     
     // Mitra
@@ -2681,7 +2683,7 @@ class BackendController extends Controller
         $kakein = ModelKategoriKetInstansi::all();
         $kajenas = ModelKategoriJenisNaskah::all();
         $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->get();
-        return view('admin.mitra-admin', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
+        return view('admin.mitra', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
     public function mitraexport()
@@ -2696,7 +2698,7 @@ class BackendController extends Controller
         $file->move('berkasmitra', $namaFile);
 
         Excel::import(new MitraImport, public_path('/berkasmitra/' . $namaFile));
-        return redirect('/mitra-admin')->with('pesan', 'Data Berhasil Di Import !!!');
+        return redirect('/admin/mitra')->with('pesan', 'Data Berhasil Di Import !!!');
     }
 
     public function mitraprint()
@@ -2705,7 +2707,7 @@ class BackendController extends Controller
         $kakein = ModelKategoriKetInstansi::get();
         $kajenas = ModelKategoriJenisNaskah::get();
         $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->get();
-        return view('admin.mitra-print-admin', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
+        return view('admin.mitra-print', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
     /**
@@ -2748,6 +2750,9 @@ class BackendController extends Controller
             'berkasmitra.required' => 'Berkas Mitra tidak boleh kosong!',
         ]);
 
+        $mulai = Carbon::createFromFormat('m/d/Y g:i A', $request->mulai);
+        $selesai = Carbon::createFromFormat('m/d/Y g:i A', $request->selesai);
+
         $file_name = $request->berkasmitra->getClientOriginalName();
             $file = $request->berkasmitra->storeAs('berkasmitra', $file_name);
         ModelMitra::create([
@@ -2755,14 +2760,14 @@ class BackendController extends Controller
             'ketinstnasi' => $request->ketinstnasi,
             'instansi' => $request->instansi,
             'bidkerjasama' => $request->bidkerjasama,
-            'mulai' => $request->mulai,
-            'selesai' => $request->selesai,
+            'mulai' => $mulai->toDateTimeString(),
+            'selesai' => $selesai->toDateTimeString(),
             'jenisnaskah' => $request->jenisnaskah,
             'ketunit' => $request->ketunit,
             'berkasmitra' => $file,
         ]);
         
-        return redirect('/mitra-admin')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        return redirect('/admin/mitra')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
     /**
@@ -2788,7 +2793,7 @@ class BackendController extends Controller
         $kakein = ModelKategoriKetInstansi::findorfail($id);
         $kajenas = ModelKategoriJenisNaskah::findorfail($id);
         $mitra = ModelMitra::findorfail($id);
-        return view('admin.mitra-admin', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
+        return view('admin.mitra', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
     /**
@@ -2820,6 +2825,9 @@ class BackendController extends Controller
             'ketunit.required' => 'Keterangan/Unit tidak boleh kosong!',
         ]);
 
+        $mulai = Carbon::createFromFormat('m/d/Y g:i A', $request->mulai);
+        $selesai = Carbon::createFromFormat('m/d/Y g:i A', $request->selesai);
+
         if (Request()->hasFile('berkasmitra')) {
             $file_name = $request->berkasmitra->getClientOriginalName();
                 $file = $request->berkasmitra->storeAs('berkasmitra', $file_name);
@@ -2828,8 +2836,8 @@ class BackendController extends Controller
                 'ketinstansi' => $request->ketinstansi,
                 'instansi' => $request->instansi,
                 'bidkerjasama' => $request->bidkerjasama,
-                'mulai' => $request->mulai,
-                'selesai' => $request->selesai,
+                'mulai' => $mulai->toDateTimeString(),
+                'selesai' => $selesai->toDateTimeString(),
                 'jenisnaskah' => $request->jenisnaskah,
                 'ketunit' => $request->ketunit,
                 'berkasmitra' => $file,
@@ -2840,14 +2848,14 @@ class BackendController extends Controller
                 'ketinstansi' => $request->ketinstansi,
                 'instansi' => $request->instansi,
                 'bidkerjasama' => $request->bidkerjasama,
-                'mulai' => $request->mulai,
-                'selesai' => $request->selesai,
+                'mulai' => $mulai->toDateTimeString(),
+                'selesai' => $selesai->toDateTimeString(),
                 'jenisnaskah' => $request->jenisnaskah,
                 'ketunit' => $request->ketunit,
             ]);
         }
         
-        return redirect('/mitra-admin')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        return redirect('/admin/mitra')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
     /**
@@ -2860,6 +2868,6 @@ class BackendController extends Controller
     {
         ModelMitra::find($id)->delete();
 
-        return redirect('/mitra-admin')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        return redirect('/admin/mitra')->with('pesan', 'Data Berhasil Di Hapus !!!');
     }
 }

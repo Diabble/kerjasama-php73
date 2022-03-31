@@ -64,7 +64,7 @@ class FrontendController extends Controller
     {
         $beranda = ModelBeranda::all();
         $wakilrektor = ModelWakilRektor::all();
-        $berita = ModelBerita::get();
+        $berita = ModelBerita::where('aktif', 1)->get();
         $tangkap1 = \DB::table('beranda')->get();
         $tangkap2 = \DB::table('wakil_rektor')->first();
         $tangkap3 = \DB::table('profil_uin_sgd')->first();
@@ -154,7 +154,7 @@ class FrontendController extends Controller
         $kabet = ModelKategoriBerita::all();
         $beranda = ModelBeranda::all();
         $user = User::all();
-        $tangkap1 = \DB::table('berita')->get();
+        $tangkap1 = \DB::table('berita')->where('aktif', 1)->get();
         $tangkap2 = \DB::table('kategori_berita')->get();
         $tangkap3 = \DB::table('beranda')->first();
         $tangkap4 = \DB::table('users')->first();
@@ -184,11 +184,21 @@ class FrontendController extends Controller
         return view('layouts.pengumuman', compact('pengumuman', 'tangkap1', 'tangkap2', 'tangkap3'));
     }
 
+    public function pedet($slug)
+    {
+        $pengumuman = ModelPengumuman::where('slug', $slug)->first();
+        $beranda = ModelBeranda::all();
+        $tangkap1 = \DB::table('pengumuman')->where('id', $pengumuman->id)->first();
+        $tangkap2 = \DB::table('beranda')->first();
+        $postbaru = ModelPengumuman::orderBy('created_at', 'DESC')->limit('5')->get();
+        return view('layouts.pengumuman-detail', compact('pengumuman', 'beranda', 'tangkap1', 'tangkap2', 'postbaru'));
+    }
+
     public function galeri()
     {
         $galeri = ModelGaleri::all();
         $beranda = ModelBeranda::all();
-        $tangkap1 = \DB::table('galeri')->first();
+        $tangkap1 = \DB::table('galeri')->get();
         $tangkap2 = \DB::table('beranda')->first();
         return view('layouts.galeri', compact('galeri', 'beranda', 'tangkap1', 'tangkap2'));
     }

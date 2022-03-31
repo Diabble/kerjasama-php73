@@ -55,7 +55,19 @@ class AuthsController extends Controller
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/admin/dashboard');
+            $auth = Auth::user();
+            if($auth->level == 'admin') {
+                return redirect('/admin/dashboard');
+            }
+            elseif($auth->level == 'pimpinan'){
+                return redirect('/pimpinan/dashboard');
+            }
+            elseif($auth->level == 'staff'){
+                return redirect('/staff/dashboard');
+            }
+            elseif($auth->level == 'user'){
+                return redirect('/user/dashboard');
+            }
         }
 
         return back()->with('loginError', 'Login Gagal!');

@@ -72,9 +72,9 @@
               </div>
             </div>
             <!-- Modal Import Data End -->
-            <a class="btn btn-secondary btn-sm" href="/mitra-print" target="blank">
+            <a class="btn btn-secondary btn-sm" href="{{asset('storage')}}/berkasmitra/Mitra.xlsx" target="blank">
               <i class="fas fa-print"></i>
-              Cetak Semua
+              Template Import Data
             </a>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#tambah">
@@ -135,9 +135,9 @@
                       </div>
                       <div class="form-group">
                         <label>Dimulai</label>
-                        <div class="input-group date @error('mulai') is-invalid @enderror" id="datetimepicker1" data-target-input="nearest">
-                          <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="mulai" placeholder="Enter..." value="{{ old('mulai') }}">
-                          <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                        <div class="input-group date @error('mulai') is-invalid @enderror" id="datetimepicker" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker" name="mulai" placeholder="Enter..." value="{{ old('mulai') }}">
+                          <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                           </div>
                         </div>
@@ -171,7 +171,7 @@
                       </div>
                       <div class="form-group">
                         <label>Keterangan/Unit</label>
-                        <input class="form-control @error('ketunit') is-invalid @enderror" name="ketunit" id="ketunit" autocomplete="off" placeholder="Enter..." value="{{ old('ketunit') }}">
+                        <input class="form-control @error('ketunit') is-invalid @enderror" name="ketunit" autocomplete="off" placeholder="Enter..." value="{{ old('ketunit') }}">
                         @error('ketunit')
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -194,7 +194,13 @@
               </div>
             </div>
             <!-- Modal Tambah End -->
-
+            
+            <div class="btn-white btn-sm float-right"></div>
+            <a class="btn btn-secondary btn-sm float-right" href="/mitra-print" target="blank">
+              <i class="fas fa-print"></i>
+              Cetak Semua
+            </a>
+            
             <!-- Modal Ubah Start -->
             <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-scrollable modal-lg">
@@ -237,11 +243,23 @@
                       </div>
                       <div class="form-group">
                         <label>Dimulai</label>
-                        <input class="form-control mulai" name="mulai" id="mulai" placeholder="Enter..." value="">
+                        {{-- <input class="form-control mulai" name="mulai" id="mulai" placeholder="Enter..." value=""> --}}
+                        <div class="input-group date" id="datetimepicker3" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker3" name="mulai" id="mulai" placeholder="Enter..." value="">
+                          <div class="input-group-append" data-target="#datetimepicker3" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          </div>
+                        </div>
                       </div>
                       <div class="form-group">
                         <label>Berakhir</label>
-                        <input class="form-control selesai" name="selesai" id="selesai" placeholder="Enter..." value="">
+                        {{-- <input class="form-control selesai" name="selesai" id="selesai" placeholder="Enter..." value=""> --}}
+                        <div class="input-group date" id="datetimepicker4" data-target-input="nearest">
+                          <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker4" name="selesai" id="selesai" placeholder="Enter..." value="">
+                          <div class="input-group-append" data-target="#datetimepicker4" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                          </div>
+                        </div>
                       </div>
                       <div class="form-group">
                         <label>Jenis Naskah</label>
@@ -314,7 +332,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {{ $errors }}
+                  {{-- {{ $errors }} --}}
                   <?php $no=1; ?>
                   @forelse ( $mitra as $row )
                   <tr style="text-align: justify;">
@@ -365,41 +383,57 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
-                                  <label>Kode Instansi</label>
-                                  <input class="form-control" disabled="" value="{{ $row->kakoin->nama_kategori }}">
+                              <div class="form-group">
+                                <label>Kode Instansi</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {{ $row->kakoin->nama_kategori }}
                                 </div>
-                                <div class="form-group">
-                                  <label>Keterangan Instansi</label>
-                                  <input class="form-control" disabled="" value="{{ $row->kakein->nama_kategori }}">
+                              </div>
+                              <div class="form-group">
+                                <label>Keterangan Instansi</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {{ $row->kakein->nama_kategori }}
                                 </div>
-                                <div class="form-group">
-                                  <label>Instansi</label>
-                                  <input class="form-control" disabled="" value="{{ $row->instansi }}">
+                              </div>
+                              <div class="form-group">
+                                <label>Instansi</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {{ $row->instansi }}
                                 </div>
-                                <div class="form-group">
-                                  <label>Bidang Kerjasama</label>
-                                  <textarea class="form-control" id="lihat" disabled="" value="">{!! $row->bidkerjasama !!}</textarea>
+                              </div>
+                              <div class="form-group">
+                                <label>Bidang Kerjasama</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {!! $row->bidkerjasama !!}
                                 </div>
-                                <div class="form-group">
-                                  <label>Dimulai</label>
-                                  <input class="form-control" disabled="" value="{{ $row->mulai }}">
+                              </div>
+                              <div class="form-group">
+                                <label>Dimulai</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {{ $row->mulai }}
                                 </div>
-                                <div class="form-group">
-                                  <label>Berakhir</label>
-                                  <input class="form-control" disabled="" value="{{ $row->selesai }}">
+                              </div>
+                              <div class="form-group">
+                                <label>Berakhir</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {{ $row->selesai }}
                                 </div>
-                                <div class="form-group">
-                                  <label>Jenis Naskah</label>
-                                    <input class="form-control" disabled="" value="{{ $row->kajenas->nama_kategori }}">
+                              </div>
+                              <div class="form-group">
+                                <label>Jenis Naskah</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {{ $row->kajenas->nama_kategori }}
                                 </div>
-                                <div class="form-group">
-                                  <label>Keterangan/Unit</label>
-                                  <input class="form-control" disabled="" value="{{ $row->ketunit }}">
+                              </div>
+                              <div class="form-group">
+                                <label>Keterangan/Unit</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {{ $row->ketunit }}
                                 </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -412,8 +446,8 @@
                         ketinstansi: {{ $row->ketinstansi }},
                         instansi: '{{ $row->instansi }}',
                         bidkerjasama: '{{ $row->bidkerjasama }}',
-                        mulai: '{{ $row->mulai }}',
-                        selesai: '{{ $row->selesai }}',
+                        mulai: '{{ \Carbon\Carbon::parse($row->mulai)->format('m/d/Y g:i A') }}',
+                        selesai: '{{ \Carbon\Carbon::parse($row->selesai)->format('m/d/Y g:i A') }}',
                         jenisnaskah: {{ $row->jenisnaskah }},
                         ketunit: '{{ $row->ketunit }}',
                       });">
@@ -455,18 +489,14 @@
 
 @section('script')
 <script>
-  // $(document).ready(function(){
-  //   $('#kodeinstansi').val(1)
-  // });
-  let lihat;
-  ClassicEditor
-      .create( document.querySelector( '#lihat' ) )
-      .then(edit=> {
-        lihat = edit;
-      })
-      .catch( error => {
-          console.error( error );
-      } );
+  $(document).ready(function(){
+    $('#datetimepicker3').datetimepicker({
+        locale: 'id'
+    });
+    $('#datetimepicker4').datetimepicker({
+      locale: 'id'
+    });
+  });
 
   let editor;
   ClassicEditor

@@ -12,7 +12,7 @@
 				<div class="overlay">
 					<div class="container">
 						<h2>Tugas Pokok dan Fungsi</h2>
-						<p>{!! $tangkap2->deskripsicarousel !!}</p>
+						{{-- <p>{!! $tangkap2->deskripsicarousel !!}</p> --}}
 					</div> <!-- /.container -->
 				</div> <!-- /.overlay -->
 			</div> <!-- /.theme-inner-banner -->			

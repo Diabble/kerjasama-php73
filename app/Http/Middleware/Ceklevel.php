@@ -13,11 +13,11 @@ class Ceklevel
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next, ...$levels)
+    public function handle($request, Closure $next, $levels)
     {
-        if (in_array($request->user()->level,$levels)){
-            return $next($request);
+        if (auth()->user()->level != $levels){
+            abort(403, 'Anda tidak punya akses!!');
         }
-        return redirect('login');
+        return $next($request);
     }
 }

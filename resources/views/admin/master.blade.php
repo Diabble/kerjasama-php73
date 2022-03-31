@@ -16,8 +16,11 @@
   <link rel="stylesheet" href="{{asset('assets/admin')}}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('assets/admin')}}/dist/css/adminlte.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="{{asset('assets/admin')}}/plugins/daterangepicker/daterangepicker.css">
   <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="{{asset('assets/admin')}}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  {{-- <link rel="stylesheet" href="{{asset('assets/admin')}}/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"> --}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" />
   <!-- Datatables -->
   {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"> --}}
   <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -63,8 +66,12 @@
 <script src="{{asset('assets/admin')}}/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="{{asset('assets/admin')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!--picker-->
+{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous"></script>
 <!-- InputMask -->
-<script src="{{asset('assets/admin')}}/plugins/moment/moment.min.js"></script>
+{{-- <script src="{{asset('assets/admin')}}/plugins/moment/moment.min.js"></script> --}}
 <script src="{{asset('assets/admin')}}/plugins/inputmask/jquery.inputmask.min.js"></script>
 <!-- SweetAlert2 -->
 <script src="{{asset('assets/admin')}}/plugins/sweetalert2/sweetalert2.min.js"></script>
@@ -73,12 +80,13 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('assets/admin')}}/dist/js/demo.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="{{asset('assets/admin')}}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+{{-- <script src="{{asset('assets/admin')}}/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script> --}}
+
 
 <!-- wajib jquery  -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-crossorigin="anonymous"></script>
+crossorigin="anonymous"></script> --}}
 <!-- js untuk select2  -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 {{-- <script>
@@ -143,11 +151,22 @@ $(document).ready(function () {
 <script>
   // datetimepicker
   $(function () {
+      $('#datetimepicker').datetimepicker({
+        locale: 'id'
+      });
       $('#datetimepicker1').datetimepicker({
-        locale: 'id';
+        locale: 'id'
       });
   });
 </script>
+
+//Datemask dd/mm/yyyy
+{{-- <script>
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    </script> --}}
+
 <!-- Datatables -->
 {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
 <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>

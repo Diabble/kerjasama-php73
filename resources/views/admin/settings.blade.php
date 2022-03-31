@@ -235,7 +235,7 @@
             </div>
           </div>
           <div class="card-body p-0" style="display: block;">
-            {{ $errors }}
+            {{-- {{ $errors }} --}}
             <table class="table table-striped table-bordered projects">
               <thead>
                 <tr style="text-align: center;">
@@ -528,10 +528,10 @@
                     <th>
                       Email
                     </th>
-                    <th>
+                    {{-- <th>
                       Password
-                    </th>
-                    <th style="width: 20%">
+                    </th> --}}
+                    <th style="width: 30%">
                       Aksi
                     </th>
                   </tr>
@@ -552,10 +552,10 @@
                     <td>
                       {{ $row->email }}
                     </td>
-                    <td>
+                    {{-- <td>
                       {{ $row->password }}
-                    </td>
-                    <td class="project-actions text-center">
+                    </td> --}}
+                    <td class="project-actions text-center" style="display: -webkit-box;">
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahuser">
                         <i class="fas fa-edit"></i>
@@ -602,6 +602,46 @@
                         </div>
                       </div>
                       <!-- Modal Ubah End -->
+
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#ubahpassword">
+                        <i class="fas fa-key"></i>
+                        Ubah Password
+                      </button>
+                      <!-- Modal Ubah Start -->
+                      <div class="modal fade text-left" id="ubahpassword" tabindex="-1" aria-labelledby="ubahpasswordLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="ubahpasswordLabel">Ubah Password</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <!-- form start -->
+                              <form action="" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                  <label>Password</label>
+                                  <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="">
+                                </div>
+                                <div class="form-group">
+                                  <label>Confirm Password</label>
+                                  <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="">
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                  <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                                </div>
+                              </form>
+                              <!-- form end -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Modal Ubah End -->
+                      
                       <a class="btn btn-danger btn-sm" href="{{url('/admin/settings/..')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus

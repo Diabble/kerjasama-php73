@@ -154,41 +154,49 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              <!-- form start -->
-                              <form action="" method="POST" enctype="multipart/form-data">
-                                {{-- <div class="form-group">
-                                  <label>Gambar</label>
-                                  <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 50%">
-                                </div> --}}
-                                <div class="form-group">
-                                  <label>Judul</label>
-                                  <textarea class="form-control" disabled="" value="">{{ $row->judul }}</textarea>
+                              {{-- <div class="form-group">
+                                <label>Gambar</label>
+                                <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 50%">
+                              </div> --}}
+                              <div class="form-group">
+                                <label>Judul</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {{ $row->judul }}
                                 </div>
-                                <div class="form-group">
-                                  <label>Slug</label>
-                                  <textarea class="form-control" disabled="" value="">{{ $row->slug }}</textarea>
+                              </div>
+                              <div class="form-group">
+                                <label>Slug</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {{ $row->slug }}
                                 </div>
-                                <div class="form-group">
-                                  <label>Deskripsi</label>
-                                  <textarea class="form-control" disabled="" value="">{!! $row->deskripsi !!}</textarea>
+                              </div>
+                              <div class="form-group">
+                                <label>Deskripsi</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {!! $row->deskripsi !!}
                                 </div>
-                                <div class="form-group">
-                                  <label>Penulis</label>
-                                  <input class="form-control" disabled="" value="{{ $row->users->name }}">
+                              </div>
+                              <div class="form-group">
+                                <label>Penulis</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {{ $row->users->name }}
                                 </div>
-                                <div class="form-group">
-                                  <label>Status</label>
-                                  <input class="form-control" disabled="" value="">
+                              </div>
+                              <div class="form-group">
+                                <label>Status</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {{ ($row->aktif == 1) ? 'Publish' : 'Draft' }}
                                 </div>
-                                <div class="form-group">
-                                  <label>Waktu Upload</label>
-                                  <input class="form-control" disabled="" value="{{ $row->created_at }}">
+                              </div>
+                              <div class="form-group">
+                                <label>Waktu Upload</label>
+                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
+                                  {{ $row->created_at }}
                                 </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                                </div>
-                              </form>
-                              <!-- form end -->
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                              </div>
                             </div>
                           </div>
                         </div>
