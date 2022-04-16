@@ -1,5 +1,5 @@
-@extends('admin.master')
-@section('title','Mitra Admin')
+@extends('staff.master')
+@section('title','Mitra')
 @section('content')
 
   <!-- Content Wrapper. Contains page content -->
@@ -11,19 +11,19 @@
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
               <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-              <li class="breadcrumb-item active">Mitra Admin</li>
+              <li class="breadcrumb-item active">Mitra</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
 
-    <!-- Main content Mitra Admin -->
+    <!-- Main content Mitra -->
     <section class="content">
       <div class="container-fluid">
         <div class="card card-primary">
           <div class="card-header" style="background-color: #343a40;">
-            <h3 class="card-title">Mitra Admin</h3>
+            <h3 class="card-title">Mitra</h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
                 <i class="fas fa-minus"></i>
@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="card-body" style="background-color: #ffffff; padding: 10px 40px 10px 40px;">
-            {{-- <a class="btn btn-success btn-sm" href="/admin/mitra/export" target="blank">
+            {{-- <a class="btn btn-success btn-sm" href="/staff/mitra/export" target="blank">
               <i class="fas fa-print"></i>
               Export Data
             </a> --}}
@@ -45,14 +45,14 @@
               <div class="modal-dialog modal-dialog-scrollable">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="importLabel">Import Data Mitra Admin</h5>
+                    <h5 class="modal-title" id="importLabel">Import Data Mitra</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/admin/mitra/import')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/staff/mitra/import')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         {{-- <label>Berkas Mitra</label> --}}
@@ -86,14 +86,14 @@
               <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="tambahLabel">Tambah Mitra Admin</h5>
+                    <h5 class="modal-title" id="tambahLabel">Tambah Mitra</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/admin/mitra/store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{url('/staff/mitra/store')}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="form-group">
                         <label>Kode Instansi</label>
@@ -206,14 +206,14 @@
               <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="ubahLabel">Ubah Mitra Admin</h5>
+                    <h5 class="modal-title" id="ubahLabel">Ubah Mitra</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/admin/mitra/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data" id="formubah">
+                    <form action="{{url('/staff/mitra/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data" id="formubah">
                       @csrf
                       <div class="form-group">
                         <label>Kode Instansi</label>
@@ -377,11 +377,12 @@
                         <div class="modal-dialog modal-dialog-scrollable modal-lg">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="lihatLabel">Lihat Mitra Admin</h5>
+                              <h5 class="modal-title" id="lihatLabel">Lihat Mitra</h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
+                            
                             <div class="modal-body">
                               <table class="table table-hover">
                                 <tbody>
@@ -452,56 +453,6 @@
                                 </tbody>
                               </table>
                             </div>
-                            {{-- <div class="modal-body">
-                              <div class="form-group">
-                                <label>Kode Instansi</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {{ $row->kakoin->nama_kategori }}
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label>Keterangan Instansi</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {{ $row->kakein->nama_kategori }}
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label>Instansi</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {{ $row->instansi }}
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label>Bidang Kerjasama</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {!! $row->bidkerjasama !!}
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label>Dimulai</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {{ $row->mulai }}
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label>Berakhir</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {{ $row->selesai }}
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label>Jenis Naskah</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {{ $row->kajenas->nama_kategori }}
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label>Keterangan/Unit</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {{ $row->ketunit }}
-                                </div>
-                              </div>
-                            </div> --}}
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                             </div>
@@ -524,7 +475,7 @@
                         <i class="fas fa-edit"></i>
                         Ubah
                       </button>
-                      <a class="btn btn-danger btn-sm" href="{{url('/admin/mitra/delete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
+                      <a class="btn btn-danger btn-sm" href="{{url('/staff/mitra/delete')}}/{{ $row->id }}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
                       </a>
@@ -579,7 +530,7 @@
       } );
 
   function update(data){
-    var url='{{ url("/admin/mitra/update") }}' + '/' + data.id;
+    var url='{{ url("/staff/mitra/update") }}' + '/' + data.id;
     $('#formubah').attr('action', url);
     $('#kodeinstansi').val(data.kodeinstansi);
     $('#ketinstansi').val(data.ketinstansi);

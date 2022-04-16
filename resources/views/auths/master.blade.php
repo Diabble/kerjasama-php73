@@ -23,6 +23,8 @@
         @yield('content')
         <!-- End Content -->
 
+        @include('sweetalert::alert')
+        
         <!-- jQuery -->
         <script src="{{asset('assets')}}/admin/plugins/jquery/jquery.min.js"></script>
         <!-- Bootstrap 4 -->

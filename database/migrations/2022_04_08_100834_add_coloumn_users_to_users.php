@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColoumnPengumumanToPengumuman extends Migration
+class AddColoumnUsersToUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColoumnPengumumanToPengumuman extends Migration
      */
     public function up()
     {
-        Schema::table('pengumuman', function (Blueprint $table) {
-            $table->boolean('aktif')->after('user_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('instansi')->after('email');
         });
     }
 
@@ -25,8 +25,8 @@ class AddColoumnPengumumanToPengumuman extends Migration
      */
     public function down()
     {
-        Schema::table('pengumuman', function (Blueprint $table) {
-            $table->dropColumn('pengumuman');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('instansi');
         });
     }
 }

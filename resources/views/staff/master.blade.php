@@ -38,11 +38,11 @@
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-  @include('admin.navbar')
+  @include('staff.navbar')
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  @include('admin.sidebar')
+  @include('staff.sidebar')
   <!-- Main Sidebar Container End -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -51,7 +51,7 @@
   <!-- /.content-wrapper -->
 
   <!-- Footer Start -->
-  @include('admin.Footer')
+  @include('staff.footer')
   <!-- Footer End -->
 
   <!-- Control Sidebar -->
@@ -63,6 +63,7 @@
 <!-- ./wrapper -->
 
 @include('sweetalert::alert')
+@yield('script')
 
 <!-- jQuery -->
 <script src="{{asset('assets/admin')}}/plugins/jquery/jquery.min.js"></script>
@@ -75,8 +76,6 @@
 <!-- InputMask -->
 {{-- <script src="{{asset('assets/admin')}}/plugins/moment/moment.min.js"></script> --}}
 <script src="{{asset('assets/admin')}}/plugins/inputmask/jquery.inputmask.min.js"></script>
-<!-- SweetAlert2 -->
-<script src="{{asset('assets/admin')}}/plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('assets/admin')}}/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -101,27 +100,6 @@ $(document).ready(function () {
 <script>
   //Initialize Select2 Elements
   $('.select2').select2()
-</script>
-
-@yield('script')
-
-
-<script>
-  $(function() {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000
-    });
-
-    $('.swalDefaultSuccess').click(function() {
-      Toast.fire({
-        icon: 'success',
-        title: 'Data Berhasil Di Update.'
-      })
-    });
-  });
 </script>
 
 <script>
@@ -161,13 +139,6 @@ $(document).ready(function () {
       });
   });
 </script>
-
-//Datemask dd/mm/yyyy
-{{-- <script>
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    </script> --}}
 
 <!-- Datatables -->
 {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}

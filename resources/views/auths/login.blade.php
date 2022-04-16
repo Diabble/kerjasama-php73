@@ -2,12 +2,12 @@
 @section('title','Login Kerjasama')
 @section('content')
 
-  @if (session()->has('loginError'))
+  {{-- @if (session()->has('loginError'))
       <div class="alert alert-danger alert-dismissible fade-show" role="alert">
         {{ session('loginError') }}
         <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
-  @endif
+  @endif --}}
 
   <div class="login-box">
     <!-- /.login-logo -->
@@ -58,12 +58,12 @@
           </div>
         </form>
 
-        <!-- <p class="mb-1">
-          <a href="forgot-password.html">I forgot my password</a>
-        </p> -->
-        <p class="mb-0">
-          <a href="{{ url('/register') }}" class="text-center">Register member baru</a>
+        <p class="mb-1">
+          <a href="{{ url('/forgot-password') }}">I forgot my password</a>
         </p>
+        {{-- <p class="mb-0">
+          <a href="{{ url('/register') }}" class="text-center">Register member baru</a>
+        </p> --}}
       </div>
       <!-- /.card-body -->
     </div>

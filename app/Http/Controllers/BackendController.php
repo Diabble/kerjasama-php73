@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Hash;
+
+use Illuminate\Validation\ValidationException;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
@@ -76,122 +80,174 @@ use Carbon\Carbon;
 
 class BackendController extends Controller
 {
+    // Profile
+    public function profile()
+    {
+        $user = User::first();
+        // dd($mitrachart);
+        return view('admin.profile', compact('user'));
+    }
+
+    public function profileedit($id)
+    {
+        $user = User::findorfail($id);
+        return view('admin.profile', compact('user'));
+    }
+
+    public function profileupdate(Request $request, $id)
+    {
+        Request()->validate([
+            'name' => 'required',
+            'email' => 'required',
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+        ];
+
+        User::find($id)->update($data);
+        alert()->success('Data Profile Berhasil Diperbarui!');
+        return redirect('/admin/profile');
+    }
+
+    // Ubah Password
+    public function password()
+    {
+        $user = Auth::user();
+        return view('admin.ubah-password', compact('user'));
+    }
+
+    public function passwordedit($id)
+    {
+        $user = User::findorfail($id);
+        return view('admin.ubah-password', compact('user'));
+    }
+
+    public function passwordupdate(Request $request, $id)
+    {
+        // dd('success');
+        Request()->validate([
+            'current_password' => 'required',
+            'password' => 'required|min:7|confirmed',
+        ]);
+
+        if (Hash::check($request->current_password, auth()->user()->password)) {
+            Auth::user()->update(['password' => Hash::make($request->password)]);
+                alert()->success('Ubah Password','Password berhasil diperbarui');
+            return back();
+        }
+        throw ValidationException::withMessages([
+            'current_password' => 'Password tidak sama dengan data',
+        ]);   
+    }
+
+    // User
+    public function useradmin()
+    {
+        $user = User::get();
+        return view('admin.user', compact('user'));
+    }
+    
+    public function userstore(Request $request)
+    {
+        Request()->validate([
+            'name' => 'required|min:5|max:15',
+            'level' => 'required',
+            'email' => 'required|email:dns',
+            'password' => 'required|min:5|max:14',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'level' => $request->level,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        alert()->success('Akun','Pembuatan Akun Berhasil!');
+        return redirect('/admin/user');
+    }
+
+    public function useredit($id)
+    {
+        $user = User::findorfail($id);
+        return view('admin.user', compact('user'));
+    }
+
+    public function userupdate(Request $request, $id)
+    {
+        Request()->validate([
+            'name' => 'required',
+            'level' => 'required',
+            'email' => 'required',
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'level' => $request->level,
+            'email' => $request->email,
+        ]);
+        
+        $user = User::find($id);
+        alert()->success('Akun','Data Akun Berhasil Diperbarui!');
+        return redirect('/admin/user');
+    }
+
+    public function userpassupdate(Request $request, $id)
+    {
+        Request()->validate([
+            'password' => 'required',
+        ]);
+
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+        
+        $user = User::find($id);
+        alert()->success('Akun','Data Akun Berhasil Diperbarui!');
+        return redirect('/admin/user');
+    }
+
+    public function userdestroy($id)
+    {
+        User::find($id)->delete();
+
+        alert()->success('Akun','Data Akun Berhasil Dihapus!');
+        return redirect('/admin/user');
+    }
+
     // Dashboard
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function dashboard()
     {
+        $jenisnaskah = DB::table('mitra')->get();
         $mou = DB::table('mitra')->where('jenisnaskah', 1)->count();
         $moa = DB::table('mitra')->where('jenisnaskah', 2)->count();
+        $fakultas = DB::table('users')->where('level', 'staff')->count();
+        $pengaju = DB::table('users')->where('level', 'user')->count();
         // dd($mitrachart);
-        return view('admin.dashboard', compact('mou', 'moa'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('admin.dashboard', compact('jenisnaskah', 'mou', 'moa', 'fakultas', 'pengaju'));
     }
 
     // Settings
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function settings()
     {
         $beranda = ModelBeranda::get();
         $profil = ModelProfilUINSGD::get();
         $caper = ModelCapaianKinerja::get();
-        $user = User::all();
         $kaber = ModelKategoriBerita::all();
         $kakoin = ModelKategoriKodeInstansi::all();
         $kakein = ModelKategoriKetInstansi::all();
         $kajenas = ModelKategoriJenisNaskah::all();
-        return view('admin.settings', compact('beranda', 'profil', 'caper', 'user', 'kaber', 'kakoin', 'kakein', 'kajenas'));
+        return view('admin.settings', compact('beranda', 'profil', 'caper', 'kaber', 'kakoin', 'kakein', 'kajenas'));
     }
 
     // Beranda/Slide Carousel
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function berandacreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function berandastore(Request $request)
     {
         Request()->validate([
@@ -219,36 +275,17 @@ class BackendController extends Controller
         return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function berandashow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function berandaedit($id)
     {
         $beranda = ModelBeranda::findorfail($id);
         return view('admin.settings', compact('beranda'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function berandaupdate(Request $request, $id)
     {
         Request()->validate([
@@ -283,12 +320,6 @@ class BackendController extends Controller
         return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function berandadestroy($id)
     {
         ModelBeranda::find($id)->delete();
@@ -297,57 +328,27 @@ class BackendController extends Controller
     }
 
     // Profil UIN SGD
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function profiluinsgdcreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function profiluinsgdstore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function profiluinsgdshow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function profiluinsgdedit($id)
     {
         $profil = ModelProfilUINSGD::findorfail($id);
         return view('admin.settings', compact('profil'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function profiluinsgdupdate(Request $request, $id)
     {
         Request()->validate([
@@ -370,69 +371,33 @@ class BackendController extends Controller
         return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function profiluinsgddestroy($id)
     {
         //
     }
 
     // Capaian Kinerja
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function capercreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function caperstore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function capershow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function caperedit($id)
     {
         $caper = ModelCapaianKinerja::findorfail($id);
         return view('admin.settings', compact('caper'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function caperupdate(Request $request, $id)
     {
         Request()->validate([
@@ -455,101 +420,17 @@ class BackendController extends Controller
         return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function caperdestroy($id)
     {
         //
     }
 
-    // User
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function usercreate()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function userstore(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function usershow($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function useredit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function userupdate(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function userdestroy($id)
-    {
-        //
-    }
-
     // Kategori Berita
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function kabercreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function kaberstore(Request $request)
     {
         Request()->validate([
@@ -566,36 +447,17 @@ class BackendController extends Controller
         return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kabershow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kaberedit($id)
     {
         $kaber = ModelKategoriBerita::findorfail($id);
         return view('admin.settings', compact('kaber'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kaberupdate(Request $request, $id)
     {
         Request()->validate([
@@ -613,12 +475,6 @@ class BackendController extends Controller
         return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kaberdestroy($id)
     {
         ModelKategoriBerita::find($id)->delete();
@@ -627,11 +483,6 @@ class BackendController extends Controller
     }
 
     // Kategori Kode Instansi
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function kakoincreate()
     {
         //
@@ -681,14 +532,8 @@ class BackendController extends Controller
         $kakoin = ModelKategoriKodeInstansi::findorfail($id);
         return view('admin.settings', compact('kakoin'));
     }
-    
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function kakoinupdate(Request $request, $id)
     {
         Request()->validate([
@@ -720,22 +565,11 @@ class BackendController extends Controller
     }
 
     // Kategori Keterangan Instansi
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function kakeincreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function kakeinstore(Request $request)
     {
         Request()->validate([
@@ -752,36 +586,17 @@ class BackendController extends Controller
         return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kakeinshow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kakeinedit($id)
     {
         $kakein = ModelKategoriKetInstansi::findorfail($id);
         return view('admin.settings', compact('kakein'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kakeinupdate(Request $request, $id)
     {
         Request()->validate([
@@ -799,12 +614,6 @@ class BackendController extends Controller
         return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kakeindestroy($id)
     {
         ModelKategoriKetInstansi::find($id)->delete();
@@ -813,22 +622,11 @@ class BackendController extends Controller
     }
 
     // Kategori Jenis Naskah
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function kajenacreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function kajenastore(Request $request)
     {
         Request()->validate([
@@ -845,36 +643,18 @@ class BackendController extends Controller
         return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kajenashow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kajenaedit($id)
     {
         $kajenas = ModelKategoriJenisNaskah::findorfail($id);
         return view('admin.settings', compact('kajenas'));
     }
-    
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function kajenaupdate(Request $request, $id)
     {
         Request()->validate([
@@ -892,12 +672,6 @@ class BackendController extends Controller
         return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kajenadestroy($id)
     {
         ModelKategoriJenisNaskah::find($id)->delete();
@@ -906,68 +680,33 @@ class BackendController extends Controller
     }
 
     // Wakil Rektor
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function wakilrektor()
     {
         $wakilrektor = ModelWakilRektor::get();
         return view('admin.wakil-rektor', compact('wakilrektor'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function wakilrektorcreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function wakilrektorstore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function wakilrektorshow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function wakilrektoredit($id)
     {
         $wakilrektor = ModelWakilRektor::findorfail($id);
         return view('admin.wakil-rektor', compact('wakilrektor'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function wakilrektorupdate(Request $request, $id)
     {
         Request()->validate([
@@ -1004,23 +743,12 @@ class BackendController extends Controller
         return redirect('/admin/wakil-rektor')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function wakilrektordestroy($id)
     {
         //
     }
 
     // Visi & Misi
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function visimisi()
     {
         $visi = ModelVisi::get();
@@ -1029,57 +757,27 @@ class BackendController extends Controller
     }
 
     // Visi
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function visicreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function visistore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function visishow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function visiedit($id)
     {
         $visi = ModelVisi::findorfail($id);
         return view('admin.visi-misi', compact('visi'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function visiupdate(Request $request, $id)
     {
         Request()->validate([
@@ -1096,69 +794,33 @@ class BackendController extends Controller
         return redirect('/admin/visi-misi')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function visidestroy($id)
     {
         //
     }
 
     // Misi
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function misicreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function misistore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function misishow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function misiedit($id)
     {
         $misi = ModelMisi::findorfail($id);
         return view('admin.visi-misi', compact('misi'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function misiupdate(Request $request, $id)
     {
         Request()->validate([
@@ -1175,80 +837,39 @@ class BackendController extends Controller
         return redirect('/admin/visi-misi')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function misidestroy($id)
     {
         //
     }
 
     // Tugas Pokok Fungsi
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function tupoksi()
     {
         $tupoksi = ModelTugasPokokFungsi::get();
         return view('admin.tugas-pokok-fungsi', compact('tupoksi'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function tupoksicreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function tupoksistore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function tupoksishow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function tupoksiedit($id)
     {
         $tupoksi = ModelTugasPokokFungsi::findorfail($id);
         return view('admin.tugas-pokok-fungsi', compact('tupoksi'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function tupoksiupdate(Request $request, $id)
     {
         Request()->validate([
@@ -1265,80 +886,39 @@ class BackendController extends Controller
         return redirect('/admin/tugas-pokok-fungsi')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function tupoksidestroy($id)
     {
         //
     }
 
     // Kebijakan & Program
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function kepro()
     {
         $kepro = ModelKebijakanProgram::get();
         return view('admin.kebijakan-program', compact('kepro'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function keprocreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function keprostore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function keproshow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function keproedit($id)
     {
         $kepro = ModelKebijakanProgram::findorfail($id);
         return view('admin.kebijakan-program', compact('kepro'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function keproupdate(Request $request, $id)
     {
         Request()->validate([
@@ -1355,80 +935,39 @@ class BackendController extends Controller
         return redirect('/admin/kebijakan-program')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function keprodestroy($id)
     {
         //
     }
 
     // Struktur
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function struktur()
     {
         $struktur = ModelStruktur::get();
         return view('admin.struktur', compact('struktur'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function strukturcreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function strukturstore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function strukturshow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function strukturedit($id)
     {
         $struktur = ModelStruktur::findorfail($id);
         return view('admin.struktur', compact('struktur'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function strukturupdate(Request $request, $id)
     {
         Request()->validate([
@@ -1453,80 +992,39 @@ class BackendController extends Controller
         return redirect('/admin/struktur')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function strukturdestroy($id)
     {
         //
     }
 
     // Alur Kerjasama
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function alurkerjasama()
     {
         $alur = ModelAlurKerjasama::get();
         return view('admin.alur-kerjasama', compact('alur'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function alurkerjasamacreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function alurkerjasamastore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function alurkerjasamashow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function alurkerjasamaedit($id)
     {
         $alur = ModelAlurKerjasama::findorfail($id);
         return view('admin.alur-kerjasama', compact('alur'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function alurkerjasamaupdate(Request $request, $id)
     {
         Request()->validate([
@@ -1551,46 +1049,24 @@ class BackendController extends Controller
         return redirect('/admin/alur-kerjasama')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function alurkerjasamadestroy($id)
     {
         //
     }
 
     // Progres Pengajuan Kerjasama
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function propeker()
     {
         $propeker = ModelPengajuanKerjasama::all();
-        $mitra = ModelMitra::all();
-        return view('admin.progres-pengajuan-kerjasama', compact('propeker', 'mitra'));
+        $users = User::where('level', 'user')->get();
+        return view('admin.progres-pengajuan-kerjasama', compact('propeker', 'users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function propekercreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function propekerstore(Request $request)
     {
         Request()->validate([
@@ -1609,23 +1085,11 @@ class BackendController extends Controller
         return redirect('/admin/progres-pengajuan-kerjasama')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function propekershow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function propekeredit($id)
     {
         $propeker = ModelPengajuanKerjasama::findorfail($id);
@@ -1633,13 +1097,6 @@ class BackendController extends Controller
         return view('admin.progres-pengajuan-kerjasama', compact('propeker', 'mitra'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function propekerupdate(Request $request, $id)
     {
         Request()->validate([
@@ -1659,12 +1116,6 @@ class BackendController extends Controller
         return redirect('/admin/progres-pengajuan-kerjasama')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function propekerdestroy($id)
     {
         ModelPengajuanKerjasama::find($id)->delete();
@@ -1673,33 +1124,17 @@ class BackendController extends Controller
     }
 
     // FAQ
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function faq()
     {
         $faq = ModelFAQ::all();
         return view('admin.faq', compact('faq'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function faqcreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function faqstore(Request $request)
     {
         Request()->validate([
@@ -1718,36 +1153,17 @@ class BackendController extends Controller
         return redirect('/admin/faq')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function faqshow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function faqedit($id)
     {
         $faq = ModelFAQ::findorfail($id);
         return view('admin.faq', compact('faq'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function faqupdate(Request $request, $id)
     {
         Request()->validate([
@@ -1767,12 +1183,6 @@ class BackendController extends Controller
         return redirect('/admin/faq')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function faqdestroy($id)
     {
         ModelFAQ::find($id)->delete();
@@ -1781,11 +1191,6 @@ class BackendController extends Controller
     }
 
     // Kategori Berita
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function kaber()
     {
         $kaber = ModelKategoriBerita::all();
@@ -1793,11 +1198,6 @@ class BackendController extends Controller
     }
 
     // Berita
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function berita()
     {
         $kaber = ModelKategoriBerita::all();
@@ -1815,13 +1215,7 @@ class BackendController extends Controller
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function beritastore(Request $request)
     {
         Request()->validate([
@@ -1856,23 +1250,11 @@ class BackendController extends Controller
         return redirect('/admin/berita')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function beritashow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function beritaedit($id)
     {
         $kaber = ModelKategoriBerita::all();
@@ -1880,13 +1262,6 @@ class BackendController extends Controller
         return view('admin.berita', compact('berita', 'kaber'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function beritaupdate(Request $request, $id)
     {
         Request()->validate([
@@ -1930,12 +1305,6 @@ class BackendController extends Controller
         return redirect('/admin/berita')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function beritadestroy($id)
     {
         ModelBerita::find($id)->delete();
@@ -1944,111 +1313,54 @@ class BackendController extends Controller
     }
 
     // Pengumuman
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function pengumuman()
     {
         $pengumuman = ModelPengumuman::all();
         return view('admin.pengumuman', compact('pengumuman'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function pengumumancreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function pengumumanstore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function pengumumanshow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function pengumumanedit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function pengumumanupdate(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function pengumumandestroy($id)
     {
         //
     }
 
     // Galeri
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function galeri()
     {
         $galeri = ModelGaleri::all();
         return view('admin.galeri', compact('galeri'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function galericreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function galeristore(Request $request)
     {
         Request()->validate([
@@ -2069,36 +1381,17 @@ class BackendController extends Controller
         return redirect('/admin/galeri')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function galerishow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function galeriedit($id)
     {
         $galeri = ModelGaleri::findorfail($id);
         return view('admin.galeri', compact('galeri'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function galeriupdate(Request $request, $id)
     {
         Request()->validate([
@@ -2125,12 +1418,6 @@ class BackendController extends Controller
         return redirect('/admin/galeri')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function galeridestroy($id)
     {
         ModelGaleri::find($id)->delete();
@@ -2139,110 +1426,53 @@ class BackendController extends Controller
     }
 
     // Berkas Kerjasama
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function berkaskerjasama()
     {
         return view('admin.berkas-kerjasama');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function berkaskerjasamacreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function berkaskerjasamastore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function berkaskerjasamashow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function berkaskerjasamaedit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function berkaskerjasamaupdate(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function berkaskerjasamadestroy($id)
     {
         //
     }
 
     // Ajukan Kerjasama
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function ajukankerjasama()
     {
         $ajuker = ModelAjukanKerjasama::get();
         return view('admin.ajukan-kerjasama', compact('ajuker'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function ajukankerjasamacreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function ajukankerjasamastore(Request $request)
     {
         Request()->validate([
@@ -2272,36 +1502,17 @@ class BackendController extends Controller
         return redirect('/admin/ajukan-kerjasama')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function ajukankerjasamashow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function ajukankerjasamaedit($id)
     {
         $ajuker = ModelAjukanKerjasama::findorfail($id);
         return view('admin.ajukan-kerjasama', compact('ajuker'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function ajukankerjasamaupdate(Request $request, $id)
     {
         Request()->validate([
@@ -2338,12 +1549,6 @@ class BackendController extends Controller
         return redirect('/admin/ajukan-kerjasama')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function ajukankerjasamadestroy($id)
     {
         ModelAjukanKerjasama::find($id)->delete();
@@ -2352,68 +1557,33 @@ class BackendController extends Controller
     }
 
     // Angket Kepuasan Layanan
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function angketkepuasanlayanan()
     {
         $akela = ModelAngketKepuasanLayanan::get();
         return view('admin.angket-kepuasan-layanan', compact('akela'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function angketkepuasanlayanancreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function angketkepuasanlayananstore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function angketkepuasanlayananshow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function angketkepuasanlayananedit($id)
     {
         $akela = ModelAngketKepuasanLayanan::findorfail($id);
         return view('admin.angket-kepuasan-layanan', compact('akela'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function angketkepuasanlayananupdate(Request $request, $id)
     {
         Request()->validate([
@@ -2430,45 +1600,23 @@ class BackendController extends Controller
         return redirect('/admin/angket-kepuasan-layanan')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function angketkepuasanlayanandestroy($id)
     {
         //
     }
 
     // Kontak
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function kontak()
     {
         $kontak = ModelKontak::get();
         return view('admin.kontak', compact('kontak'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function kontakcreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function kontakstore(Request $request)
     {
         Request()->validate([
@@ -2496,36 +1644,17 @@ class BackendController extends Controller
         return redirect('/admin/kontak')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kontakshow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kontakedit($id)
     {
         $kontak = ModelKontak::findorfail($id);
         return view('admin.kontak', compact('kontak'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kontakupdate(Request $request, $id)
     {
         Request()->validate([
@@ -2554,12 +1683,6 @@ class BackendController extends Controller
         return redirect('/admin/kontak')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function kontakdestroy($id)
     {
         ModelKontak::find($id)->delete();
@@ -2568,68 +1691,33 @@ class BackendController extends Controller
     }
 
     // International Office
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function io()
     {
         $io = ModelIO::get();
         return view('admin.international-office', compact('io'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function iocreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function iostore(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function ioshow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function ioedit($id)
     {
         $io = ModelIO::findorfail($id);
         return view('admin.international-office', compact('io'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function ioupdate(Request $request, $id)
     {
         Request()->validate([
@@ -2646,23 +1734,12 @@ class BackendController extends Controller
         return redirect('/admin/international-office')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function iodestroy($id)
     {
         //
     }
 
     // Kategori Mitra
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function kamit()
     {
         $kakoin = ModelKategoriKodeInstansi::all();
@@ -2672,11 +1749,6 @@ class BackendController extends Controller
     }
     
     // Mitra
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function mitra()
     {
         $kakoin = ModelKategoriKodeInstansi::all();
@@ -2710,22 +1782,11 @@ class BackendController extends Controller
         return view('admin.mitra-print', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function mitracreate()
     {
         //
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function mitrastore(Request $request)
     {
         Request()->validate([
@@ -2770,23 +1831,11 @@ class BackendController extends Controller
         return redirect('/admin/mitra')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function mitrashow($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function mitraedit($id)
     {
         $kakoin = ModelKategoriKodeInstansi::findorfail($id);
@@ -2796,13 +1845,6 @@ class BackendController extends Controller
         return view('admin.mitra', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function mitraupdate(Request $request, $id)
     {
         Request()->validate([
@@ -2858,12 +1900,6 @@ class BackendController extends Controller
         return redirect('/admin/mitra')->with('pesan', 'Data Berhasil Di Perbarui !!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function mitradestroy($id)
     {
         ModelMitra::find($id)->delete();

@@ -18,7 +18,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'level',
         'email',
+        'instansi',
         'password',
     ];
 
@@ -40,6 +42,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function pengajuan() {
+        return $this->belongsTo(ModelPengajuanKerjasama::class, 'instansi', 'id');
+    }
 
     public function berita(): BelongsTo
     {

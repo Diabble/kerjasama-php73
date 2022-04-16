@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="{{asset('assets/admin')}}/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('assets/admin')}}/dist/css/adminlte.min.css">
+  <!-- Track css -->
+  <link rel="stylesheet" href="{{asset('assets/admin')}}/dist/css/track.css">
   <!-- daterange picker -->
   <link rel="stylesheet" href="{{asset('assets/admin')}}/plugins/daterangepicker/daterangepicker.css">
   <!-- Tempusdominus Bootstrap 4 -->
@@ -38,11 +40,11 @@
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-  @include('admin.navbar')
+  @include('user.navbar')
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  @include('admin.sidebar')
+  @include('user.sidebar')
   <!-- Main Sidebar Container End -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -51,7 +53,7 @@
   <!-- /.content-wrapper -->
 
   <!-- Footer Start -->
-  @include('admin.Footer')
+  @include('user.Footer')
   <!-- Footer End -->
 
   <!-- Control Sidebar -->
@@ -105,25 +107,6 @@ $(document).ready(function () {
 
 @yield('script')
 
-
-<script>
-  $(function() {
-    var Toast = Swal.mixin({
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 3000
-    });
-
-    $('.swalDefaultSuccess').click(function() {
-      Toast.fire({
-        icon: 'success',
-        title: 'Data Berhasil Di Update.'
-      })
-    });
-  });
-</script>
-
 <script>
   // Ubah Modal Gambar
   function previewImage() {
@@ -161,13 +144,6 @@ $(document).ready(function () {
       });
   });
 </script>
-
-//Datemask dd/mm/yyyy
-{{-- <script>
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    </script> --}}
 
 <!-- Datatables -->
 {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}

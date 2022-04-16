@@ -38,11 +38,11 @@
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-  @include('admin.navbar')
+  @include('pimpinan.navbar')
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  @include('admin.sidebar')
+  @include('pimpinan.sidebar')
   <!-- Main Sidebar Container End -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -51,7 +51,7 @@
   <!-- /.content-wrapper -->
 
   <!-- Footer Start -->
-  @include('admin.Footer')
+  @include('pimpinan.Footer')
   <!-- Footer End -->
 
   <!-- Control Sidebar -->

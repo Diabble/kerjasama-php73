@@ -440,7 +440,7 @@
     <!-- /.content -->
 
     <!-- Main content User -->
-    <section class="content">
+    {{-- <section class="content">
       <div class="container-fluid">
         <div class="card card-primary">
           <div class="card-header" style="background-color: #343a40;">
@@ -528,9 +528,6 @@
                     <th>
                       Email
                     </th>
-                    {{-- <th>
-                      Password
-                    </th> --}}
                     <th style="width: 30%">
                       Aksi
                     </th>
@@ -552,9 +549,6 @@
                     <td>
                       {{ $row->email }}
                     </td>
-                    {{-- <td>
-                      {{ $row->password }}
-                    </td> --}}
                     <td class="project-actions text-center" style="display: -webkit-box;">
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahuser">
@@ -587,10 +581,6 @@
                                 <label>Email</label>
                                 <input class="form-control" name="email" autocomplete="off" placeholder="Enter..." value="{{ $row->email }}">
                               </div>
-                              {{-- <div class="form-group">
-                                <label>Password</label>
-                                <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="{{ $row->password }}">
-                              </div> --}}
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                                 <button type="button" class="btn btn-primary btn-sm">Simpan</button>
@@ -664,7 +654,7 @@
           <!-- /.card-footer-->
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- /.content -->
 
     <!-- Main content Kategori Berita -->

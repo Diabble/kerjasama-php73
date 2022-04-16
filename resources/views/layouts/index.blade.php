@@ -2,29 +2,34 @@
 @section('title','Beranda')
 @section('content')
 
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript">
-		google.charts.load('current', {'packages':['corechart']});
-		google.charts.setOnLoadCallback(drawChart);
-
-		function drawChart() {
-
-		var data = google.visualization.arrayToDataTable([
-			['Element', 'Jumlah'],
-			['MoU',     {{ $mou }}],
-			['MoA',     {{ $moa }}]
-		]);
-
-		var options = {
-			// title: 'Statistik Kerjasama',
-			is3D: true,
-		};
-
-		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-		chart.draw(data, options);
-		}
-	</script>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script>
+  window.onload = function() {
+  
+  var chart = new CanvasJS.Chart("chartPie", {
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	animationEnabled: true,
+	// title: {
+	//   text: "Statistik Kerjasama"
+	// },
+	data: [{
+	  type: "pie",
+	  startAngle: 90,
+      showInLegend: "true",
+      legendText: "{label}",
+	  yValueFormatString: "##0.00\"%\"",
+	  // indexLabel: "{label} {x}({y})",
+	  indexLabel: "{label} ({y})",
+	  dataPoints: [
+		{x: {{ $mou }},y: {{ ($mou / ($mou + $moa)) * 100 }}, label: "MoU"},
+		{x: {{ $moa }},y: {{ ($moa / ($moa + $mou)) * 100 }}, label: "MoA"},
+	  ]
+	}]
+  });
+  chart.render();
+  
+  }
+</script>
 			
 <!-- 
 =============================================
@@ -140,7 +145,7 @@
 				</div> <!-- /.form-wrapper -->
 			</div>
 			<div class="col-xl-6 col-lg-7 col-12">
-				<div class="center" id="piechart" style="width: 700px; height: 400px;"></div>
+            	<div class="m-2" id="chartPie" style="height: 300px; width: 100%; padding-top: 50px;"></div>
 			</div> <!-- /.col- -->
 		</div> <!-- /.main-content -->
 	</div> <!-- /.container -->

@@ -22,6 +22,11 @@ class AuthsController extends Controller
         return view('auths.register');
     }
 
+    public function forgotindex()
+    {
+        return view('auths.forgot');
+    }
+
     public function authenticate(Request $request)
     {
         // dd($request->all());
@@ -57,20 +62,25 @@ class AuthsController extends Controller
 
             $auth = Auth::user();
             if($auth->level == 'admin') {
+                alert()->success('Login Berhasil','Selamat Menjelajah..');
                 return redirect('/admin/dashboard');
             }
             elseif($auth->level == 'pimpinan'){
+                alert()->success('Login Berhasil','Selamat Menjelajah..');
                 return redirect('/pimpinan/dashboard');
             }
             elseif($auth->level == 'staff'){
+                alert()->success('Login Berhasil','Selamat Menjelajah..');
                 return redirect('/staff/dashboard');
             }
             elseif($auth->level == 'user'){
+                alert()->success('Login Berhasil','Selamat Menjelajah..');
                 return redirect('/user/dashboard');
             }
         }
 
-        return back()->with('loginError', 'Login Gagal!');
+        alert()->error('Login Gagal','Coba Lagi..');
+        return back();
     }
     public function logout()
     {

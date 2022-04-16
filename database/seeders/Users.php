@@ -30,6 +30,13 @@ class Users extends Seeder
         ]);
 
         User::create([
+            'name' => "Fakultas Ushuluddin",
+            'level' => "staff",
+            'email' => "ushuluddin1@gmail.com",
+            'password' => bcrypt('ushuluddin1sih'),
+        ]);
+
+        User::create([
             'name' => "Fakultas Sains dan Teknologi",
             'level' => "staff",
             'email' => "saintek7@gmail.com",
@@ -41,6 +48,13 @@ class Users extends Seeder
             'level' => "user",
             'email' => "hubungipyxis@gmail.com",
             'password' => bcrypt('hubungipyxissih'),
+        ]);
+
+        User::create([
+            'name' => "Astrophel",
+            'level' => "user",
+            'email' => "astrophel@gmail.com",
+            'password' => bcrypt('astrophelsih'),
         ]);
     }
 }

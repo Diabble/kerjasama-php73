@@ -41,7 +41,7 @@
               <div class="modal-dialog modal-dialog-scrollable modal-lg">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="tambahLabel">Tambah Mitra Admin</h5>
+                    <h5 class="modal-title" id="tambahLabel">Tambah Progres Pengajuan Kerjasama Admin</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -54,7 +54,7 @@
                         <label>Instansi</label>
                           <select name="instansi" id="inputStatus" class="form-control custom-select @error('instansi') is-invalid @enderror">
                             <option disabled selected>- Pilih -</option>
-                            @foreach ($mitra as $row)
+                            @foreach ($users as $row)
                                 <option value="{{ $row->id }}" {{ old('instansi') == $row->id ? 'selected' : null }}>{{ $row->instansi }}</option>
                             @endforeach
                           </select>
@@ -116,20 +116,20 @@
                       {{ $no++ }}
                     </td>
                     <td>
-                      {{ $row->mitra->instansi }}
+                      {{ $row->users->instansi }}
                     </td>
                     <td>
                       {{ $row->progres }}
                     </td>
                     <td class="project-actions text-center">
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
+                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah{{$row->id}}">
                         <i class="fas fa-edit"></i>
                         Ubah
                       </button>
                       <!-- Modal Ubah Start -->
-                      <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable">
+                      <div class="modal fade text-left" id="ubah{{$row->id}}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-lg">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title" id="ubahLabel">Ubah Progres Pengajuan Kerjasama Admin</h5>
@@ -143,13 +143,17 @@
                                 @csrf
                                 <div class="form-group">
                                   <label>Instansi</label>
-                                  <input class="form-control" name="instansi" autocomplete="off" placeholder="Enter..." value="{{ $row->mitra->instansi }}">
+                                  {{-- <input class="form-control" name="instansi" autocomplete="off" placeholder="Enter..." value="{{ $row->users->instansi }}"> --}}
+                                  <select id="inputStatus" name="instansi" class="form-control custom-select">
+                                    @foreach ($users as $row)
+                                      <option value="{{ $row->id }}" {{ old('instansi') == $row->id ? 'selected' : null }}>{{ $row->instansi }}</option>
+                                    @endforeach
+                                  </select>
                                 </div>
                                 <div class="form-group">
                                   <label>Progres</label>
                                   <select id="inputStatus" name="progres" class="form-control custom-select">
-                                    <option disabled>Enter...</option>
-                                    <option selected value="{{ $row->progres }}">{{ $row->progres }}</option>
+                                    <option selected disabled hidden value="{{ $row->progres }}">{{ $row->progres }}</option>
                                     <option value="Penjajakan">Penjajakan</option>
                                     <option value="Pembahasan">Pembahasan</option>
                                     <option value="Penandatangan">Penandatangan</option>
