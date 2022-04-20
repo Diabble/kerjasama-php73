@@ -44,7 +44,7 @@
 										@forelse ( $propeker as $row )
 										<tr style="text-align:justify;">
 											<td>{{ $no++ }}</td>
-											<td>{{ $row->mitra->instansi }}</td>
+											<td>{{ $row->users->instansi }}</td>
 											<td>{{ $row->progres }}</td>
 										</tr>
 										@empty

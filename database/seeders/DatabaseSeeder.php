@@ -38,11 +38,11 @@ use App\Models\ModelGaleri;
 
 use App\Models\ModelBerkasKerjasama;
 
-use App\Models\ModelLayananOnline;
+use App\Models\ModelAjukanKerjasama;
 
-use App\Models\ModelLayananKepuasan;
+use App\Models\ModelAngketKepuasanLayanan;
 
-use App\Models\ModelLayananKami;
+use App\Models\ModelKontak;
 
 use App\Models\ModelIO;
 
@@ -64,30 +64,38 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // ModelBeranda::create([
-        //     'poto' => "",
+        //     'judulcarousel' => "Kerjasama dan Pengembangan Lembaga",
+        //     'deskripsicarousel' => "UIN Sunan Gunung Djati Bandung",
+        //     'tombolcarousel' => "Ajukan Kerjasama",
+        // ]);
+        // ModelBeranda::create([
+        //     'judulcarousel' => "Kerjasama dan Pengembangan Lembaga",
+        //     'deskripsicarousel' => "UIN Sunan Gunung Djati Bandung",
+        //     'tombolcarousel' => "Ajukan Kerjasama",
+        // ]);
+        // ModelBeranda::create([
         //     'judulcarousel' => "Kerjasama dan Pengembangan Lembaga",
         //     'deskripsicarousel' => "UIN Sunan Gunung Djati Bandung",
         //     'tombolcarousel' => "Ajukan Kerjasama",
         // ]);
 
-        ModelProfilUINSGD::create([
-            'judul' => "Profil UIN Sunan Gunung Djati Bandung",
-            'link' => "https://www.youtube.com/embed/yprwfSH4h9c",
-            'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
-        ]);
+        // ModelProfilUINSGD::create([
+        //     'judul' => "Profil UIN Sunan Gunung Djati Bandung",
+        //     'link' => "https://www.youtube.com/embed/yprwfSH4h9c",
+        //     'deskripsi' => "Universitas Islam Negeri Sunan Gunung Djati Bandung merupakan sebuah Universitas yang banyak menjalin kerjasama dengan berbagai Lembaga, dengan di hadirkannya web ini di harapkan bisa mempermudah akses kerjasama yang akan di jalin antara Universitas Islam Negeri Sunan Gunung Djati Bandung dengan lembaga lainnya.",
+        // ]);
 
-        ModelCapaianKinerja::create([
-            'judul' => "Capaian Kinerja",
-            'link' => "https://www.youtube.com/embed/Y77zRWy4czY",
-            'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
-        ]);
+        // ModelCapaianKinerja::create([
+        //     'judul' => "Capaian Kinerja",
+        //     'link' => "https://www.youtube.com/embed/Y77zRWy4czY",
+        //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
+        // ]);
 
         // ModelWakilRektor::create([
-        //     'poto' => "",
         //     'nama' => "Prof. Dr. Hj. Ulfiah, M.Si",
         //     'jabatan' => "Wakil Rektor IV Bagian kerjasama dan Pengembangan Lembaga",
         //     'nip' => "1234567890",
-        //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
+        //     'deskripsi' => "Kerjasama merupakan sebuah interaksi yang sangat penting bagi kehidupan manusia karena manusia sendiri merupakan makhluk sosial yang saling membutuhkan. Kerjasama sendiri akan dapat tercipta dengan sempurna apabila dua individu akan saling bahu-membahu untuk mencapai tujuan yang diinginkan. Begitupun dengan sebuah Lembaga yang saling bahu membahu, berkolaborasi untuk mewujudkan sebuah tujuan yang gemilang, unggul dan kompetitif. Universitas Islam Negeri Sunan Gunung Djati Bandung merupakan sebuah Universitas yang banyak menjalin kerjasama dengan berbagai Lembaga, dengan di hadirkannya web ini di harapkan bisa mempermudah akses kerjasama yang akan di jalin antara Universitas Islam Negeri Sunan Gunung Djati Bandung dengan lembaga lainnya. Berdasarkan Pasal 2 Peraturan Menteri Pendidikan dan Kebudayaan Republik Indonesia Nomor 14 Tahun 2014 menyatakan bahwa kerjasama perguruan tinggi bertujuan meningkatkan efektivitas, efisiensi, produktivitas, kreativitas, inovasi, mutu, dan relevansi pelaksanaan Tridharma Perguruan Tinggi untuk meningkatkan daya saing bangsa.",
         // ]);
 
         // ModelVisi::create([
@@ -107,19 +115,25 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // ModelStruktur::create([
-        //     'poto' => "",
         //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
         // ]);
 
         // ModelAlurKerjasama::create([
-        //     'poto' => "",
         //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
         // ]);
 
-        // ModelPengajuanKerjasama::create([
-        //     'instansi' => "Institut Agama Islam Muhammadiyah Sinjay",
-        //     'progres' => "Selesai",
-        // ]);
+        ModelPengajuanKerjasama::create([
+            'instansi' => "5",
+            'progres' => "Penjajakan",
+        ]);
+        ModelPengajuanKerjasama::create([
+            'instansi' => "6",
+            'progres' => "Pembahasan",
+        ]);
+        ModelPengajuanKerjasama::create([
+            'instansi' => "7",
+            'progres' => "Penandatangan",
+        ]);
 
         // ModelFAQ::create([
         //     'pertanyaan' => "Bagaimana menginisiasi kerjasama bagi instansi eksternal?",
@@ -135,31 +149,45 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         // ModelBerita::create([
-        //     'poto' => "",
-        //     'judul' => "Judul Ke Satu",
-        //     'slug' => "judul-ke-satu",
-        //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
+        //     'judul' => "Bidang Kerjasama dan Pengembangan Lembaga UIN Sunan Gunung Djati Bandung Terus Tingkatkan Mutu Pendidikan Islam",
+        //     'slug' => "bidang-kerjasama-dan-pengembangan-lembaga-uin-sunan-gunung-djati-bandung-terus-tingkatkan-mutu-pendidikan-islam",
+        //     'deskripsi' => "Wakil Rektor IV Bidang Kerjasama dan Pengembangan Lembaga UIN Sunan Gunung Djati Bandung, Prof.Dr. Hj. Ulfiah, M.Si memimpin Rapat Evaluasi Bidang kerjasama dan International office yang dilaksanakan di Gedung O. Djauharuddin AR lt 3, Rabu (16/6/2021).",
         //     'kategori_id' => 1,
         //     'user_id' => 1,
-        //     'views' => 0
+        //     'views' => 0,
+        //     'aktif' => 1
         // ]);
         // ModelBerita::create([
-        //     'poto' => "",
-        //     'judul' => "Judul Ke Dua",
-        //     'slug' => "judul-ke-dua",
-        //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
-        //     'kategori_id' => 2,
+        //     'judul' => "Workshop Penyusunan Juknis Kerjasama dan Manajemen Operasional Tahun 2021 UIN Sunan Gunung Djati Bandung",
+        //     'slug' => "workshop-penyusunan-juknis-kerjasama-dan-manajemen-operasional-tahun-2021-uin-sunan-gunung-djati-bandung",
+        //     'deskripsi' => "Wakil Rektor I UIN Sunan Gunung Djati Bandung, Prof. Dr. H. Rosihon Anwar, M.Ag menyampaikan, UIN Bandung sedang proses rekognisi level ASEAN dengan adanya kerjasama yang dijalin antara UIN Bandung dengan berbagai Universitas dan lembaga lainnya.",
+        //     'kategori_id' => 1,
         //     'user_id' => 1,
-        //     'views' => 0
+        //     'views' => 0,
+        //     'aktif' => 1
+        // ]);
+        // ModelBerita::create([
+        //     'judul' => "Rapat Koordinasi Evaluasi Pogram Kerjasama Tahun 2021",
+        //     'slug' => "rapat-koordinasi-evaluasi-pogram-kerjasama-tahun-2021",
+        //     'deskripsi' => "Bagian Kerjasama dan Kelembagaan UIN Sunan Gunung Djati Bandung menggelar Rapat Koordinasi Evaluasi Pogram Kerjasama tahun 2021 di Grand Sunshine Soreang, Senin (22/11/2021).",
+        //     'kategori_id' => 1,
+        //     'user_id' => 1,
+        //     'views' => 0,
+        //     'aktif' => 1
+        // ]);
+        // ModelBerita::create([
+        //     'judul' => "Penandatanganan Kerjasama FEBI UIN Bandung dan FEBI UIN KHAS Jember",
+        //     'slug' => "penandatanganan-kerjasama-febi-uin-bandung-dan-febi-uin-khas-jember",
+        //     'deskripsi' => "Fakultas Ekonomi dan Bisnis Islam (FEBI) Universitas Islam Negeri (UIN) Sunan Gunung Djati Bandung menerima kunjungan dari Fakultas Ekonomi dan Bisnis Islam (FEBI) UIN Kiai Haji Achmad Siddiq Jember, Jumat (28/01/2021)",
+        //     'kategori_id' => 1,
+        //     'user_id' => 1,
+        //     'views' => 0,
+        //     'aktif' => 1
         // ]);
 
         // ModelKategoriBerita::create([
-        //     'nama_kategori' => "Kategori Berita 1",
-        //     'slug' => "kategori-berita-1",
-        // ]);
-        // ModelKategoriBerita::create([
-        //     'nama_kategori' => "Kategori Berita 2",
-        //     'slug' => "kategori-berita-2",
+        //     'nama_kategori' => "Berita",
+        //     'slug' => "berita",
         // ]);
 
         // ModelPengumuman::create([
@@ -167,11 +195,15 @@ class DatabaseSeeder extends Seeder
         //     'slug' => "pengumuman-1",
         //     'deskripsi' => "Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique quasi mollitia, incidunt exercitationem quam accusantium quaerat nemo harum asperiores ipsum, nesciunt at nihil soluta officiis.",
         //     'user_id' => 1,
+        //     'aktif' => 1
         // ]);
 
-        // ModelGaleri::create([
-        //     'poto' => "",
-        //     'caption' => "Lorem ipsum dolor sit amet.",
+        // // ModelGaleri::create([
+        // //     'caption' => "Lorem ipsum dolor sit amet.",
+        // // ]);
+
+        // ModelAngketKepuasanLayanan::create([
+        //     'link' => "https://docs.google.com/forms/d/e/1FAIpQLSf5yJK6j5e5vTIVTh5Fx5l8giDSWTa0rioTmBi8HcSnSsu6UQ/viewform?",
         // ]);
 
         // ModelIO::create([
@@ -184,8 +216,7 @@ class DatabaseSeeder extends Seeder
         //     'instansi' => "Institut Agama Islam Muhammadiyah Sinjay",
         //     'bidkerjasama' => "Kerjasama dalam Bidang Pendidikan, Penelitian dan Pengabdian kepada Masyarakat",
         //     'jenisnaskah' => 1,
-        //     'mulai' => 1,
-        //     'selesai' => 1,
+        //     'ketunit' => "Universitas",
         // ]);
         // ModelMitra::create([
         //     'kodeinstansi' => 2,
@@ -193,8 +224,15 @@ class DatabaseSeeder extends Seeder
         //     'instansi' => "Fakultas Keguruan dan Ilmu Pendidikan Universitas Tadulako Palu",
         //     'bidkerjasama' => "Implementasi Kerjasama Program Pertukaran Pelajar Merdeka Belajar-Kampus Merdeka",
         //     'jenisnaskah' => 2,
-        //     'mulai' => 2,
-        //     'selesai' => 2,
+        //     'ketunit' => "Fakultas Sains dan Teknologi",
+        // ]);
+        // ModelMitra::create([
+        //     'kodeinstansi' => 3,
+        //     'ketinstansi' => 1,
+        //     'instansi' => "SMK Plus Alghifari Bandung",
+        //     'bidkerjasama' => "Kegiatan Pengabdian Masyarakat",
+        //     'jenisnaskah' => 1,
+        //     'ketunit' => "Fakultas Sains dan Teknologi",
         // ]);
 
         // ModelKategoriKodeInstansi::create([
@@ -204,6 +242,30 @@ class DatabaseSeeder extends Seeder
         // ModelKategoriKodeInstansi::create([
         //     'nama_kategori' => "P2",
         //     'slug' => "p2",
+        // ]);
+        // ModelKategoriKodeInstansi::create([
+        //     'nama_kategori' => "P3",
+        //     'slug' => "p3",
+        // ]);
+        // ModelKategoriKodeInstansi::create([
+        //     'nama_kategori' => "P4",
+        //     'slug' => "p4",
+        // ]);
+        // ModelKategoriKodeInstansi::create([
+        //     'nama_kategori' => "P5",
+        //     'slug' => "p5",
+        // ]);
+        // ModelKategoriKodeInstansi::create([
+        //     'nama_kategori' => "P6",
+        //     'slug' => "p6",
+        // ]);
+        // ModelKategoriKodeInstansi::create([
+        //     'nama_kategori' => "P7",
+        //     'slug' => "p7",
+        // ]);
+        // ModelKategoriKodeInstansi::create([
+        //     'nama_kategori' => "P8",
+        //     'slug' => "p8",
         // ]);
 
         // ModelKategoriKetInstansi::create([

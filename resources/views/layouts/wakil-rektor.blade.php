@@ -55,7 +55,7 @@
 								<div class="col-lg-12 col-md-6 mt-3 pt-3 text-center">
 									<p><strong>{{ $tangkap1->nama }}</strong></p>
 									<p>{{ $tangkap1->jabatan }}</p>
-									<p>NIP. {{ $tangkap1->nip }}</p>
+									{{-- <p>NIP. {{ $tangkap1->nip }}</p> --}}
 								</div>
 							</div>
 						</div> <!-- /.row -->

@@ -13,6 +13,10 @@ class ModelPengajuanKerjasama extends Model
     protected $fillable = ['instansi', 'progres'];
 
     public function users() {
-        return $this->belongsTo(User::class, 'instansi', 'instansi');
+        return $this->belongsTo(User::class, 'instansi', 'id');
+    }
+
+    public function user() {
+        return $this->hasMany(User::class);
     }
 }

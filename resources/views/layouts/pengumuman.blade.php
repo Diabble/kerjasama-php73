@@ -12,7 +12,7 @@
 				<div class="overlay">
 					<div class="container">
 						<h2>Pengumuman</h2>
-						{{-- <p>{!! $tangkap2->deskripsicarousel !!}</p> --}}
+						{{-- <p>{!! $beranda->deskripsicarousel !!}</p> --}}
 					</div> <!-- /.container -->
 				</div> <!-- /.overlay -->
 			</div> <!-- /.theme-inner-banner -->
@@ -28,17 +28,17 @@
 					<div class="row">
 						<div class="col-xl-9 col-lg-8 col-12 our-blog">
 							<div class="post-wrapper row">
-								@foreach ( $tangkap1 as $row )
+								@foreach ( $pengumuman as $row )
 								<div class="col-md-6 col-12">
 									<div class="single-blog">
 										<div class="image-box">
-											{{-- <img src="{{ asset('storage/' . $row->poto) }}" alt="Image"> --}}
+											<img src="{{ asset('storage/' . $row->poto) }}" alt="Image">
 											<div class="overlay">
 												<div class="date">
 													{{ Carbon\Carbon::parse($row->created_at)->translatedFormat('l, d F Y') }}
 												</div>
 												<div class="date" style="margin-left: 275px">
-													{{ $tangkap3->name }}
+													{{ $user->name }}
 												</div>
 											</div>
 										</div> <!-- /.image-box -->
@@ -53,17 +53,18 @@
 							</div> <!-- /.post-wrapper -->
 							<div class="theme-pagination">
 								<ul>
-									<li><a href="#">1</a></li>
+									{{ $pengumuman->links('pagination::bootstrap-4') }}
+									{{-- <li><a href="#">1</a></li>
 									<li class="active"><a href="#">2</a></li>
-									<li><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+									<li><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li> --}}
 								</ul>
 							</div>
 						</div>
 						<!-- ===================== Blog Sidebar ==================== -->
 						<div class="col-xl-3 col-lg-4 col-md-6 col-sm-8 col-12 blog-sidebar">
 							<div class="sidebar-container sidebar-search">
-								<form action="#">
-									<input type="text" placeholder="Search...">
+								<form action="{{ url('pengumuman') }}" method="GET">
+									<input type="text" name="keyword" autocomplete="off" placeholder="Search..." value="{{ $keyword }}">
 									<button><i class="fa fa-search" aria-hidden="true"></i></button>
 								</form>
 							</div> <!-- /.sidebar-search -->
@@ -80,27 +81,15 @@
 							<div class="sidebar-container sidebar-recent-post">
 								<h5 class="title">Recent Posts</h5>
 								<ul>
+									@foreach ($postbaru as $val)
 									<li class="clearfix">
-										<img src="{{ asset('assets') }}/front/images/blog/6.jpg" alt="" class="float-left">
+										<img src="{{ asset('storage/' . $val->poto) }}" alt="" class="float-left">
 										<div class="post float-left">
-											<a href="blog-details.html">World don't move to beat of just one drum.</a>
-											<div class="date">5 minutes ago</div>
+											<a href="{{ route('berita-detail', $val->slug) }}">{{ $val->judul }}</a>
+											<div class="date">{{ Carbon\Carbon::parse($val->created_at)->translatedFormat('l, d F Y') }}</div>
 										</div>
 									</li>
-									<li class="clearfix">
-										<img src="{{ asset('assets') }}/front/images/blog/7.jpg" alt="" class="float-left">
-										<div class="post float-left">
-											<a href="blog-details.html">Be right for you may not be right for some.</a>
-											<div class="date">2 days ago</div>
-										</div>
-									</li>
-									<li class="clearfix">
-										<img src="{{ asset('assets') }}/front/images/blog/8.jpg" alt="" class="float-left">
-										<div class="post float-left">
-											<a href="blog-details.html">World don't move to beat of just one drum.</a>
-											<div class="date">1 month ago</div>
-										</div>
-									</li>
+									@endforeach
 								</ul>
 							</div> <!-- /.sidebar-recent-post -->
 							{{-- <div class="sidebar-container sidebar-archives">

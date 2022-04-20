@@ -10,7 +10,7 @@ class ModelBerita extends Model
     use HasFactory;    
     protected $primaryKey = 'id';
     protected $table = 'berita';
-    protected $fillable = ['poto', 'judul', 'slug', 'deskripsi', 'kategori_id', 'user_id', 'views', 'aktif'];
+    protected $fillable = ['poto', 'judul', 'slug', 'deskripsi', 'kategori_id', 'user_id', 'aktif'];
 
     public function kategori() {
         return $this->belongsTo(ModelKategoriBerita::class, 'kategori_id', 'id');

@@ -57,7 +57,7 @@
                       </div>
                       <div class="form-group">
                         <label>Jawaban</label>
-                        <textarea class="form-control" name="jawaban" id="editor" placeholder="Enter..." value=""></textarea>
+                        <textarea class="form-control" name="jawaban" id="editor1" placeholder="Enter..." value=""></textarea>
                       </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
@@ -70,6 +70,41 @@
               </div>
             </div>
             <!-- Modal Tambah End -->
+
+            <!-- Modal Ubah Start -->
+            <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="ubahLabel">Ubah FAQ Admin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- form start -->
+                    <form action="" method="POST" enctype="multipart/form-data" id="formubah">
+                      @csrf
+                      <div class="form-group">
+                        <label>Pertanyaan</label>
+                        <textarea class="form-control" name="pertanyaan" id="pertanyaan" placeholder="Enter..." value=""></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label>Jawaban</label>
+                        <textarea class="form-control" name="jawaban" id="jawaban" placeholder="Enter..." value=""></textarea>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                      </div>
+                    </form>
+                    <!-- form end -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Ubah End -->
+
           </div>
           <div class="card-body p-0" style="display: block;">
             <div class="container">
@@ -105,43 +140,14 @@
                     </td>
                     <td class="project-actions text-center">
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah{{$row->id}}">
+                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah" onclick="update({
+                        id: {{ $row->id }},
+                        pertanyaan: '{{ $row->pertanyaan }}',
+                        jawaban: '{{ $row->jawaban }}',
+                      });">
                         <i class="fas fa-edit"></i>
                         Ubah
                       </button>
-                      <!-- Modal Ubah Start -->
-                      <div class="modal fade text-left" id="ubah{{$row->id}}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="ubahLabel">Ubah FAQ Admin</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <!-- form start -->
-                              <form action="{{url('/admin/faq/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="form-group">
-                                  <label>Pertanyaan</label>
-                                  <textarea class="form-control" name="pertanyaan" id="editor" placeholder="Enter..." value="">{!! $row->pertanyaan !!}</textarea>
-                                </div>
-                                <div class="form-group">
-                                  <label>Jawaban</label>
-                                  <textarea class="form-control" name="jawaban" id="editor" placeholder="Enter..." value="">{!! $row->jawaban !!}</textarea>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                                  <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                                </div>
-                              </form>
-                              <!-- form end -->
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- Modal Ubah End -->
                       <a class="btn btn-danger btn-sm" href="{{url('/admin/faq/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
@@ -169,4 +175,45 @@
   </div>
   <!-- /.content-wrapper -->
 
+@endsection
+
+@section('script')
+<script>
+  let editor1;
+  ClassicEditor
+      .create( document.querySelector( '#editor1' ) )
+      .then(edit=> {
+        editor1 = edit;
+      })
+      .catch( error => {
+          console.error( error );
+      } );
+
+  let editor2;
+  ClassicEditor
+      .create( document.querySelector( '#pertanyaan' ) )
+      .then(edit=> {
+        editor2 = edit;
+      })
+      .catch( error => {
+          console.error( error );
+      } );
+
+  let editor3;
+  ClassicEditor
+      .create( document.querySelector( '#jawaban' ) )
+      .then(edit=> {
+        editor3 = edit;
+      })
+      .catch( error => {
+          console.error( error );
+      } );
+
+  function update(data){
+  var url='{{url("/admin/faq/update")}}' + '/' + data.id;
+  $('#formubah').attr('action', url);
+  editor2.setData(data.pertanyaan);
+  editor3.setData(data.jawaban);
+  }
+</script>
 @endsection

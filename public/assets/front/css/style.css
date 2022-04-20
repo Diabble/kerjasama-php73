@@ -271,11 +271,16 @@ body .theme-button-one:hover {background:#000f32; }
   display: block;
   font-size: 16px;
   color: #232323;
-  width: 50px;
-  line-height: 48px;
+  /* width: 50px;
+  line-height: 48px; */
+  line-height: 23px;
   text-align: center;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   border: 1px solid #dadada;
+}
+.theme-pagination ul li a:hover {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
 }
 .theme-pagination ul li a:hover,
 .theme-pagination ul li.active a {color: #fff;}

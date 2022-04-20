@@ -49,6 +49,14 @@
                   <div class="modal-body">
                     <!-- form start -->
                     <form action="{{url('/admin/pengumuman/store')}}" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      <div class="form-group">
+                        <label>Gambar</label>
+                        <input type="file" class="form-control @error('poto') is-invalid @enderror" name="poto" id="image" onchange="previewImage()">
+                        @error('poto')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
                       <div class="form-group">
                         <label>Judul</label>
                         <input class="form-control @error('judul') is-invalid @enderror" name="judul" autocomplete="off" placeholder="Enter..." value="">
@@ -63,6 +71,17 @@
                           <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                       </div>
+                      <div class="form-group">
+                        <label>Status</label>
+                        <select id="inputStatus" name="aktif" class="form-control custom-select @error('aktif') is-invalid @enderror">
+                          <option disabled selected>Enter...</option>
+                          <option value="1">Publish</option>
+                          <option value="0">Draft</option>
+                        </select>
+                        @error('aktif')
+                          <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                      </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
@@ -74,6 +93,57 @@
               </div>
             </div>
             <!-- Modal Tambah End -->
+
+            <!-- Modal Ubah Start -->
+            <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="ubahLabel">Ubah Pengumuman Admin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- form start -->
+                    <form action="" method="POST" enctype="multipart/form-data" id="formubah">
+                      @csrf
+                      <div class="form-group">
+                        <label>Gambar</label>
+                        <input type="file" class="form-control" id="inputGroupFile02" name="poto">
+                      </div>
+                      <div class="form-group">
+                        <label>Judul</label>
+                        <input class="form-control" name="judul" id="judul" autocomplete="off" placeholder="Enter..." value="">
+                      </div>
+                      <div class="form-group">
+                        <label>Slug</label>
+                        <input class="form-control" name="slug" id="slug" autocomplete="off" placeholder="Enter..." value="">
+                      </div>
+                      <div class="form-group">
+                        <label>Deskripsi</label>
+                        <textarea class="form-control" name="deskripsi" id="deskripsi" placeholder="Enter..." value=""></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label>Status</label>
+                        <select name="aktif" id="aktif" class="form-control custom-select">
+                          <option disabled>- Pilih -</option>
+                          <option value="1">Publish</option>
+                          <option value="0">Draft</option>
+                        </select>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                      </div>
+                    </form>
+                    <!-- form end -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Ubah End -->
+
           </div>
           <div class="card-body p-0" style="display: block;">
             <div class="container table-responsive">
@@ -97,11 +167,11 @@
                     </th>
                     {{-- <th>
                       Penulis
-                    </th>
+                    </th> --}}
                     <th>
                       Status
                     </th>
-                    <th>
+                    {{-- <th>
                       Waktu Upload
                     </th> --}}
                     <th style="width: 20%">
@@ -110,6 +180,7 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {{ $errors }}
                   <?php $no=1; ?>
                   @forelse ( $pengumuman as $row )
                   <tr style="text-align: justify;">
@@ -130,11 +201,11 @@
                     </td>
                     {{-- <td>
                       {{ $row->users->name }}
-                    </td>
+                    </td> --}}
                     <td>
-                      <span class="badge badge-success">{{ ($row->status == 1) ? 'Publish' : 'Draft' }}</span>
+                      <span class="badge badge-success">{{ ($row->aktif == 1) ? 'Publish' : 'Draft' }}</span>
                     </td>
-                    <td>
+                    {{-- <td>
                       {{ $row->created_at }}
                     </td> --}}
                     <td class="project-actions text-center">
@@ -154,95 +225,86 @@
                               </button>
                             </div>
                             <div class="modal-body">
-                              {{-- <div class="form-group">
-                                <label>Gambar</label>
-                                <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 50%">
-                              </div> --}}
-                              <div class="form-group">
-                                <label>Judul</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {{ $row->judul }}
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label>Slug</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {{ $row->slug }}
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label>Deskripsi</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {!! $row->deskripsi !!}
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label>Penulis</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {{ $row->users->name }}
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label>Status</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {{ ($row->aktif == 1) ? 'Publish' : 'Draft' }}
-                                </div>
-                              </div>
-                              <div class="form-group">
-                                <label>Waktu Upload</label>
-                                <div style="border-radius: 10px;padding: 0.5rem;background: #e9ecef;">
-                                  {{ $row->created_at }}
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                              </div>
+                              <table class="table table-hover">
+                                <tbody>
+                                  <tr>
+                                    <th style="width: 20%">
+                                      Gambar
+                                    </th>
+                                    <td>
+                                      <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 50%">
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>
+                                      Judul
+                                    </th>
+                                    <td>
+                                      {{ $row->judul }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>
+                                      Slug
+                                    </th>
+                                    <td>
+                                      {{ $row->slug }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>
+                                      Deskripsi
+                                    </th>
+                                    <td>
+                                      {!! $row->deskripsi !!}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>
+                                      Penulis
+                                    </th>
+                                    <td>
+                                      {{ $row->users->name }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>
+                                      Status
+                                    </th>
+                                    <td>
+                                      {{ ($row->aktif == 1) ? 'Publish' : 'Draft' }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>
+                                      Waktu Upload
+                                    </th>
+                                    <td>
+                                      {{ Carbon\Carbon::parse($row->created_at)->translatedFormat('l, d F Y') }}
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                             </div>
                           </div>
                         </div>
                       </div>
                       <!-- Modal Lihat End -->
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
+                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah" onclick="update({
+                        id: {{ $row->id }},
+                        poto: '{{ $row->poto }}',
+                        judul: '{{ $row->judul }}',
+                        slug: '{{ $row->slug }}',
+                        deskripsi: '{{ $row->deskripsi }}',
+                        aktif: {{ $row->aktif }},
+                      });">
                         <i class="fas fa-edit"></i>
                         Ubah
                       </button>
-                      <!-- Modal Ubah Start -->
-                      <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="ubahLabel">Ubah Pengumuman Admin</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <!-- form start -->
-                              <form action="{{url('/admin/pengumuman/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
-                                <div class="form-group">
-                                  <label>Judul</label>
-                                  <input class="form-control" name="judul" autocomplete="off" placeholder="Enter..." value="{{ $row->judul }}">
-                                </div>
-                                <div class="form-group">
-                                  <label>Slug</label>
-                                  <input class="form-control" name="slug" autocomplete="off" placeholder="Enter..." value="{{ $row->slug }}">
-                                </div>
-                                <div class="form-group">
-                                  <label>Deskripsi</label>
-                                  <textarea class="form-control" name="deskripsi" id="editor" placeholder="Enter..." value="">{{ $row->deskripsi }}</textarea>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                                  <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                                </div>
-                              </form>
-                              <!-- form end -->
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- Modal Ubah End -->
                       <a class="btn btn-danger btn-sm" href="{{url('/admin/pengumuman/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
@@ -270,4 +332,29 @@
   </div>
   <!-- /.content-wrapper -->
 
+@endsection
+
+@section('script')
+<script>
+  let editor;
+  ClassicEditor
+      .create( document.querySelector( '#deskripsi' ) )
+      .then(edit=> {
+        editor = edit;
+      })
+      .catch( error => {
+          console.error( error );
+      } );
+
+  function update(data){
+    var url='{{ url("/admin/pengumuman/update") }}' + '/' + data.id;
+    $('#formubah').attr('action', url);
+    $('#poto').val(data.poto);
+    $('#judul').attr('value', data.judul);
+    $('#slug').attr('value', data.slug);
+    // $('#deskripsi').html(data.deskripsi);
+    editor.setData(data.deskripsi);
+    $('#aktif').val(data.aktif);
+  }
+</script>
 @endsection

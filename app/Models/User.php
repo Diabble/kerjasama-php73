@@ -21,6 +21,7 @@ class User extends Authenticatable
         'level',
         'email',
         'instansi',
+        'peker_id',
         'password',
     ];
 
@@ -43,12 +44,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function pengajuan() {
-        return $this->belongsTo(ModelPengajuanKerjasama::class, 'instansi', 'id');
+    public function peker() {
+        return $this->belongsTo(ModelPengajuanKerjasama::class, 'peker_id', 'id');
     }
 
-    public function berita(): BelongsTo
-    {
-        return $this->belongsTo(ModelBerita::class, 'user_id', 'id');
+    public function pengajuan() {
+        return $this->hasMany(User::class);
+    }
+
+    public function berita() {
+        return $this->hasMany(User::class);
     }
 }

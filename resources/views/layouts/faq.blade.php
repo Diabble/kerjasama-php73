@@ -38,13 +38,13 @@
 								<div class="panel-heading @if($count == 0) active-panel @endif">
 									<h6 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$count}}">
-											<p>{{ $row->pertanyaan }}</p>
+											<p>{!! $row->pertanyaan !!}</p>
 										</a>
 									</h6>
 								</div>
 								<div id="collapse{{$count}}" class="panel-collapse collapse @if($count == 0) show @endif">
 									<div class="panel-body">
-										<p>{{ $row->jawaban }}</p>
+										<p>{!! $row->jawaban !!}</p>
 									</div>
 								</div>
 							</div> <!-- /panel 1 -->

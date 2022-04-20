@@ -111,7 +111,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <!-- {{ $errors }} -->
+                    {{-- {{ $errors }} --}}
                     <form action="" method="POST" enctype="multipart/form-data" id="formubah">
                       @csrf
                       <div class="form-group">
@@ -133,7 +133,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary btn-sm swalDefaultSuccess">Simpan</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
                       </div>
                     </form>
                     <!-- form end -->
@@ -169,6 +169,7 @@
                 </tr>
               </thead>
               <tbody>
+                {{-- {{ $errors }} --}}
                 <?php $no=1; ?>
                 @forelse ($beranda as $row)
                 <tr style="text-align: justify;">
@@ -257,6 +258,7 @@
                 </tr>
               </thead>
               <tbody>
+                {{ $errors }}
                 <?php $no=1; ?>
                 @foreach ($profil as $row)
                 <tr style="text-align: justify;">
@@ -365,6 +367,7 @@
                 </tr>
               </thead>
               <tbody>
+                {{ $errors }}
                 <?php $no=1; ?>
                 @foreach ($caper as $row)
                 <tr style="text-align: justify;">

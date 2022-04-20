@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Storage;
+
 use Auth;
 
 use App\Models\User;
@@ -145,8 +147,9 @@ class BackendController extends Controller
     // User
     public function useradmin()
     {
-        $user = User::get();
-        return view('admin.user', compact('user'));
+        $uin = User::whereIn('level', ['admin', 'pimpinan', 'staff'])->get();
+        $user = User::where('level', 'user')->get();
+        return view('admin.user', compact('uin', 'user'));
     }
     
     public function userstore(Request $request)
@@ -205,7 +208,7 @@ class BackendController extends Controller
         ]);
         
         $user = User::find($id);
-        alert()->success('Akun','Data Akun Berhasil Diperbarui!');
+        alert()->success('Akun','Password Berhasil Diperbarui!');
         return redirect('/admin/user');
     }
 
@@ -272,7 +275,8 @@ class BackendController extends Controller
             'tombolcarousel' => $request->tombolcarousel,
         ]);
         
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Data Slide Carousel Berhasil Ditambahkan!');
+        return redirect('/admin/settings');
     }
 
     public function berandashow($id)
@@ -300,31 +304,42 @@ class BackendController extends Controller
         ]);
 
         if (Request()->hasFile('poto')) {
+            $beranda = ModelBeranda::find($id);
+            if (Storage::exists($beranda->poto)) {
+                Storage::delete($beranda->poto);
+            }
+
             $file_name = $request->poto->getClientOriginalName();
                 $image = $request->poto->storeAs('thumbnail', $file_name);
                 // $image = $request->poto->store('thumbnail');
-            ModelBeranda::where('id',$id)->update([
+            $beranda->update([
                 'poto' => $image,
                 'judulcarousel' => $request->judulcarousel,
                 'deskripsicarousel' => $request->deskripsicarousel,
                 'tombolcarousel' => $request->tombolcarousel,
             ]);
         } else {
-            ModelBeranda::where('id',$id)->update([
+            $beranda->update([
                 'judulcarousel' => $request->judulcarousel,
                 'deskripsicarousel' => $request->deskripsicarousel,
                 'tombolcarousel' => $request->tombolcarousel,
             ]);
         }
         
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Slide Carousel Berhasil Diperbarui!');
+        return redirect('/admin/settings');
     }
 
     public function berandadestroy($id)
     {
-        ModelBeranda::find($id)->delete();
+        $beranda = ModelBeranda::find($id);
+        if (Storage::exists($beranda->poto)) {
+            Storage::delete($beranda->poto);
+        }
+        $beranda->delete();
 
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        alert()->success('Data Slide Carousel Berhasil Dihapus!');
+        return redirect('/admin/settings');
     }
 
     // Profil UIN SGD
@@ -366,9 +381,10 @@ class BackendController extends Controller
             'link' => $request->link,
             'deskripsi' => $request->deskripsi,
         ];
-
+        
         ModelProfilUINSGD::find($id)->update($data);        
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Profile Berhasil Diperbarui!');
+        return redirect('/admin/settings');
     }
 
     public function profiluinsgddestroy($id)
@@ -416,8 +432,9 @@ class BackendController extends Controller
             'deskripsi' => $request->deskripsi,
         ];
 
-        ModelCapaianKinerja::find($id)->update($data);        
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        ModelCapaianKinerja::find($id)->update($data);
+        alert()->success('Data Capaian Kinerja Berhasil Diperbarui!');       
+        return redirect('/admin/settings');
     }
 
     public function caperdestroy($id)
@@ -443,8 +460,9 @@ class BackendController extends Controller
             'nama_kategori' => $request->nama_kategori,
             'slug' => Str::slug($request->nama_kategori),
         ]);
-
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        
+        alert()->success('Kategori Berita Berhasil Ditambahkan!');
+        return redirect('/admin/settings');
     }
 
     public function kabershow($id)
@@ -472,14 +490,16 @@ class BackendController extends Controller
         ];
 
         ModelKategoriBerita::find($id)->update($data);
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Kategori Berita Berhasil Diperbarui!');
+        return redirect('/admin/settings');
     }
 
     public function kaberdestroy($id)
     {
         ModelKategoriBerita::find($id)->delete();
-
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        
+        alert()->success('Kategori Berita Berhasil Dihapus!');
+        return redirect('/admin/settings');
     }
 
     // Kategori Kode Instansi
@@ -507,7 +527,8 @@ class BackendController extends Controller
             'slug' => Str::slug($request->nama_kategori),
         ]);
         
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Kategori Kode Instansi Berhasil Ditambahkan!');
+        return redirect('/admin/settings');
     }
     
     /**
@@ -547,8 +568,9 @@ class BackendController extends Controller
             'slug' => $request->slug,
         ];
 
-        ModelKategoriKodeInstansi::find($id)->update($data);    
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        ModelKategoriKodeInstansi::find($id)->update($data);
+        alert()->success('Data Kategori Kode Instansi Berhasil Diperbarui!');
+        return redirect('/admin/settings');
     }
   
     /**
@@ -560,8 +582,9 @@ class BackendController extends Controller
     public function kakoindestroy($id)
     {
         ModelKategoriKodeInstansi::find($id)->delete();
-
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        
+        alert()->success('Kategori Kode Instansi Berhasil Dihapus!');
+        return redirect('/admin/settings');
     }
 
     // Kategori Keterangan Instansi
@@ -583,7 +606,8 @@ class BackendController extends Controller
             'slug' => Str::slug($request->nama_kategori),
         ]);
         
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Kategori Keterangan Instansi Berhasil Ditambahkan!');
+        return redirect('/admin/settings');
     }
 
     public function kakeinshow($id)
@@ -610,15 +634,17 @@ class BackendController extends Controller
             'slug' => $request->slug,
         ];
 
-        ModelKategoriKetInstansi::find($id)->update($data);    
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        ModelKategoriKetInstansi::find($id)->update($data);
+        alert()->success('Data Kategori Keterangan Instansi Berhasil Diperbarui!');
+        return redirect('/admin/settings');
     }
 
     public function kakeindestroy($id)
     {
         ModelKategoriKetInstansi::find($id)->delete();
-
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        
+        alert()->success('Kategori Keterangan Instansi Berhasil Dihapus!');
+        return redirect('/admin/settings');
     }
 
     // Kategori Jenis Naskah
@@ -640,7 +666,8 @@ class BackendController extends Controller
             'slug' => Str::slug($request->nama_kategori),
         ]);
         
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Kategori Jenis Naskah Berhasil Ditambahkan!');
+        return redirect('/admin/settings');
     }
 
     public function kajenashow($id)
@@ -668,15 +695,17 @@ class BackendController extends Controller
             'slug' => $request->slug,
         ];
 
-        ModelKategoriJenisNaskah::find($id)->update($data);    
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        ModelKategoriJenisNaskah::find($id)->update($data);
+        alert()->success('Data Kategori Jenis Instansi Berhasil Diperbarui!');
+        return redirect('/admin/settings');
     }
 
     public function kajenadestroy($id)
     {
         ModelKategoriJenisNaskah::find($id)->delete();
-
-        return redirect('/admin/settings')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        
+        alert()->success('Kategori Jenis Instansi Berhasil Dihapus!');
+        return redirect('/admin/settings');
     }
 
     // Wakil Rektor
@@ -721,10 +750,19 @@ class BackendController extends Controller
             'nip.required' => 'Nip tidak boleh kosong!',
             'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
         ]);
+
         if (Request()->hasFile('poto')) {
+            $rektor = ModelWakilRektor::find($id);
+            if (Storage::exists($rektor->poto)) {
+                Storage::delete($rektor->poto);
+            }
+            // if ($request->oldImage) {
+            //     Storage::delete($request->oldImage);
+            // }
+
             $file_name = $request->poto->getClientOriginalName();
                 $image = $request->poto->storeAs('thumbnail', $file_name);
-            ModelWakilRektor::where('id',$id)->update([
+            $rektor->update([
                 'poto' => $image,
                 'nama' => $request->nama,
                 'jabatan' => $request->jabatan,
@@ -732,15 +770,16 @@ class BackendController extends Controller
                 'deskripsi' => $request->deskripsi,
         ]);
         } else {
-            ModelWakilRektor::where('id',$id)->update([
+            $rektor->update([
                 'nama' => $request->nama,
                 'jabatan' => $request->jabatan,
                 'nip' => $request->nip,
                 'deskripsi' => $request->deskripsi,
         ]);
         }
-
-        return redirect('/admin/wakil-rektor')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        
+        alert()->success('Data Wakil Rektor Berhasil Diperbarui!');
+        return redirect('/admin/wakil-rektor');
     }
 
     public function wakilrektordestroy($id)
@@ -791,7 +830,8 @@ class BackendController extends Controller
         ];
 
         ModelVisi::find($id)->update($data);
-        return redirect('/admin/visi-misi')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Visi Berhasil Diperbarui!');
+        return redirect('/admin/visi-misi');
     }
 
     public function visidestroy($id)
@@ -834,7 +874,8 @@ class BackendController extends Controller
         ];
 
         ModelMisi::find($id)->update($data);
-        return redirect('/admin/visi-misi')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Misi Berhasil Diperbarui!');
+        return redirect('/admin/visi-misi');
     }
 
     public function misidestroy($id)
@@ -883,7 +924,8 @@ class BackendController extends Controller
         ];
 
         ModelTugasPokokFungsi::find($id)->update($data);
-        return redirect('/admin/tugas-pokok-fungsi')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Tugas Pokok Fungsi Berhasil Diperbarui!');
+        return redirect('/admin/tugas-pokok-fungsi');
     }
 
     public function tupoksidestroy($id)
@@ -932,7 +974,8 @@ class BackendController extends Controller
         ];
 
         ModelKebijakanProgram::find($id)->update($data);
-        return redirect('/admin/kebijakan-program')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Kebijakan & Program Berhasil Diperbarui!');
+        return redirect('/admin/kebijakan-program');
     }
 
     public function keprodestroy($id)
@@ -976,20 +1019,27 @@ class BackendController extends Controller
         ], [
             'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
         ]);
+
         if (Request()->hasFile('poto')) {
+            $struktur = ModelStruktur::find($id);
+            if (Storage::exists($struktur->poto)) {
+                Storage::delete($struktur->poto);
+            }
+
             $file_name = $request->poto->getClientOriginalName();
                 $image = $request->poto->storeAs('thumbnail', $file_name);
-            ModelStruktur::where('id',$id)->update([
+            $struktur->update([
                 'poto' => $image,
                 'deskripsi' => $request->deskripsi,
         ]);
         } else {
-            ModelStruktur::where('id',$id)->update([
+            $struktur->update([
                 'deskripsi' => $request->deskripsi,
         ]);
         }
-
-        return redirect('/admin/struktur')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        
+        alert()->success('Data Struktur Berhasil Diperbarui!');
+        return redirect('/admin/struktur');
     }
 
     public function strukturdestroy($id)
@@ -1033,20 +1083,27 @@ class BackendController extends Controller
         ], [
             'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
         ]);
+
         if (Request()->hasFile('poto')) {
+            $alur = ModelAlurKerjasama::find($id);
+            if (Storage::exists($alur->poto)) {
+                Storage::delete($alur->poto);
+            }
+
             $file_name = $request->poto->getClientOriginalName();
                 $image = $request->poto->storeAs('thumbnail', $file_name);
-            ModelAlurKerjasama::where('id',$id)->update([
+            $alur->update([
                 'poto' => $image,
                 'deskripsi' => $request->deskripsi,
         ]);
         } else {
-            ModelAlurKerjasama::where('id',$id)->update([
+            $alur->update([
                 'deskripsi' => $request->deskripsi,
         ]);
         }
-
-        return redirect('/admin/alur-kerjasama')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        
+        alert()->success('Data Alur Kerjasama Berhasil Diperbarui!');
+        return redirect('/admin/alur-kerjasama');
     }
 
     public function alurkerjasamadestroy($id)
@@ -1082,7 +1139,8 @@ class BackendController extends Controller
             'progres' => $request->progres,
         ]);
         
-        return redirect('/admin/progres-pengajuan-kerjasama')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Data Progres Pengajuan Kerjasama Berhasil Ditambahkan!');
+        return redirect('/admin/progres-pengajuan-kerjasama');
     }
 
     public function propekershow($id)
@@ -1113,14 +1171,16 @@ class BackendController extends Controller
         ];
 
         ModelPengajuanKerjasama::find($id)->update($data);
-        return redirect('/admin/progres-pengajuan-kerjasama')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Progres Pengajuan Kerjasama Berhasil Diperbarui!');
+        return redirect('/admin/progres-pengajuan-kerjasama');
     }
 
     public function propekerdestroy($id)
     {
         ModelPengajuanKerjasama::find($id)->delete();
-
-        return redirect('/admin/progres-pengajuan-kerjasama')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        
+        alert()->success('Data Progres Pengajuan Kerjasama Berhasil Dihapus!');
+        return redirect('/admin/progres-pengajuan-kerjasama');
     }
 
     // FAQ
@@ -1150,7 +1210,8 @@ class BackendController extends Controller
             'jawaban' => $request->jawaban,
         ]);
         
-        return redirect('/admin/faq')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Data FAQ Berhasil Ditambahkan!');
+        return redirect('/admin/faq');
     }
 
     public function faqshow($id)
@@ -1179,15 +1240,17 @@ class BackendController extends Controller
             'jawaban' => $request->jawaban,
         ];
 
-        ModelFAQ::find($id)->update($data);    
-        return redirect('/admin/faq')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        ModelFAQ::find($id)->update($data);
+        alert()->success('Data FAQ Berhasil Diperbarui!');
+        return redirect('/admin/faq');
     }
 
     public function faqdestroy($id)
     {
         ModelFAQ::find($id)->delete();
-
-        return redirect('/admin/faq')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        
+        alert()->success('Data FAQ Berhasil Dihapus!');
+        return redirect('/admin/faq');
     }
 
     // Kategori Berita
@@ -1223,19 +1286,17 @@ class BackendController extends Controller
             'judul' => 'required',
             'deskripsi' => 'required',
             'kategori_id' => 'required',
-            'views' => 'required',
             'aktif' => 'required',
         ], [
             'poto.required' => 'Gambar tidak boleh kosong!',
             'judul.required' => 'Judul tidak boleh kosong!',
             'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
             'kategori_id.required' => 'Kategori Berita tidak boleh kosong!',
-            'views.required' => 'Jumlah Views tidak boleh kosong!',
             'aktif.required' => 'Status tidak boleh kosong!',
         ]);
 
         $file_name = $request->poto->getClientOriginalName();
-            $image = $request->poto->storeAs('thumbnail', $file_name);
+            $image = $request->poto->storeAs('berita', $file_name);
         ModelBerita::create([
             'poto' => $image,
             'judul' => $request->judul,
@@ -1247,7 +1308,8 @@ class BackendController extends Controller
             'aktif' => $request->aktif,
         ]);
         
-        return redirect('/admin/berita')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Berita Berhasil Ditambahkan!');
+        return redirect('/admin/berita');
     }
 
     public function beritashow($id)
@@ -1269,47 +1331,54 @@ class BackendController extends Controller
             'judul' => 'required',
             'deskripsi' => 'required',
             'kategori_id' => 'required',
-            'views' => 'required',
             'aktif' => 'required',
         ], [
             'judul.required' => 'Judul tidak boleh kosong!',
             'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
             'kategori_id.required' => 'Kategori Berita tidak boleh kosong!',
-            'views.required' => 'Jumlah Views tidak boleh kosong!',
             'aktif.required' => 'Status tidak boleh kosong!',
         ]);
 
+        $berta = ModelBerita::find($id);
         if (Request()->hasFile('poto')) {
+            if (Storage::exists($berta->poto)) {
+                Storage::delete($berta->poto);
+            }
+
             $file_name = $request->poto->getClientOriginalName();
-                $image = $request->poto->storeAs('thumbnail', $file_name);
-            ModelBerita::where('id',$id)->update([
+                $image = $request->poto->storeAs('berita', $file_name);
+            $berta->update([
                 'poto' => $image,
                 'judul' => $request->judul,
                 'slug' => Str::slug($request->judul),
                 'deskripsi' => $request->deskripsi,
                 'kategori_id' => $request->kategori_id,
-                'views' => $request->views,
                 'aktif' => $request->aktif,
             ]);
         } else {
-            ModelBerita::where('id',$id)->update([
+            $berta->update([
                 'judul' => $request->judul,
                 'slug' => Str::slug($request->judul),
                 'deskripsi' => $request->deskripsi,
                 'kategori_id' => $request->kategori_id,
-                'views' => $request->views,
                 'aktif' => $request->aktif,
             ]);
         }
         
-        return redirect('/admin/berita')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Berita Berhasil Diperbarui!');
+        return redirect('/admin/berita');
     }
 
     public function beritadestroy($id)
     {
-        ModelBerita::find($id)->delete();
-
-        return redirect('/admin/berita')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        $berta = ModelBerita::find($id);
+            if (Storage::exists($berta->poto)) {
+                Storage::delete($berta->poto);
+            }
+        $berta->delete();
+        
+        alert()->success('Data Berita Berhasil Dihapus!');
+        return redirect('/admin/berita');
     }
 
     // Pengumuman
@@ -1326,7 +1395,31 @@ class BackendController extends Controller
     
     public function pengumumanstore(Request $request)
     {
-        //
+        Request()->validate([
+            'poto' => 'required|mimes:png,jpg,jpeg',
+            'judul' => 'required',
+            'deskripsi' => 'required',
+            'aktif' => 'required',
+        ], [
+            'poto.required' => 'Gambar tidak boleh kosong!',
+            'judul.required' => 'Judul tidak boleh kosong!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
+            'aktif.required' => 'Status tidak boleh kosong!',
+        ]);
+
+        $file_name = $request->poto->getClientOriginalName();
+            $image = $request->poto->storeAs('pengumuman', $file_name);
+        ModelPengumuman::create([
+            'poto' => $image,
+            'judul' => $request->judul,
+            'slug' => Str::slug($request->judul),
+            'deskripsi' => $request->deskripsi,
+            'user_id' => Auth::user()->id,
+            'aktif' => $request->aktif,
+        ]);
+        
+        alert()->success('Pengumuman Berhasil Ditambahkan!');
+        return redirect('/admin/pengumuman');
     }
 
     public function pengumumanshow($id)
@@ -1336,17 +1429,61 @@ class BackendController extends Controller
 
     public function pengumumanedit($id)
     {
-        //
+        $pengumuman = ModelPengumuman::findorfail($id);
+        return view('admin.pengumuman', compact('pengumuman'));
     }
 
     public function pengumumanupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'poto' => 'mimes:png,jpg,jpeg',
+            'judul' => 'required',
+            'deskripsi' => 'required',
+            'aktif' => 'required',
+        ], [
+            'judul.required' => 'Judul tidak boleh kosong!',
+            'deskripsi.required' => 'Deskripsi tidak boleh kosong!',
+            'aktif.required' => 'Status tidak boleh kosong!',
+        ]);
+
+        $pengumuman = ModelPengumuman::find($id);
+        if (Request()->hasFile('poto')) {
+            if (Storage::exists($pengumuman->poto)) {
+                Storage::delete($pengumuman->poto);
+            }
+
+            $file_name = $request->poto->getClientOriginalName();
+                $image = $request->poto->storeAs('pengumuman', $file_name);
+            $pengumuman->update([
+                'poto' => $image,
+                'judul' => $request->judul,
+                'slug' => Str::slug($request->judul),
+                'deskripsi' => $request->deskripsi,
+                'aktif' => $request->aktif,
+            ]);
+        } else {
+            $pengumuman->update([
+                'judul' => $request->judul,
+                'slug' => Str::slug($request->judul),
+                'deskripsi' => $request->deskripsi,
+                'aktif' => $request->aktif,
+            ]);
+        }
+        
+        alert()->success('Data Pengumuman Berhasil Diperbarui!');
+        return redirect('/admin/pengumuman');
     }
 
     public function pengumumandestroy($id)
     {
-        //
+        $pengumuman = ModelPengumuman::find($id);
+            if (Storage::exists($pengumuman->poto)) {
+                Storage::delete($pengumuman->poto);
+            }
+        $pengumuman->delete();
+        
+        alert()->success('Data Pengumuman Berhasil Dihapus!');
+        return redirect('/admin/pengumuman');
     }
 
     // Galeri
@@ -1372,13 +1509,14 @@ class BackendController extends Controller
         ]);
 
         $file_name = $request->poto->getClientOriginalName();
-            $image = $request->poto->storeAs('thumbnail', $file_name);
+            $image = $request->poto->storeAs('galeri', $file_name);
         ModelGaleri::create([
             'poto' => $image,
             'caption' => $request->caption,
         ]);
         
-        return redirect('/admin/galeri')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Gambar Berhasil Ditambahkan!');
+        return redirect('/admin/galeri');
     }
 
     public function galerishow($id)
@@ -1401,34 +1539,45 @@ class BackendController extends Controller
             'caption.required' => 'Caption tidak boleh kosong!',
         ]);
 
+        $galeri = ModelGaleri::find($id);
         if (Request()->hasFile('poto')) {
+            if (Storage::exists($galeri->poto)) {
+                Storage::delete($galeri->poto);
+            }
+
             $file_name = $request->poto->getClientOriginalName();
-                $image = $request->poto->storeAs('thumbnail', $file_name);
-                // $image = $request->poto->store('thumbnail');
-            ModelGaleri::where('id',$id)->update([
+                $image = $request->poto->storeAs('galeri', $file_name);
+            $galeri->update([
                 'poto' => $image,
                 'caption' => $request->caption,
             ]);
         } else {
-            ModelGaleri::where('id',$id)->update([
+            $galeri->update([
                 'caption' => $request->caption,
             ]);
         }
         
-        return redirect('/admin/galeri')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Gambar Berhasil Diperbarui!');
+        return redirect('/admin/galeri');
     }
 
     public function galeridestroy($id)
     {
-        ModelGaleri::find($id)->delete();
-
-        return redirect('/admin/galeri')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        $galeri = ModelGaleri::find($id);
+            if (Storage::exists($galeri->poto)) {
+                Storage::delete($galeri->poto);
+            }
+        $galeri->delete();
+        
+        alert()->success('Data Gambar Berhasil Dihapus!');
+        return redirect('/admin/galeri');
     }
 
     // Berkas Kerjasama
     public function berkaskerjasama()
     {
-        return view('admin.berkas-kerjasama');
+        $beker = ModelBerkasKerjasama::get();
+        return view('admin.berkas-kerjasama', compact('beker'));
     }
 
     public function berkaskerjasamacreate()
@@ -1438,7 +1587,23 @@ class BackendController extends Controller
     
     public function berkaskerjasamastore(Request $request)
     {
-        //
+        Request()->validate([
+            'nama' => 'required',
+            'berkaskerjasama' => 'required',
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong',
+            'berkaskerjasama.required' => 'Berkas Kerjasama tidak boleh kosong',
+        ]);
+
+        $file_name = $request->berkaskerjasama->getClientOriginalName();
+            $file = $request->berkaskerjasama->storeAs('kerjasama', $file_name);
+            ModelBerkasKerjasama::create([
+            'nama' => $request->nama,
+            'berkaskerjasama' => $file,
+        ]);
+        
+        alert()->success('Berkas Kerjasama Berhasil Ditambahkan!');
+        return redirect('/admin/berkas-kerjasama');
     }
 
     public function berkaskerjasamashow($id)
@@ -1448,17 +1613,50 @@ class BackendController extends Controller
 
     public function berkaskerjasamaedit($id)
     {
-        //
+        $beker = ModelBerkasKerjasama::findorfail($id);
+        return view('admin.berkas-kerjasama', compact('beker'));
     }
 
     public function berkaskerjasamaupdate(Request $request, $id)
     {
-        //
+        Request()->validate([
+            'nama' => 'required',
+        ], [
+            'nama.required' => 'Nama Berkas tidak boleh kosong',
+        ]);
+
+        if (Request()->hasFile('berkaskerjasama')) {
+            $kerjasama = ModelBerkasKerjasama::find($id);
+            if (Storage::exists($kerjasama->berkaskerjasama)) {
+                Storage::delete($kerjasama->berkaskerjasama);
+            }
+
+            $file_name = $request->berkaskerjasama->getClientOriginalName();
+                $file = $request->berkaskerjasama->storeAs('kerjasama', $file_name);
+            $kerjasama->update([
+                'nama' => $request->nama,
+                'berkaskerjasama' => $file,
+            ]);
+        } else {
+            $kerjasama->update([
+                'nama' => $request->nama,
+            ]);
+        }
+        
+        alert()->success('Data Pengajuan Kerjasama Berhasil Diperbarui!');
+        return redirect('/admin/berkas-kerjasama');
     }
 
     public function berkaskerjasamadestroy($id)
     {
-        //
+        $kerjasama = ModelBerkasKerjasama::find($id);
+        if (Storage::exists($kerjasama->berkaskerjasama)) {
+            Storage::delete($kerjasama->berkaskerjasama);
+        }
+        $kerjasama->delete();
+        
+        alert()->success('Data Pengajuan Kerjasama Berhasil Dihapus!');
+        return redirect('/admin/berkas-kerjasama');
     }
 
     // Ajukan Kerjasama
@@ -1490,7 +1688,7 @@ class BackendController extends Controller
         ]);
 
         $file_name = $request->berkaspengaju->getClientOriginalName();
-            $file = $request->berkaspengaju->storeAs('berkaspengaju', $file_name);
+            $file = $request->berkaspengaju->storeAs('pengajuan', $file_name);
             ModelAjukanKerjasama::create([
             'nama' => $request->nama,
             'nohp' => $request->nohp,
@@ -1499,7 +1697,8 @@ class BackendController extends Controller
             'berkaspengaju' => $file,
         ]);
         
-        return redirect('/admin/ajukan-kerjasama')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Pengajuan Kerjasama Berhasil Ditambahkan!');
+        return redirect('/admin/ajukan-kerjasama');
     }
 
     public function ajukankerjasamashow($id)
@@ -1528,9 +1727,14 @@ class BackendController extends Controller
         ]);
 
         if (Request()->hasFile('berkaspengaju')) {
+            $ajukan = ModelAjukanKerjasama::find($id);
+            if (Storage::exists($ajukan->berkaspengaju)) {
+                Storage::delete($ajukan->berkaspengaju);
+            }
+
             $file_name = $request->berkaspengaju->getClientOriginalName();
-                $file = $request->berkaspengaju->storeAs('berkaspengaju', $file_name);
-            ModelAjukanKerjasama::where('id',$id)->update([
+                $file = $request->berkaspengaju->storeAs('pengajuan', $file_name);
+            $ajukan->update([
                 'nama' => $request->nama,
                 'nohp' => $request->nohp,
                 'instansi' => $request->instansi,
@@ -1538,7 +1742,7 @@ class BackendController extends Controller
                 'berkaspengaju' => $file,
             ]);
         } else {
-            ModelAjukanKerjasama::where('id',$id)->update([
+            $ajukan->update([
                 'nama' => $request->nama,
                 'nohp' => $request->nohp,
                 'instansi' => $request->instansi,
@@ -1546,14 +1750,20 @@ class BackendController extends Controller
             ]);
         }
         
-        return redirect('/admin/ajukan-kerjasama')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Pengajuan Kerjasama Berhasil Diperbarui!');
+        return redirect('/admin/ajukan-kerjasama');
     }
 
     public function ajukankerjasamadestroy($id)
     {
-        ModelAjukanKerjasama::find($id)->delete();
-
-        return redirect('/admin/ajukan-kerjasama')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        $ajukan = ModelAjukanKerjasama::find($id);
+            if (Storage::exists($ajukan->berkaspengaju)) {
+                Storage::delete($ajukan->berkaspengaju);
+            }
+        $ajukan->delete();
+        
+        alert()->success('Data Pengajuan Kerjasama Berhasil Dihapus!');
+        return redirect('/admin/ajukan-kerjasama');
     }
 
     // Angket Kepuasan Layanan
@@ -1597,7 +1807,8 @@ class BackendController extends Controller
         ];
 
         ModelAngketKepuasanLayanan::find($id)->update($data);
-        return redirect('/admin/angket-kepuasan-layanan')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Angket Kepuasan Layanan Berhasil Diperbarui!');
+        return redirect('/admin/angket-kepuasan-layanan');
     }
 
     public function angketkepuasanlayanandestroy($id)
@@ -1641,7 +1852,8 @@ class BackendController extends Controller
             'pesan' => $request->pesan,
         ]);
         
-        return redirect('/admin/kontak')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Kontak Berhasil Ditambahkan!');
+        return redirect('/admin/kontak');
     }
 
     public function kontakshow($id)
@@ -1680,14 +1892,16 @@ class BackendController extends Controller
         ];
 
         ModelKontak::find($id)->update($data);
-        return redirect('/admin/kontak')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Kontak Berhasil Diperbarui!');
+        return redirect('/admin/kontak');
     }
 
     public function kontakdestroy($id)
     {
         ModelKontak::find($id)->delete();
-
-        return redirect('/admin/kontak')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        
+        alert()->success('Data Kontak Berhasil Dihapus!');
+        return redirect('/admin/kontak');
     }
 
     // International Office
@@ -1731,7 +1945,8 @@ class BackendController extends Controller
         ];
 
         ModelIO::find($id)->update($data);
-        return redirect('/admin/international-office')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data International Office Berhasil Diperbarui!');
+        return redirect('/admin/international-office');
     }
 
     public function iodestroy($id)
@@ -1766,7 +1981,7 @@ class BackendController extends Controller
     public function mitraimport(Request $request)
     {
         $file = $request->file('import');
-        $namaFile = $file->getClientOriginalName();
+        $namaFile = $file();
         $file->move('berkasmitra', $namaFile);
 
         Excel::import(new MitraImport, public_path('/berkasmitra/' . $namaFile));
@@ -1815,7 +2030,7 @@ class BackendController extends Controller
         $selesai = Carbon::createFromFormat('m/d/Y g:i A', $request->selesai);
 
         $file_name = $request->berkasmitra->getClientOriginalName();
-            $file = $request->berkasmitra->storeAs('berkasmitra', $file_name);
+            $file = $request->berkasmitra->storeAs('mitra', $file_name);
         ModelMitra::create([
             'kodeinstansi' => $request->kodeinstansi,
             'ketinstnasi' => $request->ketinstnasi,
@@ -1828,7 +2043,8 @@ class BackendController extends Controller
             'berkasmitra' => $file,
         ]);
         
-        return redirect('/admin/mitra')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Data Mitra Berhasil Ditambahkan!');
+        return redirect('/admin/mitra');
     }
 
     public function mitrashow($id)
@@ -1871,9 +2087,14 @@ class BackendController extends Controller
         $selesai = Carbon::createFromFormat('m/d/Y g:i A', $request->selesai);
 
         if (Request()->hasFile('berkasmitra')) {
+            $mitra = ModelMitra::find($id);
+            if (Storage::exists($mitra->berkasmitra)) {
+                Storage::delete($mitra->berkasmitra);
+            }
+
             $file_name = $request->berkasmitra->getClientOriginalName();
-                $file = $request->berkasmitra->storeAs('berkasmitra', $file_name);
-            ModelMitra::where('id',$id)->update([
+                $file = $request->berkasmitra->storeAs('mitra', $file_name);
+            $mitra->update([
                 'kodeinstansi' => $request->kodeinstansi,
                 'ketinstansi' => $request->ketinstansi,
                 'instansi' => $request->instansi,
@@ -1885,7 +2106,7 @@ class BackendController extends Controller
                 'berkasmitra' => $file,
             ]);
         } else {
-            ModelMitra::where('id',$id)->update([
+            $mitra->update([
                 'kodeinstansi' => $request->kodeinstansi,
                 'ketinstansi' => $request->ketinstansi,
                 'instansi' => $request->instansi,
@@ -1897,13 +2118,19 @@ class BackendController extends Controller
             ]);
         }
         
-        return redirect('/admin/mitra')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Mitra Berhasil Diperbarui!');
+        return redirect('/admin/mitra');
     }
 
     public function mitradestroy($id)
     {
-        ModelMitra::find($id)->delete();
-
-        return redirect('/admin/mitra')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        $mitra = ModelMitra::find($id);
+            if (Storage::exists($mitra->berkasmitra)) {
+                Storage::delete($mitra->berkasmitra);
+            }
+        $mitra->delete();
+        
+        alert()->success('Data Mitra Berhasil Dihapus!');
+        return redirect('/admin/mitra');
     }
 }

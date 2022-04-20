@@ -10,7 +10,7 @@ class ModelPengumuman extends Model
     use HasFactory;
     protected $primaryKey = 'id';
     protected $table = 'pengumuman';
-    protected $fillable = ['judul', 'deskripsi', 'user_id'];
+    protected $fillable = ['poto', 'judul', 'slug', 'deskripsi', 'user_id', 'aktif'];
 
     public function users() {
         return $this->belongsTo(User::class, 'user_id', 'id');

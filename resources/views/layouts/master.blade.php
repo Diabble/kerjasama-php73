@@ -25,6 +25,8 @@
 		<!-- Datatables -->
 		{{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"> --}}
         <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+		<!-- FontAwesome -->
+		{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> --}}
 
 		<!-- Fix Internet Explorer ______________________________________-->
 		<!--[if lt IE 9]>
@@ -64,6 +66,8 @@
 
         </div>
         <!-- /.main-page-wrapper -->
+
+		@include('sweetalert::alert')
 
         <!-- Optional JavaScript _____________________________  -->
 

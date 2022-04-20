@@ -75,6 +75,41 @@
               </div>
             </div>
             <!-- Modal Tambah End -->
+            
+            <!-- Modal Ubah Start -->
+            <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="ubahLabel">Ubah Galeri Admin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <!-- form start -->
+                  <form action="" method="POST" enctype="multipart/form-data" id="formubah">
+                    @csrf
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label>Gambar</label>
+                        <input type="file" class="form-control" id="inputGroupFile02" name="poto">
+                      </div>
+                      <div class="form-group">
+                        <label>Caption</label>
+                        <textarea class="form-control" name="caption" id="caption" placeholder="Enter..." value=""></textarea>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                    </div>
+                  </form>
+                  <!-- form end -->
+                </div>
+              </div>
+            </div>
+            <!-- Modal Ubah End -->
+
           </div>
           <div class="card-body p-0" style="display: block;">
             <div class="container table-responsive">
@@ -110,43 +145,14 @@
                     </td>
                     <td class="project-actions text-center">
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
+                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah" onclick="update({
+                        id: {{ $row->id }},
+                        poto: '{{ $row->poto }}',
+                        caption: '{{ $row->caption }}',
+                      });">
                         <i class="fas fa-edit"></i>
                         Ubah
                       </button>
-                      <!-- Modal Ubah Start -->
-                      <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="ubahLabel">Ubah Galeri Admin</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <!-- form start -->
-                              <form action="{{url('/admin/galeri/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="form-group">
-                                  <label>Gambar</label>
-                                  <input type="file" class="form-control" id="inputGroupFile02" name="poto">
-                                </div>
-                                <div class="form-group">
-                                  <label>Caption</label>
-                                  <textarea class="form-control" name="caption" id="editor" placeholder="Enter..." value="">{!! $row->caption !!}</textarea>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                                  <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
-                                </div>
-                              </form>
-                              <!-- form end -->
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- Modal Ubah End -->
                       <a class="btn btn-danger btn-sm" href="{{url('/admin/galeri/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
@@ -174,4 +180,26 @@
   </div>
   <!-- /.content-wrapper -->
 
+@endsection
+
+@section('script')
+<script>
+  let editor;
+  ClassicEditor
+      .create( document.querySelector( '#caption' ) )
+      .then(edit=> {
+        editor = edit;
+      })
+      .catch( error => {
+          console.error( error );
+      } );
+
+  function update(data){
+    var url='{{ url("/admin/galeri/update") }}' + '/' + data.id;
+    $('#formubah').attr('action', url);
+    $('#poto').val(data.poto);
+    // $('#caption').html(data.caption);
+    editor.setData(data.caption);
+  }
+</script>
 @endsection

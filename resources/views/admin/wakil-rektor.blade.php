@@ -101,6 +101,7 @@
                               @csrf
                               <div class="form-group">
                                 <label>Foto Profil</label>
+                                {{-- <input type="hidden" name="oldImage" value="{{ $row->poto }}"> --}}
                                 <input type="file" class="form-control" id="inputGroupFile02" name="poto">
                               </div>
                               <div class="form-group">

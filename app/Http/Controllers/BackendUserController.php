@@ -173,8 +173,10 @@ class BackendUserController extends Controller
     public function dashboard()
     {
         $propeker = ModelPengajuanKerjasama::get();
+        $peker = User::with('peker')->get();
+        // dd($peker);
         $users = User::get();
-        return view('user.dashboard', compact('propeker', 'users'));
+        return view('user.dashboard', compact('propeker', 'peker', 'users'));
     }
 
     /**

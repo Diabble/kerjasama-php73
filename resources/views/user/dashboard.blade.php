@@ -19,7 +19,7 @@
     </section>
 
     <!-- Main content Progres Pengajuan Kerjasama -->
-    <section class="content">
+    {{-- <section class="content">
       <div class="container-fluid">
         <div class="card card-primary">
           <div class="card-header" style="background-color: #343a40;">
@@ -72,7 +72,7 @@
           <!-- /.card-footer-->
         </div>
       </div>
-    </section>
+    </section> --}}
     <!-- /.content -->
 
     <!-- Main content -->
@@ -89,53 +89,70 @@
           </div>
           <div class="card-body">
             <div class="container">
-              <h6>Instansi : <strong>Coba Import Data</strong></h6>
+              {{-- <h6><strong>Instansi :</strong> {{ Auth::user()->instansi }}</h6> --}}
               <article class="card">
                 <div class="card-body row">
-                  <div class="col">
+                  {{-- <div class="col">
                     <strong>Estimated Delivery time:</strong>
                     <br>29 nov 2019
                   </div>
                   <div class="col">
                     <strong>Shipping BY:</strong>
                     <br> BLUEDART, | <i class="fa fa-phone"></i> +1598675986
-                  </div>
+                  </div> --}}
                   <div class="col">
-                    <strong>Status:</strong>
-                    <br> Picked by the courier
+                    <strong>Instansi :</strong>
+                    {{ Auth::user()->instansi }}
+                    {{-- <br>
+                    <strong>Status :</strong>
+                    {{ Auth::user()->peker->progres }} --}}
                   </div>
-                  <div class="col">
+                  <div class="float-right pr-5">
+                    <strong>Status :</strong>
+                    {{ Auth::user()->peker->progres }}
+                  </div>
+                  {{-- <div class="col">
                     <strong>Tracking #:</strong>
                     <br> BD045903594059
-                  </div>
+                  </div> --}}
                 </div>
               </article>
               <div class="track">
-                <div class="step">
+                <div class="step @if (in_array(Auth::user()->peker->progres, ['Penjajakan', 'Pembahasan', 'Penandatangan', 'Monitoring & Evaluasi', 'Selesai']))
+                  active
+                @endif">
                   <span class="icon">
                     <i class="fa fa-paste"></i>
                   </span>
                   <span class="text">Penjajakan</span>
                 </div>
-                <div class="step">
+                <div class="step @if (in_array(Auth::user()->peker->progres, ['Pembahasan', 'Penandatangan', 'Monitoring & Evaluasi', 'Selesai']))
+                  active
+                @endif">
                   <span class="icon">
                     <i class="fa fa-comment"></i>
                   </span>
                   <span class="text">Pembahasan</span>
                 </div>
-                <div class="step">
+                <div class="step @if (in_array(Auth::user()->peker->progres, ['Penandatangan', 'Monitoring & Evaluasi', 'Selesai']))
+                  active
+                @endif">
                   <span class="icon">
                     <i class="fa fa-file-signature"></i>
                   </span>
                   <span class="text">Penandatangan</span>
                 </div>
-                <div class="step">
+                <div class="step @if (in_array(Auth::user()->peker->progres, ['Monitoring & Evaluasi', 'Selesai']))
+                  active
+                @endif">
                   <span class="icon">
                     <i class="fa fa-comment-dots"></i>
                   </span>
                   <span class="text">Monitoring & Evaluasi</span>
                 </div>
-                <div class="step">
+                <div class="step @if (in_array(Auth::user()->peker->progres, ['Selesai']))
+                  active
+                @endif">
                   <span class="icon">
                     <i class="fa fa-check"></i>
                   </span>

@@ -31,43 +31,6 @@
               </p>
             </a>
           </li>
-          <li class="nav-item {{ request()->is('user/#') ? 'active' : '' }}">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users-cog"></i>
-              <p>
-                Akun
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url('/admin/profile') }}" class="nav-link {{ request()->is('admin/profile') ? 'active' : '' }}">
-                  <i class="fas fa-user nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url('/admin/ubah-password') }}" class="nav-link {{ request()->is('admin/ubah-password') ? 'active' : '' }}">
-                  <i class="fas fa-lock nav-icon"></i>
-                  <p>Ubah Password</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url('/admin/user') }}" class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
-                  <i class="fas fa-users nav-icon"></i>
-                  <p>Semua User</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/admin/settings') }}" class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-cog"></i>
-              <p>
-                Settings
-              </p>
-            </a>
-          </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
@@ -253,6 +216,43 @@
               </li>
             </ul>
           </li> --}}
+          <li class="nav-item {{ request()->is('user/#') ? 'active' : '' }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users-cog"></i>
+              <p>
+                Akun
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/profile') }}" class="nav-link {{ request()->is('admin/profile') ? 'active' : '' }}">
+                  <i class="fas fa-user nav-icon"></i>
+                  <p>Profile</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/ubah-password') }}" class="nav-link {{ request()->is('admin/ubah-password') ? 'active' : '' }}">
+                  <i class="fas fa-lock nav-icon"></i>
+                  <p>Ubah Password</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/user') }}" class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>Semua User</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/admin/settings') }}" class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Settings
+              </p>
+            </a>
+          </li>
           {{-- <li class="nav-item">
             <form action="/logout" method="post">
               @csrf

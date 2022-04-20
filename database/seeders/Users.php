@@ -47,6 +47,7 @@ class Users extends Seeder
             'name' => "Pyxis",
             'level' => "user",
             'email' => "hubungipyxis@gmail.com",
+            'instansi' => "Institut Agama Islam Muhammadiyah Sinjay",
             'password' => bcrypt('hubungipyxissih'),
         ]);
 
@@ -54,7 +55,16 @@ class Users extends Seeder
             'name' => "Astrophel",
             'level' => "user",
             'email' => "astrophel@gmail.com",
+            'instansi' => "Fakultas Keguruan dan Ilmu Pendidikan Universitas Tadulako Palu",
             'password' => bcrypt('astrophelsih'),
+        ]);
+
+        User::create([
+            'name' => "Ceilo",
+            'level' => "user",
+            'email' => "ceilo@gmail.com",
+            'instansi' => "SMK Plus Alghifari Bandung",
+            'password' => bcrypt('ceilosih'),
         ]);
     }
 }

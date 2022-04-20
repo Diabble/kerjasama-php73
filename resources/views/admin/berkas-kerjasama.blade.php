@@ -46,24 +46,25 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <div class="modal-body">
-                    <!-- form start -->
-                    <form action="{{url('/admin/berkas-kerjasama/store')}}" method="POST" enctype="multipart/form-data">
+                  <!-- form start -->
+                  <form action="{{url('/admin/berkas-kerjasama/store')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
                       <div class="form-group">
-                        <label>Nama Surat</label>
-                        <input class="form-control" name="nama" placeholder="Enter..." value="">
+                        <label>Nama Berkas</label>
+                        <input class="form-control" name="nama" autocomplete="off" placeholder="Enter..." value="">
                       </div>
                       <div class="form-group">
-                        <label>Surat Permohonan</label>
-                        <input type="file" class="form-control" id="inputGroupFile02" name="suratpermohonan">
+                        <label>Berkas Kerjasama</label>
+                        <input type="file" class="form-control" id="inputGroupFile02" name="berkaskerjasama">
                       </div>
-                    </form>
-                    <!-- form end -->
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary btn-sm">Simpan</button>
-                  </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                      <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                    </div>
+                  </form>
+                  <!-- form end -->
                 </div>
               </div>
             </div>
@@ -78,7 +79,7 @@
                       No
                     </th>
                     <th>
-                      Nama Surat
+                      Nama Berkas
                     </th>
                     <th style="width: 20%">
                       Aksi
@@ -86,22 +87,24 @@
                   </tr>
                 </thead>
                 <tbody>
+                  {{ $errors }}
                   <?php $no=1; ?>
+                  @foreach ($beker as $row)
                   <tr style="text-align: center;">
                     <td>
                       {{ $no++ }}
                     </td>
                     <td>
-
+                      {{ $row->nama }}
                     </td>
                     <td class="project-actions">
                       <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
+                      <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah{{ $row->id }}">
                         <i class="fas fa-edit"></i>
                         Ubah
                       </button>
                       <!-- Modal Ubah Start -->
-                      <div class="modal fade text-left" id="ubah" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
+                      <div class="modal fade text-left" id="ubah{{ $row->id }}" tabindex="-1" aria-labelledby="ubahLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -110,24 +113,25 @@
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
-                            <div class="modal-body">
-                              <!-- form start -->
-                              <form action="{{url('/admin/berkas-kerjasama/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                            <!-- form start -->
+                            <form action="{{url('/admin/berkas-kerjasama/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              @csrf
+                              <div class="modal-body">
                                 <div class="form-group">
-                                  <label>Nama Surat</label>
-                                  <input class="form-control" name="nama" placeholder="Enter..." value="">
+                                  <label>Nama Berkas</label>
+                                  <input class="form-control" name="nama" placeholder="Enter..." value="{{ $row->nama }}">
                                 </div>
                                 <div class="form-group">
-                                  <label>Surat Permohonan</label>
-                                  <input type="file" class="form-control" id="inputGroupFile02" name="suratpermohonan">
+                                  <label>Berkas Kerjasama</label>
+                                  <input type="file" class="form-control" id="inputGroupFile02" name="berkaskerjasama">
                                 </div>
-                              </form>
-                              <!-- form end -->
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-                              <button type="button" class="btn btn-primary btn-sm">Simpan</button>
-                            </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                              </div>
+                            </form>
+                            <!-- form end -->
                           </div>
                         </div>
                       </div>
@@ -142,6 +146,7 @@
                       </a>
                     </td>
                   </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>

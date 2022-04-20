@@ -134,9 +134,10 @@ class FrontendController extends Controller
     {
         $propeker = ModelPengajuanKerjasama::all();
         $beranda = ModelBeranda::all();
+        $users = User::where('level', 'user')->get();
         $tangkap1 = \DB::table('pengajuan_kerjasama')->first();
         $tangkap2 = \DB::table('beranda')->first();
-        return view('layouts.progres-pengajuan-kerjasama', compact('propeker', 'beranda', 'tangkap1', 'tangkap2'));
+        return view('layouts.progres-pengajuan-kerjasama', compact('propeker', 'beranda', 'users', 'tangkap1', 'tangkap2'));
     }
 
     public function faq()
@@ -148,50 +149,34 @@ class FrontendController extends Controller
         return view('layouts.faq', compact('faq', 'tangkap1', 'tangkap2'));
     }
 
-    public function berita()
+    public function pengumuman(Request $request)
     {
-        $berita = ModelBerita::all();
-        $kabet = ModelKategoriBerita::all();
-        $beranda = ModelBeranda::all();
-        $user = User::all();
-        $tangkap1 = \DB::table('berita')->where('aktif', 1)->get();
-        $tangkap2 = \DB::table('kategori_berita')->get();
-        $tangkap3 = \DB::table('beranda')->first();
-        $tangkap4 = \DB::table('users')->first();
-        return view('layouts.berita', compact('berita', 'kabet', 'beranda', 'user', 'tangkap1', 'tangkap2', 'tangkap3', 'tangkap4'));
+        $keyword = $request->keyword;
+        $pengumuman = ModelPengumuman::orderBy('created_at', 'desc')->where('aktif', 1)->where(function($query) use($keyword){
+            $query->orWhere('judul', 'LIKE', '%'. $keyword .'%')
+                  ->orWhere('deskripsi', 'LIKE', '%'. $keyword .'%');
+        })->paginate(5);
+        $beranda = ModelBeranda::first();
+        $user = User::first();
+        $postbaru = ModelPengumuman::orderBy('created_at', 'desc')->limit('3')->where('aktif', 1)->get();
+        // $tangkap1 = \DB::table('pengumuman')->where('aktif', 1)->where('judul', 'LIKE', '%'. $keyword .'%')->get();
+        // $tangkap2 = \DB::table('beranda')->first();
+        // $tangkap3 = \DB::table('users')->first();
+        return view('layouts.pengumuman', compact('keyword', 'pengumuman', 'beranda', 'user', 'postbaru'));
     }
 
-    public function bedet($slug)
+    public function pedet(Request $request, $slug)
     {
-        $berita = ModelBerita::where('slug', $slug)->first();
-        $kabet = ModelKategoriBerita::all();
-        $beranda = ModelBeranda::all();
-        $tangkap1 = \DB::table('berita')->where('id', $berita->id)->first();
-        $tangkap2 = \DB::table('kategori_berita')->get();
-        $tangkap3 = \DB::table('beranda')->first();
-        $postbaru = ModelBerita::orderBy('created_at', 'DESC')->limit('5')->get();
-        return view('layouts.berita-detail', compact('berita', 'kabet', 'beranda', 'tangkap1', 'tangkap2', 'tangkap3', 'postbaru'));
-    }
-
-    public function pengumuman()
-    {
-        $pengumuman = ModelPengumuman::all();
-        $beranda = ModelBeranda::all();
-        $user = User::all();
-        $tangkap1 = \DB::table('pengumuman')->get();
-        $tangkap2 = \DB::table('beranda')->first();
-        $tangkap3 = \DB::table('users')->first();
-        return view('layouts.pengumuman', compact('pengumuman', 'tangkap1', 'tangkap2', 'tangkap3'));
-    }
-
-    public function pedet($slug)
-    {
-        $pengumuman = ModelPengumuman::where('slug', $slug)->first();
+        $keyword = $request->keyword;
+        $pengumuman = ModelPengumuman::where('slug', $slug)->where(function($query) use($keyword){
+            $query->orWhere('judul', 'LIKE', '%'. $keyword .'%')
+                  ->orWhere('deskripsi', 'LIKE', '%'. $keyword .'%');
+        })->first();
         $beranda = ModelBeranda::all();
         $tangkap1 = \DB::table('pengumuman')->where('id', $pengumuman->id)->first();
         $tangkap2 = \DB::table('beranda')->first();
-        $postbaru = ModelPengumuman::orderBy('created_at', 'DESC')->limit('5')->get();
-        return view('layouts.pengumuman-detail', compact('pengumuman', 'beranda', 'tangkap1', 'tangkap2', 'postbaru'));
+        $postbaru = ModelPengumuman::orderBy('created_at', 'desc')->limit('3')->where('aktif', 1)->get();
+        return view('layouts.pengumuman-detail', compact('keyword', 'pengumuman', 'beranda', 'tangkap1', 'tangkap2', 'postbaru'));
     }
 
     public function galeri()
@@ -203,13 +188,40 @@ class FrontendController extends Controller
         return view('layouts.galeri', compact('galeri', 'beranda', 'tangkap1', 'tangkap2'));
     }
 
+    public function berita(Request $request)
+    {
+        $keyword = $request->keyword;
+        $berita = ModelBerita::orderBy('created_at', 'desc')->where('aktif', 1)->where(function($query) use($keyword){
+            $query->orWhere('judul', 'LIKE', '%'. $keyword .'%')
+                  ->orWhere('deskripsi', 'LIKE', '%'. $keyword .'%');
+        })->paginate(2);
+        $kabet = ModelKategoriBerita::get();
+        $beranda = ModelBeranda::first();
+        $user = User::first();
+        $postbaru = ModelBerita::orderBy('created_at', 'desc')->limit('3')->where('aktif', 1)->get();
+        return view('layouts.berita', compact('keyword', 'berita', 'kabet', 'beranda', 'user', 'postbaru'));
+    }
+
+    public function bedet(Request $request, $slug)
+    {
+        $keyword = $request->keyword;
+        $berita = ModelBerita::with('kategori')->where('slug', $slug)->where(function($query) use($keyword){
+            $query->orWhere('judul', 'LIKE', '%'. $keyword .'%')
+                  ->orWhere('deskripsi', 'LIKE', '%'. $keyword .'%');
+        })->first();
+        $kabet = ModelKategoriBerita::get();
+        $beranda = ModelBeranda::get();
+        $postbaru = ModelBerita::orderBy('created_at', 'desc')->limit('3')->where('aktif', 1)->get();
+        return view('layouts.berita-detail', compact('keyword', 'berita', 'kabet', 'beranda', 'postbaru'));
+    }
+
     public function berkaskerjasama()
     {
-        // $bekar = ModelBerkasKerjasama::all();
+        $beker = ModelBerkasKerjasama::all();
         $beranda = ModelBeranda::all();
-        // $tangkap1 = \DB::table('berkas_kerjasama')->first();
+        $tangkap1 = \DB::table('berkas_kerjasama')->first();
         $tangkap2 = \DB::table('beranda')->first();
-        return view('layouts.berkas-kerjasama', compact( 'beranda', 'tangkap2'));
+        return view('layouts.berkas-kerjasama', compact('beker', 'beranda', 'tangkap1', 'tangkap2'));
     }
 
     public function ajukanKerjasama()
@@ -238,7 +250,7 @@ class FrontendController extends Controller
         ]);
 
         $file_name = $request->berkaspengaju->getClientOriginalName();
-            $file = $request->berkaspengaju->storeAs('berkaspengaju', $file_name);
+            $file = $request->berkaspengaju->storeAs('pengajuan', $file_name);
             ModelAjukanKerjasama::create([
             'nama' => $request->nama,
             'nohp' => $request->nohp,
@@ -247,7 +259,8 @@ class FrontendController extends Controller
             'berkaspengaju' => $file,
         ]);
         
-        return redirect('/ajukan-kerjasama')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Data Ajukan Kerjasama','Data berhasil terkirim, harap tunggu info selanjutnya');
+        return redirect('/ajukan-kerjasama');
     }
 
     public function angketkepuasanlayanan()
@@ -292,7 +305,8 @@ class FrontendController extends Controller
             'pesan' => $request->pesan,
         ]);
         
-        return redirect('/kontak')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Data Kontak','Data berhasil terkirim. Terima Kasih');
+        return redirect('/kontak');
     }
 
     public function io()
@@ -309,7 +323,7 @@ class FrontendController extends Controller
         $kakoin = ModelKategoriKodeInstansi::all();
         $kakein = ModelKategoriKetInstansi::all();
         $kajenas = ModelKategoriJenisNaskah::all();
-        $mitra = ModelMitra::all();
+        $mitra = ModelMitra::orderBy('created_at', 'desc')->get();
         $beranda = ModelBeranda::all();
         $tangkap1 = \DB::table('mitra')->get();
         $tangkap2 = \DB::table('beranda')->first();

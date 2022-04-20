@@ -323,9 +323,9 @@
                     <th>
                       Keterangan/Unit
                     </th>
-                    <th>
+                    {{-- <th>
                       Berkas Mitra
-                    </th>
+                    </th> --}}
                     <th style="width: 11%">
                       Aksi
                     </th>
@@ -363,9 +363,9 @@
                     <td>
                       {{ $row->ketunit }}
                     </td>
-                    <td>
+                    {{-- <td>
                       {{$row->berkasmitra}}
-                    </td>
+                    </td> --}}
                     <td class="project-actions text-center" style="padding: 10px 10px 10px 10px;">
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#lihat{{ $row->id }}">

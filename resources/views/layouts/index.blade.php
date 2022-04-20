@@ -106,7 +106,7 @@
 						<div class="col-lg-6">
 							<p><strong>{{ $tangkap2->nama }}</strong></p>
 							<p>{{ $tangkap2->jabatan }}</p>
-							<p>NIP. {{ $tangkap2->nip }}</p>
+							{{-- <p>NIP. {{ $tangkap2->nip }}</p> --}}
 						</div>
 						<div class="col-lg-6">
 							<a class="theme-button-one float-right" href="/wakil-rektor">Selanjutnya</a>
@@ -213,31 +213,6 @@
 						</div> <!-- /.single-blog -->
 					</div> <!-- /.col- -->
 					@endforeach
-					
-					{{-- <div class="item">
-						<div class="single-blog">
-							<div class="image-box">
-								<img src="{{ asset('assets') }}/front/images/blog/4.jpg" alt="">
-								<div class="overlay"><a href="#" class="date">Mar 30, 2018</a></div>
-							</div> <!-- /.image-box -->
-							<div class="post-meta">
-								<h5 class="title"><a href="blog-details.html">Kind of torture to have to watch the show the one day</a></h5>
-								<a href="blog-details.html" class="read-more">READ MORE</a>
-							</div> <!-- /.post-meta -->
-						</div> <!-- /.single-blog -->
-					</div> <!-- /.col- -->
-					<div class="item">
-						<div class="single-blog">
-							<div class="image-box">
-								<img src="{{ asset('assets') }}/front/images/blog/5.jpg" alt="">
-								<div class="overlay"><a href="#" class="date">Apr 14, 2018</a></div>
-							</div> <!-- /.image-box -->
-							<div class="post-meta">
-								<h5 class="title"><a href="blog-details.html">Make the best of things its an uphill climb long time</a></h5>
-								<a href="blog-details.html" class="read-more">READ MORE</a>
-							</div> <!-- /.post-meta -->
-						</div> <!-- /.single-blog -->
-					</div> <!-- /.col- --> --}}
 				</div> <!-- /.latest-news-slider -->
 			</div> <!-- /.row -->
 		</div> <!-- /.wrapper -->

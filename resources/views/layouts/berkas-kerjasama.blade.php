@@ -35,23 +35,30 @@
 									<thead>
 										<tr>
 											<th style="width: 1%;">No</th>
-											<th>Nama Surat</th>
-											<th>Download</th>
+											<th>Nama Berkas</th>
+											<th style="width: 20%">Aksi</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php $no=1; ?>
+										@foreach ($beker as $row)
 										<tr style="text-align:justify;">
 											<td>{{ $no++ }}</td>
-											<td></td>
-											<td></td>
+											<td>{{ $row->nama }}</td>
+											<td>
+												<a class="theme-button-one" style="line-height: 30px;" href="{{asset('storage/' . $row->berkaskerjasama)}}">
+													<i class="fa fa-download"></i>
+													Download
+												</a>
+											</td>
 										</tr>
+										@endforeach
 									</tbody>
 									<tfoot>
 										<tr>
 											<th>No</th>
-											<th>Nama Surat</th>
-											<th>Download</th>
+											<th>Nama Berkas</th>
+											<th>Aksi</th>
 										</tr>
 									</tfoot>
 								</table>

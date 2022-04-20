@@ -144,21 +144,32 @@
                                 <div class="form-group">
                                   <label>Instansi</label>
                                   {{-- <input class="form-control" name="instansi" autocomplete="off" placeholder="Enter..." value="{{ $row->users->instansi }}"> --}}
-                                  <select id="inputStatus" name="instansi" class="form-control custom-select">
-                                    @foreach ($users as $row)
-                                      <option value="{{ $row->id }}" {{ old('instansi') == $row->id ? 'selected' : null }}>{{ $row->instansi }}</option>
+                                  <select id="inputStatus" name="instansi" class="form-control">
+                                    @foreach ($users as $val)
+                                      <option value="{{ $val->id }}" {{ $row->instansi == $val->id ? 'selected' : null }}>{{ $val->instansi }}</option>
                                     @endforeach
                                   </select>
                                 </div>
                                 <div class="form-group">
                                   <label>Progres</label>
-                                  <select id="inputStatus" name="progres" class="form-control custom-select">
-                                    <option selected disabled hidden value="{{ $row->progres }}">{{ $row->progres }}</option>
-                                    <option value="Penjajakan">Penjajakan</option>
-                                    <option value="Pembahasan">Pembahasan</option>
-                                    <option value="Penandatangan">Penandatangan</option>
-                                    <option value="Monitoring & Evaluasi">Monitoring & Evaluasi</option>
-                                    <option value="Selesai">Selesai</option>
+                                  {{-- {{ $row->progres }} --}}
+                                  <select id="inputStatus" name="progres" class="form-control">
+                                    {{-- <option disabled hidden value="{{ $row->progres }}">{{ $row->progres }}</option> --}}
+                                    <option value="Penjajakan" @if ($row->progres == 'Penjajakan')
+                                      selected
+                                  @endif>Penjajakan</option>
+                                    <option value="Pembahasan" @if ($row->progres == 'Pembahasan')
+                                      selected
+                                  @endif>Pembahasan</option>
+                                    <option value="Penandatangan" @if ($row->progres == 'Penandatangan')
+                                      selected
+                                  @endif>Penandatangan</option>
+                                    <option value="Monitoring & Evaluasi" @if ($row->progres == 'Monitoring & Evaluasi')
+                                      selected
+                                  @endif>Monitoring & Evaluasi</option>
+                                    <option value="Selesai" @if ($row->progres == 'Selesai')
+                                      selected
+                                  @endif>Selesai</option>
                                   </select>
                                   {{-- <input class="form-control" name="progres" autocomplete="off" placeholder="Enter..." value="{{ $row->progres }}"> --}}
                                 </div>
