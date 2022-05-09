@@ -26,7 +26,7 @@
 				<div class="container">
 					<div class="wrapper">
 						<div class="row">
-							@foreach ($tangkap1 as $row)
+							@foreach ($galeri as $row)
 							<div class="col-lg-3 col-sm-6 col-12">
 								<div class="single-case-block">
 									<img src="{{ asset('storage/' . $row->poto) }}" alt="">
@@ -44,11 +44,12 @@
 							@endforeach
 						</div> <!-- /.row -->
 					</div> <!-- /.wrapper -->
-					<div class="theme-pagination text-center">
+					<div class="theme-pagination">
 						<ul>
-							<li><a href="#">1</a></li>
+							{{ $galeri->links('pagination::bootstrap-4') }}
+							{{-- <li><a href="#">1</a></li>
 							<li class="active"><a href="#">2</a></li>
-							<li><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+							<li><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li> --}}
 						</ul>
 					</div>
 				</div> <!-- /.container -->

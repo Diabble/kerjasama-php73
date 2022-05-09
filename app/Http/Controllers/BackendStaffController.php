@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Storage;
+
 use Auth;
 
 use App\Models\User;
@@ -103,17 +105,53 @@ class BackendStaffController extends Controller
     public function profileupdate(Request $request, $id)
     {
         Request()->validate([
+            'poto' => 'image|mimes:png,jpg,jpeg,gif|max:500',
             'name' => 'required',
             'email' => 'required',
         ]);
 
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-        ];
+        // $data = [
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        // ];
 
-        User::find($id)->update($data);
+        // User::find($id)->update($data);
+        $profile = User::find($id);
+        if (Request()->hasFile('poto')) {
+            if (Storage::exists($profile->poto)) {
+                Storage::delete($profile->poto);
+            }
+
+            // $file_name = $request->poto->getClientOriginalName();
+            //     $image = $request->poto->storeAs('avatar', $file_name);
+            $image = $request->poto->store('avatar');
+            $profile->update([
+                'poto' => $image,
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+        } else {
+            $profile->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+        }
+
         alert()->success('Data Profile Berhasil Diperbarui!');
+        return redirect('/staff/profile');
+    }
+
+    public function avatarupdate(Request $request, $id)
+    {
+        $avatar = User::find($id);
+            if (Storage::exists($avatar->poto)) {
+                Storage::delete($avatar->poto);
+            }
+        $avatar->update([
+            'poto' => "",
+        ]);
+        
+        alert()->success('Avatar Berhasil Dihapus!');
         return redirect('/staff/profile');
     }
 
@@ -241,7 +279,7 @@ class BackendStaffController extends Controller
         $kakoin = ModelKategoriKodeInstansi::all();
         $kakein = ModelKategoriKetInstansi::all();
         $kajenas = ModelKategoriJenisNaskah::all();
-        $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->get();
+        $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->orderBy('id', 'desc')->get();
         return view('staff.mitra', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
@@ -254,10 +292,12 @@ class BackendStaffController extends Controller
     {
         $file = $request->file('import');
         $namaFile = $file->getClientOriginalName();
-        $file->move('berkasmitra', $namaFile);
+        // config(['excel.import.startRow' => 2]);
+        $file->move('importmitra', $namaFile);
 
-        Excel::import(new MitraImport, public_path('/berkasmitra/' . $namaFile));
-        return redirect('/staff/mitra')->with('pesan', 'Data Berhasil Di Import !!!');
+        Excel::import(new MitraImport, public_path('/importmitra/' . $namaFile));
+        alert()->success('Data Mitra Berhasil Di Import!');
+        return redirect('/staff/mitra');
     }
 
     public function mitraprint()
@@ -265,7 +305,7 @@ class BackendStaffController extends Controller
         $kakoin = ModelKategoriKodeInstansi::get();
         $kakein = ModelKategoriKetInstansi::get();
         $kajenas = ModelKategoriJenisNaskah::get();
-        $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->get();
+        $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->orderBy('id', 'desc')->get();
         return view('staff.mitra-print', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
@@ -296,7 +336,7 @@ class BackendStaffController extends Controller
             'selesai' => 'required',
             'jenisnaskah' => 'required',
             'ketunit' => 'required',
-            'berkasmitra' => 'required|file',
+            'berkasmitra' => 'file',
         ], [
             'kodeinstansi.required' => 'Kode Instansi tidak boleh kosong!',
             'ketinstansi.required' => 'Keterangan Instansi tidak boleh kosong!',
@@ -306,27 +346,41 @@ class BackendStaffController extends Controller
             'selesai.required' => 'Tanggal Berakhir Kerjasama tidak boleh kosong!',
             'jenisnaskah.required' => 'Jenis Naskah tidak boleh kosong!',
             'ketunit.required' => 'Keterangan/Unit tidak boleh kosong!',
-            'berkasmitra.required' => 'Berkas Mitra tidak boleh kosong!',
         ]);
 
-        $mulai = Carbon::createFromFormat('m/d/Y g:i A', $request->mulai);
-        $selesai = Carbon::createFromFormat('m/d/Y g:i A', $request->selesai);
+        if (Request()->hasFile('berkasmitra')) {
+            if (Storage::exists($request->berkasmitra)) {
+                Storage::delete($request->berkasmitra);
+            }
 
-        $file_name = $request->berkasmitra->getClientOriginalName();
-            $file = $request->berkasmitra->storeAs('berkasmitra', $file_name);
-        ModelMitra::create([
-            'kodeinstansi' => $request->kodeinstansi,
-            'ketinstnasi' => $request->ketinstnasi,
-            'instansi' => $request->instansi,
-            'bidkerjasama' => $request->bidkerjasama,
-            'mulai' => $mulai->toDateTimeString(),
-            'selesai' => $selesai->toDateTimeString(),
-            'jenisnaskah' => $request->jenisnaskah,
-            'ketunit' => $request->ketunit,
-            'berkasmitra' => $file,
-        ]);
+            $file_name = $request->berkasmitra->getClientOriginalName();
+                $file = $request->berkasmitra->storeAs('berkasmitra', $file_name);
+            $mitra = ModelMitra::create([
+                'kodeinstansi' => $request->kodeinstansi,
+                'ketinstansi' => $request->ketinstansi,
+                'instansi' => $request->instansi,
+                'bidkerjasama' => $request->bidkerjasama,
+                'mulai' => Carbon::createFromFormat('m/d/Y g:i A', $request->mulai)->toDateTimeString(),
+                'selesai' => Carbon::createFromFormat('m/d/Y g:i A', $request->selesai)->toDateTimeString(),
+                'jenisnaskah' => $request->jenisnaskah,
+                'ketunit' => $request->ketunit,
+                'berkasmitra' => $file,
+            ]);
+        } else {
+            $mitra = ModelMitra::create([
+                'kodeinstansi' => $request->kodeinstansi,
+                'ketinstansi' => $request->ketinstansi,
+                'instansi' => $request->instansi,
+                'bidkerjasama' => $request->bidkerjasama,
+                'mulai' => Carbon::createFromFormat('m/d/Y g:i A', $request->mulai)->toDateTimeString(),
+                'selesai' => Carbon::createFromFormat('m/d/Y g:i A', $request->selesai)->toDateTimeString(),
+                'jenisnaskah' => $request->jenisnaskah,
+                'ketunit' => $request->ketunit,
+            ]);
+        }
         
-        return redirect('/staff/mitra')->with('pesan', 'Data Berhasil Di Tambahkan !!!');
+        alert()->success('Data Mitra Berhasil Ditambahkan!');
+        return redirect('/staff/mitra');
     }
 
     /**
@@ -384,37 +438,40 @@ class BackendStaffController extends Controller
             'ketunit.required' => 'Keterangan/Unit tidak boleh kosong!',
         ]);
 
-        $mulai = Carbon::createFromFormat('m/d/Y g:i A', $request->mulai);
-        $selesai = Carbon::createFromFormat('m/d/Y g:i A', $request->selesai);
-
+        $mitra = ModelMitra::find($id);
         if (Request()->hasFile('berkasmitra')) {
+            if (Storage::exists($mitra->berkasmitra)) {
+                Storage::delete($mitra->berkasmitra);
+            }
+
             $file_name = $request->berkasmitra->getClientOriginalName();
                 $file = $request->berkasmitra->storeAs('berkasmitra', $file_name);
-            ModelMitra::where('id',$id)->update([
+            $mitra->update([
                 'kodeinstansi' => $request->kodeinstansi,
                 'ketinstansi' => $request->ketinstansi,
                 'instansi' => $request->instansi,
                 'bidkerjasama' => $request->bidkerjasama,
-                'mulai' => $mulai->toDateTimeString(),
-                'selesai' => $selesai->toDateTimeString(),
+                'mulai' => Carbon::createFromFormat('m/d/Y g:i A', $request->mulai)->toDateTimeString(),
+                'selesai' => Carbon::createFromFormat('m/d/Y g:i A', $request->selesai)->toDateTimeString(),
                 'jenisnaskah' => $request->jenisnaskah,
                 'ketunit' => $request->ketunit,
                 'berkasmitra' => $file,
             ]);
         } else {
-            ModelMitra::where('id',$id)->update([
+            $mitra->update([
                 'kodeinstansi' => $request->kodeinstansi,
                 'ketinstansi' => $request->ketinstansi,
                 'instansi' => $request->instansi,
                 'bidkerjasama' => $request->bidkerjasama,
-                'mulai' => $mulai->toDateTimeString(),
-                'selesai' => $selesai->toDateTimeString(),
+                'mulai' => Carbon::createFromFormat('m/d/Y g:i A', $request->mulai)->toDateTimeString(),
+                'selesai' => Carbon::createFromFormat('m/d/Y g:i A', $request->selesai)->toDateTimeString(),
                 'jenisnaskah' => $request->jenisnaskah,
                 'ketunit' => $request->ketunit,
             ]);
         }
         
-        return redirect('/staff/mitra')->with('pesan', 'Data Berhasil Di Perbarui !!!');
+        alert()->success('Data Mitra Berhasil Diperbarui!');
+        return redirect('/staff/mitra');
     }
 
     /**
@@ -425,8 +482,13 @@ class BackendStaffController extends Controller
      */
     public function mitradestroy($id)
     {
-        ModelMitra::find($id)->delete();
-
-        return redirect('/staff/mitra')->with('pesan', 'Data Berhasil Di Hapus !!!');
+        $mitra = ModelMitra::find($id);
+            if (Storage::exists($mitra->berkasmitra)) {
+                Storage::delete($mitra->berkasmitra);
+            }
+        $mitra->delete();
+        
+        alert()->success('Data Mitra Berhasil Dihapus!');
+        return redirect('/staff/mitra');
     }
 }

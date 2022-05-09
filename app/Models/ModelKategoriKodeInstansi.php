@@ -13,6 +13,6 @@ class ModelKategoriKodeInstansi extends Model
     protected $fillable = ['nama_kategori', 'slug'];
 
     public function mitra() {
-        return $this->hasMany(ModelMitra::class);
+        return $this->hasMany(ModelMitra::class, 'kodeinstansi', 'id');
     }
 }

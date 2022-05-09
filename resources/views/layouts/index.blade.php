@@ -190,7 +190,7 @@
 	<div class="container">
 		<div class="theme-title-one text-center">
 			<h2>Berita Terbaru</h2>
-			<p>A tale of a fateful trip that started from this tropic port aboard this tiny ship today stillers </p>
+			{{-- <p>A tale of a fateful trip that started from this tropic port aboard this tiny ship today stillers </p> --}}
 		</div> <!-- /.theme-title-one -->
 		<div class="wrapper">
 			<div class="clearfix">
@@ -202,7 +202,7 @@
 								<img src="{{ asset('storage/' . $row->poto) }}" alt="Image">
 								<div class="overlay">
 									<a href="#" class="date">
-										{{ Carbon\Carbon::parse($row->created_at)->translatedFormat('l, d F Y') }}
+										{{ Carbon\Carbon::parse($row->created_at)->locale('id')->translatedFormat('l, d F Y') }}
 									</a>
 								</div>
 							</div> <!-- /.image-box -->

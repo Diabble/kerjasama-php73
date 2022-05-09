@@ -63,7 +63,6 @@
 <!-- ./wrapper -->
 
 @include('sweetalert::alert')
-@yield('script')
 
 <!-- jQuery -->
 <script src="{{asset('assets/admin')}}/plugins/jquery/jquery.min.js"></script>
@@ -101,6 +100,8 @@ $(document).ready(function () {
   //Initialize Select2 Elements
   $('.select2').select2()
 </script>
+
+@yield('script')
 
 <script>
   // Ubah Modal Gambar

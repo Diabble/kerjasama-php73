@@ -10,5 +10,5 @@ class ModelCapaianKinerja extends Model
     use HasFactory;
     protected $primaryKey = 'id';
     protected $table = 'capaian_kinerja';
-    protected $fillable = ['id'];
+    protected $guarded = ['id'];
 }

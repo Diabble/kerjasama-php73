@@ -219,7 +219,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {{-- {{ $errors }} --}}
+                  {{ $errors }}
                   <?php $no=1; ?>
                   @forelse ( $berita as $row )
                   <tr style="text-align: center;">

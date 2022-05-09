@@ -82,10 +82,10 @@
                 {!!$row->bidkerjasama!!}
             </td>
             <td>
-                {{$row->mulai}}
+              {{ \Carbon\Carbon::parse($row->mulai)->format('d/m/Y H:i:s') }}
             </td>
             <td>
-                {{$row->selesai}}
+              {{ \Carbon\Carbon::parse($row->selesai)->format('d/m/Y H:i:s') }}
             </td>
             <td>
                 {{$row->kajenas->nama_kategori}}

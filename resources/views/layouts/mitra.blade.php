@@ -53,7 +53,7 @@
 											<td>{{ $row->kakoin->nama_kategori }}</td>
 											<td>{{ $row->kakein->nama_kategori }}</td>
 											<td>{{ $row->instansi }}</td>
-											<td>{!! $row->bidkerjasama !!}</td>
+											<td>{!! Str::substr($row->bidkerjasama, 0, 100) !!}</td>
 											<td>{{ $row->mulai }}</td>
 											<td>{{ $row->selesai }}</td>
 											<td>{{ $row->kajenas->nama_kategori }}</td>

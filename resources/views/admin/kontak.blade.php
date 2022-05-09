@@ -82,7 +82,7 @@
             </div>
             <!-- Modal Tambah End -->
           </div> --}}
-          <div class="card-body" style="display: block; padding: 10px 0px 10px 0px;">
+          <div class="card-body" style="display: block;">
             <div class="container table-responsive">
               <table class="table table-striped table-bordered projects example">
                 <thead>

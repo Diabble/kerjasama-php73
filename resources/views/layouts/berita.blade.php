@@ -35,7 +35,7 @@
 											<img src="{{ asset('storage/' . $row->poto) }}" alt="Image">
 											<div class="overlay">
 												<div class="date">
-													{{ Carbon\Carbon::parse($row->created_at)->translatedFormat('l, d F Y') }}
+													{{ Carbon\Carbon::parse($row->created_at)->locale('id')->translatedFormat('l, d F Y') }}
 												</div>
 												<div class="date" style="margin-left: 275px">
 													{{ $user->name }}
@@ -97,7 +97,7 @@
 										<img src="{{ asset('storage/' . $val->poto) }}" alt="" class="float-left">
 										<div class="post float-left">
 											<a href="{{ route('berita-detail', $val->slug) }}">{{ $val->judul }}</a>
-											<div class="date">{{ Carbon\Carbon::parse($val->created_at)->translatedFormat('l, d F Y') }}</div>
+											<div class="date">{{ Carbon\Carbon::parse($val->created_at)->locale('id')->translatedFormat('l, d F Y') }}</div>
 										</div>
 									</li>
 									@endforeach

@@ -105,7 +105,6 @@ $(document).ready(function () {
 
 @yield('script')
 
-
 <script>
   $(function() {
     var Toast = Swal.mixin({

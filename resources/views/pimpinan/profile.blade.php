@@ -10,7 +10,7 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="/pimpinan/dashboard">Home</a></li>
               <li class="breadcrumb-item active">Profile</li>
             </ol>
           </div>
@@ -30,18 +30,17 @@
               </button>
             </div>
           </div>
-          <div class="card-body">
           {{-- {{ $errors }} --}}
+          <div class="card-body" style="display:grid; grid-template-columns:25% auto;">
             <table class="table table-hover">
               <tbody>
-                {{-- <tr>
-                    <th style="width: 20%">
-                      Nama Lengkap
-                    </th>
-                    <td>
-                      {{ $rektor->nama }}
-                    </td>
-                </tr> --}}
+                <tr>
+                  @if (Auth::user()->poto)
+                    <img class="img-circle elevation-2 img-fluid" src="{{ asset('storage/' . $user->poto) }}" alt="User Avatar">
+                  @else
+                    <img class="img-circle elevation-2" src="{{asset('assets/admin')}}/dist/img/avatar.png" alt="User Avatar">
+                  @endif
+                </tr>
                 <tr>
                     <th style="width: 20%">
                       Username
@@ -51,12 +50,12 @@
                     </td>
                 </tr>
                 <tr>
-                      <th>
-                        Kategori
-                      </th>
-                      <td class="text-capitalize">
-                          {{ $user->level }}
-                      </td>
+                    <th>
+                      Kategori
+                    </th>
+                    <td class="text-capitalize">
+                        {{ $user->level }}
+                    </td>
                   </tr>
                 <tr>
                     <th>
@@ -71,6 +70,12 @@
           </div>
           <!-- /.card-body -->
           <div class="card-footer" style="display: block;">
+            <!-- Button trigger modal -->
+            <a class="btn btn-danger btn-sm" href="{{url('/pimpinan/profile/avatar-update')}}/{{$user->id}}" onclick="return confirm('Yakin dihapus ?')">
+              <i class="fas fa-trash"></i>
+              Hapus Avatar
+            </a>
+
               <!-- Button trigger modal -->
               <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#ubahprofile">
                 <i class="fas fa-edit"></i>
@@ -90,12 +95,18 @@
                       <!-- form start -->
                       <form action="{{url('/pimpinan/profile/update')}}/{{$user->id}}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        {{-- <div class="form-group">
-                          <label>Nama Lengkap</label>
-                          <input class="form-control" disabled autocomplete="off" placeholder="Enter..." value="{{ $rektor->nama }}">
-                        </div> --}}
                         <div class="form-group">
-                          <label>Username</label>
+                          <label>Avatar</label>
+                          <!-- <img src="" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 100%"> -->
+                          <input type="file" class="form-control @error('poto') is-invalid @enderror" name="poto" id="image">
+                          @error('poto')
+                            <div class="invalid-feedback">
+                              {{ $message }}
+                            </div>
+                          @enderror
+                        </div>
+                        <div class="form-group">
+                          <label>Nama</label>
                           <input class="form-control" name="name" autocomplete="off" placeholder="Enter..." value="{{ $user->name }}">
                         </div>
                         <div class="form-group">

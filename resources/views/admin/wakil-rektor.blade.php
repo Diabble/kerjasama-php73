@@ -31,25 +31,25 @@
             </div>
           </div>
           <div class="card-body p-0" style="display: block;">
-          {{ $errors }}
+          {{-- {{ $errors }} --}}
             <table class="table table-striped table-bordered projects">
               <thead>
                 <tr style="text-align: center;">
                   <th style="width: 1%">
                     ID
                   </th>
-                  <th>
+                  <th style="width: 25%">
                     Foto Profil
                   </th>
-                  <th>
+                  <th style="width: 20%">
                     Nama
                   </th>
-                  <th>
+                  {{-- <th>
                     Jabatan
-                  </th>
-                  <th>
+                  </th> --}}
+                  {{-- <th>
                     NIP
-                  </th>
+                  </th> --}}
                   <th>
                     Deskripsi
                   </th>
@@ -70,16 +70,85 @@
                   <td>
                     {{ $row->nama }}
                   </td>
-                  <td>
+                  {{-- <td>
                     {{ $row->jabatan }}
-                  </td>
-                  <td>
+                  </td> --}}
+                  {{-- <td>
                     {{ $row->nip }}
-                  </td>
+                  </td> --}}
                   <td>
-                    {!! $row->deskripsi !!}
+                    {!! Str::substr($row->deskripsi, 0, 300) !!}
                   </td>
                   <td class="project-actions text-center">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#lihat">
+                      <i class="fas fa-eye"></i>
+                      Lihat
+                    </button>
+                    <!-- Modal Lihat Start -->
+                    <div class="modal fade text-left" id="lihat" tabindex="-1" aria-labelledby="lihatLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="lihatLabel">Lihat Sambutan Wakil Rektor Admin</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <table class="table table-hover">
+                              <tbody>
+                                <tr>
+                                  <th style="width: 30%">
+                                    Foto Profil
+                                  </th>
+                                  <td>
+                                    <img src="{{ asset('storage/' . $row->poto) }}" alt="Image" class="img-fluid" style="display:block; margin:auto; max-width: 25%">
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>
+                                    Nama
+                                  </th>
+                                  <td>
+                                    {{ $row->nama }}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>
+                                    Jabatan
+                                  </th>
+                                  <td>
+                                    {{ $row->jabatan }}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>
+                                    NIP
+                                  </th>
+                                  <td>
+                                    {{ $row->nip }}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <th>
+                                    Deskripsi
+                                  </th>
+                                  <td>
+                                    {!! $row->deskripsi !!}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Modal Ubah End -->
+
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubah">
                       <i class="fas fa-edit"></i>

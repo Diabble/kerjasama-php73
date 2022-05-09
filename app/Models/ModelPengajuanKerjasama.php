@@ -15,8 +15,12 @@ class ModelPengajuanKerjasama extends Model
     public function users() {
         return $this->belongsTo(User::class, 'instansi', 'id');
     }
+    
+    public function peker_id() {
+        return $this->belongsTo(User::class, 'id', 'id');
+    }
 
     public function user() {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'peker_id', 'id');
     }
 }

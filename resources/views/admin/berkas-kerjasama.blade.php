@@ -70,7 +70,7 @@
             </div>
             <!-- Modal Tambah End -->
           </div>
-          <div class="card-body p-0" style="display: block;">
+          <div class="card-body" style="display: block;">
             <div class="container table-responsive">
               <table class="table table-striped table-bordered projects example">
                 <thead>
@@ -87,7 +87,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {{ $errors }}
+                  {{-- {{ $errors }} --}}
                   <?php $no=1; ?>
                   @foreach ($beker as $row)
                   <tr style="text-align: center;">

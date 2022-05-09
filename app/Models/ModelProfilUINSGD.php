@@ -10,5 +10,5 @@ class ModelProfilUINSGD extends Model
     use HasFactory;
     protected $primaryKey = 'id';
     protected $table = 'profil_uin_sgd';
-    protected $fillable = ['id'];
+    protected $guarded = ['id'];
 }

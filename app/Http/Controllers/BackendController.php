@@ -98,18 +98,59 @@ class BackendController extends Controller
 
     public function profileupdate(Request $request, $id)
     {
-        Request()->validate([
-            'name' => 'required',
-            'email' => 'required',
+        // Request()->validate([
+        //     'poto' => 'image|mimes:png,jpg,jpeg,gif|max:500',
+        //     'name' => 'required',
+        //     'email' => 'required',
+        // ]);
+
+        try {
+            //code...
+            $profile = User::find($id);
+            if (Request()->hasFile('poto')) {
+                if (Storage::exists($profile->poto)) {
+                    Storage::delete($profile->poto);
+                }
+
+                // $file_name = $request->poto->getClientOriginalName();
+                //     $image = $request->poto->storeAs('avatar', $file_name);
+                $image = $request->poto->store('avatar');
+                $profile->update([
+                    'poto' => $image,
+                    'name' => $request->name,
+                    'email' => $request->email,
+                ]);
+            } else {
+                $profile->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                ]);
+            }
+            DB::commit();
+
+            alert()->success('Data Profile Berhasil Diperbarui!');
+            return redirect('/admin/profile');
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            
+            // alert()->error($th->getMessage());
+            alert()->error('Data Profile Gagal Diperbarui!');
+            return redirect('/admin/profile');
+        }
+    }
+
+    public function avatarupdate(Request $request, $id)
+    {
+        $avatar = User::find($id);
+            if (Storage::exists($avatar->poto)) {
+                Storage::delete($avatar->poto);
+            }
+        $avatar->update([
+            'poto' => "",
         ]);
-
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-        ];
-
-        User::find($id)->update($data);
-        alert()->success('Data Profile Berhasil Diperbarui!');
+        
+        alert()->success('Avatar Berhasil Dihapus!');
         return redirect('/admin/profile');
     }
 
@@ -149,22 +190,26 @@ class BackendController extends Controller
     {
         $uin = User::whereIn('level', ['admin', 'pimpinan', 'staff'])->get();
         $user = User::where('level', 'user')->get();
-        return view('admin.user', compact('uin', 'user'));
+        $peker_id = ModelPengajuanKerjasama::with('peker_id')->get();
+        return view('admin.user', compact('uin', 'user', 'peker_id'));
     }
     
     public function userstore(Request $request)
     {
         Request()->validate([
-            'name' => 'required|min:5|max:15',
+            'name' => 'required|min:5|max:100',
             'level' => 'required',
             'email' => 'required|email:dns',
-            'password' => 'required|min:5|max:14',
+            'instansi' => 'required',
+            'password' => 'required|min:5|max:100',
         ]);
 
         User::create([
             'name' => $request->name,
             'level' => $request->level,
             'email' => $request->email,
+            'instansi' => $request->instansi,
+            'peker_id' => $request->peker_id,
             'password' => Hash::make($request->password),
         ]);
 
@@ -174,8 +219,10 @@ class BackendController extends Controller
 
     public function useredit($id)
     {
+        $uin = User::whereIn('level', ['admin', 'pimpinan', 'staff'])->get();
         $user = User::findorfail($id);
-        return view('admin.user', compact('user'));
+        $peker_id = ModelPengajuanKerjasama::with('peker_id')->get();
+        return view('admin.user', compact('uin', 'user', 'peker_id'));
     }
 
     public function userupdate(Request $request, $id)
@@ -184,15 +231,19 @@ class BackendController extends Controller
             'name' => 'required',
             'level' => 'required',
             'email' => 'required',
+            'peker_id' => 'required',
+            'instansi' => 'required',
         ]);
 
-        $user->update([
+        $data = [
             'name' => $request->name,
             'level' => $request->level,
             'email' => $request->email,
-        ]);
+            'peker_id' => $request->peker_id,
+            'instansi' => $request->instansi,
+        ];
         
-        $user = User::find($id);
+        User::find($id)->update($data);
         alert()->success('Akun','Data Akun Berhasil Diperbarui!');
         return redirect('/admin/user');
     }
@@ -200,14 +251,14 @@ class BackendController extends Controller
     public function userpassupdate(Request $request, $id)
     {
         Request()->validate([
-            'password' => 'required',
+            'password' => 'required|min:7|confirmed',
         ]);
 
-        $user->update([
+        $data = [
             'password' => Hash::make($request->password),
-        ]);
+        ];
         
-        $user = User::find($id);
+        User::find($id)->update($data);
         alert()->success('Akun','Password Berhasil Diperbarui!');
         return redirect('/admin/user');
     }
@@ -245,6 +296,15 @@ class BackendController extends Controller
         return view('admin.settings', compact('beranda', 'profil', 'caper', 'kaber', 'kakoin', 'kakein', 'kajenas'));
     }
 
+    // SettingsV2
+    public function tampilanberanda()
+    {
+        $beranda = ModelBeranda::get();
+        $profil = ModelProfilUINSGD::get();
+        $caper = ModelCapaianKinerja::get();
+        return view('admin.tampilan-beranda', compact('beranda', 'profil', 'caper'));
+    }
+
     // Beranda/Slide Carousel
     public function berandacreate()
     {
@@ -276,7 +336,8 @@ class BackendController extends Controller
         ]);
         
         alert()->success('Data Slide Carousel Berhasil Ditambahkan!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/tampilan-beranda');
     }
 
     public function berandashow($id)
@@ -287,7 +348,8 @@ class BackendController extends Controller
     public function berandaedit($id)
     {
         $beranda = ModelBeranda::findorfail($id);
-        return view('admin.settings', compact('beranda'));
+        // return view('admin.settings', compact('beranda'));
+        return view('admin.tampilan-beranda', compact('beranda'));
     }
 
     public function berandaupdate(Request $request, $id)
@@ -303,8 +365,8 @@ class BackendController extends Controller
             'tombolcarousel.required' => 'Nama Tombol tidak boleh kosong!',
         ]);
 
+        $beranda = ModelBeranda::find($id);
         if (Request()->hasFile('poto')) {
-            $beranda = ModelBeranda::find($id);
             if (Storage::exists($beranda->poto)) {
                 Storage::delete($beranda->poto);
             }
@@ -327,7 +389,8 @@ class BackendController extends Controller
         }
         
         alert()->success('Data Slide Carousel Berhasil Diperbarui!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/tampilan-beranda');
     }
 
     public function berandadestroy($id)
@@ -339,7 +402,8 @@ class BackendController extends Controller
         $beranda->delete();
 
         alert()->success('Data Slide Carousel Berhasil Dihapus!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/tampilan-beranda');
     }
 
     // Profil UIN SGD
@@ -361,7 +425,8 @@ class BackendController extends Controller
     public function profiluinsgdedit($id)
     {
         $profil = ModelProfilUINSGD::findorfail($id);
-        return view('admin.settings', compact('profil'));
+        // return view('admin.settings', compact('profil'));
+        return view('admin.tampilan-beranda', compact('profil'));
     }
 
     public function profiluinsgdupdate(Request $request, $id)
@@ -384,7 +449,8 @@ class BackendController extends Controller
         
         ModelProfilUINSGD::find($id)->update($data);        
         alert()->success('Data Profile Berhasil Diperbarui!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/tampilan-beranda');
     }
 
     public function profiluinsgddestroy($id)
@@ -411,7 +477,8 @@ class BackendController extends Controller
     public function caperedit($id)
     {
         $caper = ModelCapaianKinerja::findorfail($id);
-        return view('admin.settings', compact('caper'));
+        // return view('admin.settings', compact('caper'));
+        return view('admin.tampilan-beranda', compact('caper'));
     }
 
     public function caperupdate(Request $request, $id)
@@ -434,12 +501,23 @@ class BackendController extends Controller
 
         ModelCapaianKinerja::find($id)->update($data);
         alert()->success('Data Capaian Kinerja Berhasil Diperbarui!');       
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/tampilan-beranda');
     }
 
     public function caperdestroy($id)
     {
         //
+    }
+
+    // KategoriV2
+    public function kategori()
+    {
+        $kaber = ModelKategoriBerita::all();
+        $kakoin = ModelKategoriKodeInstansi::all();
+        $kakein = ModelKategoriKetInstansi::all();
+        $kajenas = ModelKategoriJenisNaskah::all();
+        return view('admin.kategori', compact('kaber', 'kakoin', 'kakein', 'kajenas'));
     }
 
     // Kategori Berita
@@ -462,7 +540,8 @@ class BackendController extends Controller
         ]);
         
         alert()->success('Kategori Berita Berhasil Ditambahkan!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/kategori');
     }
 
     public function kabershow($id)
@@ -473,7 +552,8 @@ class BackendController extends Controller
     public function kaberedit($id)
     {
         $kaber = ModelKategoriBerita::findorfail($id);
-        return view('admin.settings', compact('kaber'));
+        // return view('admin.settings', compact('kaber'));
+        return view('admin.kategori', compact('kaber'));
     }
 
     public function kaberupdate(Request $request, $id)
@@ -491,7 +571,8 @@ class BackendController extends Controller
 
         ModelKategoriBerita::find($id)->update($data);
         alert()->success('Data Kategori Berita Berhasil Diperbarui!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/kategori');
     }
 
     public function kaberdestroy($id)
@@ -499,7 +580,8 @@ class BackendController extends Controller
         ModelKategoriBerita::find($id)->delete();
         
         alert()->success('Kategori Berita Berhasil Dihapus!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/kategori');
     }
 
     // Kategori Kode Instansi
@@ -528,7 +610,8 @@ class BackendController extends Controller
         ]);
         
         alert()->success('Kategori Kode Instansi Berhasil Ditambahkan!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/kategori');
     }
     
     /**
@@ -551,7 +634,8 @@ class BackendController extends Controller
     public function kakoinedit($id)
     {
         $kakoin = ModelKategoriKodeInstansi::findorfail($id);
-        return view('admin.settings', compact('kakoin'));
+        // return view('admin.settings', compact('kakoin'));
+        return view('admin.kategori', compact('kakoin'));
     }
 
 
@@ -570,7 +654,8 @@ class BackendController extends Controller
 
         ModelKategoriKodeInstansi::find($id)->update($data);
         alert()->success('Data Kategori Kode Instansi Berhasil Diperbarui!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/kategori');
     }
   
     /**
@@ -584,7 +669,8 @@ class BackendController extends Controller
         ModelKategoriKodeInstansi::find($id)->delete();
         
         alert()->success('Kategori Kode Instansi Berhasil Dihapus!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/kategori');
     }
 
     // Kategori Keterangan Instansi
@@ -607,7 +693,8 @@ class BackendController extends Controller
         ]);
         
         alert()->success('Kategori Keterangan Instansi Berhasil Ditambahkan!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/kategori');
     }
 
     public function kakeinshow($id)
@@ -618,7 +705,8 @@ class BackendController extends Controller
     public function kakeinedit($id)
     {
         $kakein = ModelKategoriKetInstansi::findorfail($id);
-        return view('admin.settings', compact('kakein'));
+        // return view('admin.settings', compact('kakein'));
+        return view('admin.kategori', compact('kakein'));
     }
 
     public function kakeinupdate(Request $request, $id)
@@ -636,7 +724,8 @@ class BackendController extends Controller
 
         ModelKategoriKetInstansi::find($id)->update($data);
         alert()->success('Data Kategori Keterangan Instansi Berhasil Diperbarui!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/kategori');
     }
 
     public function kakeindestroy($id)
@@ -644,7 +733,8 @@ class BackendController extends Controller
         ModelKategoriKetInstansi::find($id)->delete();
         
         alert()->success('Kategori Keterangan Instansi Berhasil Dihapus!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/kategori');
     }
 
     // Kategori Jenis Naskah
@@ -667,7 +757,8 @@ class BackendController extends Controller
         ]);
         
         alert()->success('Kategori Jenis Naskah Berhasil Ditambahkan!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/kategori');
     }
 
     public function kajenashow($id)
@@ -678,7 +769,8 @@ class BackendController extends Controller
     public function kajenaedit($id)
     {
         $kajenas = ModelKategoriJenisNaskah::findorfail($id);
-        return view('admin.settings', compact('kajenas'));
+        // return view('admin.settings', compact('kajenas'));
+        return view('admin.kategori', compact('kajenas'));
     }
 
 
@@ -697,7 +789,8 @@ class BackendController extends Controller
 
         ModelKategoriJenisNaskah::find($id)->update($data);
         alert()->success('Data Kategori Jenis Instansi Berhasil Diperbarui!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/kategori');
     }
 
     public function kajenadestroy($id)
@@ -705,7 +798,8 @@ class BackendController extends Controller
         ModelKategoriJenisNaskah::find($id)->delete();
         
         alert()->success('Kategori Jenis Instansi Berhasil Dihapus!');
-        return redirect('/admin/settings');
+        // return redirect('/admin/settings');
+        return redirect('/admin/kategori');
     }
 
     // Wakil Rektor
@@ -1969,7 +2063,7 @@ class BackendController extends Controller
         $kakoin = ModelKategoriKodeInstansi::all();
         $kakein = ModelKategoriKetInstansi::all();
         $kajenas = ModelKategoriJenisNaskah::all();
-        $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->get();
+        $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->orderBy('id', 'desc')->get();
         return view('admin.mitra', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
@@ -1981,25 +2075,35 @@ class BackendController extends Controller
     public function mitraimport(Request $request)
     {
         $file = $request->file('import');
-        $namaFile = $file();
-        $file->move('berkasmitra', $namaFile);
+        $namaFile = $file->getClientOriginalName();
+        // config(['excel.import.startRow' => 2]);
+        $file->move('importmitra', $namaFile);
 
-        Excel::import(new MitraImport, public_path('/berkasmitra/' . $namaFile));
-        return redirect('/admin/mitra')->with('pesan', 'Data Berhasil Di Import !!!');
+        Excel::import(new MitraImport, public_path('/importmitra/' . $namaFile));
+        alert()->success('Data Mitra Berhasil Di Import!');
+        return redirect('/admin/mitra');
     }
 
     public function mitraprint()
     {
-        $kakoin = ModelKategoriKodeInstansi::get();
-        $kakein = ModelKategoriKetInstansi::get();
-        $kajenas = ModelKategoriJenisNaskah::get();
-        $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->get();
+        $kakoin = ModelKategoriKodeInstansi::all();
+        $kakein = ModelKategoriKetInstansi::all();
+        $kajenas = ModelKategoriJenisNaskah::all();
+        $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->orderBy('id', 'desc')->get();
         return view('admin.mitra-print', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
-    public function mitracreate()
+    public function mitrafilter($filter = null)
     {
-        //
+        $jurusan = ModelJurusan::get();
+        if (!isset($filter)) {
+            $laporan = ModelIdeSkripsi::with('dosenone', 'dosentwo')->get();
+        } else {
+            $laporan = ModelIdeSkripsi::with('dosenone', 'dosentwo')->where('jurusan', $filter)->get();
+        }
+        // $laporan = DB::table('ideskripsimhs')->join('dosen as tabledosen1', 'ideskripsimhs.dosen1', '=', 'tabledosen1.id')->join('dosen as tabledosen2', 'ideskripsimhs.dosen2', '=', 'tabledosen2.id')->select('ideskripsimhs.*', 'tabledosen2.nama_dosen as namadosen2', 'tabledosen1.nama_dosen as namadosen1')->get();
+        // dd($deskripsi);
+        return view('admin.Laporan', compact('laporan', 'jurusan'));
     }
     
     public function mitrastore(Request $request)
@@ -2013,7 +2117,7 @@ class BackendController extends Controller
             'selesai' => 'required',
             'jenisnaskah' => 'required',
             'ketunit' => 'required',
-            'berkasmitra' => 'required|file',
+            'berkasmitra' => 'file',
         ], [
             'kodeinstansi.required' => 'Kode Instansi tidak boleh kosong!',
             'ketinstansi.required' => 'Keterangan Instansi tidak boleh kosong!',
@@ -2023,25 +2127,52 @@ class BackendController extends Controller
             'selesai.required' => 'Tanggal Berakhir Kerjasama tidak boleh kosong!',
             'jenisnaskah.required' => 'Jenis Naskah tidak boleh kosong!',
             'ketunit.required' => 'Keterangan/Unit tidak boleh kosong!',
-            'berkasmitra.required' => 'Berkas Mitra tidak boleh kosong!',
         ]);
 
-        $mulai = Carbon::createFromFormat('m/d/Y g:i A', $request->mulai);
-        $selesai = Carbon::createFromFormat('m/d/Y g:i A', $request->selesai);
+        // $file_name = $request->berkasmitra->getClientOriginalName();
+        //         $file = $request->berkasmitra->storeAs('berkasmitra', $file_name);
+        //     ModelMitra::create([
+        //         'kodeinstansi' => $request->kodeinstansi,
+        //         'ketinstansi' => $request->ketinstansi,
+        //         'instansi' => $request->instansi,
+        //         'bidkerjasama' => $request->bidkerjasama,
+        //         'mulai' => Carbon::createFromFormat('m/d/Y g:i A', $request->mulai)->toDateTimeString(),
+        //         'selesai' => Carbon::createFromFormat('m/d/Y g:i A', $request->selesai)->toDateTimeString(),
+        //         'jenisnaskah' => $request->jenisnaskah,
+        //         'ketunit' => $request->ketunit,
+        //         'berkasmitra' => $file,
+        //     ]);
+        
+        if (Request()->hasFile('berkasmitra')) {
+            if (Storage::exists($request->berkasmitra)) {
+                Storage::delete($request->berkasmitra);
+            }
 
-        $file_name = $request->berkasmitra->getClientOriginalName();
-            $file = $request->berkasmitra->storeAs('mitra', $file_name);
-        ModelMitra::create([
-            'kodeinstansi' => $request->kodeinstansi,
-            'ketinstnasi' => $request->ketinstnasi,
-            'instansi' => $request->instansi,
-            'bidkerjasama' => $request->bidkerjasama,
-            'mulai' => $mulai->toDateTimeString(),
-            'selesai' => $selesai->toDateTimeString(),
-            'jenisnaskah' => $request->jenisnaskah,
-            'ketunit' => $request->ketunit,
-            'berkasmitra' => $file,
-        ]);
+            $file_name = $request->berkasmitra->getClientOriginalName();
+                $file = $request->berkasmitra->storeAs('berkasmitra', $file_name);
+            $mitra = ModelMitra::create([
+                'kodeinstansi' => $request->kodeinstansi,
+                'ketinstansi' => $request->ketinstansi,
+                'instansi' => $request->instansi,
+                'bidkerjasama' => $request->bidkerjasama,
+                'mulai' => Carbon::createFromFormat('m/d/Y g:i A', $request->mulai)->toDateTimeString(),
+                'selesai' => Carbon::createFromFormat('m/d/Y g:i A', $request->selesai)->toDateTimeString(),
+                'jenisnaskah' => $request->jenisnaskah,
+                'ketunit' => $request->ketunit,
+                'berkasmitra' => $file,
+            ]);
+        } else {
+            $mitra = ModelMitra::create([
+                'kodeinstansi' => $request->kodeinstansi,
+                'ketinstansi' => $request->ketinstansi,
+                'instansi' => $request->instansi,
+                'bidkerjasama' => $request->bidkerjasama,
+                'mulai' => Carbon::createFromFormat('m/d/Y g:i A', $request->mulai)->toDateTimeString(),
+                'selesai' => Carbon::createFromFormat('m/d/Y g:i A', $request->selesai)->toDateTimeString(),
+                'jenisnaskah' => $request->jenisnaskah,
+                'ketunit' => $request->ketunit,
+            ]);
+        }
         
         alert()->success('Data Mitra Berhasil Ditambahkan!');
         return redirect('/admin/mitra');
@@ -2068,8 +2199,6 @@ class BackendController extends Controller
             'ketinstansi' => 'required',
             'instansi' => 'required',
             'bidkerjasama' => 'required',
-            'mulai' => 'required',
-            'selesai' => 'required',
             'jenisnaskah' => 'required',
             'ketunit' => 'required',
         ], [
@@ -2077,30 +2206,25 @@ class BackendController extends Controller
             'ketinstansi.required' => 'Keterangan Instansi tidak boleh kosong!',
             'instansi.required' => 'Instansi tidak boleh kosong!',
             'bidkerjasama.required' => 'Bidang Kerjasama tidak boleh kosong!',
-            'mulai.required' => 'Tanggal Dimulai Kerjasama tidak boleh kosong!',
-            'selesai.required' => 'Tanggal Berakhir Kerjasama tidak boleh kosong!',
             'jenisnaskah.required' => 'Jenis Naskah tidak boleh kosong!',
             'ketunit.required' => 'Keterangan/Unit tidak boleh kosong!',
         ]);
 
-        $mulai = Carbon::createFromFormat('m/d/Y g:i A', $request->mulai);
-        $selesai = Carbon::createFromFormat('m/d/Y g:i A', $request->selesai);
-
+        $mitra = ModelMitra::find($id);
         if (Request()->hasFile('berkasmitra')) {
-            $mitra = ModelMitra::find($id);
             if (Storage::exists($mitra->berkasmitra)) {
                 Storage::delete($mitra->berkasmitra);
             }
 
             $file_name = $request->berkasmitra->getClientOriginalName();
-                $file = $request->berkasmitra->storeAs('mitra', $file_name);
+                $file = $request->berkasmitra->storeAs('berkasmitra', $file_name);
             $mitra->update([
                 'kodeinstansi' => $request->kodeinstansi,
                 'ketinstansi' => $request->ketinstansi,
                 'instansi' => $request->instansi,
                 'bidkerjasama' => $request->bidkerjasama,
-                'mulai' => $mulai->toDateTimeString(),
-                'selesai' => $selesai->toDateTimeString(),
+                'mulai' => Carbon::createFromFormat('m/d/Y g:i A', $request->mulai)->toDateTimeString(),
+                'selesai' => Carbon::createFromFormat('m/d/Y g:i A', $request->selesai)->toDateTimeString(),
                 'jenisnaskah' => $request->jenisnaskah,
                 'ketunit' => $request->ketunit,
                 'berkasmitra' => $file,
@@ -2111,8 +2235,8 @@ class BackendController extends Controller
                 'ketinstansi' => $request->ketinstansi,
                 'instansi' => $request->instansi,
                 'bidkerjasama' => $request->bidkerjasama,
-                'mulai' => $mulai->toDateTimeString(),
-                'selesai' => $selesai->toDateTimeString(),
+                'mulai' => Carbon::createFromFormat('m/d/Y g:i A', $request->mulai)->toDateTimeString(),
+                'selesai' => Carbon::createFromFormat('m/d/Y g:i A', $request->selesai)->toDateTimeString(),
                 'jenisnaskah' => $request->jenisnaskah,
                 'ketunit' => $request->ketunit,
             ]);

@@ -10,7 +10,7 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="/staff/dashboard">Home</a></li>
               <li class="breadcrumb-item active">Mitra</li>
             </ol>
           </div>
@@ -72,7 +72,7 @@
               </div>
             </div>
             <!-- Modal Import Data End -->
-            <a class="btn btn-secondary btn-sm" href="{{asset('storage')}}/berkasmitra/Mitra.xlsx" target="blank">
+            <a class="btn btn-secondary btn-sm" href="{{asset('storage')}}/mitra/Mitra.xlsx" target="blank">
               <i class="fas fa-print"></i>
               Template Import Data
             </a>
@@ -196,7 +196,7 @@
             <!-- Modal Tambah End -->
             
             <div class="btn-white btn-sm float-right"></div>
-            <a class="btn btn-secondary btn-sm float-right" href="/mitra-print" target="blank">
+            <a class="btn btn-secondary btn-sm float-right" href="{{ url('/staff/mitra-print') }}" target="blank">
               <i class="fas fa-print"></i>
               Cetak Semua
             </a>
@@ -213,7 +213,7 @@
                   </div>
                   <div class="modal-body">
                     <!-- form start -->
-                    <form action="{{url('/staff/mitra/update')}}/{{$row->id}}" method="POST" enctype="multipart/form-data" id="formubah">
+                    <form action="" method="POST" enctype="multipart/form-data" id="formubah">
                       @csrf
                       <div class="form-group">
                         <label>Kode Instansi</label>
@@ -291,7 +291,7 @@
             <!-- Modal Ubah End -->
             
           </div>
-          <div class="card-body p-0" style="display: block;">
+          <div class="card-body" style="display: block;">
             <div class="container table-responsive">
               <table class="table table-striped table-bordered projects example">
                 <thead>
@@ -323,16 +323,16 @@
                     <th>
                       Keterangan/Unit
                     </th>
-                    <th>
+                    {{-- <th>
                       Berkas Mitra
-                    </th>
+                    </th> --}}
                     <th style="width: 11%">
                       Aksi
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {{-- {{ $errors }} --}}
+                  {{ $errors }}
                   <?php $no=1; ?>
                   @forelse ( $mitra as $row )
                   <tr style="text-align: justify;">
@@ -363,9 +363,9 @@
                     <td>
                       {{ $row->ketunit }}
                     </td>
-                    <td>
+                    {{-- <td>
                       {{$row->berkasmitra}}
-                    </td>
+                    </td> --}}
                     <td class="project-actions text-center" style="padding: 10px 10px 10px 10px;">
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#lihat{{ $row->id }}">
@@ -382,7 +382,6 @@
                                 <span aria-hidden="true">&times;</span>
                               </button>
                             </div>
-                            
                             <div class="modal-body">
                               <table class="table table-hover">
                                 <tbody>
@@ -423,7 +422,7 @@
                                       Dimulai Kerjasama
                                     </th>
                                     <td>
-                                      {{ $row->mulai }}
+                                      {{ \Carbon\Carbon::parse($row->mulai)->format('d/m/Y H:i:s') }}
                                     </td>
                                   </tr>
                                   <tr>
@@ -431,7 +430,7 @@
                                       Berakhir Kerjasama
                                     </th>
                                     <td>
-                                      {{ $row->selesai }}
+                                      {{ \Carbon\Carbon::parse($row->selesai)->format('d/m/Y H:i:s') }}
                                     </td>
                                   </tr>
                                   <tr>
@@ -448,6 +447,14 @@
                                     </th>
                                     <td>
                                       {{ $row->ketunit }}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>
+                                      Berkas Mitra
+                                    </th>
+                                    <td>
+                                      {{ $row->berkasmitra }}
                                     </td>
                                   </tr>
                                 </tbody>
@@ -467,8 +474,8 @@
                         ketinstansi: {{ $row->ketinstansi }},
                         instansi: '{{ $row->instansi }}',
                         bidkerjasama: '{{ $row->bidkerjasama }}',
-                        mulai: '{{ \Carbon\Carbon::parse($row->mulai)->format('m/d/Y g:i A') }}',
-                        selesai: '{{ \Carbon\Carbon::parse($row->selesai)->format('m/d/Y g:i A') }}',
+                        mulai: '{{ \Carbon\Carbon::parse($row->mulai)->format('d/m/Y') }}',
+                        selesai: '{{ \Carbon\Carbon::parse($row->selesai)->format('d/m/Y') }}',
                         jenisnaskah: {{ $row->jenisnaskah }},
                         ketunit: '{{ $row->ketunit }}',
                       });">
@@ -512,9 +519,11 @@
 <script>
   $(document).ready(function(){
     $('#datetimepicker3').datetimepicker({
-        locale: 'id'
+      // format: 'L',
+      locale: 'id'
     });
     $('#datetimepicker4').datetimepicker({
+      // format: 'L',
       locale: 'id'
     });
   });

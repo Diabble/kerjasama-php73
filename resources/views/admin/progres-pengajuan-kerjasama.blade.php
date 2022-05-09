@@ -89,13 +89,16 @@
             </div>
             <!-- Modal Tambah End -->
           </div>
-          <div class="card-body" style="display: block; padding: 10px 0 10px 0;">
+          <div class="card-body" style="display: block;">
             <div class="container table-responsive">
               <table class="table table-striped table-bordered projects example">
                 <thead>
                   <tr style="text-align: center;">
-                    <th style="width: 1%">
+                    {{-- <th style="width: 1%">
                       No
+                    </th> --}}
+                    <th style="width: 1%">
+                      ID
                     </th>
                     <th>
                       Instansi
@@ -112,8 +115,11 @@
                   <?php $no=1; ?>
                   @foreach ( $propeker as $row )
                   <tr style="text-align: center;">
-                    <td>
+                    {{-- <td>
                       {{ $no++ }}
+                    </td> --}}
+                    <td>
+                      {{ $row->id }}
                     </td>
                     <td>
                       {{ $row->users->instansi }}

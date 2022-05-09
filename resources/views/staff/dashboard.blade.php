@@ -42,7 +42,7 @@
           </div-->
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="/staff/dashboard">Home</a></li>
               <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div>

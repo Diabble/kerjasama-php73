@@ -17,6 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'poto',
         'name',
         'level',
         'email',
@@ -48,11 +49,19 @@ class User extends Authenticatable
         return $this->belongsTo(ModelPengajuanKerjasama::class, 'peker_id', 'id');
     }
 
+    public function mitra() {
+        return $this->belongsTo(ModelMitra::class, 'name', 'id');
+    }
+
+    public function peker_id() {
+        return $this->hasMany(ModelPengajuanKerjasama::class, 'id', 'id');
+    }
+
     public function pengajuan() {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'instansi', 'id');
     }
 
     public function berita() {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'user_id', 'id');
     }
 }

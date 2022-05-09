@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Storage;
+
 use Auth;
 
 use App\Models\User;
@@ -103,17 +105,53 @@ class BackendUserController extends Controller
     public function profileupdate(Request $request, $id)
     {
         Request()->validate([
+            'poto' => 'required|image|mimes:png,jpg,jpeg,gif|max:500',
             'name' => 'required',
             'email' => 'required',
         ]);
 
-        $data = [
-            'name' => $request->name,
-            'email' => $request->email,
-        ];
+        // $data = [
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        // ];
 
-        User::find($id)->update($data);
+        // User::find($id)->update($data);
+        $profile = User::find($id);
+        if (Request()->hasFile('poto')) {
+            if (Storage::exists($profile->poto)) {
+                Storage::delete($profile->poto);
+            }
+
+            // $file_name = $request->poto->getClientOriginalName();
+            //     $image = $request->poto->storeAs('avatar', $file_name);
+            $image = $request->poto->store('avatar');
+            $profile->update([
+                'poto' => $image,
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+        } else {
+            $profile->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+        }
+
         alert()->success('Data Profile Berhasil Diperbarui!');
+        return redirect('/user/profile');
+    }
+
+    public function avatarupdate(Request $request, $id)
+    {
+        $avatar = User::find($id);
+            if (Storage::exists($avatar->poto)) {
+                Storage::delete($avatar->poto);
+            }
+        $avatar->update([
+            'poto' => "",
+        ]);
+        
+        alert()->success('Avatar Berhasil Dihapus!');
         return redirect('/user/profile');
     }
 

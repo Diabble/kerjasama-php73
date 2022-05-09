@@ -106,7 +106,7 @@
             <!-- Modal Ubah End -->
 
           </div>
-          <div class="card-body p-0" style="display: block;">
+          <div class="card-body" style="display: block;">
             <div class="container">
               <table class="table table-striped table-bordered projects example">
                 <thead>

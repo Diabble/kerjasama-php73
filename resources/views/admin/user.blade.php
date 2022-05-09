@@ -96,7 +96,7 @@
             </div>
             <!-- Modal Tambah End -->
           </div>
-          <div class="card-body p-0" style="display: block;">
+          <div class="card-body" style="display: block;">
             <div class="container">
               <table class="table table-striped table-bordered projects example">
                 <thead>
@@ -163,17 +163,28 @@
                                 @csrf
                               <div class="form-group">
                                 <label>Username</label>
-                                <input class="form-control" name="name" autocomplete="off" placeholder="Enter..." value="{{ $row->name }}">
+                                <input class="form-control @error('name') is-invalid @enderror" name="name" autocomplete="off" placeholder="Enter..." value="{{ $row->name }}">
+                                @error('name')
+                                  <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                               </div>
                               <div class="form-group">
                                 <label>Level</label>
                                 <select name="level" class="form-control custom-select @error('level') is-invalid @enderror">
                                   {{-- <option disabled>- Pilih -</option> --}}
-                                  <option disabled selected hidden>{{ $row->level }}</option>
-                                  <option value="admin">Admin</option>
-                                  <option value="pimpinan">Pimpinan</option>
-                                  <option value="staff">Staff</option>
-                                  {{-- <option value="user">User</option> --}}
+                                  {{-- <option disabled selected hidden>{{ $row->level }}</option> --}}
+                                  <option value="admin" @if ($row->level == 'admin')
+                                      selected
+                                  @endif>Admin</option>
+                                  <option value="pimpinan" @if ($row->level == 'pimpinan')
+                                      selected
+                                  @endif>Pimpinan</option>
+                                  <option value="staff" @if ($row->level == 'staff')
+                                      selected
+                                  @endif>Staff</option>
+                                  {{-- <option value="user" @if ($row->level == 'user')
+                                      selected
+                                  @endif>User</option> --}}
                                 </select>
                                 @error('level')
                                   <div class="invalid-feedback">{{ $message }}</div>
@@ -181,12 +192,11 @@
                               </div>
                               <div class="form-group">
                                 <label>Email</label>
-                                <input class="form-control" name="email" autocomplete="off" placeholder="Enter..." value="{{ $row->email }}">
+                                <input class="form-control @error('email') is-invalid @enderror" name="email" autocomplete="off" placeholder="Enter..." value="{{ $row->email }}">
+                                @error('email')
+                                  <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                               </div>
-                              {{-- <div class="form-group">
-                                <label>Password</label>
-                                <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="{{ $row->password }}">
-                              </div> --}}
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                                 <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
@@ -216,15 +226,21 @@
                             </div>
                             <div class="modal-body">
                               <!-- form start -->
-                              <form action="{{url('/admin/user/updatepassword')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              <form action="{{url('/admin/user/update-password')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                   <label>Password</label>
-                                  <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="">
+                                  <input class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="off" placeholder="Enter..." value="">
+                                  @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                  @enderror
                                 </div>
                                 <div class="form-group">
                                   <label>Confirm Password</label>
-                                  <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="">
+                                  <input class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" autocomplete="off" placeholder="Enter..." value="">
+                                  @error('password_confirmation')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                  @enderror
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
@@ -341,7 +357,7 @@
             </div>
             <!-- Modal Tambah End -->
           </div>
-          <div class="card-body p-0" style="display: block;">
+          <div class="card-body" style="display: block;">
             <div class="container">
               <table class="table table-striped table-bordered projects example">
                 <thead>
@@ -361,16 +377,16 @@
                     <th>
                       Instansi
                     </th>
-                    {{-- <th>
-                      Password
-                    </th> --}}
+                    <th>
+                      Progres ID
+                    </th>
                     <th style="width: 30%">
                       Aksi
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                    {{ $errors }}
+                    {{-- {{ $errors }} --}}
                   <?php $no=1; ?>
                   @foreach ( $user as $row )
                   <tr style="text-align: justify;">
@@ -389,9 +405,9 @@
                     <td>
                       {{ $row->instansi }}
                     </td>
-                    {{-- <td>
-                      {{ $row->password }}
-                    </td> --}}
+                    <td>
+                      {{ $row->peker_id }}
+                    </td>
                     <td class="project-actions text-center" style="display: -webkit-box;">
                       <!-- Button trigger modal -->
                       <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#ubahuser{{$row->id}}">
@@ -414,14 +430,17 @@
                                 @csrf
                               <div class="form-group">
                                 <label>Username</label>
-                                <input class="form-control" name="name" autocomplete="off" placeholder="Enter..." value="{{ $row->name }}">
+                                <input class="form-control @error('name') is-invalid @enderror" name="name" autocomplete="off" placeholder="Enter..." value="{{ $row->name }}">
+                                @error('name')
+                                  <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                               </div>
                               <div class="form-group">
                                 <label>Level</label>
                                 <select name="level" class="form-control custom-select @error('level') is-invalid @enderror">
-                                  {{-- <option disabled>- Pilih -</option> --}}
-                                  <option disabled selected hidden>{{ $row->level }}</option>
-                                  <option value="user">User</option>
+                                  <option value="user" @if ($row->level == 'user')
+                                      selected
+                                  @endif>User</option>
                                 </select>
                                 @error('level')
                                   <div class="invalid-feedback">{{ $message }}</div>
@@ -429,16 +448,30 @@
                               </div>
                               <div class="form-group">
                                 <label>Email</label>
-                                <input class="form-control" name="email" autocomplete="off" placeholder="Enter..." value="{{ $row->email }}">
+                                <input class="form-control @error('email') is-invalid @enderror" name="email" autocomplete="off" placeholder="Enter..." value="{{ $row->email }}">
+                                @error('email')
+                                  <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                               </div>
                               <div class="form-group">
                                 <label>Instansi</label>
-                                <input class="form-control" name="instansi" autocomplete="off" placeholder="Enter..." value="{{ $row->instansi }}">
+                                <input class="form-control @error('instansi') is-invalid @enderror" name="instansi" autocomplete="off" placeholder="Enter..." value="{{ $row->instansi }}">
+                                @error('instansi')
+                                  <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                               </div>
-                              {{-- <div class="form-group">
-                                <label>Password</label>
-                                <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="{{ $row->password }}">
-                              </div> --}}
+                              <div class="form-group">
+                                <label>Progres ID</label>
+                                <select name="peker_id" class="form-control custom-select @error('peker_id') is-invalid @enderror">
+                                  <option disabled>- Pilih -</option>
+                                  @foreach ($peker_id as $val)
+                                      <option value="{{ $val->id }}" {{ $row->peker_id == $val->id ? 'selected' : null }}>{{ $val->id }}</option>
+                                  @endforeach
+                                </select>
+                                @error('peker_id')
+                                  <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                              </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
                                 <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
@@ -468,15 +501,21 @@
                             </div>
                             <div class="modal-body">
                               <!-- form start -->
-                              <form action="{{url('/admin/user/updatepassword')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
+                              <form action="{{url('/admin/user/update-password')}}/{{$row->id}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
                                   <label>Password</label>
-                                  <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="">
+                                  <input class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="off" placeholder="Enter..." value="">
+                                  @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                  @enderror
                                 </div>
                                 <div class="form-group">
                                   <label>Confirm Password</label>
-                                  <input class="form-control" name="password" autocomplete="off" placeholder="Enter..." value="">
+                                  <input class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" autocomplete="off" placeholder="Enter..." value="">
+                                  @error('password_confirmation')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                  @enderror
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>

@@ -131,20 +131,13 @@ $(document).ready(function () {
   // datetimepicker
   $(function () {
       $('#datetimepicker').datetimepicker({
-        locale: 'id'
+        // format: 'L'
       });
       $('#datetimepicker1').datetimepicker({
-        locale: 'id'
+        // format: 'L'
       });
   });
 </script>
-
-//Datemask dd/mm/yyyy
-{{-- <script>
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    </script> --}}
 
 <!-- Datatables -->
 {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}

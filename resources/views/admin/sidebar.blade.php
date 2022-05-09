@@ -216,6 +216,43 @@
               </li>
             </ul>
           </li> --}}
+          {{-- <li class="nav-item">
+            <a href="{{ url('/admin/settings') }}" class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-cog"></i>
+              <p>
+                Settings
+              </p>
+            </a>
+          </li> --}}
+          <li class="nav-item">
+            <a href="#" class="nav-link {{ request()->is('#') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-users-cog"></i>
+              <p>
+                Settings
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/admin/tampilan-beranda') }}" class="nav-link {{ request()->is('admin/tampilan-beranda') ? 'active' : '' }}">
+                  <i class="fas fa-home nav-icon"></i>
+                  <p>Tampilan Beranda</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/kategori') }}" class="nav-link {{ request()->is('admin/kategori') ? 'active' : '' }}">
+                  <i class="fas fa-tags nav-icon"></i>
+                  <p>Kategori</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/admin/user') }}" class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>Semua User</p>
+                </a>
+              </li>
+            </ul>
+          </li>
           <li class="nav-item {{ request()->is('user/#') ? 'active' : '' }}">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users-cog"></i>
@@ -237,21 +274,13 @@
                   <p>Ubah Password</p>
                 </a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="{{ url('/admin/user') }}" class="nav-link {{ request()->is('admin/user') ? 'active' : '' }}">
                   <i class="fas fa-users nav-icon"></i>
                   <p>Semua User</p>
                 </a>
-              </li>
+              </li> --}}
             </ul>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('/admin/settings') }}" class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">
-              <i class="nav-icon fas fa-cog"></i>
-              <p>
-                Settings
-              </p>
-            </a>
           </li>
           {{-- <li class="nav-item">
             <form action="/logout" method="post">

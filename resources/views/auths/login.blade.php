@@ -34,12 +34,17 @@
             @enderror
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" name="password" placeholder="Password">
+            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
               </div>
             </div>
+            @error('password')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
           </div>
           <div class="row">
             <div class="col-8">
@@ -59,8 +64,11 @@
         </form>
 
         <p class="mb-1">
-          <a href="{{ url('/forgot-password') }}">I forgot my password</a>
+          <a href="{{ url('/login-pegawai') }}">Login Pegawai</a>
         </p>
+        {{-- <p class="mb-1">
+          <a href="{{ url('/forgot-password') }}">I forgot my password</a>
+        </p> --}}
         {{-- <p class="mb-0">
           <a href="{{ url('/register') }}" class="text-center">Register member baru</a>
         </p> --}}

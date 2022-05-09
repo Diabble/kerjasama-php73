@@ -10,7 +10,7 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="/pimpinan/dashboard">Home</a></li>
               <li class="breadcrumb-item active">Ubah Password</li>
             </ol>
           </div>

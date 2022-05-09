@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthsController;
+use App\Http\Controllers\PegawaiController;
 
 //Halaman Utama Start
 use App\Http\Controllers\FrontendController;
@@ -18,6 +19,10 @@ use App\Http\Controllers\BackendPimpinanController;
 //Staff Start
 use App\Http\Controllers\BackendStaffController;
 //Staff End
+
+//Pegawai Start
+use App\Http\Controllers\BackendPegawaiController;
+//Pegawai End
 
 //User Start
 use App\Http\Controllers\BackendUserController;
@@ -145,8 +150,17 @@ Route::get('/mitra', [FrontendController::class, 'mitra']);
 //Login
 Route::get('/login', [AuthsController::class, 'loginindex'])->name('login')->middleware('guest');
 Route::post('/postlogin', [AuthsController::class, 'authenticate']);
+
+//Login Pegawai
+Route::get('/login-pegawai', [PegawaiController::class, 'index'])->name('loginpegawai')->middleware('guest');
+Route::post('/postloginpegawai', [PegawaiController::class, 'authenticate']);
+
 //Logout
 Route::post('/logout', [AuthsController::class, 'logout']);
+
+//Logout Pegawai
+Route::post('/logoutpegawai', [PegawaiController::class, 'logout']);
+
 //Register
 Route::get('/register', [AuthsController::class, 'registerindex'])->middleware('guest');
 //Forgot
@@ -164,6 +178,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/profile', [BackendController::class, 'profile']);
         Route::get('/profile/edit/{id}', [BackendController::class, 'profileedit']);
         Route::post('/profile/update/{id}', [BackendController::class, 'profileupdate']);
+        Route::get('/profile/avatar-update/{id}', [BackendController::class, 'avatarupdate']);
         Route::get('/ubah-password', [BackendController::class, 'password']);
         Route::get('/ubah-password/edit/{id}', [BackendController::class, 'passwordedit']);
         Route::post('/ubah-password/update/{id}', [BackendController::class, 'passwordupdate']);
@@ -172,41 +187,74 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/user/store', [BackendController::class, 'userstore']);
         Route::get('/user/edit/{id}', [BackendController::class, 'useredit']);
         Route::post('/user/update/{id}', [BackendController::class, 'userupdate']);
+        Route::post('/user/update-password/{id}', [BackendController::class, 'userpassupdate']);
         Route::get('/user/delete/{id}', [BackendController::class, 'userdestroy']);
         
         // Dashboard
         Route::get('/dashboard', [BackendController::class, 'dashboard']);
 
         // Settings
-        Route::get('/settings', [BackendController::class, 'settings']);
-        Route::post('/settings/berandastore', [BackendController::class, 'berandastore']);
-        Route::get('/settings/berandaedit/{id}', [BackendController::class, 'berandaedit']);
-        Route::post('/settings/berandaupdate/{id}', [BackendController::class, 'berandaupdate']);
-        Route::get('/settings/berandadelete/{id}', [BackendController::class, 'berandadestroy']);
+        // Route::get('/settings', [BackendController::class, 'settings']);
+        // Route::post('/settings/berandastore', [BackendController::class, 'berandastore']);
+        // Route::get('/settings/berandaedit/{id}', [BackendController::class, 'berandaedit']);
+        // Route::post('/settings/berandaupdate/{id}', [BackendController::class, 'berandaupdate']);
+        // Route::get('/settings/berandadelete/{id}', [BackendController::class, 'berandadestroy']);
         // ProfilUINSGD
-        Route::get('/settings/profiluinsgdedit/{id}', [BackendController::class, 'profiluinsgdedit']);
-        Route::post('/settings/profiluinsgdupdate/{id}', [BackendController::class, 'profiluinsgdupdate']);
+        // Route::get('/settings/profiluinsgdedit/{id}', [BackendController::class, 'profiluinsgdedit']);
+        // Route::post('/settings/profiluinsgdupdate/{id}', [BackendController::class, 'profiluinsgdupdate']);
         // CapaianKinerja
-        Route::get('/settings/capaiankinerjaedit/{id}', [BackendController::class, 'caperedit']);
-        Route::post('/settings/capaiankinerjaupdate/{id}', [BackendController::class, 'caperupdate']);
+        // Route::get('/settings/capaiankinerjaedit/{id}', [BackendController::class, 'caperedit']);
+        // Route::post('/settings/capaiankinerjaupdate/{id}', [BackendController::class, 'caperupdate']);
         // Kategori Berita
-        Route::post('/settings/kaberstore', [BackendController::class, 'kaberstore']);
-        Route::get('/settings/kaberedit/{id}', [BackendController::class, 'kaberedit']);
-        Route::post('/settings/kaberupdate/{id}', [BackendController::class, 'kaberupdate']);
-        Route::get('/settings/kaberdelete/{id}', [BackendController::class, 'kaberdestroy']);
+        // Route::post('/settings/kaberstore', [BackendController::class, 'kaberstore']);
+        // Route::get('/settings/kaberedit/{id}', [BackendController::class, 'kaberedit']);
+        // Route::post('/settings/kaberupdate/{id}', [BackendController::class, 'kaberupdate']);
+        // Route::get('/settings/kaberdelete/{id}', [BackendController::class, 'kaberdestroy']);
         // Kategori Mitra
-        Route::post('/settings/kakoinstore', [BackendController::class, 'kakoinstore']);
-        Route::post('/settings/kakeinstore', [BackendController::class, 'kakeinstore']);
-        Route::post('/settings/kajenastore', [BackendController::class, 'kajenastore']);
-        Route::get('/settings/kakoinedit/{id}', [BackendController::class, 'kakoinedit']);
-        Route::get('/settings/kakeinedit/{id}', [BackendController::class, 'kakeinedit']);
-        Route::get('/settings/kajenaedit/{id}', [BackendController::class, 'kajenaedit']);
-        Route::post('/settings/kakoinupdate/{id}', [BackendController::class, 'kakoinupdate']);
-        Route::post('/settings/kakeinupdate/{id}', [BackendController::class, 'kakeinupdate']);
-        Route::post('/settings/kajenaupdate/{id}', [BackendController::class, 'kajenaupdate']);
-        Route::get('/settings/kakoindelete/{id}', [BackendController::class, 'kakoindestroy']);
-        Route::get('/settings/kakeindelete/{id}', [BackendController::class, 'kakeindestroy']);
-        Route::get('/settings/kajenadelete/{id}', [BackendController::class, 'kajenadestroy']);
+        // Route::post('/settings/kakoinstore', [BackendController::class, 'kakoinstore']);
+        // Route::post('/settings/kakeinstore', [BackendController::class, 'kakeinstore']);
+        // Route::post('/settings/kajenastore', [BackendController::class, 'kajenastore']);
+        // Route::get('/settings/kakoinedit/{id}', [BackendController::class, 'kakoinedit']);
+        // Route::get('/settings/kakeinedit/{id}', [BackendController::class, 'kakeinedit']);
+        // Route::get('/settings/kajenaedit/{id}', [BackendController::class, 'kajenaedit']);
+        // Route::post('/settings/kakoinupdate/{id}', [BackendController::class, 'kakoinupdate']);
+        // Route::post('/settings/kakeinupdate/{id}', [BackendController::class, 'kakeinupdate']);
+        // Route::post('/settings/kajenaupdate/{id}', [BackendController::class, 'kajenaupdate']);
+        // Route::get('/settings/kakoindelete/{id}', [BackendController::class, 'kakoindestroy']);
+        // Route::get('/settings/kakeindelete/{id}', [BackendController::class, 'kakeindestroy']);
+        // Route::get('/settings/kajenadelete/{id}', [BackendController::class, 'kajenadestroy']);
+
+        // SettingsV2
+        Route::get('/tampilan-beranda', [BackendController::class, 'tampilanberanda']);
+        Route::post('/tampilan-beranda/carouselstore', [BackendController::class, 'berandastore']);
+        Route::get('/tampilan-beranda/carouseledit/{id}', [BackendController::class, 'berandaedit']);
+        Route::post('/tampilan-beranda/carouselupdate/{id}', [BackendController::class, 'berandaupdate']);
+        Route::get('/tampilan-beranda/carouseldelete/{id}', [BackendController::class, 'berandadestroy']);
+        // ProfilUINSGDV2
+        Route::get('/tampilan-beranda/profiluinsgdedit/{id}', [BackendController::class, 'profiluinsgdedit']);
+        Route::post('/tampilan-beranda/profiluinsgdupdate/{id}', [BackendController::class, 'profiluinsgdupdate']);
+        // CapaianKinerjaV2
+        Route::get('/tampilan-beranda/capaiankinerjaedit/{id}', [BackendController::class, 'caperedit']);
+        Route::post('/tampilan-beranda/capaiankinerjaupdate/{id}', [BackendController::class, 'caperupdate']);
+        // Kategori BeritaV2
+        Route::get('/kategori', [BackendController::class, 'kategori']);
+        Route::post('/kategori/kaberstore', [BackendController::class, 'kaberstore']);
+        Route::get('/kategori/kaberedit/{id}', [BackendController::class, 'kaberedit']);
+        Route::post('/kategori/kaberupdate/{id}', [BackendController::class, 'kaberupdate']);
+        Route::get('/kategori/kaberdelete/{id}', [BackendController::class, 'kaberdestroy']);
+        // Kategori MitraV2
+        Route::post('/kategori/kakoinstore', [BackendController::class, 'kakoinstore']);
+        Route::post('/kategori/kakeinstore', [BackendController::class, 'kakeinstore']);
+        Route::post('/kategori/kajenastore', [BackendController::class, 'kajenastore']);
+        Route::get('/kategori/kakoinedit/{id}', [BackendController::class, 'kakoinedit']);
+        Route::get('/kategori/kakeinedit/{id}', [BackendController::class, 'kakeinedit']);
+        Route::get('/kategori/kajenaedit/{id}', [BackendController::class, 'kajenaedit']);
+        Route::post('/kategori/kakoinupdate/{id}', [BackendController::class, 'kakoinupdate']);
+        Route::post('/kategori/kakeinupdate/{id}', [BackendController::class, 'kakeinupdate']);
+        Route::post('/kategori/kajenaupdate/{id}', [BackendController::class, 'kajenaupdate']);
+        Route::get('/kategori/kakoindelete/{id}', [BackendController::class, 'kakoindestroy']);
+        Route::get('/kategori/kakeindelete/{id}', [BackendController::class, 'kakeindestroy']);
+        Route::get('/kategori/kajenadelete/{id}', [BackendController::class, 'kajenadestroy']);
 
         // Wakil Rektor
         Route::get('/wakil-rektor', [BackendController::class, 'wakilrektor']);
@@ -322,6 +370,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/profile', [BackendPimpinanController::class, 'profile']);
         Route::get('/profile/edit/{id}', [BackendPimpinanController::class, 'profileedit']);
         Route::post('/profile/update/{id}', [BackendPimpinanController::class, 'profileupdate']);
+        Route::get('/profile/avatar-update/{id}', [BackendController::class, 'avatarupdate']);
         Route::get('/ubah-password', [BackendPimpinanController::class, 'password']);
         Route::get('/ubah-password/edit/{id}', [BackendPimpinanController::class, 'passwordedit']);
         Route::post('/ubah-password/update/{id}', [BackendPimpinanController::class, 'passwordupdate']);
@@ -339,6 +388,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/profile', [BackendStaffController::class, 'profile']);
         Route::get('/profile/edit/{id}', [BackendStaffController::class, 'profileedit']);
         Route::post('/profile/update/{id}', [BackendStaffController::class, 'profileupdate']);
+        Route::get('/profile/avatar-update/{id}', [BackendController::class, 'avatarupdate']);
         Route::get('/ubah-password', [BackendStaffController::class, 'password']);
         Route::get('/ubah-password/edit/{id}', [BackendStaffController::class, 'passwordedit']);
         Route::post('/ubah-password/update/{id}', [BackendStaffController::class, 'passwordupdate']);
@@ -362,6 +412,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/profile', [BackendUserController::class, 'profile']);
         Route::get('/profile/edit/{id}', [BackendUserController::class, 'profileedit']);
         Route::post('/profile/update/{id}', [BackendUserController::class, 'profileupdate']);
+        Route::get('/profile/avatar-update/{id}', [BackendController::class, 'avatarupdate']);
         Route::get('/ubah-password', [BackendUserController::class, 'password']);
         Route::get('/ubah-password/edit/{id}', [BackendUserController::class, 'passwordedit']);
         Route::post('/ubah-password/update/{id}', [BackendUserController::class, 'passwordupdate']);
@@ -374,3 +425,27 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
+//Pegawai
+Route::prefix('pegawai')->middleware('authpegawai')->group(function(){
+    // Profile
+    Route::get('/profile', [BackendPegawaiController::class, 'profile']);
+    Route::get('/profile/edit/{id}', [BackendPegawaiController::class, 'profileedit']);
+    Route::post('/profile/update/{id}', [BackendPegawaiController::class, 'profileupdate']);
+    // Route::get('/profile/avatar-update/{id}', [BackendController::class, 'avatarupdate']);
+    // Route::get('/ubah-password', [BackendPegawaiController::class, 'password']);
+    Route::get('/ubah-password/edit/{id}', [BackendPegawaiController::class, 'passwordedit']);
+    Route::post('/ubah-password/update/{id}', [BackendPegawaiController::class, 'passwordupdate']);
+
+    // Dashboard
+    Route::get('/dashboard', [BackendPegawaiController::class, 'dashboard']);
+
+    // Mitra
+    Route::get('/mitra', [BackendPegawaiController::class, 'mitra']);
+    Route::post('/mitra/store', [BackendPegawaiController::class, 'mitrastore']);
+    Route::get('/mitra/edit/{id}', [BackendPegawaiController::class, 'mitraedit']);    
+    Route::post('/mitra/update/{id}', [BackendPegawaiController::class, 'mitraupdate']);
+    Route::get('/mitra/delete/{id}', [BackendPegawaiController::class, 'mitradestroy']);
+    Route::get('/mitra/export', [BackendPegawaiController::class, 'mitraexport']);
+    Route::post('/mitra/import', [BackendPegawaiController::class, 'mitraimport']);
+    Route::get('/mitra-print', [BackendPegawaiController::class, 'mitraprint']);
+});

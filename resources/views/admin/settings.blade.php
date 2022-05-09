@@ -258,7 +258,7 @@
                 </tr>
               </thead>
               <tbody>
-                {{ $errors }}
+                {{-- {{ $errors }} --}}
                 <?php $no=1; ?>
                 @foreach ($profil as $row)
                 <tr style="text-align: justify;">
@@ -367,7 +367,7 @@
                 </tr>
               </thead>
               <tbody>
-                {{ $errors }}
+                {{-- {{ $errors }} --}}
                 <?php $no=1; ?>
                 @foreach ($caper as $row)
                 <tr style="text-align: justify;">
@@ -711,7 +711,7 @@
             </div>
             <!-- Modal Tambah End -->
           </div>
-          <div class="card-body p-0" style="display: block;">
+          <div class="card-body" style="display: block;">
             {{-- @if (Session::has('pesan'))
                 <div class="alert alert-primary">
                   {{ Session('pesan') }}
@@ -865,7 +865,7 @@
             </div>
             <!-- Modal Tambah End -->
           </div>
-          <div class="card-body p-0" style="display: block;">
+          <div class="card-body" style="display: block;">
             <div class="container">
               <table class="table table-striped table-bordered projects example">
                 <thead>
@@ -1014,7 +1014,7 @@
             </div>
             <!-- Modal Tambah End -->
           </div>
-          <div class="card-body p-0" style="display: block;">
+          <div class="card-body" style="display: block;">
             <div class="container">
               <table class="table table-striped table-bordered projects example">
                 <thead>
@@ -1163,7 +1163,7 @@
             </div>
             <!-- Modal Tambah End -->
           </div>
-          <div class="card-body p-0" style="display: block;">
+          <div class="card-body" style="display: block;">
             <div class="container">
               <table class="table table-striped table-bordered projects example">
                 <thead>
@@ -1262,9 +1262,6 @@
 
 @section('script')
 <script>
-  // $(document).ready(function(){
-  //   $('#kodeinstansi').val(1)
-  // });
   let profileditor;
   ClassicEditor
       .create( document.querySelector( '#profileditor' ) )

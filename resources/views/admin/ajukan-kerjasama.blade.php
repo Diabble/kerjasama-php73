@@ -82,7 +82,7 @@
             </div>
             <!-- Modal Tambah End -->
           </div> --}}
-          <div class="card-body" style="display: block; padding: 10px 0px 10px 0px;">
+          <div class="card-body" style="display: block;">
             <div class="container table-responsive">
               <table class="table table-striped table-bordered projects example">
                 <thead>
@@ -186,6 +186,10 @@
                       <a class="btn btn-danger btn-sm" href="{{url('/admin/ajukan-kerjasama/delete')}}/{{$row->id}}" onclick="return confirm('Yakin dihapus ?')">
                         <i class="fas fa-trash"></i>
                         Hapus
+                      </a>
+                      <a class="btn btn-secondary btn-sm" href="{{asset('storage/' . $row->berkaspengaju)}}">
+                        <i class="fas fa-download"></i>
+                        Download
                       </a>
                     </td>
                   </tr>

@@ -10,7 +10,7 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+              <li class="breadcrumb-item"><a href="/pimpinan/dashboard">Home</a></li>
               <li class="breadcrumb-item active">Mitra</li>
             </ol>
           </div>
@@ -37,7 +37,7 @@
               Cetak Semua
             </a> --}}
           </div>
-          <div class="card-body p-0" style="display: block;">
+          <div class="card-body" style="display: block;">
             <div class="container table-responsive">
               <table class="table table-striped table-bordered projects example">
                 <thead>

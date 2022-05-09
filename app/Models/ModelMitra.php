@@ -24,7 +24,7 @@ class ModelMitra extends Model
         return $this->belongsTo(ModelKategoriJenisNaskah::class, 'jenisnaskah', 'id');
     }
 
-    public function berita() {
-        return $this->hasMany(ModelBerita::class);
+    public function mitra() {
+        return $this->belongsTo(ModelPengajuanKerjasama::class, 'name', 'id');
     }
 }

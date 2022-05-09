@@ -155,7 +155,7 @@ class FrontendController extends Controller
         $pengumuman = ModelPengumuman::orderBy('created_at', 'desc')->where('aktif', 1)->where(function($query) use($keyword){
             $query->orWhere('judul', 'LIKE', '%'. $keyword .'%')
                   ->orWhere('deskripsi', 'LIKE', '%'. $keyword .'%');
-        })->paginate(5);
+        })->paginate(4);
         $beranda = ModelBeranda::first();
         $user = User::first();
         $postbaru = ModelPengumuman::orderBy('created_at', 'desc')->limit('3')->where('aktif', 1)->get();
@@ -181,9 +181,9 @@ class FrontendController extends Controller
 
     public function galeri()
     {
-        $galeri = ModelGaleri::all();
-        $beranda = ModelBeranda::all();
-        $tangkap1 = \DB::table('galeri')->get();
+        $galeri = ModelGaleri::paginate(4);
+        $beranda = ModelBeranda::first();
+        $tangkap1 = \DB::table('galeri')->paginate(4);
         $tangkap2 = \DB::table('beranda')->first();
         return view('layouts.galeri', compact('galeri', 'beranda', 'tangkap1', 'tangkap2'));
     }
@@ -194,7 +194,7 @@ class FrontendController extends Controller
         $berita = ModelBerita::orderBy('created_at', 'desc')->where('aktif', 1)->where(function($query) use($keyword){
             $query->orWhere('judul', 'LIKE', '%'. $keyword .'%')
                   ->orWhere('deskripsi', 'LIKE', '%'. $keyword .'%');
-        })->paginate(2);
+        })->paginate(4);
         $kabet = ModelKategoriBerita::get();
         $beranda = ModelBeranda::first();
         $user = User::first();
@@ -323,7 +323,7 @@ class FrontendController extends Controller
         $kakoin = ModelKategoriKodeInstansi::all();
         $kakein = ModelKategoriKetInstansi::all();
         $kajenas = ModelKategoriJenisNaskah::all();
-        $mitra = ModelMitra::orderBy('created_at', 'desc')->get();
+        $mitra = ModelMitra::orderBy('id', 'desc')->get();
         $beranda = ModelBeranda::all();
         $tangkap1 = \DB::table('mitra')->get();
         $tangkap2 = \DB::table('beranda')->first();

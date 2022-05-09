@@ -31,10 +31,10 @@
 							<div class="post-wrapper blog-details">
 								<div class="single-blog">
 									<div class="image-box">
-										<img src="{{ asset('storage/' . $berita->poto) }}" alt="">
+										<img src="{{ asset('storage/' . $berita->poto) }}" alt="Gambar" style="height: auto;">
 										<div class="overlay">
 											<div class="date">
-												{{ Carbon\Carbon::parse($berita->created_at)->translatedFormat('l, d F Y') }}
+												{{ Carbon\Carbon::parse($berita->created_at)->locale('id')->translatedFormat('l, d F Y') }}
 											</div>
 										</div>
 									</div> <!-- /.image-box -->
@@ -146,7 +146,7 @@
 										<img src="{{ asset('storage/' . $val->poto) }}" alt="" class="float-left">
 										<div class="post float-left">
 											<a href="{{ route('berita-detail', $val->slug) }}">{{ $val->judul }}</a>
-											<div class="date">{{ Carbon\Carbon::parse($val->created_at)->translatedFormat('l, d F Y') }}</div>
+											<div class="date">{{ Carbon\Carbon::parse($val->created_at)->locale('id')->translatedFormat('l, d F Y') }}</div>
 										</div>
 									</li>
 									@endforeach

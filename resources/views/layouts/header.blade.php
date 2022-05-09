@@ -42,6 +42,7 @@
                             </li>
                             <li><a href="{{ url('/international-office') }}">IO</a></li>
                             <li><a href="{{ url('/mitra') }}">Mitra</a></li>
+                            <li><a href="{{ url('/login') }}">Login</a></li>
                         </ul>
                     </nav> <!-- /#mega-menu-holder -->
                 </div> <!-- /.menu-wrapper -->
