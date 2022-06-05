@@ -31,29 +31,6 @@
               </p>
             </a>
           </li>
-          <li class="nav-item {{ request()->is('staff/#') ? 'active' : '' }}">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users-cog"></i>
-              <p>
-                Akun
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ url('/staff/profile') }}" class="nav-link {{ request()->is('staff/profile') ? 'active' : '' }}">
-                  <i class="fas fa-user nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url('/staff/ubah-password') }}" class="nav-link {{ request()->is('staff/ubah-password') ? 'active' : '' }}">
-                  <i class="fas fa-lock nav-icon"></i>
-                  <p>Ubah Password</p>
-                </a>
-              </li>
-            </ul>
-          </li>
           {{-- <li class="nav-item">
             <a href="{{ url('/staff/settings') }}" class="nav-link {{ request()->is('staff/settings') ? 'active' : '' }}">
               <i class="nav-icon fas fa-cog"></i>
@@ -223,6 +200,29 @@
                 Mitra
               </p>
             </a>
+          </li>
+          <li class="nav-item {{ request()->is('staff/#') ? 'active' : '' }}">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users-cog"></i>
+              <p>
+                Akun
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ url('/staff/profile') }}" class="nav-link {{ request()->is('staff/profile') ? 'active' : '' }}">
+                  <i class="fas fa-user nav-icon"></i>
+                  <p>Profile</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('/staff/ubah-password') }}" class="nav-link {{ request()->is('staff/ubah-password') ? 'active' : '' }}">
+                  <i class="fas fa-lock nav-icon"></i>
+                  <p>Ubah Password</p>
+                </a>
+              </li>
+            </ul>
           </li>
           {{-- <li class="nav-item">
             <form action="/logout" method="post">

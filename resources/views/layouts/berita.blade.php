@@ -69,7 +69,7 @@
 								</form>
 							</div> <!-- /.sidebar-search -->
 							<div class="sidebar-container sidebar-categories">
-								<h5 class="title">Categories</h5>
+								<h5 class="title">Kategori</h5>
 								{{-- <select name="progres" class="form-control custom-select">
 									<option disabled selected>- Pilih -</option>
 									@foreach ( $kabet as $row )
@@ -83,7 +83,7 @@
 											<li><a>{{ $row->nama_kategori }}</a></li>
 										</div>
 										<div class="col-md-6">
-											<li class="float-right" style="line-height: 36px;">{{ $row->berita()->get()->count() }}</li>
+											<li class="float-right" style="line-height: 36px;">{{ $row->berita()->where('aktif', 1)->get()->count() }}</li>
 										</div>
 										@endforeach
 									</div>

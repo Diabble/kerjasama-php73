@@ -292,54 +292,28 @@
             
           </div>
           <div class="card-body" style="display: block; padding-top: 0;">
-            <div class="row">
+            {{-- <div class="row">
               <div class="col-md-4"></div>
               <div class="col-md-4">
-                <div class="form-group" style="margin-bottom: 0;">
+                <div class="input-group" style="margin-bottom: 0;">
                   <label>Pilih Keterangan/Unit</label>
+                  <div class="input-group-prepend">
+                    <a href="" onclick="this.href= '{{ url('/') }}' + '/admin/mitra/'+ document.getElementById('ketunit').value" class="btn btn-secondary btn-sm pull-right">
+                      <i class="fas fa-search"></i>
+                      Filter
+                    </a>
+                  </div>
                   <select name="ketunit" id="ketunit" class="form-control custom-select">
                     <option value="">- Pilih -</option>
-                    {{-- @foreach ($jurusan as $val)
-                      <option value="{{ $val->jurusan }}" @if (urldecode(Request::segment(3)) == $val->jurusan) selected @endif>
-                        {{ $data->jurusan }}
+                    @foreach ($mitra as $fil)
+                      <option value="{{ $fil->ketunit }}" @if (urldecode(Request::segment(3)) == $fil->ketunit) selected @endif>
+                        {{ $fil->ketunit }}
                       </option>
-                    @endforeach --}}
-                    {{-- @foreach ($mitra as $row)
-                      <option value="Fush" @if ($row->ketunit == 'Fakultas Ushuluddin')
-                        selected
-                      @endif>Fakultas Ushuluddin</option>
-                      <option value="Ftk" @if ($row->ketunit == 'Fakultas Tarbiyah dan Keguruan')
-                        selected
-                      @endif>Fakultas Tarbiyah dan Keguruan</option>
-                      <option value="Fsh" @if ($row->ketunit == 'Fakultas Syariah dan Hukum')
-                        selected
-                      @endif>Fakultas Syariah dan Hukum</option>
-                      <option value="Fdk" @if ($row->ketunit == 'Fakultas Dakwah dan Komunikasi')
-                        selected
-                      @endif>Fakultas Dakwah dan Komunikasi</option>
-                      <option value="Fah" @if ($row->ketunit == 'Fakultas Adab dan Humaniora')
-                        selected
-                      @endif>Fakultas Adab dan Humaniora</option>
-                      <option value="Fpsi" @if ($row->ketunit == 'Fakultas Psikologi')
-                        selected
-                      @endif>Fakultas Psikologi</option>
-                      <option value="Fst" @if ($row->ketunit == 'Fakultas Sains dan Teknologi')
-                        selected
-                      @endif>Fakultas Sains dan Teknologi</option>
-                      <option value="Fisip" @if ($row->ketunit == 'Fakultas Ilmu Sosial dan Ilmu Politik')
-                        selected
-                      @endif>Fakultas Ilmu Sosial dan Ilmu Politik</option>
-                      <option value="Febi" @if ($row->ketunit == 'Fakultas Ekonomi dan Bisnis Islam')
-                        selected
-                      @endif>Fakultas Ekonomi dan Bisnis Islam</option>
-                      <option value="Pasca" @if ($row->ketunit == 'Pascasarjana')
-                        selected
-                      @endif>Pascasarjana</option>
-                    @endforeach --}}
+                    @endforeach
                   </select>
                 </div>
               </div>
-            </div>
+            </div> --}}
             <div class="container table-responsive">
               <table class="table table-striped table-bordered projects example">
                 <thead>
@@ -380,7 +354,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {{ $errors }}
+                  {{-- {{ $errors }} --}}
                   <?php $no=1; ?>
                   @forelse ( $mitra as $row )
                   <tr style="text-align: justify;">

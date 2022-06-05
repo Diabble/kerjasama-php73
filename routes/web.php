@@ -355,7 +355,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/international-office/update/{id}', [BackendController::class, 'ioupdate']);
         
         // Mitra
-        Route::get('/mitra', [BackendController::class, 'mitra']);
+        Route::get('/mitra/{filter?}', [BackendController::class, 'mitra']);
         Route::post('/mitra/store', [BackendController::class, 'mitrastore']);
         Route::get('/mitra/edit/{id}', [BackendController::class, 'mitraedit']);    
         Route::post('/mitra/update/{id}', [BackendController::class, 'mitraupdate']);

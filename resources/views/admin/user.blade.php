@@ -122,7 +122,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                    {{ $errors }}
+                    {{-- {{ $errors }} --}}
                   <?php $no=1; ?>
                   @foreach ( $uin as $row )
                   <tr style="text-align: justify;">

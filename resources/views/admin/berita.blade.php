@@ -135,10 +135,10 @@
                         <label>Judul</label>
                         <input class="form-control" name="judul" id="judul" autocomplete="off" placeholder="Enter..." value="">
                       </div>
-                      <div class="form-group">
+                      {{-- <div class="form-group">
                         <label>Slug</label>
                         <input class="form-control" name="slug" id="slug" autocomplete="off" placeholder="Enter..." value="">
-                      </div>
+                      </div> --}}
                       <div class="form-group">
                         <label>Deskripsi</label>
                         <textarea class="form-control" name="deskripsi" id="deskripsi" placeholder="Enter..." value=""></textarea>
@@ -219,7 +219,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {{ $errors }}
+                  {{-- {{ $errors }} --}}
                   <?php $no=1; ?>
                   @forelse ( $berita as $row )
                   <tr style="text-align: center;">
@@ -296,10 +296,10 @@
                                     <th>Penulis</th>
                                     <td>{{ $row->users->name }}</td>
                                   </tr>
-                                  <tr>
+                                  {{-- <tr>
                                     <th>Views</th>
                                     <td>{{ $row->views }}</td>
-                                  </tr>
+                                  </tr> --}}
                                   <tr>
                                     <th>Status</th>
                                     <td>{{ ($row->aktif == 1) ? 'Publish' : 'Draft' }}</td>

@@ -6,7 +6,7 @@
   <title>@yield('title')</title>
 
   <!-- Favicon -->
-  <link href="{{asset('assets')}}/img/Doni-kecil.png" rel="icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets') }}/front/images/fav-icon/icon-uinsgd-32x32.png">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">

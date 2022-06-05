@@ -2058,12 +2058,17 @@ class BackendController extends Controller
     }
     
     // Mitra
-    public function mitra()
+    public function mitra($filter = null)
     {
         $kakoin = ModelKategoriKodeInstansi::all();
         $kakein = ModelKategoriKetInstansi::all();
         $kajenas = ModelKategoriJenisNaskah::all();
-        $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->orderBy('id', 'desc')->get();
+        if (!isset($filter)) {
+            $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->orderBy('id', 'desc')->get();
+        } else {
+            $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->orderBy('id', 'desc')->where('ketunit', $filter)->get();
+        }
+        // $mitra = ModelMitra::with('kakoin', 'kakein', 'kajenas')->orderBy('id', 'desc')->get();
         return view('admin.mitra', compact('mitra', 'kakoin', 'kakein', 'kajenas'));
     }
 
@@ -2095,15 +2100,23 @@ class BackendController extends Controller
 
     public function mitrafilter($filter = null)
     {
-        $jurusan = ModelJurusan::get();
+        $mitrafilter = ModelMitra::get();
         if (!isset($filter)) {
-            $laporan = ModelIdeSkripsi::with('dosenone', 'dosentwo')->get();
+            $unit = ModelMitra::get();
         } else {
-            $laporan = ModelIdeSkripsi::with('dosenone', 'dosentwo')->where('jurusan', $filter)->get();
+            $unit = ModelMitra::where('ketunit', $filter)->get();
         }
+        return view('admin.mitra', compact('mitrafilter', 'unit'));
+
+        // $jurusan = ModelJurusan::get();
+        // if (!isset($filter)) {
+        //     $laporan = ModelIdeSkripsi::with('dosenone', 'dosentwo')->get();
+        // } else {
+        //     $laporan = ModelIdeSkripsi::with('dosenone', 'dosentwo')->where('jurusan', $filter)->get();
+        // }
         // $laporan = DB::table('ideskripsimhs')->join('dosen as tabledosen1', 'ideskripsimhs.dosen1', '=', 'tabledosen1.id')->join('dosen as tabledosen2', 'ideskripsimhs.dosen2', '=', 'tabledosen2.id')->select('ideskripsimhs.*', 'tabledosen2.nama_dosen as namadosen2', 'tabledosen1.nama_dosen as namadosen1')->get();
         // dd($deskripsi);
-        return view('admin.Laporan', compact('laporan', 'jurusan'));
+        // return view('admin.Laporan', compact('laporan', 'jurusan'));
     }
     
     public function mitrastore(Request $request)

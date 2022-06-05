@@ -17,15 +17,15 @@ class AuthsController extends Controller
         return view('auths.login');
     }
 
-    public function registerindex()
-    {
-        return view('auths.register');
-    }
+    // public function registerindex()
+    // {
+    //     return view('auths.register');
+    // }
 
-    public function forgotindex()
-    {
-        return view('auths.forgot');
-    }
+    // public function forgotindex()
+    // {
+    //     return view('auths.forgot');
+    // }
 
     public function authenticate(Request $request)
     {
